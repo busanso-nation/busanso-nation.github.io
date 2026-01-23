@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Your Package</title>
+<style>
+:root {
+    --primary:#ffb400;
+    --accent:#ff7a18;
+    --bg:#111;
+    --card-bg:#1a1a1a;
+    --btn-bg:#ff7a18;
+    --btn-hover:#ffb400;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(180deg,#111,#222);
+    color:#fff;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+}
+
+header {
+    text-align:center;
+    margin-bottom:20px;
+}
+
+header h1 {
+    font-size:2rem;
+    background:linear-gradient(90deg,var(--primary),var(--accent));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.container {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+    width:100%;
+    max-width:1000px;
+}
+
+/* Package Card */
+.package {
+    background:var(--card-bg);
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.4);
+    transition:transform 0.3s;
+}
+
+.package:hover { transform:scale(1.05); }
+
+.package h2 { margin-bottom:10px; color:var(--primary); }
+.package p { margin-bottom:15px; font-weight:600; }
+
+.package a, .package button {
+    display:inline-block;
+    padding:10px 18px;
+    font-weight:700;
+    border-radius:6px;
+    background:var(--btn-bg);
+    color:#000;
+    cursor:pointer;
+    text-decoration:none;
+    transition:0.3s ease;
+    border:none;
+}
+
+.package a:hover, .package button:hover { background:var(--btn-hover); }
+
+.footer {
+    margin-top:30px;
+    font-size:0.75rem;
+    text-align:center;
+    color:#888;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Busanso Packages</h1>
+    <p>Choose the package that suits you</p>
+</header>
+
+<div class="container">
+
+    <!-- Daily -->
+    <div class="package">
+        <h2>Daily</h2>
+        <p>UGX 5,000</p>
+        <a href="checkout.html?package=daily">💳 Pay Now</a>
+    </div>
+
+    <!-- Weekly -->
+    <div class="package">
+        <h2>Weekly</h2>
+        <p>UGX 10,000</p>
+        <a href="checkout.html?package=weekly">💳 Pay / Access</a>
+    </div>
+
+    <!-- Monthly -->
+    <div class="package">
+        <h2>Kabeja</h2>
+        <p>UGX 13,000</p>
+        <a href="checkout.html?package=monthly">💳 Pay Now</a>
+    </div>
+
+    <!-- Half-Year -->
+    <div class="package">
+        <h2>Kabeje</h2>
+        <p>UGX 70,000</p>
+        <a href="checkout.html?package=halfyear">💳 Pay Now</a>
+    </div>
+
+    <!-- Annual -->
+    <div class="package">
+        <h2>Kabejest</h2>
+        <p>UGX 120,000</p>
+        <a href="checkout.html?package=annual">💳 Pay Now</a>
+    </div>
+
+    <!-- Library -->
+    <div class="package">
+        <h2>Kibanda / Library</h2>
+        <p>UGX 20,000</p>
+        <a href="checkout.html?package=library">💳 Pay Now</a>
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 Busanso Nation
+</div>
+
+</body>
+</html>
