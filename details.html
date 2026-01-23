@@ -23,72 +23,28 @@ body{background:#0b0b0b;color:#fff;font-family:Poppins,system-ui,sans-serif}
   align-items:flex-end;
 }
 
-.title{
-  font-size:2rem;
-  font-weight:900;
-}
-.meta{
-  color:#ccc;
-  font-size:.85rem;
-}
+.title{font-size:2rem;font-weight:900}
+.meta{color:#ccc;font-size:.85rem}
 
 /* BUTTONS */
-.btn-main{
-  background:#f5c46a;
-  color:#000;
-  border:none;
-  border-radius:25px;
-  padding:10px 22px;
-  font-weight:700;
-}
-.btn-sub{
-  background:#ff7a18;
-  color:#000;
-  border:none;
-  border-radius:25px;
-  padding:10px 22px;
-  font-weight:700;
-}
+.btn-main{background:#f5c46a;color:#000;border:none;border-radius:25px;padding:10px 22px;font-weight:700}
+.btn-sub{background:#ff7a18;color:#000;border:none;border-radius:25px;padding:10px 22px;font-weight:700}
 
 /* CONTENT */
 .section{padding:20px}
 .section h5{color:#f5c46a;margin-bottom:10px}
 
 /* EPISODES */
-.episodes{
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-}
-.episode{
-  min-width:220px;
-  background:#111;
-  border-radius:10px;
-  overflow:hidden;
-}
-.episode img{
-  width:100%;
-  height:130px;
-  object-fit:cover;
-}
-.episode div{
-  padding:8px;
-}
+.episodes{display:flex;gap:12px;overflow-x:auto}
+.episode{min-width:220px;background:#111;border-radius:10px;overflow:hidden;cursor:pointer}
+.episode img{width:100%;height:130px;object-fit:cover}
+.episode div{padding:8px}
 .episode h6{font-size:.85rem}
 .episode p{font-size:.7rem;color:#bbb}
 
 /* PLAYER */
-.player iframe{
-  width:100%;
-  height:220px;
-  border-radius:10px;
-}
-footer{
-  padding:20px;
-  font-size:.75rem;
-  color:#aaa;
-  background:#050505;
-}
+.player iframe{width:100%;height:220px;border-radius:10px}
+footer{padding:20px;font-size:.75rem;color:#aaa;background:#050505}
 </style>
 </head>
 
@@ -98,10 +54,10 @@ footer{
 <div class="header">
   <div>
     <div class="title">When the Phone Rings</div>
-    <div class="meta">2024 • Mystery • Drama • VJ IVO • ⭐ 8.4 IMDb</div>
+    <div class="meta">2024 • Mystery • Drama • ⭐ 8.4 IMDb</div>
     <div class="mt-3">
-      <button class="btn-main mr-2" onclick="playPreview()">▶ Watch Free Preview</button>
-      <button class="btn-sub" onclick="location.href='packages.html'">⭐ Subscribe</button>
+      <button class="btn-main mr-2" onclick="playTrailer()">▶ Watch Trailer</button>
+      <button class="btn-sub" onclick="playFullMovie()">▶ Watch Full Movie</button>
     </div>
   </div>
 </div>
@@ -117,37 +73,28 @@ footer{
 
 <!-- VIDEO PLAYER -->
 <div class="section player" id="player" style="display:none">
-  <h5>Free Preview</h5>
-
-  <!-- YouTube / Vimeo / Google Drive EMBED -->
-  <iframe
-    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
+  <h5 id="playerTitle">Now Playing</h5>
+  <iframe id="playerFrame" src="" frameborder="0" allowfullscreen></iframe>
 </div>
 
-<!-- FREE EPISODES -->
+<!-- EPISODES -->
 <div class="section">
-  <h5>Free Episodes</h5>
+  <h5>Episodes</h5>
   <div class="episodes">
-
-    <div class="episode">
+    <div class="episode" onclick="playEpisode('Episode 1','https://www.youtube.com/embed/dQw4w9WgXcQ')">
       <img src="https://image.tmdb.org/t/p/w500/6ELCZlTA5lGUops70hKdB83WJxH.jpg">
       <div>
         <h6>Episode 1</h6>
         <p>Marriage tension rises after the first call.</p>
       </div>
     </div>
-
-    <div class="episode">
+    <div class="episode" onclick="playEpisode('Episode 2','https://www.youtube.com/embed/dQw4w9WgXcQ')">
       <img src="https://image.tmdb.org/t/p/w500/6ELCZlTA5lGUops70hKdB83WJxH.jpg">
       <div>
         <h6>Episode 2</h6>
         <p>The truth begins to surface.</p>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -165,9 +112,38 @@ footer{
 </footer>
 
 <script>
-function playPreview(){
+/* ================= PLAYER ================= */
+function playTrailer(){
   document.getElementById("player").style.display="block";
+  document.getElementById("playerFrame").src = "https://www.youtube.com/embed/dQw4w9WgXcQ";
+  document.getElementById("playerTitle").innerText = "Trailer";
   document.getElementById("player").scrollIntoView({behavior:"smooth"});
+}
+
+function playFullMovie(){
+  const hasPin = localStorage.getItem("activePin");
+  if(hasPin){
+    document.getElementById("player").style.display="block";
+    document.getElementById("playerFrame").src = "https://www.youtube.com/embed/dQw4w9WgXcQ";
+    document.getElementById("playerTitle").innerText = "Full Movie";
+    document.getElementById("player").scrollIntoView({behavior:"smooth"});
+  } else {
+    alert("Please subscribe to watch the full movie.");
+    location.href='packages.html';
+  }
+}
+
+function playEpisode(title, src){
+  const hasPin = localStorage.getItem("activePin");
+  if(hasPin){
+    document.getElementById("player").style.display="block";
+    document.getElementById("playerFrame").src = src;
+    document.getElementById("playerTitle").innerText = title;
+    document.getElementById("player").scrollIntoView({behavior:"smooth"});
+  } else {
+    alert("Episodes are for subscribers only. Please subscribe.");
+    location.href='packages.html';
+  }
 }
 </script>
 
