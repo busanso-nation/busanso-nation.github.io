@@ -3,239 +3,161 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enter Your PIN</title>
+<title>Enter PIN</title>
+
 <style>
-:root {
-    --primary:#ffb400;
-    --accent:#ff7a18;
-    --bg:#111;
-    --card-bg:#1a1a1a;
-    --btn-bg:#ff7a18;
-    --btn-hover:#ffb400;
-}
-
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(180deg,#111,#222);
-    color:#fff;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+  font-family: Arial, sans-serif;
+  background:#111;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
-.pin-card {
-    background: var(--card-bg);
-    padding: 30px;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 400px;
-    text-align:center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+.card {
+  background:#1a1a1a;
+  padding:30px;
+  border-radius:10px;
+  width:100%;
+  max-width:380px;
+  text-align:center;
 }
 
-.pin-card h1 { color: var(--primary); margin-bottom:20px; }
-.pin-card input {
-    padding:12px;
-    width:80%;
-    border:none;
-    border-radius:6px;
-    margin-bottom:15px;
-    font-size:1rem;
+input {
+  width:90%;
+  padding:12px;
+  margin:15px 0;
+  border-radius:6px;
+  border:none;
+  font-size:16px;
 }
 
-.pin-card button {
-    padding:12px 25px;
-    border:none;
-    border-radius:6px;
-    background:var(--btn-bg);
-    color:#000;
-    font-weight:700;
-    cursor:pointer;
-    transition:0.3s ease;
+button {
+  padding:12px 25px;
+  background:#ff7a18;
+  border:none;
+  border-radius:6px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.pin-card button:hover { background:var(--btn-hover); }
+button:hover { background:#ffb400; }
 
-.msg { margin-top:10px; font-weight:700; color:#f39c12; }
-
-.footer { margin-top:30px; text-align:center; font-size:0.75rem; color:#888; }
+#msg {
+  margin-top:15px;
+  font-weight:bold;
+}
 </style>
 </head>
+
 <body>
 
-<div class="pin-card">
-    <h1>Enter Your PIN</h1>
-    <input type="text" id="pinInput" placeholder="Enter PIN" />
-    <br>
-    <button id="submitBtn">Submit</button>
-    <div class="msg" id="message"></div>
+<div class="card">
+  <h2>Enter Your PIN</h2>
+  <input id="pinInput" placeholder="Enter PIN">
+  <button onclick="login()">Login</button>
+  <div id="msg"></div>
 </div>
-
-<div class="footer">© 2026 Busanso Nation</div>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
-// TODO: Replace with your Firebase config
-const firebaseConfig = {
+/* 🔥 Firebase Init (ONLY ONCE) */
+firebase.initializeApp({
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain: "busanso-pins.firebaseapp.com",
-  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
   projectId: "busanso-pins",
   storageBucket: "busanso-pins.firebasestorage.app",
   messagingSenderId: "137040014808",
   appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-};
+});
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-document.getElementById("submitBtn").onclick = async () => {
-    const pinEntered = document.getElementById("pinInput").value.trim();
-    const msg = document.getElementById("message");
-
-    if(!pinEntered){
-        msg.textContent = "Please enter a Password.";
-        return;
-    }
-
-    try {
-        // Fetch PIN details from Firebase
-        const snapshot = await db.ref("pins/" + pinEntered).get();
-        if(!snapshot.exists()){
-            msg.textContent = "wrong Password! Try again.";
-            return;
-        }
-
-        const pinData = snapshot.val();
-        const now = Date.now();
-
-        // Check expiry
-        if(now > pinData.expiry){
-            msg.textContent = "This Password has expired. Please purchase a new package.";
-            return;
-        }
-
-        // Check if PIN is active on another device
-        if(pinData.activeDevice && pinData.activeDevice !== getDeviceId()){
-            msg.textContent = "This Password is already active on another account/device!";
-            return;
-        }
-
-        // Mark this device as active for the PIN
-        await db.ref("pins/" + pinEntered + "/activeDevice").set(getDeviceId());
-
-        msg.style.color = "#00ff00";
-        msg.textContent = "Password verified! Redirecting...";
-
-        setTimeout(() => {
-            window.location.href = "watch.html";
-        }, 1500);
-
-    } catch (error){
-        console.error(error);
-        msg.textContent = "Something went wrong. Try again later.";
-    }
-};
-
-// Generate or retrieve a unique device ID
-function getDeviceId(){
-    let deviceId = localStorage.getItem("deviceId");
-    if(!deviceId){
-        deviceId = 'device-' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem("deviceId", deviceId);
-    }
-    return deviceId;
+/* 📱 Device ID */
+function getDeviceId() {
+  let id = localStorage.getItem("deviceId");
+  if (!id) {
+    id = "device_" + Math.random().toString(36).slice(2);
+    localStorage.setItem("deviceId", id);
+  }
+  return id;
 }
-</script>
-<script>
-function login() {
 
+/* 🔐 LOGIN LOGIC */
+async function login() {
   const pin = document.getElementById("pinInput").value.trim();
-  if (!pin) return alert("Enter PIN");
+  const msg = document.getElementById("msg");
+  msg.style.color = "#ffb400";
 
-  localStorage.setItem("activePIN", pin);
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
-  authDomain: "busanso-pins.firebaseapp.com",
-  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
-  projectId: "busanso-pins",
-  storageBucket: "busanso-pins.firebasestorage.app",
-  messagingSenderId: "137040014808",
-  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-  };
-
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
+  if (!pin) {
+    msg.textContent = "Enter PIN";
+    return;
   }
 
-  const db = firebase.database();
+  try {
+    const snap = await db.ref("pins/" + pin).get();
 
-  const deviceId =
-    localStorage.getItem("deviceId") ||
-    "device_" + Math.random().toString(36).slice(2);
-
-  localStorage.setItem("deviceId", deviceId);
-
-  const durations = {
-    Daily: 1,
-    Weekly: 7,
-    Monthly: 30,
-    "Half-Year": 180,
-    Annual: 365
-  };
-
-  db.ref("pins/" + pin).get().then(snapshot => {
-
-    if (!snapshot.exists()) {
-      alert("Wrong PIN");
-      localStorage.removeItem("activePIN");
+    if (!snap.exists()) {
+      msg.textContent = "Wrong PIN";
       return;
     }
 
-    const data = snapshot.val();
+    const data = snap.val();
     const now = Date.now();
+    const deviceId = getDeviceId();
 
-    // Create expiry on first use
+    /* ⏱ Create expiry if missing */
     if (!data.expiry) {
-      const days = durations[data.type] || 1;
-      const expiry = now + days * 86400000;
+      const daysMap = {
+        Daily: 1,
+        Weekly: 7,
+        Monthly: 30,
+        "Half-Year": 180,
+        Annual: 365
+      };
 
-      db.ref("pins/" + pin).update({
-        expiry,
+      const days = daysMap[data.type] || 1;
+      data.expiry = now + days * 86400000;
+
+      await db.ref("pins/" + pin).update({
+        expiry: data.expiry,
         activeDevice: deviceId
       });
-
-      data.expiry = expiry;
     }
 
-    // Expired
+    /* ❌ Expired */
     if (now > data.expiry) {
-      alert("PIN expired");
-      localStorage.removeItem("activePIN");
+      msg.textContent = "PIN expired";
       return;
     }
 
-    // Device locked
+    /* 🔒 Used on another device */
     if (data.activeDevice && data.activeDevice !== deviceId) {
-      alert("This PIN is used on another device");
-      localStorage.removeItem("activePIN");
+      msg.textContent = "PIN active on another device";
       return;
     }
 
-    // Success
-    localStorage.setItem("activePackage", JSON.stringify(data));
-    location.href = "watch.html";
+    /* ✅ Success */
+    await db.ref("pins/" + pin).update({
+      activeDevice: deviceId
+    });
 
-  }).catch(err => {
-    console.error(err);
-    alert("Network error");
-  });
+    localStorage.setItem("activePIN", pin);
+    msg.style.color = "#00ff66";
+    msg.textContent = "Success! Redirecting…";
+
+    setTimeout(() => location.href = "watch.html", 1200);
+
+  } catch (e) {
+    console.error(e);
+    msg.textContent = "Network error";
+  }
 }
 </script>
 
