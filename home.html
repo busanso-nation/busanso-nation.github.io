@@ -1,98 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>BUSANSO NATION - Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-    margin: 0;
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    /* background image */
-    background: url('background.jpg') no-repeat center center fixed;
-    background-size: cover; /* cover entire viewport */
-    color: #fff;
-}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Busanso - Free Movies & Series</title>
+<link rel="icon" type="image/png" href="/uploads/png/logo.png">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/web/css/style.css">
+<style>
+body {font-family: 'Poppins', sans-serif; background:#0f172a; color:#fff;}
+.header {text-align:center; margin:20px 0;}
+.header img {height:60px;}
+.carousel-inner {display:flex;}
+.card-item {flex:0 0 auto; width:170px; margin-right:10px; cursor:pointer;}
+.card-item img {width:100%; border-radius:10px;}
+.card-item span {display:block; text-align:center; margin-top:5px; font-weight:600;}
+.badge {position:absolute; top:5px; left:5px; background:#ff8a00; padding:2px 6px; border-radius:5px; font-size:0.7rem;}
+.badge.premium {background:#ff3d00;}
+.app-popup {position:fixed; bottom:0; left:0; width:100%; background:linear-gradient(90deg,#00c9a7,#92fe9d); color:#064635; text-align:center; padding:15px; display:flex; justify-content:center; align-items:center; z-index:999;}
+.app-popup button {margin-left:15px; background:#fff; color:#064635; border:none; padding:10px 15px; border-radius:10px; font-weight:600; cursor:pointer;}
+
+</style>
 
 
-        header {
-            text-align: center;
-            padding: 80px 20px 40px 20px;
-        }
-
-        header h1 {
-            font-size: clamp(2.5rem, 6vw, 3rem);
-            letter-spacing: 4px;
-            color: #f1c40f;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            margin-top: 12px;
-            color: #e0e0e0;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px 0;
-            background: rgba(0,0,0,0.4);
-        }
-
-        nav a {
-            color: #f1c40f;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: #e50914;
-        }
-
-        main {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        main h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        main p {
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        @keyframes bgMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <h1>BUSANSO NATION</h1>
-        <p>Unite, Relax, Enjoy Quality Entertainment</p>
-    </header>
 
-    <nav>
-        <a href="home.html">Home</a>
-        <a href="#">About</a>
-        <a href="#">Media</a>
-        <a href="#">Contact</a>
-    </nav>
+<div class="header">
+  <img src="/uploads/png/logo.png" alt="Busanso Logo">
+  <h1>🎬 Busanso Nation</h1>
+  <small>Free & Premium Movies and Series</small>
+</div>
+<div class="top-actions">
+  <a href="packages.html" class="btn subscribe-btn">⭐ Subscribe</a>
+  <a href="login.html" class="btn login-btn">🔐 Login</a>
+    <a href="about.html" class="btn about-btn">🔐 About Us</a>
+</div>
 
-    <main>
-        <h2>Welcome to BUSANSO NATION</h2>
-        <p>
-            We bring you the latest in entertainment, news, and community updates.  
-            Enjoy our content and explore the exciting world of Busanso Nation!
-        </p>
-    </main>
+
+<style>
+.top-actions{
+  display:flex;
+  gap:12px;
+}
+
+.btn{
+  padding:10px 18px;
+  border-radius:6px;
+  font-weight:600;
+  text-decoration:none;
+  color:#fff;
+  font-size:14px;
+}
+
+.subscribe-btn{
+  background:#ff8a00;
+}
+
+.login-btn{
+  background:#0f172a;
+}
+</style>
+
+
+<div class="container">
+  <h3>Featured Movies</h3>
+  <div class="d-flex overflow-auto mb-4" id="moviesCarousel">
+    <!-- Movie Cards -->
+    <div class="card-item" data-id="101" data-type="free" data-content="movie">
+      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7FGHjsmUm--_AQEacnlaaXzQL4SgNGpTROA&s" alt="Movie 1"><span class="badge">FREE</span></div>
+      <span>Movie 1</span>
+    </div>
+    <div class="card-item" data-id="102" data-type="premium" data-content="movie">
+      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc_9ujXTn8gs7wt9rhuBCnyzUWxQgfCaSnhQ&s" alt="Movie 2"><span class="badge premium">PREMIUM</span></div>
+      <span>Movie 2</span>
+    </div>
+    <div class="card-item" data-id="103" data-type="free" data-content="movie">
+      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ04RktM_AQJOeN0IC7KbW0gtvrVzWXkYaT8g&s" alt="Movie 3"><span class="badge">FREE</span></div>
+      <span>Movie 3</span>
+    </div>
+    <div class="card-item" data-id="104" data-type="premium" data-content="movie">
+      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUzJDPAAZXHcFD7gPtwIjylQj2EObFaYo0tQ&s" alt="Movie 4"><span class="badge premium">PREMIUM</span></div>
+      <span>Movie 4</span>
+    </div>
+  </div>
+
+  <h3>Featured Series</h3>
+  <div class="d-flex overflow-auto mb-4" id="seriesCarousel">
+    <!-- Series Cards -->
+    <div class="card-item" data-id="201" data-type="free" data-content="series">
+      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6ZQskG--26YfJDi79fGH1Q0DAdCXRzeu3FA&s" alt="Series 1"><span class="badge">FREE</span></div>
+      <span>Series 1</span>
+    </div>
+    <div class="card-item" data-id="202" data-type="premium" data-content="series">
+      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa76sdqXd7Av4S3iiO4GcdkhqfidtqwRrLxw&s" alt="Series 2"><span class="badge premium">PREMIUM</span></div>
+      <span>Series 2</span>
+    </div>
+    <div class="card-item" data-id="203" data-type="free" data-content="series">
+      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRdK9C5sZcezaHe9lYvGfVyUav6yCRxTB_lA&s" alt="Series 3"><span class="badge">FREE</span></div>
+      <span>Series 3</span>
+    </div>
+    <div class="card-item" data-id="204" data-type="premium" data-content="series">
+      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRdK9C5sZcezaHe9lYvGfVyUav6yCRxTB_lA&s" alt="Series 4"><span class="badge premium">PREMIUM</span></div>
+      <span>Series 4</span>
+    </div>
+  </div>
+</div>
+
+<!-- App download popup -->
+<div class="app-popup">
+  <span>Download Busanso App for a better experience!</span>
+  <button onclick="window.open('https://drive.google.com/file/d/1Y2u_CHY_hOqXq7f0C3rC0Cp1ZEnKkZfx/view?usp=drivesdk','_blank')">Download</button>
+  <button onclick="this.parentElement.style.display='none'">Close</button>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script>
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
+  authDomain: "busanso-pins.firebaseapp.com",
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
+  projectId: "busanso-pins",
+  storageBucket: "busanso-pins.firebasestorage.app",
+  messagingSenderId: "137040014808",
+  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const pin = localStorage.getItem("activePIN");
+const deviceId = localStorage.getItem("deviceId") || "device-" + Math.random().toString(36).substr(2,9);
+localStorage.setItem("deviceId", deviceId);
+
+// Card click logic
+document.querySelectorAll('.card-item').forEach(card => {
+  card.addEventListener('click', () => {
+    const id = card.getAttribute('data-id');
+    const type = card.getAttribute('data-type');
+
+    if(type === 'free') {
+      window.location.href = `details.html?id=${id}`;
+    } else {
+      if(pin) {
+        window.location.href = `watch.html?id=${id}`;
+      } else {
+        window.location.href = 'packages.html';
+      }
+    }
+  });
+});
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
