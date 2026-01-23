@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BUSANSO NATION</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #0f3d2e, #000000, #102a1d);
+            background-size: 300% 300%;
+            animation: bgMove 12s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* SPLASH CONTAINER */
+        .splash {
+            text-align: center;
+            color: #ffffff;
+            padding: 40px;
+            transform: translateY(10px);
+            animation: fadeOut 1s ease forwards, floatIn 1.2s ease forwards;
+            animation-delay: 5.5s, 0s;
+        }
+
+        /* LOGO */
+        .logo {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            letter-spacing: 6px;
+            font-weight: 900;
+        }
+
+        .logo span,
+        .logo {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .nation {
+            color: #e50914;
+        }
+
+        /* TAGLINE */
+        .tagline {
+            margin-top: 16px;
+            font-size: 1.15rem;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 1.5s;
+            color: #f1c40f;
+        }
+
+        /* MESSAGE */
+        .message {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 2.5s;
+            color: #e0e0e0;
+        }
+
+        /* LOADER */
+        .loader {
+            margin: 40px auto 0;
+            width: 44px;
+            height: 44px;
+            border: 4px solid rgba(255,255,255,0.15);
+            border-top: 4px solid #f1c40f;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+
+        /* ANIMATIONS */
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.6); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 12px rgba(241,196,15,0.35); }
+            50% { text-shadow: 0 0 30px rgba(241,196,15,0.75); }
+        }
+
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Optional Audio -->
+    <audio id="introSound" src="assets/audio/intro.mp3" preload="auto"></audio>
+
+    <div class="splash">
+        <div class="logo" id="logoText">
+            BUSANSO <span class="nation">NATION</span>
+        </div>
+
+        <div class="tagline">
+            Welcome Back, Uganda 🇺🇬
+        </div>
+
+        <div class="message">
+            Elections are over — let’s unite, relax, and enjoy quality entertainment
+        </div>
+
+        <div class="loader"></div>
+    </div>
+
+    <script>
+        // Play intro sound on first interaction (browser-safe)
+        const sound = document.getElementById("introSound");
+        function playIntroSound() {
+            if(sound) {
+                sound.volume = 0.4;
+                sound.play().catch(() => {});
+                document.removeEventListener("click", playIntroSound);
+            }
+        }
+        document.addEventListener("click", playIntroSound);
+
+        // Redirect after 6 seconds
+        setTimeout(() => {
+            window.location.href = "home.html"; // replace with your homepage URL
+        }, 6000);
+
+        // Letter-by-letter logo reveal
+        const logo = document.getElementById("logoText");
+        const text = logo.innerHTML;
+        logo.innerHTML = "";
+
+        [...text].forEach((char, i) => {
+            const span = document.createElement("span");
+            span.innerHTML = char === " " ? "&nbsp;" : char;
+            span.style.opacity = "0";
+            span.style.animation = `fadeIn 0.4s ease forwards`;
+            span.style.animationDelay = `${i * 0.08}s`;
+            logo.appendChild(span);
+        });
+    </script>
+
+</body>
+</html>
