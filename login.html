@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enter Your PIN</title>
+<style>
+:root {
+    --primary:#ffb400;
+    --accent:#ff7a18;
+    --bg:#111;
+    --card-bg:#1a1a1a;
+    --btn-bg:#ff7a18;
+    --btn-hover:#ffb400;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(180deg,#111,#222);
+    color:#fff;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.pin-card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    text-align:center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.pin-card h1 { color: var(--primary); margin-bottom:20px; }
+.pin-card input {
+    padding:12px;
+    width:80%;
+    border:none;
+    border-radius:6px;
+    margin-bottom:15px;
+    font-size:1rem;
+}
+
+.pin-card button {
+    padding:12px 25px;
+    border:none;
+    border-radius:6px;
+    background:var(--btn-bg);
+    color:#000;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.pin-card button:hover { background:var(--btn-hover); }
+
+.msg { margin-top:10px; font-weight:700; color:#f39c12; }
+
+.footer { margin-top:30px; text-align:center; font-size:0.75rem; color:#888; }
+</style>
+</head>
+<body>
+
+<div class="pin-card">
+    <h1>Enter Your PIN</h1>
+    <input type="text" id="pinInput" placeholder="Enter PIN" />
+    <br>
+    <button id="submitBtn">Submit</button>
+    <div class="msg" id="message"></div>
+</div>
+
+<div class="footer">© 2026 Busanso Nation</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+// TODO: Replace with your Firebase config
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    databaseURL: "https://YOUR_PROJECT.firebaseio.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "SENDER_ID",
+    appId: "APP_ID"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+document.getElementById("submitBtn").onclick = async () => {
+    const pinEntered = document.getElementById("pinInput").value.trim();
+    const msg = document.getElementById("message");
+
+    if(!pinEntered){
+        msg.textContent = "Please enter a Password.";
+        return;
+    }
+
+    try {
+        // Fetch PIN details from Firebase
+        const snapshot = await db.ref("pins/" + pinEntered).get();
+        if(!snapshot.exists()){
+            msg.textContent = "wrong Password! Try again.";
+            return;
+        }
+
+        const pinData = snapshot.val();
+        const now = Date.now();
+
+        // Check expiry
+        if(now > pinData.expiry){
+            msg.textContent = "This Password has expired. Please purchase a new package.";
+            return;
+        }
+
+        // Check if PIN is active on another device
+        if(pinData.activeDevice && pinData.activeDevice !== getDeviceId()){
+            msg.textContent = "This Password is already active on another account/device!";
+            return;
+        }
+
+        // Mark this device as active for the PIN
+        await db.ref("pins/" + pinEntered + "/activeDevice").set(getDeviceId());
+
+        msg.style.color = "#00ff00";
+        msg.textContent = "Password verified! Redirecting...";
+
+        setTimeout(() => {
+            window.location.href = "watch.html";
+        }, 1500);
+
+    } catch (error){
+        console.error(error);
+        msg.textContent = "Something went wrong. Try again later.";
+    }
+};
+
+// Generate or retrieve a unique device ID
+function getDeviceId(){
+    let deviceId = localStorage.getItem("deviceId");
+    if(!deviceId){
+        deviceId = 'device-' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem("deviceId", deviceId);
+    }
+    return deviceId;
+}
+</script>
+
+</body>
+</html>
