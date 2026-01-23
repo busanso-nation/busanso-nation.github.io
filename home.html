@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BUSANSO NATION - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f3d2e, #000);
+            background-size: 300% 300%;
+            animation: bgMove 12s ease infinite;
+            color: #fff;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 20px 40px 20px;
+        }
+
+        header h1 {
+            font-size: clamp(2.5rem, 6vw, 3rem);
+            letter-spacing: 4px;
+            color: #f1c40f;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 12px;
+            color: #e0e0e0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px 0;
+            background: rgba(0,0,0,0.4);
+        }
+
+        nav a {
+            color: #f1c40f;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #e50914;
+        }
+
+        main {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        main h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        main p {
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BUSANSO NATION</h1>
+        <p>Unite, Relax, Enjoy Quality Entertainment</p>
+    </header>
+
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="#">About</a>
+        <a href="#">Media</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <main>
+        <h2>Welcome to BUSANSO NATION</h2>
+        <p>
+            We bring you the latest in entertainment, news, and community updates.  
+            Enjoy our content and explore the exciting world of Busanso Nation!
+        </p>
+    </main>
+</body>
+</html>
