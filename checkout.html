@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Busanso Packages</title>
+<style>
+:root {
+    --primary:#ffb400;
+    --accent:#ff7a18;
+    --bg:#111;
+    --card-bg:#1a1a1a;
+    --btn-bg:#ff7a18;
+    --btn-hover:#ffb400;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(180deg,#111,#222);
+    color:#fff;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+}
+
+header {
+    text-align:center;
+    margin-bottom:20px;
+}
+
+header h1 {
+    font-size:2rem;
+    background:linear-gradient(90deg,var(--primary),var(--accent));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.checkout-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.checkout-card h2 { margin-bottom: 10px; color: var(--primary); }
+.checkout-card p { margin-bottom: 15px; font-weight:600; }
+.checkout-card ul { text-align:left; margin: 10px 0 20px 0; }
+.checkout-card ul li { margin-bottom:8px; }
+
+.checkout-card a, .checkout-card button {
+    display:inline-block;
+    padding:10px 18px;
+    font-weight:700;
+    border-radius:6px;
+    background:var(--btn-bg);
+    color:#000;
+    cursor:pointer;
+    text-decoration:none;
+    transition:0.3s ease;
+    border:none;
+    margin:5px;
+}
+
+.checkout-card a:hover, .checkout-card button:hover { background:var(--btn-hover); }
+
+.footer {
+    margin-top:30px;
+    font-size:0.75rem;
+    text-align:center;
+    color:#888;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Checkout</h1>
+    <p>Complete your package subscription</p>
+</header>
+
+<div class="checkout-card" id="checkoutCard">
+    <h2 id="packageName">Loading...</h2>
+    <p id="packagePrice"></p>
+    <p id="packageDuration"></p>
+    <ul id="packageAdvantages"></ul>
+
+    <button id="payBtn">💳 Proceed to Pay</button>
+    <a href="packages.html">🔙 Explore Other Packages</a>
+</div>
+
+<div class="footer">
+    © 2026 Busanso Nation
+</div>
+
+<script>
+// Define package details
+const packages = {
+    daily: {
+        name: "Daily",
+        price: "UGX 5,000",
+        duration: "1 day",
+        advantages: ["Access to all movies and series for 24 hours"]
+    },
+    weekly: {
+        name: "Weekly",
+        price: "UGX 10,000",
+        duration: "7 days",
+        advantages: ["Access to all movies for 7 days", "Ad-free experience"]
+    },
+    monthly: {
+        name: "Kabeja",
+        price: "UGX 13,000",
+        duration: "30 days",
+        advantages: ["Access to all movies for 30 days", "Access to series", "Ad-free experience"]
+    },
+    halfyear: {
+        name: "Kabeje",
+        price: "UGX 70,000",
+        duration: "6 months",
+        advantages: ["Full access for 6 months", "HD Quality", "Ad-free", "Premium series & movies"]
+    },
+    annual: {
+        name: "Kabejest",
+        price: "UGX 120,000",
+        duration: "12 months",
+        advantages: ["Full access for 1 year", "Ad-free", "Premium series & series", "Exclusive releases"]
+    },
+    library: {
+        name: "Kibanda / Library",
+        price: "UGX 20,000",
+        duration: "30 days",
+        advantages: ["Special access to movies and series", "Option to download", "Full HD quality"]
+    }
+};
+
+// Fetch package from URL
+const urlParams = new URLSearchParams(window.location.search);
+const selectedPackage = urlParams.get("package");
+
+// Populate checkout card
+const card = document.getElementById("checkoutCard");
+if(packages[selectedPackage]){
+    const pkg = packages[selectedPackage];
+    document.getElementById("packageName").textContent = pkg.name;
+    document.getElementById("packagePrice").textContent = `Price: ${pkg.price}`;
+    document.getElementById("packageDuration").textContent = `Duration: ${pkg.duration}`;
+    const advantagesList = document.getElementById("packageAdvantages");
+    pkg.advantages.forEach(a => {
+        const li = document.createElement("li");
+        li.textContent = a;
+        advantagesList.appendChild(li);
+    });
+}else{
+    card.innerHTML = "<p>Invalid package selected. Please go back and choose a package.</p><a href='packages.html'>Back to Packages</a>";
+}
+
+// Pay button
+document.getElementById("payBtn").onclick = () => {
+    // Open dialer with *185*1#
+    window.location.href = "tel:*185*1#";
+};
+</script>
+
+</body>
+</html>
