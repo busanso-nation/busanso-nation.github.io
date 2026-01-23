@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enter PIN - Busanso Nation</title>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<!-- Firebase config -->
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+</script>
+
+<style>
+body {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  background:#111;
+  color:#fff;
+  font-family:Poppins, sans-serif;
+}
+form {
+  background:#222;
+  padding:20px;
+  border-radius:10px;
+  width:300px;
+  text-align:center;
+}
+input, button {
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:5px;
+  border:none;
+}
+button {
+  background:#f5c46a;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+}
+h2 {
+  margin-bottom:15px;
+  color:#f5c46a;
+}
+</style>
+</head>
+<body>
+
+<form id="pinForm">
+  <h2>Enter Your Device PIN</h2>
+  <input type="text" id="pin" placeholder="Enter PIN" required>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+// Reference to form
+const form = document.getElementById('pinForm');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const pin = document.getElementById('pin').value;
+
+  // Check PIN in Firebase
+  db.ref('pins/' + pin).get().then(snapshot => {
+    if(!snapshot.exists()){
+      alert('Invalid PIN!');
+      return;
+    }
+
+    const data = snapshot.val();
+
+    if(data.usedBy){
+      alert('This PIN has already been used on another device!');
+      return;
+    }
+
+    // Assign PIN to this device
+    const deviceID = 'device-' + Date.now() + Math.floor(Math.random()*1000);
+    db.ref('pins/' + pin).update({ usedBy: deviceID }).then(() => {
+      localStorage.setItem('devicePIN', pin); // save PIN locally
+      alert('PIN accepted! Welcome to Busanso Nation.');
+      window.location.href = 'home.html'; // redirect to home
+    });
+  });
+});
+</script>
+
+</body>
+</html>
