@@ -152,6 +152,92 @@ function getDeviceId(){
     return deviceId;
 }
 </script>
+<script>
+function login() {
+
+  const pin = document.getElementById("pinInput").value.trim();
+  if (!pin) return alert("Enter PIN");
+
+  localStorage.setItem("activePIN", pin);
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
+  authDomain: "busanso-pins.firebaseapp.com",
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
+  projectId: "busanso-pins",
+  storageBucket: "busanso-pins.firebasestorage.app",
+  messagingSenderId: "137040014808",
+  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  const db = firebase.database();
+
+  const deviceId =
+    localStorage.getItem("deviceId") ||
+    "device_" + Math.random().toString(36).slice(2);
+
+  localStorage.setItem("deviceId", deviceId);
+
+  const durations = {
+    Daily: 1,
+    Weekly: 7,
+    Monthly: 30,
+    "Half-Year": 180,
+    Annual: 365
+  };
+
+  db.ref("pins/" + pin).get().then(snapshot => {
+
+    if (!snapshot.exists()) {
+      alert("Wrong PIN");
+      localStorage.removeItem("activePIN");
+      return;
+    }
+
+    const data = snapshot.val();
+    const now = Date.now();
+
+    // Create expiry on first use
+    if (!data.expiry) {
+      const days = durations[data.type] || 1;
+      const expiry = now + days * 86400000;
+
+      db.ref("pins/" + pin).update({
+        expiry,
+        activeDevice: deviceId
+      });
+
+      data.expiry = expiry;
+    }
+
+    // Expired
+    if (now > data.expiry) {
+      alert("PIN expired");
+      localStorage.removeItem("activePIN");
+      return;
+    }
+
+    // Device locked
+    if (data.activeDevice && data.activeDevice !== deviceId) {
+      alert("This PIN is used on another device");
+      localStorage.removeItem("activePIN");
+      return;
+    }
+
+    // Success
+    localStorage.setItem("activePackage", JSON.stringify(data));
+    location.href = "watch.html";
+
+  }).catch(err => {
+    console.error(err);
+    alert("Network error");
+  });
+}
+</script>
 
 </body>
 </html>
