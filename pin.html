@@ -63,8 +63,8 @@ h2 {
 <body>
 
 <form id="pinForm">
-  <h2>Enter Your Device PIN</h2>
-  <input type="text" id="pin" placeholder="Enter PIN" required>
+  <h2>Enter Your Password</h2>
+  <input type="text" id="pin" placeholder="Enter Password" required>
   <button type="submit">Submit</button>
 </form>
 
@@ -86,7 +86,7 @@ form.addEventListener('submit', e => {
     const data = snapshot.val();
 
     if(data.usedBy){
-      alert('This PIN has already been used on another device!');
+      alert('This Password belongs to someone else, inbox King VJ for your own password!');
       return;
     }
 
@@ -94,7 +94,7 @@ form.addEventListener('submit', e => {
     const deviceID = 'device-' + Date.now() + Math.floor(Math.random()*1000);
     db.ref('pins/' + pin).update({ usedBy: deviceID }).then(() => {
       localStorage.setItem('devicePIN', pin); // save PIN locally
-      alert('PIN accepted! Welcome to Busanso Nation.');
+      alert('Password accepted! Welcome to Busanso Nation.');
       window.location.href = 'home.html'; // redirect to home
     });
   });
