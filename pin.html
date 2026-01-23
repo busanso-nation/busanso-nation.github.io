@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enter PIN - Busanso Nation</title>
+    <meta charset="UTF-8">
+    <title>BUSANSO NATION</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
-<!-- Firebase config -->
+   <!-- Firebase config -->
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
@@ -24,81 +24,145 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 </script>
 
-<style>
-body {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  background:#111;
-  color:#fff;
-  font-family:Poppins, sans-serif;
-}
-form {
-  background:#222;
-  padding:20px;
-  border-radius:10px;
-  width:300px;
-  text-align:center;
-}
-input, button {
-  width:100%;
-  padding:10px;
-  margin:10px 0;
-  border-radius:5px;
-  border:none;
-}
-button {
-  background:#f5c46a;
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
-}
-h2 {
-  margin-bottom:15px;
-  color:#f5c46a;
-}
-</style>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: radial-gradient(circle at top, #102a1d, #000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .splash {
+            text-align: center;
+            color: #fff;
+            animation: fadeOut 1s ease forwards;
+            animation-delay: 5s;
+        }
+
+        .logo {
+            font-size: 3rem;
+            letter-spacing: 4px;
+            font-weight: 800;
+            animation: zoomIn 2s ease forwards, glow 3s ease-in-out infinite;
+        }
+
+        .nation { color: #e50914; }
+
+        .tagline {
+            margin-top: 14px;
+            font-size: 1.1rem;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 1.5s;
+            color: #f1c40f;
+        }
+
+        .message {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 2.5s;
+            color: #dcdcdc;
+        }
+
+        .loader {
+            margin: 35px auto 0;
+            width: 42px;
+            height: 42px;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top: 4px solid #f1c40f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.6); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeOut { to { opacity: 0; } }
+
+        @keyframes glow {
+            0%,100% { text-shadow: 0 0 10px rgba(241,196,15,0.4); }
+            50% { text-shadow: 0 0 25px rgba(241,196,15,0.8); }
+        }
+    </style>
 </head>
+
 <body>
 
-<form id="pinForm">
-  <h2>Enter Your Password</h2>
-  <input type="text" id="pin" placeholder="Enter Password" required>
-  <button type="submit">Submit</button>
-</form>
+<div class="splash">
+    <div class="logo">
+        BUSANSO <span class="nation">NATION</span>
+    </div>
+
+    <div class="tagline">
+        Welcome Back, Uganda 🇺🇬
+    </div>
+
+    <div class="message">
+        Elections are over — let’s unite & relax and enjoy quality entertainment
+    </div>
+
+    <div class="loader"></div>
+</div>
 
 <script>
-// Reference to form
-const form = document.getElementById('pinForm');
+/* ================= DEVICE ID ================= */
+function getDeviceId() {
+    let id = localStorage.getItem("deviceId");
+    if (!id) {
+        id = "dev_" + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem("deviceId", id);
+    }
+    return id;
+}
 
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  const pin = document.getElementById('pin').value;
+/* ================= SPLASH CHECK ================= */
+async function checkPinAndRedirect() {
+    const activePin = localStorage.getItem("activePin");
+    const deviceId = getDeviceId();
 
-  // Check PIN in Firebase
-  db.ref('pins/' + pin).get().then(snapshot => {
-    if(!snapshot.exists()){
-      alert('Invalid PIN!');
-      return;
+    if (!activePin) {
+        location.href = "home.html";
+        return;
     }
 
-    const data = snapshot.val();
+    const snap = await firebase.database()
+        .ref("pins/" + activePin)
+        .get();
 
-    if(data.usedBy){
-      alert('This Password belongs to someone else, inbox King VJ for your own password!');
-      return;
+    if (!snap.exists()) {
+        localStorage.removeItem("activePin");
+        location.href = "home.html";
+        return;
     }
 
-    // Assign PIN to this device
-    const deviceID = 'device-' + Date.now() + Math.floor(Math.random()*1000);
-    db.ref('pins/' + pin).update({ usedBy: deviceID }).then(() => {
-      localStorage.setItem('devicePIN', pin); // save PIN locally
-      alert('Password accepted! Welcome to Busanso Nation.');
-      window.location.href = 'home.html'; // redirect to home
-    });
-  });
-});
+    const data = snap.val();
+
+    if (data.usedBy === deviceId) {
+        location.href = "watch.html";
+    } else {
+        localStorage.removeItem("activePin");
+        location.href = "home.html";
+    }
+}
+
+/* ⏳ Let splash play, then decide */
+setTimeout(checkPinAndRedirect, 5500);
 </script>
 
 </body>
