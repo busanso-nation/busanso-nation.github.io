@@ -75,80 +75,100 @@ footer{text-align:center;font-size:.85rem;margin-top:15px;opacity:.7;}
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
 <script>
-const firebaseConfig = {
+/* 🔥 Firebase init (ONLY once) */
+firebase.initializeApp({
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain: "busanso-pins.firebaseapp.com",
-  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
   projectId: "busanso-pins",
   storageBucket: "busanso-pins.firebasestorage.app",
   messagingSenderId: "137040014808",
   appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-};
+});
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
+const db = firebase.database();
 
-  const pin = localStorage.getItem("activePIN");
-  const deviceId = localStorage.getItem("deviceId") || "device-" + Math.random().toString(36).substr(2,9);
-  localStorage.setItem("deviceId", deviceId);
-
-  if(!pin){
-    location.href = "packages.html";
-  } else {
-    db.ref("pins/" + pin).get().then(snapshot => {
-      if(!snapshot.exists()){
-        alert("Invalid PIN.");
-        localStorage.removeItem("activePIN");
-        location.href = "packages.html";
-        return;
-      }
-
-      const data = snapshot.val();
-
-      // Check device
-      if(data.activeDevice && data.activeDevice !== deviceId){
-        alert("This PIN is active on another device.");
-        localStorage.removeItem("activePIN");
-        location.href = "packages.html";
-        return;
-      }
-
-      // Check expiry
-      if(Date.now() > data.expiry){
-        alert("This PIN has expired.");
-        localStorage.removeItem("activePIN");
-        location.href = "packages.html";
-        return;
-      }
-
-      // Mark current device
-      db.ref("pins/" + pin + "/activeDevice").set(deviceId);
-
-      // Store for UI convenience
-      localStorage.setItem("activePackage", JSON.stringify(data));
-      document.getElementById("planLabel").textContent = data.type;
-
-      // Start countdown
-      const timeLeftEl = document.getElementById("timeLeft");
-      function updateCountdown(){
-        const diff = data.expiry - Date.now();
-        if(diff <= 0){
-          timeLeftEl.textContent = "Expired";
-          localStorage.removeItem("activePIN");
-          setTimeout(()=>location.href="packages.html",1500);
-          return;
-        }
-        const days = Math.floor(diff / 86400000);
-        const hours = Math.floor((diff % 86400000) / 3600000);
-        const minutes = Math.floor((diff % 3600000) / 60000);
-        const seconds = Math.floor((diff % 60000) / 1000);
-        timeLeftEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-      }
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    });
+/* 📱 Device ID (same as login page) */
+function getDeviceId(){
+  let id = localStorage.getItem("deviceId");
+  if(!id){
+    id = "device_" + Math.random().toString(36).slice(2);
+    localStorage.setItem("deviceId", id);
   }
+  return id;
+}
+
+const pin = localStorage.getItem("activePIN");
+const deviceId = getDeviceId();
+
+/* 🚪 No PIN → packages */
+if(!pin){
+  location.href = "packages.html";
+}
+
+/* 🔍 VERIFY ONLY — NO WRITES */
+db.ref("pins/" + pin).get().then(snapshot => {
+
+  if(!snapshot.exists()){
+    logout("Invalid PIN");
+    return;
+  }
+
+  const data = snapshot.val();
+  const now = Date.now();
+
+  /* ❌ Expired */
+  if(!data.expiry || now > data.expiry){
+    logout("PIN expired");
+    return;
+  }
+
+  /* 🔒 Device mismatch */
+  if(data.activeDevice && data.activeDevice !== deviceId){
+    logout("PIN active on another device");
+    return;
+  }
+
+  /* ✅ Success — display info */
+  document.getElementById("planLabel").textContent = data.type || "Premium";
+
+  const timeLeftEl = document.getElementById("timeLeft");
+
+  function updateCountdown(){
+    const diff = data.expiry - Date.now();
+
+    if(diff <= 0){
+      timeLeftEl.textContent = "Expired";
+      logout("Session expired");
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    timeLeftEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+}).catch(err => {
+  console.error(err);
+  logout("Network error");
+});
+
+/* 🚪 LOGOUT */
+function logout(msg){
+  if(msg) alert(msg);
+  localStorage.removeItem("activePIN");
+  localStorage.removeItem("activePackage");
+  location.href = "packages.html";
+}
 </script>
+
 </body>
 </html>
