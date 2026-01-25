@@ -1,103 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Account</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>User Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-body{
-  background:#fcb69f;
-  font-family:Poppins,Arial;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
+:root{
+  --orange:#ff8a00;
+  --teal:#00c9a7;
+  --dark:#0f172a;
+  --glass:rgba(255,255,255,.14);
 }
-.card{
-  background:#fff;
-  padding:25px;
-  border-radius:20px;
-  max-width:500px;
-  width:100%;
-  text-align:center;
-}
-.countdown{font-size:1.3rem;font-weight:bold;color:#ff3d00}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',system-ui,sans-serif;}
+body{min-height:100vh;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;align-items:center;justify-content:center;padding:10px;color:#1f2933;}
+.card{width:100%;max-width:500px;background:rgba(255,255,255,.9);border-radius:25px;padding:25px 20px;box-shadow:0 20px 50px rgba(0,0,0,.3);}
+.header{text-align:center;margin-bottom:15px;}
+.header h1{font-size:2.2rem;font-weight:900;color:#ff8a00;}
+.header small{display:block;font-size:1rem;margin-top:4px;opacity:.8;}
+.newyear{text-align:center;background:linear-gradient(90deg,#00c9a7,#92fe9d);color:#064635;border-radius:16px;padding:12px;font-size:1rem;font-weight:700;margin-bottom:15px;}
+.info-box{background:#f8fafc;border-radius:16px;padding:15px 16px;margin-bottom:15px;}
+.info-row{display:flex;justify-content:space-between;padding:10px 0;font-size:1.05rem;border-bottom:1px dashed #e5e7eb;}
+.info-row:last-child{border-bottom:none}
+.label{opacity:.8;font-size:1rem;}
+.value{font-weight:800;font-size:1rem;}
+.expiry{color:#059669;font-size:1.1rem;font-weight:700;}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px;}
+.btn{padding:14px 10px;border-radius:16px;font-size:1rem;font-weight:800;text-align:center;text-decoration:none;color:#fff;display:block;}
+.movies{background:linear-gradient(135deg,#ff9f1c,#ffbf69);}
+.series{background:linear-gradient(135deg,#00c9a7,#2ec4b6);}
+.renew{background:linear-gradient(135deg,#4361ee,#4895ef);}
+.join{background:linear-gradient(135deg,#ef476f,#f72585);}
+.donate{background:linear-gradient(135deg,#fcbf49,#ff006e);}
+.live{background:linear-gradient(135deg,#9b5de5,#f15bb5);}
+.countdown{text-align:center;font-weight:800;margin-top:15px;font-size:1.3rem;color:#ff3d00;}
+footer{text-align:center;font-size:.85rem;margin-top:15px;opacity:.7;}
 </style>
 </head>
-
 <body>
 
 <div class="card">
-  <h1>🎉 OMUSANSO</h1>
-  <p id="plan">Loading…</p>
-  <div class="countdown" id="timeLeft"></div>
+  <div class="header">
+    <h1>🎉 OMUSANSO</h1>
+    <small id="planLabel">Loading...</small>
+  </div>
+
+  <div class="newyear">
+    May this year bring you joy, success & endless entertainment 🎬✨
+  </div>
+
+  <div class="info-box">
+    <div class="info-row">
+      <span class="label">Your PIN</span>
+      <span class="value">••••••••</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Expires In</span>
+      <span class="value expiry countdown" id="timeLeft">Loading...</span>
+    </div>
+  </div>
+
+  <div class="actions">
+    <a href="movies.html" class="btn movies">🎬 Movies</a>
+    <a href="series.html" class="btn series">📺 Series</a>
+    <a href="packages.html" class="btn renew">⏳ Extend Subscription</a>
+    <a href="busansocity.html" class="btn join">💖 Join Busanso City</a>
+    <a href="donate.html" class="btn donate">💖 Donate to Orphans</a>
+    <a href="livetv.html" class="btn live">📡 Live TV</a>
+  </div>
+
+  <div class="countdown" id="countdownDisplay"></div>
+  <footer>💫 Thank you for being part of Busanso Nation</footer>
 </div>
 
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-firebase.initializeApp({
+const firebaseConfig = {
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain: "busanso-pins.firebaseapp.com",
-  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
   projectId: "busanso-pins",
   storageBucket: "busanso-pins.firebasestorage.app",
   messagingSenderId: "137040014808",
   appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-});
-
+};
+firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+
 const pin = localStorage.getItem("activePIN");
-const deviceId = localStorage.getItem("deviceId");
+const deviceId = localStorage.getItem("deviceId") || "device-" + Math.random().toString(36).substr(2,9);
+localStorage.setItem("deviceId", deviceId);
 
-if(!pin || !deviceId){
-  location.href="login.html";
-}
-
-db.ref("pins/" + pin).get().then(snap=>{
-  if(!snap.exists()){
-    localStorage.removeItem("activePIN");
-    location.href="login.html";
-    return;
-  }
-
-  const data = snap.val();
-  const now = Date.now();
-
-  if(data.activeDevice !== deviceId){
-    localStorage.removeItem("activePIN");
-    location.href="login.html";
-    return;
-  }
-
-  if(now > data.expiry){
-    localStorage.removeItem("activePIN");
-    location.href="packages.html";
-    return;
-  }
-
-  document.getElementById("plan").textContent = data.type + " Plan";
-
-  function tick(){
-    const diff = data.expiry - Date.now();
-    if(diff <= 0){
+if(!pin){
+  location.href = "login.html";
+} else {
+  db.ref("pins/" + pin).get().then(snapshot => {
+    if(!snapshot.exists()){
+      alert("Wooo, Wrong Password.");
       localStorage.removeItem("activePIN");
-      location.href="packages.html";
+      location.href = "login.html";
       return;
     }
-    const d = Math.floor(diff/86400000);
-    const h = Math.floor(diff%86400000/3600000);
-    const m = Math.floor(diff%3600000/60000);
-    document.getElementById("timeLeft").textContent =
-      `${d}d ${h}h ${m}m left`;
-  }
 
-  tick();
-  setInterval(tick,60000);
-});
+    const data = snapshot.val();
+
+    // Check device binding
+    if(data.activeDevice && data.activeDevice !== deviceId){
+      alert("This Password is being used by another Person.");
+      localStorage.removeItem("activePIN");
+      location.href = "login.html";
+      return;
+    }
+
+    // Check expiry
+    const now = Date.now();
+    if(now > data.expiry){
+      alert("Your subscription has expired.");
+      localStorage.removeItem("activePIN");
+      location.href = "packages.html";
+      return;
+    }
+
+    // Mark this device if first visit
+    if(!data.activeDevice){
+      db.ref("pins/" + pin + "/activeDevice").set(deviceId);
+    }
+
+    localStorage.setItem("activePackage", JSON.stringify(data));
+    document.getElementById("planLabel").textContent = data.type;
+
+    // Countdown timer
+    const timeLeftEl = document.getElementById("timeLeft");
+    function updateCountdown(){
+      const diff = data.expiry - Date.now();
+      if(diff <= 0){
+        timeLeftEl.textContent = "Expired";
+        localStorage.removeItem("activePIN");
+        setTimeout(()=>location.href="packages.html",1500);
+        return;
+      }
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+      timeLeftEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown,1000);
+  });
+}
 </script>
-
 </body>
 </html>
