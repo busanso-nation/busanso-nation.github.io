@@ -158,18 +158,29 @@ button{
 
 <body>
 
-<!-- HARD AUTH -->
+<!-- HARD AUTH FIX -->
 <script>
 (function(){
   const pkg = localStorage.getItem("busanso_package");
   const expiry = localStorage.getItem("busanso_expiry");
+  
+  // Only redirect if package missing or expired
+  if(!pkg || !expiry){
+    location.replace("packages.html");
+    return;
+  }
 
-  if(!pkg || !expiry || new Date() >= new Date(expiry)){
+  const now = new Date();
+  const expDate = new Date(expiry);
+  if(now >= expDate){
+    alert("Your package has expired. Please upgrade.");
     localStorage.clear();
     location.replace("packages.html");
+    return;
   }
 })();
 </script>
+
 
 <header>
   <img src="https://i.ibb.co/4nKH3RgJ/BUSANSO-New.png">
