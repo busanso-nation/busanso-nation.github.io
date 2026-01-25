@@ -2,109 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BUSANSO – Movies</title>
+<title>BUSANSO – Player</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="movies-data.js"></script>
+<!-- Load series data -->
+<script src="series-data.js"></script>
 
 <style>
-body{margin:0;background:#0f0f0f;color:#fff;font-family:Arial}
-
-/* NAV */
-.nav{
-  display:flex;gap:8px;padding:10px;
-  background:#000;position:sticky;top:0;z-index:10
+body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16px}
+h1{margin-bottom:10px;text-align:center}
+.player{width:100%;max-width:800px;margin:0 auto;background:#000}
+.player iframe{width:100%;height:56vw;max-height:450px;border:none}
+.details{max-width:800px;margin:16px auto;padding:16px;background:#111;border-radius:12px}
+.meta{color:#aaa;font-size:14px;margin-bottom:10px}
+.actions button{
+  width:100%;padding:12px;margin-top:8px;border:none;border-radius:8px;
+  font-weight:bold;cursor:pointer;font-size:14px;
 }
-.nav button{
-  flex:1;padding:8px;border:none;border-radius:8px;
-  background:#181818;color:#fff;font-weight:bold;cursor:pointer
-}
-.nav button:hover{background:#e50914}
-
-/* SEARCH */
-.search{padding:10px;background:#000}
-.search input{
-  width:100%;padding:10px;border:none;border-radius:8px;
-  background:#181818;color:#fff
-}
-
-/* GRID */
-.movies{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:14px;padding:14px
-}
-@media(min-width:600px){
-  .movies{grid-template-columns:repeat(4,1fr)}
-}
-
-.card{
-  background:#181818;border-radius:12px;overflow:hidden;
-  opacity:0;transform:translateY(15px);
-  animation:fade .4s forwards
-}
-@keyframes fade{to{opacity:1;transform:none}}
-.card img{width:100%}
-.info{padding:10px}
-.meta{font-size:12px;color:#aaa}
-.watch{
-  width:100%;padding:8px;margin-top:6px;
-  border:none;border-radius:8px;
-  background:#e50914;color:#fff;font-weight:bold
-}
+.watch{background:#e50914;color:#fff}
+.secondary{background:#222;color:#fff}
+.episodes{display:grid;gap:8px;margin-top:10px}
+.episode{background:#181818;padding:10px;border-radius:8px;cursor:pointer}
+.episode:hover{background:#e50914}
+.cast{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.cast span{background:#181818;padding:6px 10px;border-radius:20px;font-size:12px}
 </style>
 </head>
 
 <body>
 
+<div class="player" id="player"></div>
 
-<div class="nav">
-  <button onclick="location.href='watch.html'">🏠 Home</button>
-  <button onclick="location.href='series.html'">📺 Series</button>
-  <button onclick="location.href='donate.html'">❤️ Donate</button>
-  <button onclick="location.href='marriage.html'">💍 Marriage</button>
+<div class="details">
+  <h1 id="title"></h1>
+  <div class="meta" id="meta"></div>
+
+  <div class="actions">
+    <button class="watch" id="watchBtn">▶ Watch Now</button>
+    <button class="secondary" onclick="toggleEpisodes()">📺 Episodes</button>
+  </div>
+
+  <div class="section">
+    <h3>Synopsis</h3>
+    <p id="synopsis"></p>
+  </div>
+
+  <div class="section">
+    <h3>Cast</h3>
+    <div class="cast" id="cast"></div>
+  </div>
+
+  <div class="section" id="episodesSection" style="display:none">
+    <h3>Episodes</h3>
+    <div class="episodes" id="episodeList"></div>
+  </div>
 </div>
-
-<div class="search">
-  <input id="search" placeholder="Search movies...">
-</div>
-
-<div class="movies" id="list"></div>
 
 <script>
-const box=document.getElementById("list");
-const search=document.getElementById("search");
+// Get series ID from URL
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+if(!id) location.replace("series-list.html");
 
-function render(data){
-  box.innerHTML="";
-  data.forEach((m,i)=>{
-    const c=document.createElement("div");
-    c.className="card";
-    c.style.animationDelay=i*.05+"s";
-    c.innerHTML=`
-      <img src="${m.poster}" loading="lazy">
-      <div class="info">
-        <b>${m.title}</b>
-        <div class="meta">${m.country} • ${m.duration}</div>
-        <button class="watch">Watch</button>
-      </div>`;
-    c.querySelector(".watch").onclick=()=>{
-      location.href=
-        `movie.html?title=${encodeURIComponent(m.title)}
-        &video=${encodeURIComponent(m.video)}
-        &genre=${encodeURIComponent(m.genre)}
-        &country=${encodeURIComponent(m.country)}
-        &duration=${encodeURIComponent(m.duration)}`;
-    };
-    box.appendChild(c);
+// Find the series in SERIES array
+const serie = SERIES.find(s => s.id === id);
+if(!serie) location.replace("series-list.html");
+
+// Auto-migrate old episodesHTML
+function migrateEpisodes(s){
+  if(Array.isArray(s.episodes) && s.episodes.length) return s.episodes;
+  if(!s.episodesHTML) return [];
+  const temp = document.createElement("div");
+  temp.innerHTML = s.episodesHTML;
+  const episodes = [];
+  temp.querySelectorAll("a").forEach((a,i)=>{
+    const url = a.getAttribute("href");
+    if(url) episodes.push({title:a.textContent?.trim()||`Episode ${i+1}`, video:url.trim()});
   });
+  return episodes;
 }
 
-render(MOVIES);
+serie.episodes = migrateEpisodes(serie);
 
-search.oninput=()=>{
-  const q=search.value.toLowerCase();
-  render(MOVIES.filter(m=>m.title.toLowerCase().includes(q)));
+// Populate series info
+document.getElementById("title").textContent = serie.title;
+document.getElementById("meta").textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
+document.getElementById("synopsis").textContent = serie.synopsis || "";
+const castDiv = document.getElementById("cast");
+if(serie.cast) serie.cast.forEach(c=>{
+  const span = document.createElement("span");
+  span.textContent = c;
+  castDiv.appendChild(span);
+});
+
+// Normalize video URLs
+function normalizeVideo(url){
+  if(!url) return null;
+  try{
+    if(url.includes("youtube.com/watch")) return "https://www.youtube.com/embed/"+new URL(url).searchParams.get("v");
+    if(url.includes("youtu.be/")) return "https://www.youtube.com/embed/"+url.split("youtu.be/")[1].split("?")[0];
+    if(url.includes("youtube.com/embed")) return url;
+    if(url.includes("vimeo.com")) return "https://player.vimeo.com/video/"+url.split("/").pop().split("?")[0];
+    if(url.includes("/d/")) return "https://drive.google.com/file/d/"+url.split("/d/")[1].split("/")[0]+"/preview";
+    if(url.includes("drive.google.com/open")) return "https://drive.google.com/file/d/"+(new URL(url).searchParams.get("id"))+"/preview";
+    return url;
+  }catch(e){return null;}
+}
+
+// Play video
+function playVideo(video){
+  const embed = normalizeVideo(video);
+  if(!embed){ alert("Video not supported"); return; }
+  document.getElementById("player").innerHTML = `<iframe src="${embed}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+}
+
+// WATCH NOW button
+document.getElementById("watchBtn").onclick = ()=>{
+  if(serie.episodes && serie.episodes.length){
+    playVideo(serie.episodes[0].video);
+  }else{
+    alert("No episodes available");
+  }
 };
+
+// Toggle episodes list
+function toggleEpisodes(){
+  const section = document.getElementById("episodesSection");
+  section.style.display = section.style.display==="none"?"block":"none";
+}
+
+// Populate episodes list
+const episodeListDiv = document.getElementById("episodeList");
+if(serie.episodes) serie.episodes.forEach((ep,i)=>{
+  const div = document.createElement("div");
+  div.className = "episode";
+  div.textContent = `Episode ${i+1} • ${ep.title || ''}`;
+  div.onclick = ()=>playVideo(ep.video);
+  episodeListDiv.appendChild(div);
+});
 </script>
 
 </body>
