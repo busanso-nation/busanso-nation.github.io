@@ -155,17 +155,29 @@ nav button:hover{background:#333}
 
 <body>
 
-<!-- ===== HARD AUTH ===== -->
+<!-- HARD AUTH FIX -->
 <script>
 (function(){
-  const pkg=localStorage.getItem("busanso_package");
-  const exp=localStorage.getItem("busanso_expiry");
-  if(!pkg||!exp||new Date()>=new Date(exp)){
+  const pkg = localStorage.getItem("busanso_package");
+  const expiry = localStorage.getItem("busanso_expiry");
+  
+  // Only redirect if package missing or expired
+  if(!pkg || !expiry){
+    location.replace("packages.html");
+    return;
+  }
+
+  const now = new Date();
+  const expDate = new Date(expiry);
+  if(now >= expDate){
+    alert("Your package has expired. Please upgrade.");
     localStorage.clear();
     location.replace("packages.html");
+    return;
   }
 })();
 </script>
+
 
 <header>BUSANSO MOVIES</header>
 
