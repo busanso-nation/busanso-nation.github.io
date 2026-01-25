@@ -56,16 +56,6 @@ body{margin:0;background:#0f0f0f;color:#fff;font-family:Arial}
 
 <body>
 
-<!-- 🔐 PIN + EXPIRY CHECK -->
-<script>
-const pin = localStorage.getItem("activePIN");
-const exp = localStorage.getItem("pinExpiry");
-
-if(!pin || !exp || Date.now() > Number(exp)){
-  localStorage.clear();
-  location.replace("packages.html");
-}
-</script>
 
 <div class="nav">
   <button onclick="location.href='watch.html'">🏠 Home</button>
