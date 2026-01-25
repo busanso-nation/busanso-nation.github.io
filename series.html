@@ -158,28 +158,29 @@ button{
 
 <body>
 
-<!-- HARD AUTH FIX -->
+<!-- PIN AUTH FIX -->
 <script>
 (function(){
-  const pkg = localStorage.getItem("busanso_package");
-  const expiry = localStorage.getItem("busanso_expiry");
-  
-  // Only redirect if package missing or expired
-  if(!pkg || !expiry){
-    location.replace("packages.html");
+  const pin = localStorage.getItem("busanso_pin");
+  const expiry = localStorage.getItem("busanso_pin_expiry");
+
+  if(!pin || !expiry){
+    location.replace("login.html"); // your PIN page
     return;
   }
 
   const now = new Date();
   const expDate = new Date(expiry);
+
   if(now >= expDate){
-    alert("Your package has expired. Please upgrade.");
-    localStorage.clear();
-    location.replace("packages.html");
-    return;
+    alert("Your access PIN has expired.");
+    localStorage.removeItem("busanso_pin");
+    localStorage.removeItem("busanso_pin_expiry");
+    location.replace("login.html");
   }
 })();
 </script>
+
 
 
 <header>
@@ -1662,34 +1663,7 @@ button{
   </div>
 </div>
 
-<script>
-/* ACCESS LEVELS */
-const LEVELS={ Weekly:1, Monthly:2, "Half-Year":3, Annual:4 };
-const userLevel = LEVELS[localStorage.getItem("busanso_package")] || 0;
 
-/* LOCK HANDLING */
-document.querySelectorAll(".series").forEach(card=>{
-  const min = Number(card.dataset.min||1);
-
-  if(userLevel < min){
-    card.classList.add("locked");
-
-    const eps = card.querySelector(".episodes");
-    if(eps) eps.remove();
-
-    card.querySelectorAll("*:not(.share-btn)").forEach(el=>{
-      el.onclick = e=>{
-        e.stopPropagation();
-        location.href="./upgrade.html"; /* ✅ FIXED */
-      };
-    });
-
-    const msg=document.createElement("div");
-    msg.className="lock-msg";
-    msg.textContent="Upgrade required";
-    card.appendChild(msg);
-  }
-});
 
 /* PLAYER */
 document.querySelectorAll(".watch-btn").forEach(btn=>{
