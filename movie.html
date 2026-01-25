@@ -2,198 +2,126 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BUSANSO – Watch</title>
+<title>BUSANSO – Movie Player</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Load movies data -->
 <script src="movies-data.js"></script>
 
 <style>
-body{
-  margin:0;
-  background:#000;
-  color:#fff;
-  font-family:Arial, sans-serif;
-}
-
-.player iframe{
-  width:100%;
-  height:56vw;
-  max-height:75vh;
-  border:none;
-}
-
-.details{padding:16px}
-.meta{color:#aaa;font-size:14px}
-.synopsis{font-size:14px;margin-top:10px}
-
+body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16px}
+h1{margin-bottom:10px;text-align:center}
+.player{width:100%;max-width:800px;margin:0 auto;background:#000}
+.player iframe{width:100%;height:56vw;max-height:450px;border:none}
+.details{max-width:800px;margin:16px auto;padding:16px;background:#111;border-radius:12px}
+.meta{color:#aaa;font-size:14px;margin-bottom:10px}
 .actions button{
-  width:100%;
-  margin-top:10px;
-  padding:14px;
-  border:none;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
+  width:100%;padding:12px;margin-top:8px;border:none;border-radius:8px;
+  font-weight:bold;cursor:pointer;font-size:14px;
 }
 .watch{background:#e50914;color:#fff}
-.share{background:#222;color:#fff}
-
-.reco{padding:16px}
-.recoRow{
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-}
-.recoRow img{
-  width:140px;
-  border-radius:8px;
-  cursor:pointer;
-}
+.secondary{background:#222;color:#fff;margin-top:4px}
+.share{background:#555;color:#fff;margin-top:4px}
+.cast span{background:#181818;padding:6px 10px;border-radius:20px;font-size:12px;margin-right:4px;margin-bottom:4px;display:inline-block;}
 </style>
 </head>
 
 <body>
 
+<script>
+// ----- PIN CHECK -----
+const pin = localStorage.getItem("activePIN");
+const exp = Number(localStorage.getItem("pinExpiry"));
+if(!pin || !exp || Date.now() > exp){
+  localStorage.removeItem("activePIN");
+  localStorage.removeItem("pinExpiry");
+  alert("You must enter a valid PIN to watch movies.");
+  location.replace("login.html"); // redirect to PIN entry/login
+}
+</script>
+
 <div class="player" id="player"></div>
 
 <div class="details">
-  <h2 id="title"></h2>
+  <h1 id="title"></h1>
   <div class="meta" id="meta"></div>
-  <p class="synopsis" id="synopsis"></p>
 
   <div class="actions">
-    <button class="watch" onclick="watchNow()">▶ WATCH NOW</button>
-    <button class="share" onclick="openShare()">🔗 SHARE</button>
+    <button class="watch" id="watchBtn">▶ Watch Movie</button>
+    <button class="share" onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
+    <button class="share" onclick="shareIMO()">📩 Share on IMO</button>
+    <button class="share" onclick="shareTikTok()">🎵 Share on TikTok</button>
+    <button class="share" onclick="copyToClipboard()">📋 Copy Info</button>
+  </div>
+
+  <div class="section">
+    <h3>Synopsis</h3>
+    <p id="synopsis"></p>
+  </div>
+
+  <div class="section">
+    <h3>Cast</h3>
+    <div class="cast" id="cast"></div>
   </div>
 </div>
 
-<div class="reco">
-  <h3>Recommended</h3>
-  <div class="recoRow" id="reco"></div>
-</div>
-
-<!-- SHARE OPTIONS -->
-<div id="shareSheet" style="display:none;padding:16px">
-  <button onclick="shareWA()">WhatsApp</button>
-  <button onclick="shareIMO()">IMO</button>
-  <button onclick="shareTT()">TikTok</button>
-</div>
-
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+// ----- Get movie ID -----
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+if(!id) location.replace("movies.html");
 
-  /* ===== SAFE PIN CHECK ===== */
-  const pin = localStorage.getItem("activePIN");
-  const exp = Number(localStorage.getItem("pinExpiry"));
+// ----- Find movie -----
+const movie = MOVIES.find(m=>m.id===id);
+if(!movie) location.replace("movies.html");
 
-  if(!pin || !exp || Date.now() > exp){
-    localStorage.clear();
-    location.href = "login.html";
-    return;
-  }
-
-  /* ===== READ PARAM ===== */
-  const q = new URLSearchParams(location.search);
-  const id = q.get("id");
-
-  if(!id){
-    showError("Movie not found.");
-    return;
-  }
-
-  const movie = MOVIES.find(m => String(m.id) === String(id));
-  if(!movie){
-    showError("Movie not found.");
-    return;
-  }
-
-  /* ===== DETAILS ===== */
-  title.textContent = movie.title;
-  meta.textContent = `${movie.genre}${movie.duration ? " • "+movie.duration : ""}`;
-  synopsis.textContent = movie.synopsis;
-
-  /* ===== PLAYER ===== */
- function embed(url){
-  if(!url) return "";
-
-  // already embed → return as-is
-  if(url.includes("/embed/")) return url;
-
-  if(url.includes("youtube.com/watch")){
-    return "https://www.youtube.com/embed/" +
-      new URL(url).searchParams.get("v");
-  }
-
-  if(url.includes("youtu.be/")){
-    return "https://www.youtube.com/embed/" +
-      url.split("youtu.be/")[1];
-  }
-
-  if(url.includes("vimeo.com")){
-    return "https://player.vimeo.com/video/" +
-      url.split("/").pop();
-  }
-
-  if(url.includes("drive.google.com")){
-    const m = url.match(/\/d\/([^/]+)/);
-    if(m) return `https://drive.google.com/file/d/${m[1]}/preview`;
-  }
-
-  return url;
-}
-
-  }
-
-  window.watchNow = function(){
-    player.innerHTML =
-      `<iframe id="videoFrame" src="${embed(movie.video)}" allowfullscreen></iframe>`;
-    setTimeout(goFullscreen,500);
-  };
-
-  function goFullscreen(){
-    const f = document.getElementById("videoFrame");
-    if(!f) return;
-    f.requestFullscreen?.();
-    screen.orientation?.lock("landscape").catch(()=>{});
-  }
-
-  /* ===== SHARE ===== */
-  const SITE_URL = location.origin + "/movies.html";
-  const shareText =
-`${movie.title}
-
-Genre: ${movie.genre}
-Duration: ${movie.duration || "N/A"}
-
-${movie.synopsis}
-
-Watch on BUSANSO:
-${SITE_URL}`;
-
-  window.openShare = ()=> shareSheet.style.display="block";
-  window.shareWA = ()=> location.href=`https://wa.me/?text=${encodeURIComponent(shareText)}`;
-  window.shareIMO = ()=> location.href=`imo://send?text=${encodeURIComponent(shareText)}`;
-  window.shareTT = ()=> location.href=`https://www.tiktok.com/share?text=${encodeURIComponent(shareText)}`;
-
-  /* ===== RECOMMENDATIONS ===== */
-  MOVIES
-    .filter(m => m.genre === movie.genre && m.id !== movie.id)
-    .slice(0,6)
-    .forEach(m=>{
-      const img=document.createElement("img");
-      img.src=m.poster;
-      img.onclick=()=>location.href=`watch.html?id=${m.id}`;
-      reco.appendChild(img);
-    });
+// ----- Populate info -----
+document.getElementById("title").textContent = movie.title;
+document.getElementById("meta").textContent = `${movie.country} • ${movie.year} • ${movie.duration || ''}`;
+document.getElementById("synopsis").textContent = movie.synopsis || "";
+const castDiv = document.getElementById("cast");
+if(movie.cast) movie.cast.forEach(c=>{
+  const span = document.createElement("span");
+  span.textContent = c;
+  castDiv.appendChild(span);
 });
 
-/* ===== ERROR HANDLER ===== */
-function showError(msg){
-  document.body.innerHTML =
-    `<div style="padding:40px;text-align:center">
-      <h2>${msg}</h2>
-      <button onclick="location.href='movies.html'">Back to Movies</button>
-     </div>`;
+// ----- Normalize video URLs -----
+function normalizeVideo(url){
+  if(!url) return null;
+  try{
+    if(url.includes("youtube.com/watch")) return "https://www.youtube.com/embed/"+new URL(url).searchParams.get("v");
+    if(url.includes("youtu.be/")) return "https://www.youtube.com/embed/"+url.split("youtu.be/")[1].split("?")[0];
+    if(url.includes("youtube.com/embed")) return url;
+    if(url.includes("vimeo.com")) return "https://player.vimeo.com/video/"+url.split("/").pop().split("?")[0];
+    if(url.includes("/d/")) return "https://drive.google.com/file/d/"+url.split("/d/")[1].split("/")[0]+"/preview";
+    if(url.includes("drive.google.com/open")) return "https://drive.google.com/file/d/"+(new URL(url).searchParams.get("id"))+"/preview";
+    return url;
+  }catch(e){return null;}
+}
+
+// ----- Play movie -----
+function playMovie(){
+  const embed = normalizeVideo(movie.video);
+  if(!embed){ alert("Video not supported"); return; }
+  document.getElementById("player").innerHTML = `<iframe src="${embed}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+}
+document.getElementById("watchBtn").onclick = playMovie;
+
+// ----- Share functions -----
+const SITE_URL = location.origin + "/movies.html";
+function shareWhatsApp(){
+  location.href = `https://wa.me/?text=${encodeURIComponent(movie.title + "\n" + movie.synopsis + "\nWatch on BUSANSO: " + SITE_URL)}`;
+}
+function shareIMO(){
+  location.href = `imo://send?text=${encodeURIComponent(movie.title + "\n" + movie.synopsis + "\nWatch on BUSANSO: " + SITE_URL)}`;
+}
+function shareTikTok(){
+  alert("TikTok share is not native, you can copy and post manually.");
+}
+function copyToClipboard(){
+  const text = `${movie.title}\n${movie.synopsis}\nWatch on BUSANSO: ${SITE_URL}`;
+  navigator.clipboard.writeText(text).then(()=>alert("Movie info copied!"));
 }
 </script>
 
