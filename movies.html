@@ -155,25 +155,25 @@ nav button:hover{background:#333}
 
 <body>
 
-<!-- HARD AUTH FIX -->
+<!-- PIN AUTH FIX -->
 <script>
 (function(){
-  const pkg = localStorage.getItem("busanso_package");
-  const expiry = localStorage.getItem("busanso_expiry");
-  
-  // Only redirect if package missing or expired
-  if(!pkg || !expiry){
-    location.replace("packages.html");
+  const pin = localStorage.getItem("busanso_pin");
+  const expiry = localStorage.getItem("busanso_pin_expiry");
+
+  if(!pin || !expiry){
+    location.replace("login.html"); // your PIN page
     return;
   }
 
   const now = new Date();
   const expDate = new Date(expiry);
+
   if(now >= expDate){
-    alert("Your package has expired. Please upgrade.");
-    localStorage.clear();
-    location.replace("packages.html");
-    return;
+    alert("Your access PIN has expired.");
+    localStorage.removeItem("busanso_pin");
+    localStorage.removeItem("busanso_pin_expiry");
+    location.replace("login.html");
   }
 })();
 </script>
@@ -209,16 +209,7 @@ nav button:hover{background:#333}
 </div>
 
 <script>
-/* ===== ACCESS LEVELS ===== */
-const LEVELS={daily:1,weekly:1,kabeja:2,kabeje:3,kabejest:4};
-const userPkg=(localStorage.getItem("busanso_package")||"").toLowerCase();
-const userLevel=LEVELS[userPkg]||0;
 
-function canAccess(type){
-  if(type==="all") return true;
-  if(type==="premium") return userLevel>=2;
-  if(type==="latest") return userLevel>=4;
-}
 
 /* ===== MOVIES DATA ===== */
 const MOVIES=[
