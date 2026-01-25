@@ -53,15 +53,30 @@ body{
 
 <body>
 
-<!-- ===== PIN CHECK (ONLY SECURITY) ===== -->
 <script>
-const pin = localStorage.getItem("activePIN");
-const exp = Number(localStorage.getItem("pinExpiry"));
+/* ===== SAFE PIN CHECK (GITHUB FIXED) ===== */
+document.addEventListener("DOMContentLoaded", () => {
 
-if (!pin || !exp || isNaN(exp) || Date.now() > exp) {
-  localStorage.removeItem("activePIN");
-  localStorage.removeItem("pinExpiry");
-  location.replace("login.html");
+  const pin = localStorage.getItem("activePIN");
+  const exp = parseInt(localStorage.getItem("pinExpiry"), 10);
+
+  if (!pin || !exp || isNaN(exp)) {
+    redirectLogin();
+    return;
+  }
+
+  if (Date.now() > exp) {
+    localStorage.removeItem("activePIN");
+    localStorage.removeItem("pinExpiry");
+    redirectLogin();
+  }
+});
+
+function redirectLogin(){
+  const base = location.pathname.includes("/")
+    ? location.pathname.split("/").slice(0,-1).join("/")
+    : "";
+  location.href = base + "/login.html";
 }
 </script>
 
@@ -92,30 +107,28 @@ const duration  = q.get("duration");
 const synopsis  = q.get("synopsis");
 
 if(!rawVideo || !title){
-  location.replace("movies.html");
+  location.href = "movies.html";
 }
 
 /* ===== VIDEO NORMALIZER ===== */
 function getEmbed(url){
-  // YouTube
+
   if(url.includes("youtube.com/watch")){
     return "https://www.youtube.com/embed/" +
       new URL(url).searchParams.get("v");
   }
+
   if(url.includes("youtu.be/")){
     return "https://www.youtube.com/embed/" +
       url.split("youtu.be/")[1];
   }
 
-  // Vimeo
   if(url.includes("vimeo.com")){
-    const id = url.split("/").pop();
-    return "https://player.vimeo.com/video/" + id;
+    return "https://player.vimeo.com/video/" +
+      url.split("/").pop();
   }
 
-  // Google Drive
   if(url.includes("drive.google.com")){
-    if(url.includes("/preview")) return url;
     const id = url.match(/\/d\/([^/]+)/);
     if(id) return `https://drive.google.com/file/d/${id[1]}/preview`;
   }
@@ -123,11 +136,8 @@ function getEmbed(url){
   return url;
 }
 
-const video = getEmbed(rawVideo);
-
-/* ===== PLAYER ===== */
 document.getElementById("player").innerHTML =
-  `<iframe id="videoFrame" src="${video}" allowfullscreen></iframe>`;
+  `<iframe id="videoFrame" src="${getEmbed(rawVideo)}" allowfullscreen></iframe>`;
 
 /* ===== DETAILS ===== */
 document.getElementById("title").textContent = title;
@@ -135,7 +145,7 @@ document.getElementById("meta").textContent =
   `${country} • ${year} • ${duration}`;
 document.getElementById("synopsis").textContent = synopsis;
 
-/* ===== SHARE (NO VIDEO URL) ===== */
+/* ===== SHARE ===== */
 const HOME_URL = location.origin + "/movies.html";
 
 const shareText =
@@ -151,55 +161,29 @@ Watch on BUSANSO:
 ${HOME_URL}`;
 
 function shareWA(){
-  location.href =
-    `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  location.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
 }
-
 function shareMail(){
-  location.href =
-    `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(shareText)}`;
+  location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(shareText)}`;
 }
-
 function shareTT(){
-  location.href =
-    `https://www.tiktok.com/share?text=${encodeURIComponent(shareText)}`;
+  location.href = `https://www.tiktok.com/share?text=${encodeURIComponent(shareText)}`;
 }
-
 function copyShare(){
   navigator.clipboard.writeText(shareText);
   alert("Copied");
 }
 
-/* ===== MOBILE FULLSCREEN + LANDSCAPE ===== */
+/* ===== MOBILE FULLSCREEN ===== */
 function isMobile(){
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 
-function enterFullscreenLandscape(){
-  const iframe = document.getElementById("videoFrame");
-  if(!iframe) return;
-
-  if(iframe.requestFullscreen){
-    iframe.requestFullscreen();
-  }else if(iframe.webkitRequestFullscreen){
-    iframe.webkitRequestFullscreen();
-  }
-
-  if(screen.orientation && screen.orientation.lock){
-    screen.orientation.lock("landscape").catch(()=>{});
-  }
-}
-
-document.addEventListener("fullscreenchange",()=>{
-  if(!document.fullscreenElement){
-    if(screen.orientation && screen.orientation.unlock){
-      screen.orientation.unlock();
-    }
-  }
-});
-
 if(isMobile()){
-  setTimeout(enterFullscreenLandscape, 800);
+  setTimeout(()=>{
+    const f = document.getElementById("videoFrame");
+    if(f?.requestFullscreen) f.requestFullscreen();
+  }, 800);
 }
 </script>
 
