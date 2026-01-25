@@ -4,46 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Enter PIN</title>
-
 <style>
-body{
-  font-family:Arial,sans-serif;
-  background:#111;
-  color:#fff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
-.card{
-  background:#1a1a1a;
-  padding:30px;
-  border-radius:10px;
-  max-width:380px;
-  width:100%;
-  text-align:center;
-}
-input{
-  width:90%;
-  padding:12px;
-  margin:15px 0;
-  border-radius:6px;
-  border:none;
-}
-button{
-  padding:12px 25px;
-  background:#ff7a18;
-  border:none;
-  border-radius:6px;
-  font-weight:bold;
-  cursor:pointer;
-}
-#msg{margin-top:15px;font-weight:bold}
+body {font-family: Arial,sans-serif;background:#111;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;}
+.card {background:#1a1a1a;padding:30px;border-radius:10px;width:100%;max-width:380px;text-align:center;}
+input {width:90%;padding:12px;margin:15px 0;border-radius:6px;border:none;font-size:16px;}
+button {padding:12px 25px;background:#ff7a18;border:none;border-radius:6px;font-weight:bold;cursor:pointer;}
+button:hover { background:#ffb400; }
+#msg {margin-top:15px;font-weight:bold;}
 </style>
 </head>
-
 <body>
-
 <div class="card">
   <h2>Enter Your PIN</h2>
   <input id="pinInput" placeholder="Enter PIN">
@@ -51,12 +21,11 @@ button{
   <div id="msg"></div>
 </div>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
 <script>
-firebase.initializeApp({
+// Firebase Config
+const firebaseConfig = {
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain: "busanso-pins.firebaseapp.com",
   databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
@@ -64,16 +33,11 @@ firebase.initializeApp({
   storageBucket: "busanso-pins.firebasestorage.app",
   messagingSenderId: "137040014808",
   appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-});
-
+};
+firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-/* AUTO LOGIN */
-const savedPIN = localStorage.getItem("activePIN");
-if(savedPIN){
-  location.href = "watch.html";
-}
-
+// Get / generate device ID
 function getDeviceId(){
   let id = localStorage.getItem("deviceId");
   if(!id){
@@ -83,61 +47,52 @@ function getDeviceId(){
   return id;
 }
 
+// Auto-redirect if PIN exists
+const storedPIN = localStorage.getItem("activePIN");
+if(storedPIN) {
+  window.location.href = "watch.html";
+}
+
 async function login(){
-  const pin = pinInput.value.trim();
+  const pin = document.getElementById("pinInput").value.trim();
   const msg = document.getElementById("msg");
   msg.style.color = "#ffb400";
 
   if(!pin){ msg.textContent="Enter PIN"; return; }
 
-  const snap = await db.ref("pins/" + pin).get();
-  if(!snap.exists()){
-    msg.textContent = "Incorrect PIN";
-    return;
+  try{
+    const snapshot = await db.ref("pins/"+pin).get();
+    if(!snapshot.exists()){
+      msg.textContent="Incorrect PIN"; return;
+    }
+
+    const data = snapshot.val();
+    const now = Date.now();
+    const deviceId = getDeviceId();
+
+    // Expired PIN
+    if(data.expiry && now > data.expiry){
+      msg.textContent="Your subscription has expired";
+      return;
+    }
+
+    // Bind device if first login
+    if(!data.activeDevice){
+      await db.ref("pins/"+pin+"/activeDevice").set(deviceId);
+    }
+
+    // Success
+    localStorage.setItem("activePIN", pin);
+    localStorage.setItem("activePackage", JSON.stringify(data));
+    msg.style.color="#00ff66";
+    msg.textContent="Login successful! Redirecting…";
+    setTimeout(()=>window.location.href="watch.html",1200);
+
+  } catch(err){
+    console.error(err);
+    msg.textContent="Network error. Try again.";
   }
-
-  const data = snap.val();
-  const now = Date.now();
-  const deviceId = getDeviceId();
-
-  /* Create expiry ONLY ONCE */
-  if(!data.expiry){
-    const days = {
-      Weekly:7,
-      Monthly:30,
-      "Half-Year":180,
-      Annual:365
-    }[data.type];
-
-    data.expiry = now + days * 86400000;
-
-    await db.ref("pins/" + pin).update({
-      expiry: data.expiry,
-      activeDevice: deviceId
-    });
-  }
-
-  /* Expired */
-  if(now > data.expiry){
-    msg.textContent = "PIN expired";
-    return;
-  }
-
-  /* Device lock (ALLOW SAME DEVICE) */
-  if(data.activeDevice && data.activeDevice !== deviceId){
-    msg.textContent = "PIN already used on another device";
-    return;
-  }
-
-  /* Bind device */
-  await db.ref("pins/" + pin + "/activeDevice").set(deviceId);
-
-  localStorage.setItem("activePIN", pin);
-  msg.style.color="#00ff66";
-  msg.textContent="Success! Redirecting…";
-  setTimeout(()=>location.href="watch.html",1200);
 }
 </script>
-
 </body>
 </html>
