@@ -1,83 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>User Account Info</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account</title>
 
 <style>
-:root{
-  --orange:#ff8a00;
-  --teal:#00c9a7;
-  --dark:#0f172a;
-  --glass:rgba(255,255,255,.14);
+body{
+  background:#fcb69f;
+  font-family:Poppins,Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',system-ui,sans-serif;}
-body{min-height:100vh;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;align-items:center;justify-content:center;padding:10px;color:#1f2933;}
-.card{width:100%;max-width:500px;background:rgba(255,255,255,.9);border-radius:25px;padding:25px 20px;box-shadow:0 20px 50px rgba(0,0,0,.3);}
-.header{text-align:center;margin-bottom:15px;}
-.header h1{font-size:2.2rem;font-weight:900;color:#ff8a00;}
-.header small{display:block;font-size:1rem;margin-top:4px;opacity:.8;}
-.newyear{text-align:center;background:linear-gradient(90deg,#00c9a7,#92fe9d);color:#064635;border-radius:16px;padding:12px;font-size:1rem;font-weight:700;margin-bottom:15px;}
-.info-box{background:#f8fafc;border-radius:16px;padding:15px 16px;margin-bottom:15px;}
-.info-row{display:flex;justify-content:space-between;padding:10px 0;font-size:1.05rem;border-bottom:1px dashed #e5e7eb;}
-.info-row:last-child{border-bottom:none}
-.label{opacity:.8;font-size:1rem;}
-.value{font-weight:800;font-size:1rem;}
-.expiry{color:#059669;font-size:1.1rem;font-weight:700;}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px;}
-.btn{padding:14px 10px;border-radius:16px;font-size:1rem;font-weight:800;text-align:center;text-decoration:none;color:#fff;display:block;}
-.watch{background:linear-gradient(135deg,#ff9f1c,#ffbf69);}
-.series{background:linear-gradient(135deg,#00c9a7,#2ec4b6);}
-.renew{background:linear-gradient(135deg,#4361ee,#4895ef);}
-.donate{background:linear-gradient(135deg,#ef476f,#f72585);}
-.countdown{text-align:center;font-weight:800;margin-top:15px;font-size:1.3rem;color:#ff3d00;}
-footer{text-align:center;font-size:.85rem;margin-top:15px;opacity:.7;}
+.card{
+  background:#fff;
+  padding:25px;
+  border-radius:20px;
+  max-width:500px;
+  width:100%;
+  text-align:center;
+}
+.countdown{font-size:1.3rem;font-weight:bold;color:#ff3d00}
 </style>
-
 </head>
+
 <body>
 
 <div class="card">
-  <div class="header">
-    <h1>🎉 OMUSANSO</h1>
-    <small id="planLabel">Loading...</small>
-  </div>
-
-  <div class="newyear">
-    May this year bring you joy, success & endless entertainment 🎬✨
-  </div>
-
-  <div class="info-box">
-    <div class="info-row">
-      <span class="label">Password</span>
-      <span class="value">••••••••</span>
-    </div>
-    <div class="info-row">
-      <span class="label">Expires In</span>
-      <span class="value expiry countdown" id="timeLeft">Loading...</span>
-    </div>
-  </div>
-
-  <div class="actions">
-    <a href="movies.html" class="btn watch">🎬 Movies</a>
-    <a href="series.html" class="btn series">📺 Series</a>
-    <a href="packages.html" class="btn renew">⏳ Extend</a>
-    <a href="donate.html" class="btn donate">💖 Donate</a>
-     <a href="busansocity.html" class="btn donate">💖 Join Busanso City</a>
-  </div>
-
-  <div class="countdown" id="countdownDisplay"></div>
-  <footer>💫 Thank you for being part of Busanso Nation</footer>
+  <h1>🎉 OMUSANSO</h1>
+  <p id="plan">Loading…</p>
+  <div class="countdown" id="timeLeft"></div>
 </div>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-/* 🔥 Firebase init (ONLY once) */
 firebase.initializeApp({
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain: "busanso-pins.firebaseapp.com",
@@ -89,85 +49,54 @@ firebase.initializeApp({
 });
 
 const db = firebase.database();
-
-/* 📱 Device ID (same as login page) */
-function getDeviceId(){
-  let id = localStorage.getItem("deviceId");
-  if(!id){
-    id = "device_" + Math.random().toString(36).slice(2);
-    localStorage.setItem("deviceId", id);
-  }
-  return id;
-}
-
 const pin = localStorage.getItem("activePIN");
-const deviceId = getDeviceId();
+const deviceId = localStorage.getItem("deviceId");
 
-/* 🚪 No PIN → packages */
-if(!pin){
-  location.href = "packages.html";
+if(!pin || !deviceId){
+  location.href="login.html";
 }
 
-/* 🔍 VERIFY ONLY — NO WRITES */
-db.ref("pins/" + pin).get().then(snapshot => {
-
-  if(!snapshot.exists()){
-    logout("Invalid PIN");
+db.ref("pins/" + pin).get().then(snap=>{
+  if(!snap.exists()){
+    localStorage.removeItem("activePIN");
+    location.href="login.html";
     return;
   }
 
-  const data = snapshot.val();
+  const data = snap.val();
   const now = Date.now();
 
-  /* ❌ Expired */
-  if(!data.expiry || now > data.expiry){
-    logout("PIN expired");
+  if(data.activeDevice !== deviceId){
+    localStorage.removeItem("activePIN");
+    location.href="login.html";
     return;
   }
 
-  /* 🔒 Device mismatch */
-  if(data.activeDevice && data.activeDevice !== deviceId){
-    logout("PIN active on another device");
+  if(now > data.expiry){
+    localStorage.removeItem("activePIN");
+    location.href="packages.html";
     return;
   }
 
-  /* ✅ Success — display info */
-  document.getElementById("planLabel").textContent = data.type || "Premium";
+  document.getElementById("plan").textContent = data.type + " Plan";
 
-  const timeLeftEl = document.getElementById("timeLeft");
-
-  function updateCountdown(){
+  function tick(){
     const diff = data.expiry - Date.now();
-
     if(diff <= 0){
-      timeLeftEl.textContent = "Expired";
-      logout("Session expired");
+      localStorage.removeItem("activePIN");
+      location.href="packages.html";
       return;
     }
-
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-
-    timeLeftEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor(diff%86400000/3600000);
+    const m = Math.floor(diff%3600000/60000);
+    document.getElementById("timeLeft").textContent =
+      `${d}d ${h}h ${m}m left`;
   }
 
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-}).catch(err => {
-  console.error(err);
-  logout("Network error");
+  tick();
+  setInterval(tick,60000);
 });
-
-/* 🚪 LOGOUT */
-function logout(msg){
-  if(msg) alert(msg);
-  localStorage.removeItem("activePIN");
-  localStorage.removeItem("activePackage");
-  location.href = "packages.html";
-}
 </script>
 
 </body>
