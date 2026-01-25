@@ -83,6 +83,8 @@ async function login(){
 
     // Success
     localStorage.setItem("activePIN", pin);
+localStorage.setItem("pinExpiry", data.expiry);
+
     localStorage.setItem("activePackage", JSON.stringify(data));
     msg.style.color="#00ff66";
     msg.textContent="Login successful! Redirecting…";
