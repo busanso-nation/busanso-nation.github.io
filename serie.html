@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BUSANSO – Series</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="series-data.js"></script>
+
+<style>
+body{margin:0;background:#000;color:#fff;font-family:Arial}
+
+/* PLAYER */
+.player iframe{
+  width:100%;
+  height:56vw;
+  max-height:70vh;
+  border:none;
+}
+
+/* INFO */
+.details{padding:16px}
+.meta{color:#aaa;font-size:13px}
+
+/* BUTTONS */
+.actions button{
+  width:100%;
+  margin-top:8px;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  font-size:14px;
+  cursor:pointer;
+}
+.watch{background:#e50914;color:#fff}
+.share{background:#222;color:#fff}
+
+/* SECTIONS */
+.section{margin-top:20px}
+.section h3{margin-bottom:10px}
+
+/* EPISODES */
+.episodes{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+}
+.episode{
+  padding:10px;
+  background:#181818;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:14px;
+}
+.episode:hover{background:#e50914}
+
+/* CAST */
+.cast{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.cast span{
+  background:#181818;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+/* RECOMMENDATIONS */
+.reco{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.reco img{
+  width:100%;
+  border-radius:8px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔐 PIN + EXPIRY CHECK -->
+<script>
+const pin = localStorage.getItem("activePIN");
+const exp = localStorage.getItem("pinExpiry");
+
+if(!pin || !exp || Date.now() > Number(exp)){
+  localStorage.clear();
+  location.replace("login.html");
+}
+</script>
+
+<div class="player" id="player"></div>
+
+<div class="details">
+  <h2 id="title"></h2>
+  <p class="meta" id="meta"></p>
+
+  <div class="actions">
+    <button class="watch" onclick="watchNow()">▶ Watch Now</button>
+    <button class="share" onclick="share()">🔗 Share</button>
+  </div>
+
+  <!-- SYNOPSIS -->
+  <div class="section">
+    <h3>Synopsis</h3>
+    <p id="synopsis"></p>
+  </div>
+
+  <!-- CAST -->
+  <div class="section">
+    <h3>Cast</h3>
+    <div class="cast" id="cast"></div>
+  </div>
+
+  <!-- EPISODES -->
+  <div class="section">
+    <h3>Episodes</h3>
+    <div class="episodes" id="episodes"></div>
+  </div>
+
+  <!-- RECOMMENDATIONS -->
+  <div class="section">
+    <h3>Watch Next</h3>
+    <div class="reco" id="reco"></div>
+  </div>
+</div>
+
+<script>
+const q = new URLSearchParams(location.search);
+const id = q.get("id");
+
+if(!id){
+  location.replace("series.html");
+}
+
+const serie = SERIES.find(s=>s.id===id);
+
+if(!serie){
+  location.replace("series.html");
+}
+
+/* BASIC INFO */
+document.getElementById("title").textContent = serie.title;
+document.getElementById("meta").textContent =
+  `${serie.country} • ${serie.genre} • ${serie.year}`;
+
+document.getElementById("synopsis").textContent = serie.synopsis;
+
+/* CAST */
+const castBox=document.getElementById("cast");
+serie.cast.forEach(c=>{
+  const s=document.createElement("span");
+  s.textContent=c;
+  castBox.appendChild(s);
+});
+
+/* PLAYER */
+function play(video){
+  document.getElementById("player").innerHTML =
+    `<iframe src="${video}" allowfullscreen></iframe>`;
+}
+
+/* WATCH NOW */
+function watchNow(){
+  play(serie.episodes[0].video);
+}
+
+/* EPISODES */
+const epBox=document.getElementById("episodes");
+serie.episodes.forEach((ep,i)=>{
+  const d=document.createElement("div");
+  d.className="episode";
+  d.textContent=`Episode ${i+1} • ${ep.title}`;
+  d.onclick=()=>play(ep.video);
+  epBox.appendChild(d);
+});
+
+/* SHARE */
+function share(){
+  const text =
+`${serie.title}
+${serie.country} • ${serie.genre}
+
+${serie.synopsis}
+
+Watch on BUSANSO`;
+
+  if(navigator.share){
+    navigator.share({ text, url: location.origin });
+  }else{
+    navigator.clipboard.writeText(location.origin);
+    alert("Link copied");
+  }
+}
+
+/* 🎯 RECOMMENDATIONS */
+const recoBox=document.getElementById("reco");
+
+SERIES
+  .filter(s=>s.genre===serie.genre && s.id!==serie.id)
+  .slice(0,4)
+  .forEach(s=>{
+    const d=document.createElement("div");
+    d.innerHTML=`<img src="${s.poster}" loading="lazy">`;
+    d.onclick=()=>{
+      location.href=`serie.html?id=${s.id}`;
+    };
+    recoBox.appendChild(d);
+  });
+
+/* AUTOPLAY FIRST EPISODE */
+play(serie.episodes[0].video);
+</script>
+
+</body>
+</html>
