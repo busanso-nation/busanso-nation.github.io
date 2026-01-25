@@ -79,7 +79,6 @@ if(savedKey !== ADMIN_KEY){
 }
 </script>
 
-
 <h1>🔐 Busanso Admin – PIN Manager</h1>
 <small>Project ID: <b>busanso-pins</b></small>
 
@@ -127,9 +126,15 @@ const DAYS = {
   "Annual": 365
 };
 
-/* 🔢 PIN GENERATOR */
-function randomPin(){
-  return Math.random().toString(36).substring(2,8).toUpperCase();
+/* 🔤 NAME-BASED PIN GENERATOR */
+function namePin(){
+  const words = [
+    "Luna","Nova","Atlas","Echo","Orion",
+    "Vega","Zen","Astra","Pulse","Halo"
+  ];
+  const word = words[Math.floor(Math.random() * words.length)];
+  const number = Math.floor(100 + Math.random() * 900);
+  return word + number;
 }
 
 /* ➕ CREATE PIN */
@@ -138,11 +143,11 @@ function generatePin(){
   const custom = Number(document.getElementById("customDays").value);
   const days = custom > 0 ? custom : DAYS[type];
 
-  const pin = type.substring(0,2).toUpperCase() + "-" + randomPin();
+  const pin = namePin(); // ✅ FIXED LINE (no dash, no prefix)
   const now = Date.now();
   const expiry = now + days * 24 * 60 * 60 * 1000;
 
-  db.ref("pins/"+pin).set({
+  db.ref("pins/" + pin).set({
     type,
     days,
     createdAt: now,
@@ -165,7 +170,7 @@ function loadPins(){
       const p = data[pin];
       const expired = Date.now() > p.expiry;
       const div = document.createElement("div");
-      div.className = "pin"+(expired?" expired":"");
+      div.className = "pin" + (expired ? " expired" : "");
       div.innerHTML = `
         <div>
           <b>${pin}</b><br>
@@ -180,8 +185,8 @@ function loadPins(){
 
 /* 🗑 DELETE PIN */
 function deletePin(pin){
-  if(confirm("Delete "+pin+"?")){
-    db.ref("pins/"+pin).remove();
+  if(confirm("Delete " + pin + "?")){
+    db.ref("pins/" + pin).remove();
   }
 }
 
@@ -191,7 +196,7 @@ function removeExpired(){
     const data = snap.val() || {};
     Object.keys(data).forEach(pin=>{
       if(Date.now() > data[pin].expiry){
-        db.ref("pins/"+pin).remove();
+        db.ref("pins/" + pin).remove();
       }
     });
     alert("Expired PINs removed");
