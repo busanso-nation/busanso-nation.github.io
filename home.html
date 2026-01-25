@@ -2,164 +2,235 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Busanso Nation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Busanso - Free Movies & Series</title>
-<link rel="icon" type="image/png" href="/uploads/png/logo.png">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/web/css/style.css">
-<style>
-body {font-family: 'Poppins', sans-serif; background:#0f172a; color:#fff;}
-.header {text-align:center; margin:20px 0;}
-.header img {height:60px;}
-.carousel-inner {display:flex;}
-.card-item {flex:0 0 auto; width:170px; margin-right:10px; cursor:pointer;}
-.card-item img {width:100%; border-radius:10px;}
-.card-item span {display:block; text-align:center; margin-top:5px; font-weight:600;}
-.badge {position:absolute; top:5px; left:5px; background:#ff8a00; padding:2px 6px; border-radius:5px; font-size:0.7rem;}
-.badge.premium {background:#ff3d00;}
-.app-popup {position:fixed; bottom:0; left:0; width:100%; background:linear-gradient(90deg,#00c9a7,#92fe9d); color:#064635; text-align:center; padding:15px; display:flex; justify-content:center; align-items:center; z-index:999;}
-.app-popup button {margin-left:15px; background:#fff; color:#064635; border:none; padding:10px 15px; border-radius:10px; font-weight:600; cursor:pointer;}
 
-</style>
-
-
-</head>
-<body>
-
-<div class="header">
-  <img src="/uploads/png/logo.png" alt="Busanso Logo">
-  <h1>🎬 Busanso Nation</h1>
-  <small>Free & Premium Movies and Series</small>
-</div>
-<div class="top-actions">
-  <a href="packages.html" class="btn subscribe-btn">⭐ Subscribe</a>
-  <a href="login.html" class="btn login-btn">🔐 Login</a>
-    <a href="about.html" class="btn about-btn">🔐 About Us</a>
-</div>
-
+<script src="movies-data.js"></script>
+<script src="series-data.js"></script>
 
 <style>
+body{
+  margin:0;
+  background:#0b0b0b;
+  color:#fff;
+  font-family:'Poppins',sans-serif;
+}
+
+/* HEADER */
+.header{
+  padding:20px;
+  text-align:center;
+}
+.header img{height:55px}
+.header h1{margin:8px 0}
+
+/* TOP BUTTONS */
 .top-actions{
   display:flex;
+  justify-content:center;
   gap:12px;
+  margin-bottom:18px;
 }
-
 .btn{
-  padding:10px 18px;
-  border-radius:6px;
+  padding:12px 22px;
+  border-radius:30px;
   font-weight:600;
   text-decoration:none;
-  color:#fff;
   font-size:14px;
+  color:#fff;
+}
+.subscribe{background:#e50914}
+.login{background:#1f2937}
+.about{background:#111;border:1px solid #333}
+
+/* ===== MOVING POSTER CAROUSEL ===== */
+.carousel-wrap{
+  overflow:hidden;
+  padding:10px 0 25px;
+}
+.carousel-track{
+  display:flex;
+  gap:16px;
+  width:max-content;
+  animation:scroll 40s linear infinite;
+}
+.carousel-track img{
+  height:180px;
+  border-radius:14px;
+  box-shadow:0 6px 18px rgba(0,0,0,.6);
 }
 
-.subscribe-btn{
-  background:#ff8a00;
+/* Smooth infinite loop */
+@keyframes scroll{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
 }
 
-.login-btn{
-  background:#0f172a;
+/* SECTIONS */
+.section{
+  padding:15px;
+}
+.section h3{
+  margin-bottom:10px;
+}
+
+/* SLIDER */
+.slider{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+}
+.slider::-webkit-scrollbar{display:none}
+
+/* CARD */
+.card{
+  min-width:160px;
+  cursor:pointer;
+}
+.card img{
+  width:100%;
+  border-radius:10px;
+}
+.card span{
+  display:block;
+  text-align:center;
+  margin-top:6px;
+  font-size:14px;
+  font-weight:600;
+}
+
+/* BADGES */
+.badge{
+  position:absolute;
+  top:8px;
+  left:8px;
+  background:#22c55e;
+  font-size:11px;
+  padding:3px 8px;
+  border-radius:6px;
+}
+.badge.premium{background:#e50914}
+
+/* LOCKED */
+.locked{
+  filter:grayscale(1) brightness(.45);
+}
+.lock-icon{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:30px;
 }
 </style>
+</head>
 
+<body>
 
-<div class="container">
-  <h3>Featured Movies</h3>
-  <div class="d-flex overflow-auto mb-4" id="moviesCarousel">
-    <!-- Movie Cards -->
-    <div class="card-item" data-id="101" data-type="free" data-content="movie">
-      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7FGHjsmUm--_AQEacnlaaXzQL4SgNGpTROA&s" alt="Movie 1"><span class="badge">FREE</span></div>
-      <span>Movie 1</span>
-    </div>
-    <div class="card-item" data-id="102" data-type="premium" data-content="movie">
-      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc_9ujXTn8gs7wt9rhuBCnyzUWxQgfCaSnhQ&s" alt="Movie 2"><span class="badge premium">PREMIUM</span></div>
-      <span>Movie 2</span>
-    </div>
-    <div class="card-item" data-id="103" data-type="free" data-content="movie">
-      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ04RktM_AQJOeN0IC7KbW0gtvrVzWXkYaT8g&s" alt="Movie 3"><span class="badge">FREE</span></div>
-      <span>Movie 3</span>
-    </div>
-    <div class="card-item" data-id="104" data-type="premium" data-content="movie">
-      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUzJDPAAZXHcFD7gPtwIjylQj2EObFaYo0tQ&s" alt="Movie 4"><span class="badge premium">PREMIUM</span></div>
-      <span>Movie 4</span>
-    </div>
-      <div class="card-item" data-id="104" data-type="premium" data-content="movie">
-      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUzJDPAAZXHcFD7gPtwIjylQj2EObFaYo0tQ&s" alt="Movie 5"><span class="badge premium">PREMIUM</span></div>
-      <span>Movie 5</span>
-    </div>
-  </div>
-
-  <h3>Featured Series</h3>
-  <div class="d-flex overflow-auto mb-4" id="seriesCarousel">
-    <!-- Series Cards -->
-    <div class="card-item" data-id="201" data-type="free" data-content="series">
-      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6ZQskG--26YfJDi79fGH1Q0DAdCXRzeu3FA&s" alt="Series 1"><span class="badge">FREE</span></div>
-      <span>Series 1</span>
-    </div>
-    <div class="card-item" data-id="202" data-type="premium" data-content="series">
-      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM-b-CLRuf8M99YVxrbsbPekfuCXjzrDEHPg&s" alt="Series 2"><span class="badge premium">PREMIUM</span></div>
-      <span>Series 2</span>
-    </div>
-    <div class="card-item" data-id="203" data-type="free" data-content="series">
-      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRdK9C5sZcezaHe9lYvGfVyUav6yCRxTB_lA&s" alt="Series 3"><span class="badge">FREE</span></div>
-      <span>Series 3</span>
-    </div>
-    <div class="card-item" data-id="204" data-type="premium" data-content="series">
-      <div style="position:relative;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRdK9C5sZcezaHe9lYvGfVyUav6yCRxTB_lA&s" alt="Series 4"><span class="badge premium">PREMIUM</span></div>
-      <span>Series 4</span>
-    </div>
-  </div>
+<!-- HEADER -->
+<div class="header">
+  <img src="/uploads/png/logo.png">
+  <h1>Busanso Nation</h1>
+  <small>Here we take away your stress with Movies & Series</small>
 </div>
 
-<!-- App download popup -->
-<div class="app-popup">
-  <span>Download Busanso App for a better experience!</span>
-  <button onclick="window.open('https://drive.google.com/file/d/1Y2u_CHY_hOqXq7f0C3rC0Cp1ZEnKkZfx/view?usp=drivesdk','_blank')">Download</button>
-  <button onclick="this.parentElement.style.display='none'">Close</button>
+<!-- ACTION BUTTONS -->
+<div class="top-actions">
+  <a href="packages.html" class="btn subscribe">⭐ Subscribe</a>
+  <a href="login.html" class="btn login">🔐 Login</a>
+  <a href="about.html" class="btn about">ℹ About</a>
 </div>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<!-- ===== AUTO MOVING POSTER CAROUSEL ===== -->
+<div class="carousel-wrap">
+  <div class="carousel-track" id="carouselTrack"></div>
+</div>
+
+<!-- LATEST MOVIES -->
+<div class="section">
+  <h3>Latest Movies</h3>
+  <div class="slider" id="moviesBox"></div>
+</div>
+
+<!-- LATEST SERIES -->
+<div class="section">
+  <h3>Latest Series</h3>
+  <div class="slider" id="seriesBox"></div>
+</div>
+
 <script>
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
-  authDomain: "busanso-pins.firebaseapp.com",
-  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
-  projectId: "busanso-pins",
-  storageBucket: "busanso-pins.firebasestorage.app",
-  messagingSenderId: "137040014808",
-  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
+/* ===== PIN CHECK ===== */
 const pin = localStorage.getItem("activePIN");
-const deviceId = localStorage.getItem("deviceId") || "device-" + Math.random().toString(36).substr(2,9);
-localStorage.setItem("deviceId", deviceId);
+const exp = localStorage.getItem("pinExpiry");
+const pinValid = pin && exp && Date.now() < Number(exp);
 
-// Card click logic
-document.querySelectorAll('.card-item').forEach(card => {
-  card.addEventListener('click', () => {
-    const id = card.getAttribute('data-id');
-    const type = card.getAttribute('data-type');
+/* SORT LATEST */
+const latestMovies = [...MOVIES].sort((a,b)=>b.added - a.added);
+const latestSeries = [...SERIES].sort((a,b)=>b.added - a.added);
 
-    if(type === 'free') {
-      window.location.href = `details.html?id=${id}`;
-    } else {
-      if(pin) {
-        window.location.href = `watch.html?id=${id}`;
-      } else {
-        window.location.href = 'packages.html';
-      }
+/* ===== MOVING CAROUSEL (MIXED CONTENT) ===== */
+const carousel = document.getElementById("carouselTrack");
+const mixed = [...latestMovies.slice(0,6), ...latestSeries.slice(0,6)];
+
+/* duplicate for seamless loop */
+[...mixed, ...mixed].forEach(item=>{
+  const img=document.createElement("img");
+  img.src=item.poster;
+  carousel.appendChild(img);
+});
+
+/* ===== MOVIE CARDS ===== */
+const movieBox=document.getElementById("moviesBox");
+latestMovies.forEach(m=>{
+  const d=document.createElement("div");
+  d.className="card";
+  d.innerHTML=`
+    <div style="position:relative">
+      <img src="${m.poster}" class="${m.type==='premium'&&!pinValid?'locked':''}">
+      <span class="badge ${m.type==='premium'?'premium':''}">
+        ${m.type==='premium'?'PREMIUM':'FREE'}
+      </span>
+      ${m.type==='premium'&&!pinValid?'<div class="lock-icon">🔒</div>':''}
+    </div>
+    <span>${m.title}</span>
+  `;
+  d.onclick=()=>{
+    if(m.type==="free" || pinValid){
+      location.href=`movie.html?id=${m.id}`;
+    }else{
+      location.href="packages.html";
     }
-  });
+  };
+  movieBox.appendChild(d);
+});
+
+/* ===== SERIES CARDS ===== */
+const seriesBox=document.getElementById("seriesBox");
+latestSeries.forEach(s=>{
+  const d=document.createElement("div");
+  d.className="card";
+  d.innerHTML=`
+    <div style="position:relative">
+      <img src="${s.poster}" class="${s.type==='premium'&&!pinValid?'locked':''}">
+      <span class="badge ${s.type==='premium'?'premium':''}">
+        ${s.type==='premium'?'PREMIUM':'FREE'}
+      </span>
+      ${s.type==='premium'&&!pinValid?'<div class="lock-icon">🔒</div>':''}
+    </div>
+    <span>${s.title}</span>
+  `;
+  d.onclick=()=>{
+    if(s.type==="free" || pinValid){
+      location.href=`serie.html?id=${s.id}`;
+    }else{
+      location.href="packages.html";
+    }
+  };
+  seriesBox.appendChild(d);
 });
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 </body>
 </html>
