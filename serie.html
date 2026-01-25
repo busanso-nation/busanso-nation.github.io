@@ -8,6 +8,11 @@
 <script src="series-data.js"></script>
 
 <style>
+*{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
 body{
   margin:0;
   background:#000;
@@ -26,11 +31,7 @@ body{
 
 /* INFO */
 .details{padding:16px}
-.meta{
-  color:#aaa;
-  font-size:14px;
-  margin-bottom:10px;
-}
+.meta{color:#aaa;font-size:14px;margin-bottom:10px}
 
 /* ACTIONS */
 .actions button{
@@ -44,18 +45,15 @@ body{
   cursor:pointer;
 }
 .watch{background:#e50914;color:#fff}
-.share{background:#222;color:#fff}
+.secondary{background:#222;color:#fff}
 
 /* SECTIONS */
 .section{margin-top:20px}
 .section h3{margin-bottom:10px}
 
 /* EPISODES */
-.episodes{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:8px;
-}
+#episodes{display:none}
+.episodes{display:grid;gap:8px}
 .episode{
   padding:10px;
   background:#181818;
@@ -65,16 +63,41 @@ body{
 .episode:hover{background:#e50914}
 
 /* CAST */
-.cast{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
+.cast{display:flex;flex-wrap:wrap;gap:8px}
 .cast span{
   background:#181818;
   padding:6px 10px;
   border-radius:20px;
   font-size:12px;
+}
+
+/* SHARE MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.modal-box{
+  background:#111;
+  padding:20px;
+  border-radius:12px;
+  width:90%;
+}
+.modal-box button{margin-top:8px}
+
+/* SUGGESTIONS */
+.suggestions{
+  display:grid;
+  gap:8px;
+}
+.suggestions div{
+  background:#181818;
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -85,10 +108,8 @@ body{
 <script>
 const pin = localStorage.getItem("activePIN");
 const exp = Number(localStorage.getItem("pinExpiry"));
-
 if(!pin || !exp || Date.now() > exp){
-  localStorage.removeItem("activePIN");
-  localStorage.removeItem("pinExpiry");
+  localStorage.clear();
   location.replace("login.html");
 }
 </script>
@@ -101,123 +122,142 @@ if(!pin || !exp || Date.now() > exp){
 
   <div class="actions">
     <button class="watch" onclick="watchNow()">▶ Watch Now</button>
-    <button class="share" onclick="shareWA()">📲 Share on WhatsApp</button>
-    <button class="share" onclick="shareIMO()">📩 Share on IMO</button>
+    <button class="secondary" onclick="toggleShare()">📤 Share</button>
+    <button class="secondary" onclick="toggleEpisodes()">📺 Episodes</button>
   </div>
 
-  <!-- SYNOPSIS -->
   <div class="section">
     <h3>Synopsis</h3>
     <p id="synopsis"></p>
   </div>
 
-  <!-- CAST -->
   <div class="section">
     <h3>Cast</h3>
     <div class="cast" id="cast"></div>
   </div>
 
-  <!-- EPISODES -->
-  <div class="section">
+  <div class="section" id="episodes">
     <h3>Episodes</h3>
-    <div class="episodes" id="episodes"></div>
+    <div class="episodes" id="episodeList"></div>
+  </div>
+
+  <div class="section">
+    <h3>What to Watch Next</h3>
+    <div class="suggestions" id="suggestions"></div>
+  </div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="modal" id="shareModal">
+  <div class="modal-box">
+    <h3>Share</h3>
+    <button onclick="shareWA()">WhatsApp</button>
+    <button onclick="shareIMO()">IMO</button>
+    <button onclick="shareTikTok()">TikTok</button>
+    <button onclick="copyShare()">Copy Link</button>
+    <button onclick="toggleShare()">Close</button>
   </div>
 </div>
 
 <script>
-/* ===== GET SERIES ===== */
-const q = new URLSearchParams(location.search);
-const id = q.get("id");
-
-if(!id) location.replace("series.html");
-
-const serie = SERIES.find(s => s.id === id);
+/* ===== SERIES ===== */
+const id=new URLSearchParams(location.search).get("id");
+const serie=SERIES.find(s=>s.id===id);
 if(!serie) location.replace("series.html");
 
-/* ===== INFO ===== */
-title.textContent = serie.title;
-meta.textContent = `${serie.country} • ${serie.genre} • ${serie.year}`;
-synopsis.textContent = serie.synopsis;
+title.textContent=serie.title;
+meta.textContent=`${serie.country} • ${serie.genre} • ${serie.year}`;
+synopsis.textContent=serie.synopsis;
 
-/* ===== CAST ===== */
+/* CAST */
 serie.cast.forEach(c=>{
   const s=document.createElement("span");
   s.textContent=c;
   cast.appendChild(s);
 });
 
-/* ===== VIDEO NORMALIZER ===== */
-function embed(url){
-  if(url.includes("youtube.com/watch")){
-    return "https://www.youtube.com/embed/" +
-      new URL(url).searchParams.get("v");
+/* EMBED NORMALIZER */
+function embed(u){
+  if(/youtube\.com|youtu\.be/.test(u)){
+    const id=u.split("v=")[1]?.split("&")[0]||u.split("/").pop();
+    return `https://www.youtube.com/embed/${id}`;
   }
-  if(url.includes("youtu.be/")){
-    return "https://www.youtube.com/embed/" +
-      url.split("youtu.be/")[1];
+  if(u.includes("vimeo.com"))
+    return `https://player.vimeo.com/video/${u.split("/").pop()}`;
+  if(u.includes("drive.google.com")){
+    const id=u.match(/\/d\/([^/]+)/);
+    return `https://drive.google.com/file/d/${id[1]}/preview`;
   }
-  if(url.includes("vimeo.com")){
-    return "https://player.vimeo.com/video/" +
-      url.split("/").pop();
-  }
-  if(url.includes("drive.google.com")){
-    const id=url.match(/\/d\/([^/]+)/);
-    if(id) return `https://drive.google.com/file/d/${id[1]}/preview`;
-  }
-  return url;
+  return u;
 }
 
-/* ===== PLAYER ===== */
-function play(video){
-  player.innerHTML =
-    `<iframe id="videoFrame" src="${embed(video)}" allowfullscreen></iframe>`;
-  forceLandscape();
+/* PLAYER */
+function play(video,fs=false){
+  player.innerHTML=`<iframe id="vf" src="${embed(video)}" allowfullscreen></iframe>`;
+  if(fs){
+    const f=document.getElementById("vf");
+    f.requestFullscreen?.();
+    screen.orientation?.lock("landscape").catch(()=>{});
+  }
 }
 
-/* WATCH NOW */
 function watchNow(){
-  play(serie.episodes[0].video);
+  play(serie.episodes[0].video,true);
 }
 
 /* EPISODES */
-serie.episodes.forEach((ep,i)=>{
+serie.episodes.forEach((e,i)=>{
   const d=document.createElement("div");
   d.className="episode";
-  d.textContent=`Episode ${i+1} • ${ep.title}`;
-  d.onclick=()=>play(ep.video);
-  episodes.appendChild(d);
+  d.textContent=`Episode ${i+1} • ${e.title}`;
+  d.onclick=()=>play(e.video,true);
+  episodeList.appendChild(d);
 });
 
-/* AUTOPLAY */
-watchNow();
-
-/* ===== LANDSCAPE FULLSCREEN (MOBILE) ===== */
-function forceLandscape(){
-  const f=document.getElementById("videoFrame");
-  if(!f) return;
-
-  if(f.requestFullscreen) f.requestFullscreen();
-  if(screen.orientation?.lock){
-    screen.orientation.lock("landscape").catch(()=>{});
-  }
+function toggleEpisodes(){
+  episodes.style.display =
+    episodes.style.display==="none"?"block":"none";
 }
 
-/* ===== SHARE (SITE URL ONLY) ===== */
-const SITE_URL = location.origin + "/series.html";
+/* SHARE */
+const SITE_URL=location.origin+"/series.html";
+const SHARE_TEXT=`${serie.title}\n\n${serie.synopsis}\n\nWatch on BUSANSO:\n${SITE_URL}`;
 
+function toggleShare(){
+  shareModal.style.display=
+    shareModal.style.display==="flex"?"none":"flex";
+}
 function shareWA(){
-  location.href =
-    `https://wa.me/?text=${encodeURIComponent(
-      serie.title + "\nWatch on BUSANSO:\n" + SITE_URL
-    )}`;
+  location.href=`https://wa.me/?text=${encodeURIComponent(SHARE_TEXT)}`;
+}
+function shareIMO(){
+  location.href=`imo://send?text=${encodeURIComponent(SHARE_TEXT)}`;
+}
+function shareTikTok(){
+  navigator.clipboard.writeText(SHARE_TEXT);
+  alert("Copied! Paste into TikTok.");
+}
+function copyShare(){
+  navigator.clipboard.writeText(SHARE_TEXT);
+  alert("Copied to clipboard");
 }
 
-function shareIMO(){
-  location.href =
-    `imo://send?text=${encodeURIComponent(
-      serie.title + "\nWatch on BUSANSO:\n" + SITE_URL
-    )}`;
-}
+/* SUGGESTIONS */
+SERIES.filter(s=>s.genre===serie.genre && s.id!==serie.id)
+.slice(0,4)
+.forEach(s=>{
+  const d=document.createElement("div");
+  d.textContent=s.title;
+  d.onclick=()=>location.href=`series-view.html?id=${s.id}`;
+  suggestions.appendChild(d);
+});
+
+/* ANTI RECORD (BEST EFFORT) */
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){
+    player.innerHTML="";
+  }
+});
 </script>
 
 </body>
