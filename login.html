@@ -48,10 +48,13 @@ function getDeviceId(){
 }
 
 // Auto-redirect if PIN exists
-const storedPIN = localStorage.getItem("activePIN");
-if(storedPIN) {
+const pin = localStorage.getItem("activePIN");
+const exp = Number(localStorage.getItem("pinExpiry"));
+
+if (pin && exp && Date.now() < exp) {
   window.location.href = "watch.html";
 }
+
 
 async function login(){
   const pin = document.getElementById("pinInput").value.trim();
