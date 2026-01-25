@@ -20,12 +20,11 @@ body{
   height:56vw;
   max-height:75vh;
   border:none;
-  background:#000;
 }
 
 .details{padding:16px}
-.meta{color:#aaa;font-size:14px;margin-bottom:8px}
-.synopsis{font-size:14px;line-height:1.5}
+.meta{color:#aaa;font-size:14px}
+.synopsis{font-size:14px;margin-top:10px}
 
 .actions button{
   width:100%;
@@ -34,37 +33,12 @@ body{
   border:none;
   border-radius:8px;
   font-weight:bold;
-  font-size:15px;
   cursor:pointer;
 }
 .watch{background:#e50914;color:#fff}
 .share{background:#222;color:#fff}
 
-/* SHARE SHEET */
-.shareSheet{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#111;
-  padding:16px;
-  display:none;
-}
-.shareSheet button{
-  width:100%;
-  margin-top:8px;
-  padding:12px;
-  background:#222;
-  color:#fff;
-  border:none;
-  border-radius:6px;
-}
-
-/* RECOMMENDATIONS */
-.reco{
-  padding:16px;
-}
-.reco h3{margin-bottom:10px}
+.reco{padding:16px}
 .recoRow{
   display:flex;
   gap:12px;
@@ -80,17 +54,6 @@ body{
 
 <body>
 
-<!-- 🔐 PIN CHECK -->
-<script>
-const pin = localStorage.getItem("activePIN");
-const exp = Number(localStorage.getItem("pinExpiry"));
-
-if(!pin || !exp || Date.now() > exp){
-  localStorage.clear();
-  location.replace("login.html");
-}
-</script>
-
 <div class="player" id="player"></div>
 
 <div class="details">
@@ -104,86 +67,85 @@ if(!pin || !exp || Date.now() > exp){
   </div>
 </div>
 
-<!-- SHARE OPTIONS -->
-<div class="shareSheet" id="shareSheet">
-  <button onclick="shareWA()">WhatsApp</button>
-  <button onclick="shareIMO()">IMO</button>
-  <button onclick="shareTT()">TikTok</button>
-  <button onclick="closeShare()">Cancel</button>
-</div>
-
-<!-- RECOMMENDATIONS -->
 <div class="reco">
-  <h3>Recommended for you</h3>
+  <h3>Recommended</h3>
   <div class="recoRow" id="reco"></div>
 </div>
 
+<!-- SHARE OPTIONS -->
+<div id="shareSheet" style="display:none;padding:16px">
+  <button onclick="shareWA()">WhatsApp</button>
+  <button onclick="shareIMO()">IMO</button>
+  <button onclick="shareTT()">TikTok</button>
+</div>
+
 <script>
-/* ===== PARAMS ===== */
-const q = new URLSearchParams(location.search);
-const movieId = q.get("id");
+document.addEventListener("DOMContentLoaded", () => {
 
-const movie = MOVIES.find(m => m.id === movieId);
-if(!movie) location.replace("movies.html");
+  /* ===== SAFE PIN CHECK ===== */
+  const pin = localStorage.getItem("activePIN");
+  const exp = Number(localStorage.getItem("pinExpiry"));
 
-/* ===== DETAILS ===== */
-title.textContent = movie.title;
-meta.textContent = `${movie.genre}${movie.duration ? " • "+movie.duration : ""}`;
-synopsis.textContent = movie.synopsis;
-
-/* ===== VIDEO NORMALIZER + RESUME ===== */
-function embed(url){
-  const resume = Number(localStorage.getItem("resume_"+movie.id)) || 0;
-
-  if(url.includes("youtube")){
-    const id = url.includes("youtu.be")
-      ? url.split("youtu.be/")[1]
-      : new URL(url).searchParams.get("v");
-    return `https://www.youtube.com/embed/${id}?start=${resume}`;
+  if(!pin || !exp || Date.now() > exp){
+    localStorage.clear();
+    location.href = "login.html";
+    return;
   }
 
-  if(url.includes("vimeo.com")){
-    const id = url.split("/").pop();
-    return `https://player.vimeo.com/video/${id}#t=${resume}s`;
+  /* ===== READ PARAM ===== */
+  const q = new URLSearchParams(location.search);
+  const id = q.get("id");
+
+  if(!id){
+    showError("Movie not found.");
+    return;
   }
 
-  if(url.includes("drive.google.com")){
-    const id = url.match(/\/d\/([^/]+)/);
-    if(id) return `https://drive.google.com/file/d/${id[1]}/preview`;
+  const movie = MOVIES.find(m => String(m.id) === String(id));
+  if(!movie){
+    showError("Movie not found.");
+    return;
   }
 
-  return url;
-}
+  /* ===== DETAILS ===== */
+  title.textContent = movie.title;
+  meta.textContent = `${movie.genre}${movie.duration ? " • "+movie.duration : ""}`;
+  synopsis.textContent = movie.synopsis;
 
-/* ===== PLAYER ===== */
-function loadPlayer(){
-  player.innerHTML =
-    `<iframe id="videoFrame" src="${embed(movie.video)}" allowfullscreen></iframe>`;
-}
+  /* ===== PLAYER ===== */
+  function embed(url){
+    if(url.includes("youtube")){
+      const vid = url.includes("youtu.be")
+        ? url.split("youtu.be/")[1]
+        : new URL(url).searchParams.get("v");
+      return `https://www.youtube.com/embed/${vid}`;
+    }
+    if(url.includes("vimeo")){
+      return "https://player.vimeo.com/video/" + url.split("/").pop();
+    }
+    if(url.includes("drive.google.com")){
+      const id = url.match(/\/d\/([^/]+)/);
+      if(id) return `https://drive.google.com/file/d/${id[1]}/preview`;
+    }
+    return url;
+  }
 
-/* ===== WATCH NOW ===== */
-function watchNow(){
-  loadPlayer();
-  setTimeout(goFullscreen, 500);
-}
+  window.watchNow = function(){
+    player.innerHTML =
+      `<iframe id="videoFrame" src="${embed(movie.video)}" allowfullscreen></iframe>`;
+    setTimeout(goFullscreen,500);
+  };
 
-/* ===== FULLSCREEN ===== */
-function goFullscreen(){
-  const f = document.getElementById("videoFrame");
-  if(!f) return;
+  function goFullscreen(){
+    const f = document.getElementById("videoFrame");
+    if(!f) return;
+    f.requestFullscreen?.();
+    screen.orientation?.lock("landscape").catch(()=>{});
+  }
 
-  f.requestFullscreen?.();
-  screen.orientation?.lock("landscape").catch(()=>{});
-}
-
-/* ===== SAVE RESUME (BEST EFFORT) ===== */
-window.addEventListener("beforeunload", ()=>{
-  localStorage.setItem("resume_"+movie.id, 30); // safe fallback
-});
-
-/* ===== SHARE ===== */
-const SITE_URL = location.origin + "/movies.html";
-const shareText =
+  /* ===== SHARE ===== */
+  const SITE_URL = location.origin + "/movies.html";
+  const shareText =
 `${movie.title}
 
 Genre: ${movie.genre}
@@ -194,29 +156,31 @@ ${movie.synopsis}
 Watch on BUSANSO:
 ${SITE_URL}`;
 
-function openShare(){ shareSheet.style.display="block"; }
-function closeShare(){ shareSheet.style.display="none"; }
+  window.openShare = ()=> shareSheet.style.display="block";
+  window.shareWA = ()=> location.href=`https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  window.shareIMO = ()=> location.href=`imo://send?text=${encodeURIComponent(shareText)}`;
+  window.shareTT = ()=> location.href=`https://www.tiktok.com/share?text=${encodeURIComponent(shareText)}`;
 
-function shareWA(){
-  location.href=`https://wa.me/?text=${encodeURIComponent(shareText)}`;
-}
-function shareIMO(){
-  location.href=`imo://send?text=${encodeURIComponent(shareText)}`;
-}
-function shareTT(){
-  location.href=`https://www.tiktok.com/share?text=${encodeURIComponent(shareText)}`;
-}
+  /* ===== RECOMMENDATIONS ===== */
+  MOVIES
+    .filter(m => m.genre === movie.genre && m.id !== movie.id)
+    .slice(0,6)
+    .forEach(m=>{
+      const img=document.createElement("img");
+      img.src=m.poster;
+      img.onclick=()=>location.href=`watch.html?id=${m.id}`;
+      reco.appendChild(img);
+    });
+});
 
-/* ===== RECOMMENDATIONS ===== */
-MOVIES
-  .filter(m => m.genre === movie.genre && m.id !== movie.id)
-  .slice(0,8)
-  .forEach(m=>{
-    const img=document.createElement("img");
-    img.src=m.poster;
-    img.onclick=()=>location.href=`watch.html?id=${m.id}`;
-    reco.appendChild(img);
-  });
+/* ===== ERROR HANDLER ===== */
+function showError(msg){
+  document.body.innerHTML =
+    `<div style="padding:40px;text-align:center">
+      <h2>${msg}</h2>
+      <button onclick="location.href='movies.html'">Back to Movies</button>
+     </div>`;
+}
 </script>
 
 </body>
