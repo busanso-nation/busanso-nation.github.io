@@ -22,7 +22,7 @@ const SERIES = [
     title: "DANZU HERO",
     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRri6yH0P-l6UdDL3iKisvp1FqZpEADHTaw&s",
     genre: "Drama",
-    added: 000002,
+    added: 000003,
     type: "free",
     country: "China",
     year: "2024",
