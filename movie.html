@@ -157,7 +157,7 @@ Duration: ${duration}
 
 ${synopsis}
 
-Watch on BUSANSO:
+Watch on BUSANSO NATION:
 ${HOME_URL}`;
 
 function shareWA(){
@@ -178,13 +178,21 @@ function copyShare(){
 function isMobile(){
   return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
+function goFullscreen(){
+  const f = document.getElementById("videoFrame");
+  if(!f) return;
 
-if(isMobile()){
-  setTimeout(()=>{
-    const f = document.getElementById("videoFrame");
-    if(f?.requestFullscreen) f.requestFullscreen();
-  }, 800);
+  try{
+    if(f.requestFullscreen){
+      f.requestFullscreen().catch(()=>{});
+    }
+
+    if(screen.orientation && screen.orientation.lock){
+      screen.orientation.lock("landscape").catch(()=>{});
+    }
+  }catch(e){}
 }
+
 </script>
 
 </body>
