@@ -1,143 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>BUSANSO NATION</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>BUSANSO NATION</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
 
-        body {
-            height: 100vh;
-            background: radial-gradient(circle at top, #102a1d, #000);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+body{
+  height:100vh;
+  background:radial-gradient(circle at top,#102a1d,#000);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
 
-        /* Splash Container */
-        .splash {
-            text-align: center;
-            color: #fff;
-            animation: fadeOut 1s ease forwards;
-            animation-delay: 5s;
-        }
+/* SPLASH */
+.splash{
+  text-align:center;
+  color:#fff;
+  animation:fadeOut 1s ease forwards;
+  animation-delay:5s;
+}
 
-        /* Logo */
-        .logo {
-            font-size: 3rem;
-            letter-spacing: 4px;
-            font-weight: 800;
-            animation: zoomIn 2s ease forwards, glow 3s ease-in-out infinite;
-        }
+/* LOGO */
+.logo{
+  font-size:3rem;
+  letter-spacing:4px;
+  font-weight:800;
+  animation:zoomIn 2s ease forwards,glow 3s ease-in-out infinite;
+}
+.nation{color:#e50914}
 
-        .nation {
-            color: #e50914;
-        }
+/* TEXT */
+.tagline{
+  margin-top:14px;
+  font-size:1.1rem;
+  opacity:0;
+  animation:fadeIn 2s ease forwards;
+  animation-delay:1.5s;
+  color:#f1c40f;
+}
 
-        /* Tagline */
-        .tagline {
-            margin-top: 14px;
-            font-size: 1.1rem;
-            opacity: 0;
-            animation: fadeIn 2s ease forwards;
-            animation-delay: 1.5s;
-            color: #f1c40f;
-        }
+.message{
+  margin-top:10px;
+  font-size:.95rem;
+  opacity:0;
+  animation:fadeIn 2s ease forwards;
+  animation-delay:2.5s;
+  color:#dcdcdc;
+}
 
-        /* Message */
-        .message {
-            margin-top: 10px;
-            font-size: 0.95rem;
-            opacity: 0;
-            animation: fadeIn 2s ease forwards;
-            animation-delay: 2.5s;
-            color: #dcdcdc;
-        }
+/* LOADER */
+.loader{
+  margin:35px auto 0;
+  width:42px;
+  height:42px;
+  border:4px solid rgba(255,255,255,.2);
+  border-top:4px solid #f1c40f;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
 
-        /* Loader */
-        .loader {
-            margin: 35px auto 0;
-            width: 42px;
-            height: 42px;
-            border: 4px solid rgba(255,255,255,0.2);
-            border-top: 4px solid #f1c40f;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        /* Animations */
-        @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: scale(0.6);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-            }
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                text-shadow: 0 0 10px rgba(241,196,15,0.4);
-            }
-            50% {
-                text-shadow: 0 0 25px rgba(241,196,15,0.8);
-            }
-        }
-    </style>
+/* ANIMATIONS */
+@keyframes zoomIn{
+  from{opacity:0;transform:scale(.6)}
+  to{opacity:1;transform:scale(1)}
+}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeOut{to{opacity:0}}
+@keyframes glow{
+  0%,100%{text-shadow:0 0 10px rgba(241,196,15,.4)}
+  50%{text-shadow:0 0 25px rgba(241,196,15,.8)}
+}
+</style>
 </head>
+
 <body>
 
-    <div class="splash">
-        <div class="logo">
-            BUSANSO <span class="nation">NATION</span>
-        </div>
+<div class="splash">
+  <div class="logo">
+    BUSANSO <span class="nation">NATION</span>
+  </div>
 
-        <div class="tagline">
-            Omusanso wange, nsanyuse okulaba
-        </div>
+  <div class="tagline">
+    Omusanso wange, nsanyuse okulaba
+  </div>
 
-        <div class="message">
-            welcome to the source of unique and quality Movies and series
-        </div>
+  <div class="message">
+    Welcome to the source of unique and quality Movies and Series
+  </div>
 
-        <div class="loader"></div>
-    </div>
+  <div class="loader"></div>
+</div>
 
-    <script>
-        // Redirect after 6 seconds
-        setTimeout(function () {
-            window.location.href = "home.html";
-        }, 6000);
-    </script>
+<script>
+/* 🔐 SPLASH REDIRECT LOGIC */
+const pin = localStorage.getItem("activePIN");
+const exp = localStorage.getItem("pinExpiry");
+
+setTimeout(() => {
+  if(pin && exp && Date.now() < Number(exp)){
+    location.replace("watch.html");
+  }else{
+    location.replace("home.html");
+  }
+}, 5500);
+</script>
 
 </body>
 </html>
