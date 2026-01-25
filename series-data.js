@@ -3,23 +3,19 @@ const SERIES = [
   {
     id: "tianlan",
     title: "LEGEND OF TIANLAN",
-    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPV71Q1KOpHSZMoqy0iqLy35OF1FAyYOAqxA&s",
+    poster: "...",
     genre: "Drama",
-    added: 000001,
-    type: "premium",
     country: "China",
     year: "2025",
-    synopsis: "A legendary journey of power and destiny between exorsits.",
+    synopsis: "A legendary journey of power and destiny between exorcists.",
     cast: ["Actor One", "Actor Two", "Actor Three"],
 
-    episodesHTML: `
-      <ul>
-        <li><a href="https://www.youtube.com/embed/RlNqNyrRm_k">Episode 1</a></li>
-        <li><a href="https://www.youtube.com/embed/egF1sy2FPYs">Episode 2</a></li>
-        <li><a href="https://www.youtube.com/embed/UPrxaom2THM">Episode 3</a></li>
-      </ul>
-    `
-  },
+   episodes: [
+  { title: "Episode 1", video: "https://www.youtube.com/embed/RlNqNyrRm_k" },
+  { title: "Episode 2", video: "https://www.youtube.com/embed/egF1sy2FPYs" }
+],
+},
+
    {
     id: "danzu",
     title: "DANZU HERO",
@@ -31,13 +27,10 @@ const SERIES = [
     year: "2024",
     synopsis: "A legendary journey of power and destiny between exorsits.",
     cast: ["Actor One", "Actor Two", "Actor Three"],
+episodes: [
+  { title: "Episode 1", video: "https://www.youtube.com/embed/RlNqNyrRm_k" },
+  { title: "Episode 2", video: "https://www.youtube.com/embed/egF1sy2FPYs" }
+]
 
-    episodesHTML: `
-      <ul>
-        <li><a href="https://www.youtube.com/embed/RlNqNyrRm_k">Episode 1</a></li>
-        <li><a href="https://www.youtube.com/embed/egF1sy2FPYs">Episode 2</a></li>
-        <li><a href="https://www.youtube.com/embed/UPrxaom2THM">Episode 3</a></li>
-      </ul>
-    `
   }
-];
+],
