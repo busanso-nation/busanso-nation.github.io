@@ -8,117 +8,108 @@
 <script src="series-data.js"></script>
 
 <style>
-body{
-  margin:0;
-  background:#0f0f0f;
-  color:#fff;
-  font-family:Arial, sans-serif;
+body{margin:0;background:#0f0f0f;color:#fff;font-family:Arial}
+
+/* NAV */
+.nav{
+  display:flex;gap:8px;padding:10px;
+  background:#000;position:sticky;top:0;z-index:10
+}
+.nav button{
+  flex:1;padding:8px;border:none;border-radius:8px;
+  background:#181818;color:#fff;font-weight:bold;cursor:pointer
+}
+.nav button:hover{background:#e50914}
+
+/* SEARCH */
+.search{
+  padding:10px;background:#000
+}
+.search input{
+  width:100%;padding:10px;border-radius:8px;
+  border:none;background:#181818;color:#fff
 }
 
-header{
-  padding:16px;
-  font-size:24px;
-  font-weight:bold;
-}
-
+/* GRID */
 .series{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-  padding:14px;
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:14px;padding:14px
 }
-
 @media(min-width:600px){
-  .series{
-    grid-template-columns:repeat(4,1fr);
-  }
+  .series{grid-template-columns:repeat(4,1fr)}
 }
 
 .card{
-  background:#181818;
-  border-radius:12px;
-  overflow:hidden;
-  opacity:0;
-  transform:translateY(15px);
-  animation:fade .4s ease forwards;
+  background:#181818;border-radius:12px;overflow:hidden;
+  opacity:0;transform:translateY(15px);
+  animation:fade .4s forwards
 }
-
-@keyframes fade{
-  to{opacity:1;transform:none}
-}
-
-.card img{
-  width:100%;
-  display:block;
-}
-
-.info{
-  padding:10px;
-}
-
-.title{
-  font-weight:bold;
-  font-size:14px;
-}
-
-.meta{
-  font-size:12px;
-  color:#aaa;
-  margin:6px 0;
-}
-
+@keyframes fade{to{opacity:1;transform:none}}
+.card img{width:100%}
+.info{padding:10px}
+.title{font-weight:bold}
+.meta{font-size:12px;color:#aaa;margin:5px 0}
 .watch{
-  width:100%;
-  padding:8px;
-  border:none;
-  border-radius:8px;
-  background:#e50914;
-  color:#fff;
-  font-weight:bold;
+  width:100%;padding:8px;border:none;border-radius:8px;
+  background:#e50914;color:#fff;font-weight:bold
 }
 </style>
 </head>
 
 <body>
 
-<!-- PIN + EXPIRY CHECK -->
+<!-- PIN + EXPIRY -->
 <script>
-const pin = localStorage.getItem("activePIN");
-const exp = localStorage.getItem("pinExpiry");
-
-if(!pin || !exp || Date.now() > Number(exp)){
-  localStorage.clear();
-  location.replace("login.html");
+const pin=localStorage.getItem("activePIN");
+const exp=localStorage.getItem("pinExpiry");
+if(!pin||!exp||Date.now()>Number(exp)){
+  localStorage.clear();location.replace("login.html");
 }
 </script>
 
-<header>📺 BUSANSO SERIES</header>
+<div class="nav">
+  <button onclick="location.href='watch.html'">🏠 Home</button>
+  <button onclick="location.href='movies.html'">🎬 Movies</button>
+  <button onclick="location.href='donate.html'">❤️ Donate</button>
+  <button onclick="location.href='marriage.html'">💍 Marriage</button>
+</div>
 
-<div class="series" id="series"></div>
+<div class="search">
+  <input id="search" placeholder="Search series...">
+</div>
+
+<div class="series" id="list"></div>
 
 <script>
-const box = document.getElementById("series");
+const box=document.getElementById("list");
+const search=document.getElementById("search");
 
-SERIES.forEach((s,i)=>{
-  const card=document.createElement("div");
-  card.className="card";
-  card.style.animationDelay=(i*.05)+"s";
+function render(data){
+  box.innerHTML="";
+  data.forEach((s,i)=>{
+    const c=document.createElement("div");
+    c.className="card";
+    c.style.animationDelay=i*.05+"s";
+    c.innerHTML=`
+      <img src="${s.poster}">
+      <div class="info">
+        <div class="title">${s.title}</div>
+        <div class="meta">${s.country} • ${s.seasons} Seasons</div>
+        <button class="watch">Watch Now</button>
+      </div>`;
+    c.querySelector("button").onclick=()=>{
+      location.href=`serie.html?id=${s.id}`;
+    };
+    box.appendChild(c);
+  });
+}
 
-  card.innerHTML=`
-    <img src="${s.poster}" loading="lazy">
-    <div class="info">
-      <div class="title">${s.title}</div>
-      <div class="meta">${s.country} • ${s.seasons} Seasons</div>
-      <button class="watch">Watch Now</button>
-    </div>
-  `;
+render(SERIES);
 
-  card.querySelector(".watch").onclick=()=>{
-    location.href=`serie.html?id=${s.id}`;
-  };
-
-  box.appendChild(card);
-});
+search.oninput=()=>{
+  const q=search.value.toLowerCase();
+  render(SERIES.filter(s=>s.title.toLowerCase().includes(q)));
+};
 </script>
 
 </body>
