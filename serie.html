@@ -8,21 +8,31 @@
 <script src="series-data.js"></script>
 
 <style>
-body{margin:0;background:#000;color:#fff;font-family:Arial}
+body{
+  margin:0;
+  background:#000;
+  color:#fff;
+  font-family:Arial, sans-serif;
+}
 
 /* PLAYER */
 .player iframe{
   width:100%;
   height:56vw;
-  max-height:70vh;
+  max-height:75vh;
   border:none;
+  background:#000;
 }
 
 /* INFO */
 .details{padding:16px}
-.meta{color:#aaa;font-size:13px}
+.meta{
+  color:#aaa;
+  font-size:14px;
+  margin-bottom:10px;
+}
 
-/* BUTTONS */
+/* ACTIONS */
 .actions button{
   width:100%;
   margin-top:8px;
@@ -51,7 +61,6 @@ body{margin:0;background:#000;color:#fff;font-family:Arial}
   background:#181818;
   border-radius:8px;
   cursor:pointer;
-  font-size:14px;
 }
 .episode:hover{background:#e50914}
 
@@ -67,29 +76,17 @@ body{margin:0;background:#000;color:#fff;font-family:Arial}
   border-radius:20px;
   font-size:12px;
 }
-
-/* RECOMMENDATIONS */
-.reco{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-.reco img{
-  width:100%;
-  border-radius:8px;
-  cursor:pointer;
-}
 </style>
 </head>
 
 <body>
 
-<!-- 🔐 PIN + EXPIRY CHECK -->
+<!-- 🔐 PIN CHECK -->
 <script>
 const pin = localStorage.getItem("activePIN");
 const exp = Number(localStorage.getItem("pinExpiry"));
 
-if (!pin || !exp || isNaN(exp) || Date.now() > exp) {
+if(!pin || !exp || Date.now() > exp){
   localStorage.removeItem("activePIN");
   localStorage.removeItem("pinExpiry");
   location.replace("login.html");
@@ -100,11 +97,12 @@ if (!pin || !exp || isNaN(exp) || Date.now() > exp) {
 
 <div class="details">
   <h2 id="title"></h2>
-  <p class="meta" id="meta"></p>
+  <div class="meta" id="meta"></div>
 
   <div class="actions">
     <button class="watch" onclick="watchNow()">▶ Watch Now</button>
-    <button class="share" onclick="share()">🔗 Share</button>
+    <button class="share" onclick="shareWA()">📲 Share on WhatsApp</button>
+    <button class="share" onclick="shareIMO()">📩 Share on IMO</button>
   </div>
 
   <!-- SYNOPSIS -->
@@ -124,47 +122,56 @@ if (!pin || !exp || isNaN(exp) || Date.now() > exp) {
     <h3>Episodes</h3>
     <div class="episodes" id="episodes"></div>
   </div>
-
-  <!-- RECOMMENDATIONS -->
-  <div class="section">
-    <h3>Watch Next</h3>
-    <div class="reco" id="reco"></div>
-  </div>
 </div>
 
 <script>
+/* ===== GET SERIES ===== */
 const q = new URLSearchParams(location.search);
 const id = q.get("id");
 
-if(!id){
-  location.replace("series.html");
-}
+if(!id) location.replace("series.html");
 
-const serie = SERIES.find(s=>s.id===id);
+const serie = SERIES.find(s => s.id === id);
+if(!serie) location.replace("series.html");
 
-if(!serie){
-  location.replace("series.html");
-}
+/* ===== INFO ===== */
+title.textContent = serie.title;
+meta.textContent = `${serie.country} • ${serie.genre} • ${serie.year}`;
+synopsis.textContent = serie.synopsis;
 
-/* BASIC INFO */
-document.getElementById("title").textContent = serie.title;
-document.getElementById("meta").textContent =
-  `${serie.country} • ${serie.genre} • ${serie.year}`;
-
-document.getElementById("synopsis").textContent = serie.synopsis;
-
-/* CAST */
-const castBox=document.getElementById("cast");
+/* ===== CAST ===== */
 serie.cast.forEach(c=>{
   const s=document.createElement("span");
   s.textContent=c;
-  castBox.appendChild(s);
+  cast.appendChild(s);
 });
 
-/* PLAYER */
+/* ===== VIDEO NORMALIZER ===== */
+function embed(url){
+  if(url.includes("youtube.com/watch")){
+    return "https://www.youtube.com/embed/" +
+      new URL(url).searchParams.get("v");
+  }
+  if(url.includes("youtu.be/")){
+    return "https://www.youtube.com/embed/" +
+      url.split("youtu.be/")[1];
+  }
+  if(url.includes("vimeo.com")){
+    return "https://player.vimeo.com/video/" +
+      url.split("/").pop();
+  }
+  if(url.includes("drive.google.com")){
+    const id=url.match(/\/d\/([^/]+)/);
+    if(id) return `https://drive.google.com/file/d/${id[1]}/preview`;
+  }
+  return url;
+}
+
+/* ===== PLAYER ===== */
 function play(video){
-  document.getElementById("player").innerHTML =
-    `<iframe src="${video}" allowfullscreen></iframe>`;
+  player.innerHTML =
+    `<iframe id="videoFrame" src="${embed(video)}" allowfullscreen></iframe>`;
+  forceLandscape();
 }
 
 /* WATCH NOW */
@@ -173,50 +180,44 @@ function watchNow(){
 }
 
 /* EPISODES */
-const epBox=document.getElementById("episodes");
 serie.episodes.forEach((ep,i)=>{
   const d=document.createElement("div");
   d.className="episode";
   d.textContent=`Episode ${i+1} • ${ep.title}`;
   d.onclick=()=>play(ep.video);
-  epBox.appendChild(d);
+  episodes.appendChild(d);
 });
 
-/* SHARE */
-function share(){
-  const text =
-`${serie.title}
-${serie.country} • ${serie.genre}
+/* AUTOPLAY */
+watchNow();
 
-${serie.synopsis}
+/* ===== LANDSCAPE FULLSCREEN (MOBILE) ===== */
+function forceLandscape(){
+  const f=document.getElementById("videoFrame");
+  if(!f) return;
 
-Watch on BUSANSO`;
-
-  if(navigator.share){
-    navigator.share({ text, url: location.origin });
-  }else{
-    navigator.clipboard.writeText(location.origin);
-    alert("Link copied");
+  if(f.requestFullscreen) f.requestFullscreen();
+  if(screen.orientation?.lock){
+    screen.orientation.lock("landscape").catch(()=>{});
   }
 }
 
-/* 🎯 RECOMMENDATIONS */
-const recoBox=document.getElementById("reco");
+/* ===== SHARE (SITE URL ONLY) ===== */
+const SITE_URL = location.origin + "/series.html";
 
-SERIES
-  .filter(s=>s.genre===serie.genre && s.id!==serie.id)
-  .slice(0,4)
-  .forEach(s=>{
-    const d=document.createElement("div");
-    d.innerHTML=`<img src="${s.poster}" loading="lazy">`;
-    d.onclick=()=>{
-      location.href=`serie.html?id=${s.id}`;
-    };
-    recoBox.appendChild(d);
-  });
+function shareWA(){
+  location.href =
+    `https://wa.me/?text=${encodeURIComponent(
+      serie.title + "\nWatch on BUSANSO:\n" + SITE_URL
+    )}`;
+}
 
-/* AUTOPLAY FIRST EPISODE */
-play(serie.episodes[0].video);
+function shareIMO(){
+  location.href =
+    `imo://send?text=${encodeURIComponent(
+      serie.title + "\nWatch on BUSANSO:\n" + SITE_URL
+    )}`;
+}
 </script>
 
 </body>
