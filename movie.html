@@ -55,7 +55,12 @@ body{
 
 <!-- ===== PIN CHECK (ONLY SECURITY) ===== -->
 <script>
-if(!localStorage.getItem("activePIN")){
+const pin = localStorage.getItem("activePIN");
+const exp = Number(localStorage.getItem("pinExpiry"));
+
+if (!pin || !exp || isNaN(exp) || Date.now() > exp) {
+  localStorage.removeItem("activePIN");
+  localStorage.removeItem("pinExpiry");
   location.replace("login.html");
 }
 </script>
