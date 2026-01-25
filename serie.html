@@ -14,12 +14,15 @@ body{
   color:#fff;
   font-family:Arial, sans-serif;
 }
+.player{
+  width:100%;
+  background:#000;
+}
 .player iframe{
   width:100%;
   height:56vw;
   max-height:75vh;
   border:none;
-  background:#000;
 }
 .details{padding:16px}
 .meta{color:#aaa;font-size:14px;margin-bottom:10px}
@@ -60,7 +63,7 @@ body{
 
 <body>
 
-<!-- PIN CHECK -->
+<!-- 🔐 PIN CHECK -->
 <script>
 const pin = localStorage.getItem("activePIN");
 const exp = Number(localStorage.getItem("pinExpiry"));
@@ -99,7 +102,7 @@ if(!pin || !exp || Date.now() > exp){
 </div>
 
 <script>
-/* ===== LOAD SERIES SAFELY ===== */
+/* ===== LOAD SERIES ===== */
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
 
@@ -108,46 +111,81 @@ if(!id || typeof SERIES === "undefined"){
 }
 
 const serie = SERIES.find(s => s.id === id);
-if(!serie || !serie.episodes || !serie.episodes.length){
-  alert("Video not available");
+if(!serie || !Array.isArray(serie.episodes) || !serie.episodes.length){
+  alert("No episodes available");
 }
 
-/* ===== BASIC INFO ===== */
+/* INFO */
 title.textContent = serie.title;
 meta.textContent = `${serie.country} • ${serie.genre} • ${serie.year}`;
 synopsis.textContent = serie.synopsis || "";
 
+/* CAST */
 (serie.cast || []).forEach(c=>{
   const s=document.createElement("span");
   s.textContent=c;
   cast.appendChild(s);
 });
 
-/* ===== VIDEO EMBED NORMALIZER ===== */
-function embed(url){
-  if(!url) return "";
-  if(url.includes("youtube")){
-    const v = new URL(url).searchParams.get("v") || url.split("/").pop();
-    return `https://www.youtube.com/embed/${v}`;
+/* ===== UNIVERSAL EMBED FIX ===== */
+function normalizeVideo(url){
+  if(!url) return null;
+
+  try{
+    // YouTube Shorts
+    if(url.includes("youtube.com/shorts/")){
+      return "https://www.youtube.com/embed/" +
+        url.split("/shorts/")[1].split("?")[0];
+    }
+
+    // YouTube Watch
+    if(url.includes("youtube.com/watch")){
+      const u=new URL(url);
+      return "https://www.youtube.com/embed/" + u.searchParams.get("v");
+    }
+
+    // youtu.be
+    if(url.includes("youtu.be/")){
+      return "https://www.youtube.com/embed/" +
+        url.split("youtu.be/")[1].split("?")[0];
+    }
+
+    // Already embedded YouTube
+    if(url.includes("youtube.com/embed")){
+      return url;
+    }
+
+    // Vimeo
+    if(url.includes("vimeo.com")){
+      return "https://player.vimeo.com/video/" +
+        url.split("/").pop().split("?")[0];
+    }
+
+    // Google Drive /d/
+    if(url.includes("/d/")){
+      return "https://drive.google.com/file/d/" +
+        url.split("/d/")[1].split("/")[0] + "/preview";
+    }
+
+    // Google Drive open?id=
+    if(url.includes("drive.google.com/open")){
+      const u=new URL(url);
+      return "https://drive.google.com/file/d/" +
+        u.searchParams.get("id") + "/preview";
+    }
+
+    // Direct MP4 / Web
+    return url;
+  }catch(e){
+    return null;
   }
-  if(url.includes("youtu.be")){
-    return `https://www.youtube.com/embed/${url.split("/").pop()}`;
-  }
-  if(url.includes("vimeo.com")){
-    return `https://player.vimeo.com/video/${url.split("/").pop()}`;
-  }
-  if(url.includes("drive.google.com")){
-    const id = url.match(/\/d\/([^/]+)/);
-    if(id) return `https://drive.google.com/file/d/${id[1]}/preview`;
-  }
-  return url; // mp4 or direct
 }
 
-/* ===== PLAYER (GUARANTEED) ===== */
+/* ===== PLAYER ===== */
 function play(video, fullscreen=false){
-  const src = embed(video);
+  const src = normalizeVideo(video);
   if(!src){
-    alert("Video source error");
+    alert("Video not supported");
     return;
   }
 
@@ -160,18 +198,18 @@ function play(video, fullscreen=false){
   `;
 
   if(fullscreen){
-    const f = player.querySelector("iframe");
+    const f=player.querySelector("iframe");
     f.requestFullscreen?.();
     screen.orientation?.lock("landscape").catch(()=>{});
   }
 }
 
-/* ===== WATCH NOW (FIXED) ===== */
-document.getElementById("watchBtn").onclick = () => {
-  play(serie.episodes[0].video, true);
+/* WATCH NOW */
+document.getElementById("watchBtn").onclick = ()=>{
+  play(serie.episodes[0].video,true);
 };
 
-/* ===== EPISODES ===== */
+/* EPISODES */
 serie.episodes.forEach((ep,i)=>{
   const d=document.createElement("div");
   d.className="episode";
@@ -182,7 +220,7 @@ serie.episodes.forEach((ep,i)=>{
 
 function toggleEpisodes(){
   episodesSection.style.display =
-    episodesSection.style.display === "none" ? "block" : "none";
+    episodesSection.style.display==="none"?"block":"none";
 }
 </script>
 
