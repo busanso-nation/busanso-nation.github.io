@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GK Foundation Uganda</title>
+  <meta name="description" content="GK Foundation Uganda, founded by King VJ, provides shelter, education, and daily care to orphaned and vulnerable children. Learn our goals, see what is needed, and donate to make a difference." />
+  <meta property="og:title" content="GK Foundation Uganda" />
+  <meta property="og:description" content="Caring for 21 children with love, education, and daily needs." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1604881991720-f91add269bed?q=80&w=1400&auto=format&fit=crop" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#f7fafc; --card:#ffffff; --ink:#0f172a; --muted:#475569; --brand:#0ea5e9;
+      --brand-600:#0284c7; --accent:#10b981; --ring: rgba(14,165,233,.35); --shadow:0 10px 30px rgba(2,8,23,.08)
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--ink); background:var(--bg); line-height:1.6}
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    img{max-width:100%; display:block}
+    .container{max-width:1100px; margin:0 auto; padding:0 1rem}
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(6px); background:rgba(255,255,255,.85); border-bottom:1px solid #e5e7eb}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:.75rem 0}
+    .brand{display:flex; align-items:center; gap:.6rem; font-weight:700}
+    .brand-logo{width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg,var(--brand),var(--accent)); display:grid; place-items:center; color:white; font-weight:800}
+    .nav-links{display:flex; gap:1rem; align-items:center}
+    .nav a{font-weight:600; color:var(--muted)}
+    .btn{display:inline-flex; align-items:center; gap:.5rem; background:var(--brand); color:white; padding:.7rem 1rem; border-radius:12px; font-weight:700; border:0; box-shadow:var(--shadow); cursor:pointer}
+    .btn:hover{background:var(--brand-600)}
+    .btn-outline{background:transparent; color:var(--brand); border:2px solid var(--brand); box-shadow:none}
+    .btn-outline:hover{color:white}
+    .hero{position:relative; overflow:hidden; padding:3.2rem 0 2rem; background:radial-gradient(1200px 600px at 90% -10%, rgba(14,165,233,.18), transparent), radial-gradient(1200px 600px at -10% 120%, rgba(16,185,129,.18), transparent)}
+    .hero-grid{display:grid; gap:2rem; align-items:center; grid-template-columns:1.1fr .9fr}
+    .hero h1{font-size:clamp(2rem, 4vw, 3rem); line-height:1.1; margin:.2rem 0}
+    .eyebrow{font-weight:700; color:var(--brand); letter-spacing:.12em; text-transform:uppercase; font-size:.8rem}
+    .lead{color:var(--muted); font-size:1.05rem}
+    .card{background:var(--card); border:1px solid #e5e7eb; border-radius:16px; padding:1.25rem; box-shadow:var(--shadow)}
+    .grid{display:grid; gap:1rem}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .section{padding:2.4rem 0}
+    h2{font-size:clamp(1.4rem, 2.5vw, 2rem); margin:.2rem 0 1rem}
+    .muted{color:var(--muted)}
+    .tag{display:inline-block; font-size:.75rem; background:#eff6ff; color:#1d4ed8; padding:.25rem .5rem; border-radius:999px; border:1px solid #bfdbfe}
+    .list{margin:0; padding-left:1.1rem}
+    .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1rem}
+    .stat{background:var(--card); border:1px solid #e5e7eb; border-radius:16px; padding:1rem; text-align:center}
+    .stat b{display:block; font-size:1.6rem}
+    .needs li{margin:.35rem 0}
+    .donate{display:grid; grid-template-columns:1.1fr .9fr; gap:1rem}
+    .donate form{display:grid; gap:.75rem}
+    input, select, textarea{width:100%; padding:.7rem .8rem; border:1px solid #e5e7eb; border-radius:12px; font:inherit}
+    input:focus, select:focus, textarea:focus{outline:none; box-shadow:0 0 0 4px var(--ring); border-color:var(--brand)}
+    .inline{display:flex; gap:.6rem; align-items:center; flex-wrap:wrap}
+    .pill{padding:.4rem .7rem; border:1px solid #e5e7eb; border-radius:999px; cursor:pointer}
+    .pill[data-active="true"]{background:#ecfeff; border-color:#a5f3fc}
+    .methods{display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem}
+    .method{padding:1rem; border:1px dashed #cbd5e1; border-radius:14px; text-align:center}
+    footer{background:#0b1220; color:#cbd5e1; padding:2rem 0; margin-top:2rem}
+    footer a{color:#93c5fd}
+    .small{font-size:.9rem}
+
+    @media (max-width: 900px){
+      .hero-grid, .donate, .grid-3, .grid-2{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .nav-links{display:none}
+      .nav-toggle{display:inline-flex}
+    }
+    @media (min-width: 901px){
+      .nav-toggle{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header aria-label="Main Navigation">
+    <div class="container nav">
+      <div class="brand" aria-label="Organization name">
+        <div class="brand-logo" aria-hidden="true">GK</div>
+        <span>GK Foundation Uganda</span>
+      </div>
+
+    <div id="mobileNav" hidden>
+      <div class="container" style="padding: .75rem 0 1rem; display:grid; gap:.4rem">
+        <a href="#about">About</a>
+        <a href="#goals">Goals</a>
+        <a href="#needs">What is Needed</a>
+        <a href="#donate">Donate</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Together, we can rewrite a child's story</span>
+        <h1>Supporting 21 children with shelter, education, and daily care.</h1>
+        <p class="lead">GK Foundation Uganda, founded by King VJ in 2019, provides a safe home and opportunities for orphaned and vulnerable children. We care for 21 children, mostly girls, giving them education, food, healthcare, and love. Your support provides books, uniforms, meals, sanitary pads, and other essentials. You can donate anything you have on 0782398843 in names of Senyonjo Geofrey</p>
+        <div class="inline" style="margin-top:.8rem">
+
+      </div>
+      <figure class="card" aria-label="Hero image: children together">
+        <img alt="Children together" src="https://i.ibb.co/nM4d6ZvG/IMG-5231.jpg" />
+        <figcaption class="muted small">Every contribution helps us meet daily needs and education goals.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container grid grid-2">
+      <div class="card">
+        <h2>About GK Foundation Uganda</h2>
+        <p>Founded by King VJ, GK Foundation Uganda provides a nurturing environment for 21 children, mostly girls. We ensure they have access to education, nutritious meals, healthcare, and daily essentials. Our mission is to raise them in dignity, hope, and love.</p>
+        <ul class="list">
+          <li>Founded by King VJ</li>
+          <li>21 children cared for daily</li>
+          <li>Focus on education, food, and healthcare</li>
+        </ul>
+      </div>
+            <figure class="card" aria-label="Hero image: children together">
+        <img alt="Children together" src="https://i.ibb.co/jkkKx7b8/IMG-5053.jpg" />
+        <figcaption class="muted small">No child wants to be an orphan.</figcaption>
+      </figure>
+    </div>
+      <div class="card">
+        <h2>Our Impact</h2>
+        <div class="stats" role="list" aria-label="Key impact stats">
+          <div class="stat" role="listitem"><b>21</b>Children in our care</div>
+          <div class="stat" role="listitem"><b>80%</b>Girls supported</div>
+          <div class="stat" role="listitem"><b>3</b>Meals provided daily</div>
+          <div class="stat" role="listitem"><b>100%</b>School enrollment</div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <section class="section" id="goals">
+    <div class="container">
+      <span class="tag">2025 Focus</span>
+      <h2>Our Goals</h2>
+      <div class="grid grid-3">
+        <article class="card">
+          <h3>1) Education</h3>
+          <p class="muted">Provide books, pens, and school uniforms so every child can attend school confidently.</p>
+        </article>
+        <article class="card">
+          <h3>2) Nutrition</h3>
+          <p class="muted">Ensure three nutritious meals daily for healthy growth and learning.</p>
+        </article>
+        <article class="card">
+          <h3>3) Health & Hygiene</h3>
+          <p class="muted">Provide healthcare, sanitary pads for girls, and daily hygiene supplies.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="needs">
+    <div class="container">
+      <h2>What is Needed Now</h2>
+      <p class="muted">Our children urgently need the following items. Your donation will help us cover these priorities.</p>
+      <div class="grid grid-3 needs">
+        <div class="card">
+          <h3>Education</h3>
+          <ul class="list">
+            <li>Books and pens</li>
+            <li>School uniforms</li>
+            <li>Backpacks</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Food</h3>
+          <ul class="list">
+            <li>Rice, beans, maize flour</li>
+            <li>Cooking oil</li>
+            <li>Fresh fruits and vegetables</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Health & Hygiene</h3>
+          <ul class="list">
+            <li>Sanitary pads for girls</li>
+            <li>Soap and toothpaste</li>
+            <li>Mosquito nets</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="donate">
+    <div class="container donate">
+      <div class="card">
+        <h2>Donate</h2>
+        <p class="muted">Any support goes a long way in changing the lives of our children. Donations can be sent via Mobile Money.</p>
+        <ul class="list">
+          <li><b>Mobile Money:</b> 0782398843 (Senyonjo Geofrey)</li>
+        </ul>
+        <p class="muted small">Thank you for your kindness and generosity.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="card">
+        <h2>Contact Us</h2>
+        <ul class="list">
+          <li><b>Phone:</b> <a href="tel:+256782398843">+256 782 398 843</a></li>
+          <li><b>Email:</b> <a href="mailto:gkfoundationuganda@gmail.com">gkfoundationuganda@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="grid grid-2" style="gap:1.2rem">
+        <div>
+          <div class="brand" style="margin-bottom:.6rem">
+            <div class="brand-logo" aria-hidden="true">GK</div>
+            <span>GK Foundation Uganda</span>
+          </div>
+          <p class="small">Founded by King VJ. © <span id="year"></span> GK Foundation Uganda.</p>
+        </div>
+        <div>
+          <b>May God bless your</b>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const mobile = document.getElementById('mobileNav');
+    toggle?.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      mobile.hidden = expanded;
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NGO",
+    "name": "GK Foundation Uganda",
+    "founder": "King VJ",
+    "url": "https://example.org",
+    "email": "gkfounda@gmail.com",
+    "telephone": "+256782398843",
+    "description": "GK Foundation Uganda provides care and education to 21 children.",
+    "areaServed": "UG"
+  }
+  </script>
+</body>
+</
