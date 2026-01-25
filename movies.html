@@ -168,9 +168,7 @@ nav button:hover{background:#333}
 
   try{
     const data = JSON.parse(pkg);
-
     if(Date.now() > data.expiry){
-      alert("Your subscription has expired.");
       localStorage.removeItem("activePIN");
       localStorage.removeItem("activePackage");
       location.replace("login.html");
@@ -181,14 +179,13 @@ nav button:hover{background:#333}
 })();
 </script>
 
-
 <header>BUSANSO MOVIES</header>
 
 <!-- ===== TOP NAV ===== -->
 <nav>
   <button onclick="location.href='live.html'">Live</button>
   <button onclick="location.href='series.html'">Series</button>
-  <button onclick="location.href='home.html'">Home</button>
+  <button onclick="location.href='watch.html'">Home</button>
 </nav>
 
 <div class="movies" id="movies"></div>
