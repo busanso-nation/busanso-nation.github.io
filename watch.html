@@ -1,30 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>User Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --orange:#ff8a00;
-  --teal:#00c9a7;
-  --dark:#0f172a;
-  --glass:rgba(255,255,255,.14);
-}
+:root{--orange:#ff8a00;--teal:#00c9a7;--dark:#0f172a;--glass:rgba(255,255,255,.14);}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',system-ui,sans-serif;}
 body{min-height:100vh;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;align-items:center;justify-content:center;padding:10px;color:#1f2933;}
 .card{width:100%;max-width:500px;background:rgba(255,255,255,.9);border-radius:25px;padding:25px 20px;box-shadow:0 20px 50px rgba(0,0,0,.3);}
 .header{text-align:center;margin-bottom:15px;}
 .header h1{font-size:2.2rem;font-weight:900;color:#ff8a00;}
 .header small{display:block;font-size:1rem;margin-top:4px;opacity:.8;}
-.newyear{text-align:center;background:linear-gradient(90deg,#00c9a7,#92fe9d);color:#064635;border-radius:16px;padding:12px;font-size:1rem;font-weight:700;margin-bottom:15px;}
 .info-box{background:#f8fafc;border-radius:16px;padding:15px 16px;margin-bottom:15px;}
 .info-row{display:flex;justify-content:space-between;padding:10px 0;font-size:1.05rem;border-bottom:1px dashed #e5e7eb;}
 .info-row:last-child{border-bottom:none}
 .label{opacity:.8;font-size:1rem;}
 .value{font-weight:800;font-size:1rem;}
-.expiry{color:#059669;font-size:1.1rem;font-weight:700;}
+.countdown{text-align:center;font-weight:800;margin-top:15px;font-size:1.3rem;color:#ff3d00;}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px;}
 .btn{padding:14px 10px;border-radius:16px;font-size:1rem;font-weight:800;text-align:center;text-decoration:none;color:#fff;display:block;}
 .movies{background:linear-gradient(135deg,#ff9f1c,#ffbf69);}
@@ -33,7 +27,6 @@ body{min-height:100vh;background:linear-gradient(135deg,#ffecd2,#fcb69f);display
 .join{background:linear-gradient(135deg,#ef476f,#f72585);}
 .donate{background:linear-gradient(135deg,#fcbf49,#ff006e);}
 .live{background:linear-gradient(135deg,#9b5de5,#f15bb5);}
-.countdown{text-align:center;font-weight:800;margin-top:15px;font-size:1.3rem;color:#ff3d00;}
 footer{text-align:center;font-size:.85rem;margin-top:15px;opacity:.7;}
 </style>
 </head>
@@ -45,10 +38,6 @@ footer{text-align:center;font-size:.85rem;margin-top:15px;opacity:.7;}
     <small id="planLabel">Loading...</small>
   </div>
 
-  <div class="newyear">
-    May this year bring you joy, success & endless entertainment 🎬✨
-  </div>
-
   <div class="info-box">
     <div class="info-row">
       <span class="label">Your PIN</span>
@@ -56,7 +45,7 @@ footer{text-align:center;font-size:.85rem;margin-top:15px;opacity:.7;}
     </div>
     <div class="info-row">
       <span class="label">Expires In</span>
-      <span class="value expiry countdown" id="timeLeft">Loading...</span>
+      <span class="value countdown" id="timeLeft">Loading...</span>
     </div>
   </div>
 
@@ -73,10 +62,8 @@ footer{text-align:center;font-size:.85rem;margin-top:15px;opacity:.7;}
   <footer>💫 Thank you for being part of Busanso Nation</footer>
 </div>
 
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
@@ -97,26 +84,18 @@ localStorage.setItem("deviceId", deviceId);
 if(!pin){
   location.href = "login.html";
 } else {
-  db.ref("pins/" + pin).get().then(snapshot => {
+  db.ref("pins/"+pin).get().then(snapshot => {
     if(!snapshot.exists()){
-      alert("Wooo, Wrong Password.");
+      alert("Invalid PIN.");
       localStorage.removeItem("activePIN");
       location.href = "login.html";
       return;
     }
 
     const data = snapshot.val();
-
-    // Check device binding
-    if(data.activeDevice && data.activeDevice !== deviceId){
-      alert("This Password is being used by another Person.");
-      localStorage.removeItem("activePIN");
-      location.href = "login.html";
-      return;
-    }
-
-    // Check expiry
     const now = Date.now();
+
+    // Expired
     if(now > data.expiry){
       alert("Your subscription has expired.");
       localStorage.removeItem("activePIN");
@@ -124,9 +103,9 @@ if(!pin){
       return;
     }
 
-    // Mark this device if first visit
+    // Ensure PIN stays bound to device without showing fake "other device"
     if(!data.activeDevice){
-      db.ref("pins/" + pin + "/activeDevice").set(deviceId);
+      db.ref("pins/"+pin+"/activeDevice").set(deviceId);
     }
 
     localStorage.setItem("activePackage", JSON.stringify(data));
