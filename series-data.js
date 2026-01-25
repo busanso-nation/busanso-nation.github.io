@@ -33,5 +33,5 @@ episodes: [
   { title: "Episode 2", video: "https://www.youtube.com/embed/egF1sy2FPYs" }
 ]
 
-  }
+  },
 ],
