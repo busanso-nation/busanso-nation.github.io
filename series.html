@@ -161,21 +161,22 @@ button{
 <!-- PIN AUTH FIX -->
 <script>
 (function(){
-  const pin = localStorage.getItem("busanso_pin");
-  const expiry = localStorage.getItem("busanso_pin_expiry");
+  const pin = localStorage.getItem("activePIN");
+  const pkg = localStorage.getItem("activePackage");
 
-  if(!pin || !expiry){
-    location.replace("login.html"); // your PIN page
+  if(!pin || !pkg){
+    location.replace("login.html");
     return;
   }
 
-  const now = new Date();
-  const expDate = new Date(expiry);
-
-  if(now >= expDate){
-    alert("Your access PIN has expired.");
-    localStorage.removeItem("busanso_pin");
-    localStorage.removeItem("busanso_pin_expiry");
+  try{
+    const data = JSON.parse(pkg);
+    if(Date.now() > data.expiry){
+      localStorage.removeItem("activePIN");
+      localStorage.removeItem("activePackage");
+      location.replace("login.html");
+    }
+  }catch(e){
     location.replace("login.html");
   }
 })();
