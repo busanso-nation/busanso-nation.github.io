@@ -5,139 +5,116 @@
 <title>BUSANSO – Movies</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- LOAD MOVIE DATA -->
 <script src="movies-data.js"></script>
 
 <style>
-body{
-  margin:0;
-  background:#0f0f0f;
-  color:#fff;
-  font-family:Arial, sans-serif;
+body{margin:0;background:#0f0f0f;color:#fff;font-family:Arial}
+
+/* NAV */
+.nav{
+  display:flex;gap:8px;padding:10px;
+  background:#000;position:sticky;top:0;z-index:10
+}
+.nav button{
+  flex:1;padding:8px;border:none;border-radius:8px;
+  background:#181818;color:#fff;font-weight:bold;cursor:pointer
+}
+.nav button:hover{background:#e50914}
+
+/* SEARCH */
+.search{padding:10px;background:#000}
+.search input{
+  width:100%;padding:10px;border:none;border-radius:8px;
+  background:#181818;color:#fff
 }
 
-/* ===== HEADER ===== */
-header{
-  padding:16px;
-  font-size:24px;
-  font-weight:bold;
-}
-
-/* ===== MOVIES GRID ===== */
+/* GRID */
 .movies{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-  padding:14px;
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:14px;padding:14px
 }
-
 @media(min-width:600px){
-  .movies{
-    grid-template-columns:repeat(4,1fr);
-  }
+  .movies{grid-template-columns:repeat(4,1fr)}
 }
 
-/* ===== CARD ===== */
-.movie{
-  background:#181818;
-  border-radius:12px;
-  overflow:hidden;
-  opacity:0;
-  transform:translateY(15px);
-  animation:fadeUp .4s ease forwards;
+.card{
+  background:#181818;border-radius:12px;overflow:hidden;
+  opacity:0;transform:translateY(15px);
+  animation:fade .4s forwards
 }
-
-@keyframes fadeUp{
-  to{
-    opacity:1;
-    transform:none;
-  }
-}
-
-.movie img{
-  width:100%;
-  display:block;
-}
-
-.movie-info{
-  padding:10px;
-}
-
-.movie-title{
-  font-size:14px;
-  font-weight:bold;
-  margin-bottom:4px;
-}
-
-.movie-meta{
-  font-size:12px;
-  color:#aaa;
-  margin-bottom:8px;
-}
-
-/* ===== WATCH BUTTON ===== */
+@keyframes fade{to{opacity:1;transform:none}}
+.card img{width:100%}
+.info{padding:10px}
+.meta{font-size:12px;color:#aaa}
 .watch{
-  width:100%;
-  padding:8px;
-  border:none;
-  border-radius:8px;
-  background:#e50914;
-  color:#fff;
-  font-weight:bold;
-  cursor:pointer;
+  width:100%;padding:8px;margin-top:6px;
+  border:none;border-radius:8px;
+  background:#e50914;color:#fff;font-weight:bold
 }
-.watch:hover{opacity:.9}
 </style>
 </head>
 
 <body>
 
-<!-- ===== PIN CHECK ===== -->
+<!-- 🔐 PIN + EXPIRY CHECK -->
 <script>
-if(!localStorage.getItem("activePIN")){
-  location.replace("login.html");
+const pin = localStorage.getItem("activePIN");
+const exp = localStorage.getItem("pinExpiry");
+
+if(!pin || !exp || Date.now() > Number(exp)){
+  localStorage.clear();
+  location.replace("packages.html");
 }
 </script>
 
-<header>🎬 BUSANSO MOVIES</header>
+<div class="nav">
+  <button onclick="location.href='watch.html'">🏠 Home</button>
+  <button onclick="location.href='series.html'">📺 Series</button>
+  <button onclick="location.href='donate.html'">❤️ Donate</button>
+  <button onclick="location.href='marriage.html'">💍 Marriage</button>
+</div>
 
-<div class="movies" id="movies"></div>
+<div class="search">
+  <input id="search" placeholder="Search movies...">
+</div>
+
+<div class="movies" id="list"></div>
 
 <script>
-const box = document.getElementById("movies");
+const box=document.getElementById("list");
+const search=document.getElementById("search");
 
-/* Safety check */
-if(typeof MOVIES === "undefined"){
-  alert("movies-data.js not loaded");
+function render(data){
+  box.innerHTML="";
+  data.forEach((m,i)=>{
+    const c=document.createElement("div");
+    c.className="card";
+    c.style.animationDelay=i*.05+"s";
+    c.innerHTML=`
+      <img src="${m.poster}" loading="lazy">
+      <div class="info">
+        <b>${m.title}</b>
+        <div class="meta">${m.country} • ${m.duration}</div>
+        <button class="watch">Watch</button>
+      </div>`;
+    c.querySelector(".watch").onclick=()=>{
+      location.href=
+        `movie.html?title=${encodeURIComponent(m.title)}
+        &video=${encodeURIComponent(m.video)}
+        &genre=${encodeURIComponent(m.genre)}
+        &country=${encodeURIComponent(m.country)}
+        &duration=${encodeURIComponent(m.duration)}`;
+    };
+    box.appendChild(c);
+  });
 }
 
-/* BUILD CARDS */
-MOVIES.forEach((m, index)=>{
-  const card = document.createElement("div");
-  card.className = "movie";
-  card.style.animationDelay = (index * 0.05) + "s";
+render(MOVIES);
 
-  card.innerHTML = `
-    <img src="${m.poster}" loading="lazy">
-    <div class="movie-info">
-      <div class="movie-title">${m.title}</div>
-      <div class="movie-meta">${m.country} • ${m.duration}</div>
-      <button class="watch">Watch</button>
-    </div>
-  `;
-
-  card.querySelector(".watch").onclick = ()=>{
-    location.href =
-      `movie.html?title=${encodeURIComponent(m.title)}
-      &video=${encodeURIComponent(m.video)}
-      &year=${m.year}
-      &country=${m.country}
-      &duration=${m.duration}
-      &synopsis=${encodeURIComponent(m.synopsis || "")}`;
-  };
-
-  box.appendChild(card);
-});
+search.oninput=()=>{
+  const q=search.value.toLowerCase();
+  render(MOVIES.filter(m=>m.title.toLowerCase().includes(q)));
+};
 </script>
 
 </body>
