@@ -8,31 +8,22 @@
 <script src="series-data.js"></script>
 
 <style>
-*{user-select:none;-webkit-user-select:none}
 body{
   margin:0;
   background:#000;
   color:#fff;
   font-family:Arial, sans-serif;
 }
-
-/* PLAYER */
-.player{
-  width:100%;
-  background:#000;
-}
 .player iframe{
   width:100%;
   height:56vw;
   max-height:75vh;
   border:none;
+  background:#000;
 }
-
-/* INFO */
 .details{padding:16px}
 .meta{color:#aaa;font-size:14px;margin-bottom:10px}
 
-/* BUTTONS */
 .actions button{
   width:100%;
   padding:12px;
@@ -45,12 +36,9 @@ body{
 .watch{background:#e50914;color:#fff}
 .secondary{background:#222;color:#fff}
 
-/* SECTIONS */
 .section{margin-top:20px}
-.section h3{margin-bottom:10px}
-
-/* EPISODES */
 #episodesSection{display:none}
+
 .episodes{display:grid;gap:8px}
 .episode{
   background:#181818;
@@ -60,42 +48,12 @@ body{
 }
 .episode:hover{background:#e50914}
 
-/* CAST */
 .cast{display:flex;flex-wrap:wrap;gap:8px}
 .cast span{
   background:#181818;
   padding:6px 10px;
   border-radius:20px;
   font-size:12px;
-}
-
-/* SHARE MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-.modal-box{
-  background:#111;
-  padding:20px;
-  border-radius:12px;
-  width:90%;
-}
-.modal-box button{margin-top:8px}
-
-/* SUGGESTIONS */
-.suggestions{
-  display:grid;
-  gap:8px;
-}
-.suggestions div{
-  background:#181818;
-  padding:10px;
-  border-radius:8px;
-  cursor:pointer;
 }
 </style>
 </head>
@@ -104,14 +62,15 @@ body{
 
 <!-- PIN CHECK -->
 <script>
-const pin=localStorage.getItem("activePIN");
-const exp=Number(localStorage.getItem("pinExpiry"));
-if(!pin||!exp||Date.now()>exp){
+const pin = localStorage.getItem("activePIN");
+const exp = Number(localStorage.getItem("pinExpiry"));
+if(!pin || !exp || Date.now() > exp){
   localStorage.clear();
   location.replace("login.html");
 }
 </script>
 
+<!-- PLAYER -->
 <div class="player" id="player"></div>
 
 <div class="details">
@@ -119,9 +78,8 @@ if(!pin||!exp||Date.now()>exp){
   <div class="meta" id="meta"></div>
 
   <div class="actions">
-    <button class="watch" onclick="watchNow()">▶ Watch Now</button>
-    <button class="secondary" onclick="toggleEpisodes()">📺 Show / Hide Episodes</button>
-    <button class="secondary" onclick="toggleShare()">📤 Share</button>
+    <button class="watch" id="watchBtn">▶ Watch Now</button>
+    <button class="secondary" onclick="toggleEpisodes()">📺 Episodes</button>
   </div>
 
   <div class="section">
@@ -134,52 +92,43 @@ if(!pin||!exp||Date.now()>exp){
     <div class="cast" id="cast"></div>
   </div>
 
-  <!-- EPISODES -->
   <div class="section" id="episodesSection">
     <h3>Episodes</h3>
     <div class="episodes" id="episodeList"></div>
   </div>
-
-  <!-- RECOMMEND -->
-  <div class="section">
-    <h3>What to Watch Next</h3>
-    <div class="suggestions" id="suggestions"></div>
-  </div>
-</div>
-
-<!-- SHARE MODAL -->
-<div class="modal" id="shareModal">
-  <div class="modal-box">
-    <h3>Share</h3>
-    <button onclick="shareWA()">WhatsApp</button>
-    <button onclick="shareIMO()">IMO</button>
-    <button onclick="copyShare()">Copy</button>
-    <button onclick="toggleShare()">Close</button>
-  </div>
 </div>
 
 <script>
-/* LOAD SERIES */
-const params=new URLSearchParams(location.search);
-const serie=SERIES.find(s=>s.id===params.get("id"));
-if(!serie) location.replace("series.html");
+/* ===== LOAD SERIES SAFELY ===== */
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
 
-title.textContent=serie.title;
-meta.textContent=`${serie.country} • ${serie.genre} • ${serie.year}`;
-synopsis.textContent=serie.synopsis;
+if(!id || typeof SERIES === "undefined"){
+  location.replace("series.html");
+}
 
-/* CAST */
-serie.cast.forEach(c=>{
+const serie = SERIES.find(s => s.id === id);
+if(!serie || !serie.episodes || !serie.episodes.length){
+  alert("Video not available");
+}
+
+/* ===== BASIC INFO ===== */
+title.textContent = serie.title;
+meta.textContent = `${serie.country} • ${serie.genre} • ${serie.year}`;
+synopsis.textContent = serie.synopsis || "";
+
+(serie.cast || []).forEach(c=>{
   const s=document.createElement("span");
   s.textContent=c;
   cast.appendChild(s);
 });
 
-/* EMBED NORMALIZER */
+/* ===== VIDEO EMBED NORMALIZER ===== */
 function embed(url){
+  if(!url) return "";
   if(url.includes("youtube")){
-    const id=new URL(url).searchParams.get("v")||url.split("/").pop();
-    return `https://www.youtube.com/embed/${id}`;
+    const v = new URL(url).searchParams.get("v") || url.split("/").pop();
+    return `https://www.youtube.com/embed/${v}`;
   }
   if(url.includes("youtu.be")){
     return `https://www.youtube.com/embed/${url.split("/").pop()}`;
@@ -188,76 +137,53 @@ function embed(url){
     return `https://player.vimeo.com/video/${url.split("/").pop()}`;
   }
   if(url.includes("drive.google.com")){
-    const id=url.match(/\/d\/([^/]+)/);
-    return `https://drive.google.com/file/d/${id[1]}/preview`;
+    const id = url.match(/\/d\/([^/]+)/);
+    if(id) return `https://drive.google.com/file/d/${id[1]}/preview`;
   }
-  return url; // mp4 / direct
+  return url; // mp4 or direct
 }
 
-/* PLAYER */
-function play(video,fullscreen=false){
-  player.innerHTML=
-    `<iframe id="videoFrame" src="${embed(video)}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+/* ===== PLAYER (GUARANTEED) ===== */
+function play(video, fullscreen=false){
+  const src = embed(video);
+  if(!src){
+    alert("Video source error");
+    return;
+  }
+
+  player.innerHTML = `
+    <iframe
+      src="${src}"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+  `;
+
   if(fullscreen){
-    const f=document.getElementById("videoFrame");
+    const f = player.querySelector("iframe");
     f.requestFullscreen?.();
     screen.orientation?.lock("landscape").catch(()=>{});
   }
 }
 
-function watchNow(){
-  play(serie.episodes[0].video,true);
-}
+/* ===== WATCH NOW (FIXED) ===== */
+document.getElementById("watchBtn").onclick = () => {
+  play(serie.episodes[0].video, true);
+};
 
-/* EPISODES */
+/* ===== EPISODES ===== */
 serie.episodes.forEach((ep,i)=>{
   const d=document.createElement("div");
   d.className="episode";
-  d.textContent=`Episode ${i+1} • ${ep.title}`;
+  d.textContent=`Episode ${i+1} • ${ep.title || ""}`;
   d.onclick=()=>play(ep.video,true);
   episodeList.appendChild(d);
 });
 
 function toggleEpisodes(){
   episodesSection.style.display =
-    episodesSection.style.display==="none"?"block":"none";
+    episodesSection.style.display === "none" ? "block" : "none";
 }
-
-/* SHARE */
-const SITE_URL=location.origin+"/series.html";
-const SHARE_TEXT=`${serie.title}\n\n${serie.synopsis}\n\nWatch on BUSANSO:\n${SITE_URL}`;
-
-function toggleShare(){
-  shareModal.style.display=
-    shareModal.style.display==="flex"?"none":"flex";
-}
-function shareWA(){
-  location.href=`https://wa.me/?text=${encodeURIComponent(SHARE_TEXT)}`;
-}
-function shareIMO(){
-  location.href=`imo://send?text=${encodeURIComponent(SHARE_TEXT)}`;
-}
-function copyShare(){
-  navigator.clipboard.writeText(SHARE_TEXT);
-  alert("Copied");
-}
-
-/* RECOMMENDATIONS */
-SERIES.filter(s=>s.genre===serie.genre && s.id!==serie.id)
-.slice(0,4)
-.forEach(s=>{
-  const d=document.createElement("div");
-  d.textContent=s.title;
-  d.onclick=()=>location.href=`series-view.html?id=${s.id}`;
-  suggestions.appendChild(d);
-});
-
-/* ANTI RECORD (BEST EFFORT) */
-document.addEventListener("visibilitychange",()=>{
-  if(document.hidden){
-    player.innerHTML="";
-  }
-});
 </script>
 
 </body>
