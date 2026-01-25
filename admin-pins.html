@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Busanso Admin – PIN Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+<style>
+body{
+  background:#0b0b0b;
+  color:#fff;
+  font-family:Arial, sans-serif;
+  margin:0;
+  padding:20px;
+}
+h1{margin-bottom:10px}
+.card{
+  background:#111;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+input,select,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:6px;
+  border:none;
+  font-size:14px;
+}
+button{
+  background:#e50914;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+button.secondary{
+  background:#222;
+}
+.pin{
+  background:#181818;
+  padding:10px;
+  border-radius:8px;
+  margin-top:8px;
+  font-size:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+small{color:#aaa}
+.delete{
+  background:#333;
+  padding:6px 10px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.expired{opacity:.4}
+</style>
+</head>
+
+<body>
+<script>
+const ADMIN_KEY = "BUSANSO2026";
+
+const savedKey = localStorage.getItem("busansoAdminKey");
+
+if(savedKey !== ADMIN_KEY){
+  const entered = prompt("Enter Admin Key");
+  if(entered !== ADMIN_KEY){
+    alert("Access denied");
+    location.href = "index.html";
+  }else{
+    localStorage.setItem("busansoAdminKey", entered);
+  }
+}
+</script>
+
+
+<h1>🔐 Busanso Admin – PIN Manager</h1>
+<small>Project ID: <b>busanso-pins</b></small>
+
+<!-- CREATE PIN -->
+<div class="card">
+  <h3>Create New PIN</h3>
+
+  <select id="type">
+    <option value="Weekly">Weekly (7 days)</option>
+    <option value="Monthly">Monthly (30 days)</option>
+    <option value="Half-Year">Half-Year (180 days)</option>
+    <option value="Annual">Annual (365 days)</option>
+  </select>
+
+  <input id="customDays" type="number" placeholder="Or enter custom days (optional)">
+
+  <button onclick="generatePin()">Generate PIN</button>
+
+  <p id="result"></p>
+</div>
+
+<!-- PIN LIST -->
+<div class="card">
+  <h3>Existing PINs</h3>
+  <div id="pins"></div>
+  <button class="secondary" onclick="removeExpired()">Remove Expired PINs</button>
+</div>
+
+<script>
+/* 🔥 FIREBASE CONFIG */
+firebase.initializeApp({
+  apiKey: "YOUR_API_KEY",
+  authDomain: "busanso-pins.firebaseapp.com",
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
+  projectId: "busanso-pins"
+});
+
+const db = firebase.database();
+
+/* ⏱ DAYS MAP */
+const DAYS = {
+  "Weekly": 7,
+  "Monthly": 30,
+  "Half-Year": 180,
+  "Annual": 365
+};
+
+/* 🔢 PIN GENERATOR */
+function randomPin(){
+  return Math.random().toString(36).substring(2,8).toUpperCase();
+}
+
+/* ➕ CREATE PIN */
+function generatePin(){
+  const type = document.getElementById("type").value;
+  const custom = Number(document.getElementById("customDays").value);
+  const days = custom > 0 ? custom : DAYS[type];
+
+  const pin = type.substring(0,2).toUpperCase() + "-" + randomPin();
+  const now = Date.now();
+  const expiry = now + days * 24 * 60 * 60 * 1000;
+
+  db.ref("pins/"+pin).set({
+    type,
+    days,
+    createdAt: now,
+    expiry,
+    used: false,
+    device: ""
+  });
+
+  document.getElementById("result").innerHTML =
+    `✅ Generated PIN: <b>${pin}</b> (${days} days)`;
+}
+
+/* 📋 LOAD PINS */
+function loadPins(){
+  db.ref("pins").on("value", snap=>{
+    const box = document.getElementById("pins");
+    box.innerHTML = "";
+    const data = snap.val() || {};
+    Object.keys(data).forEach(pin=>{
+      const p = data[pin];
+      const expired = Date.now() > p.expiry;
+      const div = document.createElement("div");
+      div.className = "pin"+(expired?" expired":"");
+      div.innerHTML = `
+        <div>
+          <b>${pin}</b><br>
+          <small>${p.type} • expires ${new Date(p.expiry).toDateString()}</small>
+        </div>
+        <div class="delete" onclick="deletePin('${pin}')">🗑</div>
+      `;
+      box.appendChild(div);
+    });
+  });
+}
+
+/* 🗑 DELETE PIN */
+function deletePin(pin){
+  if(confirm("Delete "+pin+"?")){
+    db.ref("pins/"+pin).remove();
+  }
+}
+
+/* 🧹 REMOVE EXPIRED */
+function removeExpired(){
+  db.ref("pins").once("value", snap=>{
+    const data = snap.val() || {};
+    Object.keys(data).forEach(pin=>{
+      if(Date.now() > data[pin].expiry){
+        db.ref("pins/"+pin).remove();
+      }
+    });
+    alert("Expired PINs removed");
+  });
+}
+
+loadPins();
+</script>
+
+</body>
+</html>
