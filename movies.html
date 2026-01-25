@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,342 +5,139 @@
 <title>BUSANSO – Movies</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="auth.js"></script>
+<!-- LOAD MOVIE DATA -->
+<script src="movies-data.js"></script>
 
 <style>
 body{
   margin:0;
-  font-family:Arial;
   background:#0f0f0f;
   color:#fff;
+  font-family:Arial, sans-serif;
 }
 
-/* ===== HEADER + NAV ===== */
+/* ===== HEADER ===== */
 header{
-  text-align:center;
-  padding:15px;
-  background:#000;
+  padding:16px;
   font-size:24px;
   font-weight:bold;
 }
-
-nav{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  padding:10px;
-  background:#111;
-}
-
-nav button{
-  padding:10px 16px;
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
-  background:#222;
-  color:#fff;
-}
-nav button:hover{background:#333}
 
 /* ===== MOVIES GRID ===== */
 .movies{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  padding:12px;
-}
-@media(min-width:500px){
-  .movies{grid-template-columns:repeat(3,1fr)}
+  gap:14px;
+  padding:14px;
 }
 
+@media(min-width:600px){
+  .movies{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+
+/* ===== CARD ===== */
 .movie{
-  background:#1c1c1c;
+  background:#181818;
   border-radius:12px;
-  padding:10px;
-  text-align:center;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(15px);
+  animation:fadeUp .4s ease forwards;
 }
-.movie.locked{opacity:.5}
-.movie img{width:100%;border-radius:10px}
-.movie h3{font-size:14px;margin:6px 0}
 
-.actions{
-  display:flex;
-  gap:6px;
-  margin-top:6px;
+@keyframes fadeUp{
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
-.actions button{
-  flex:1;
-  padding:7px;
+
+.movie img{
+  width:100%;
+  display:block;
+}
+
+.movie-info{
+  padding:10px;
+}
+
+.movie-title{
+  font-size:14px;
+  font-weight:bold;
+  margin-bottom:4px;
+}
+
+.movie-meta{
+  font-size:12px;
+  color:#aaa;
+  margin-bottom:8px;
+}
+
+/* ===== WATCH BUTTON ===== */
+.watch{
+  width:100%;
+  padding:8px;
   border:none;
   border-radius:8px;
-  font-size:12px;
+  background:#e50914;
+  color:#fff;
   font-weight:bold;
   cursor:pointer;
 }
-
-.play{background:#ff3d3d;color:#fff}
-.details{background:#333;color:#fff}
-.share{background:#222;color:#fff}
-
-.lock-msg{
-  font-size:11px;
-  color:#ffb000;
-  margin-top:6px;
-}
-
-/* ===== PLAYER / DETAILS ===== */
-#playerContainer{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.95);
-  z-index:99;
-  padding:15px;
-}
-#playerBox{
-  max-width:800px;
-  margin:auto;
-}
-#playerBox iframe{
-  width:100%;
-  height:50vw;
-  max-height:70vh;
-  border:none;
-  border-radius:12px;
-}
-#detailsBox{
-  font-size:14px;
-  line-height:1.5;
-}
-#closeBtn{
-  margin-top:10px;
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  background:#ff3d3d;
-  color:#fff;
-  font-weight:bold;
-}
-
-/* ===== SHARE MODAL ===== */
-#shareModal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-}
-.share-box{
-  background:#1c1c1c;
-  padding:20px;
-  border-radius:14px;
-  width:90%;
-  max-width:320px;
-}
-.share-box button{
-  width:100%;
-  margin-top:8px;
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  font-weight:bold;
-}
+.watch:hover{opacity:.9}
 </style>
 </head>
 
 <body>
 
-<!-- PIN AUTH FIX -->
+<!-- ===== PIN CHECK ===== -->
 <script>
-(function(){
-  const pin = localStorage.getItem("activePIN");
-  const pkg = localStorage.getItem("activePackage");
-
-  if(!pin || !pkg){
-    location.replace("login.html");
-    return;
-  }
-
-  try{
-    const data = JSON.parse(pkg);
-    if(Date.now() > data.expiry){
-      localStorage.removeItem("activePIN");
-      localStorage.removeItem("activePackage");
-      location.replace("login.html");
-    }
-  }catch(e){
-    location.replace("login.html");
-  }
-})();
+if(!localStorage.getItem("activePIN")){
+  location.replace("login.html");
+}
 </script>
 
-<header>BUSANSO MOVIES</header>
-
-<!-- ===== TOP NAV ===== -->
-<nav>
-  <button onclick="location.href='live.html'">Live</button>
-  <button onclick="location.href='series.html'">Series</button>
-  <button onclick="location.href='watch.html'">Home</button>
-</nav>
+<header>🎬 BUSANSO MOVIES</header>
 
 <div class="movies" id="movies"></div>
 
-<!-- ===== PLAYER / DETAILS ===== -->
-<div id="playerContainer">
-  <div id="playerBox"></div>
-  <button id="closeBtn" onclick="closePlayer()">Close</button>
-</div>
-
-<!-- ===== SHARE MODAL ===== -->
-<div id="shareModal">
-  <div class="share-box">
-    <button id="waShare">WhatsApp</button>
-    <button id="imoShare">IMO</button>
-    <button id="ttShare">TikTok</button>
-    <button id="mailShare">Gmail</button>
-    <button id="copyShare">Copy Link</button>
-    <button onclick="shareModal.style.display='none'">Cancel</button>
-  </div>
-</div>
-
 <script>
+const box = document.getElementById("movies");
 
+/* Safety check */
+if(typeof MOVIES === "undefined"){
+  alert("movies-data.js not loaded");
+}
 
-/* ===== MOVIES DATA ===== */
-const MOVIES=[
- {title:"UNDER THE TREE",poster:"https://i.ibb.co/DPQGhfgn/Untitled-1.jpg",video:"https://www.youtube.com/embed/dazxm7NXbqQ",year:"2026",country:"Japan",access:"all"},
- 
- {title:"KANOR",poster:"https://i.ibb.co/Zphm4pNY/KANOR.jpg",video:"https://www.youtube.com/embed/p31wdNO5ibQ",year:"2026",country:"India",access:"all"},
- 
- {title:"KANOR 2",poster:"https://i.ibb.co/Zphm4pNY/KANOR.jpg",video:"https://www.youtube.com/embed/kZJHntZJKoI",year:"2026",country:"India",access:"all"},
- 
- {title:"TITANIC",poster:"https://play-lh.googleusercontent.com/8PmJGVmFtEYVrnjcEvHr2Zl0bMYtjufSxmTBXb87NN7VF16lBr4bD4mUFV5Ae0uQ52-yLp1pdBF7NuOUtm4",video:"https://vimeo.com/862818999",year:"2025",country:"USA",access:"latest"},
- 
- {title:"TITANIC 2",poster:"https://play-lh.googleusercontent.com/8PmJGVmFtEYVrnjcEvHr2Zl0bMYtjufSxmTBXb87NN7VF16lBr4bD4mUFV5Ae0uQ52-yLp1pdBF7NuOUtm4",video:"https://vimeo.com/863044892",year:"2025",country:"USA",access:"latest"},
- 
- {title:"TITANIC 3",poster:"https://play-lh.googleusercontent.com/8PmJGVmFtEYVrnjcEvHr2Zl0bMYtjufSxmTBXb87NN7VF16lBr4bD4mUFV5Ae0uQ52-yLp1pdBF7NuOUtm4",video:"https://vimeo.com/863605809",year:"2025",country:"USA",access:"latest"},
- 
-  {title:"THE CURE",poster:"https://i.ibb.co/gLxRJRPf/33.jpg",video:"https://player.vimeo.com/video/746868048",year:"2025",country:"USA",access:"all"},
-   {title:"THE CURE 2",poster:"https://i.ibb.co/gLxRJRPf/33.jpg",video:"https://drive.google.com/file/d/1b0fMqvvrR8qtQLC5wVT_BReqx4swlv_T/preview",year:"2025",country:"USA",access:"latest"},
-   
-  {title:"CHAUTALA",poster:"https://st1.bollywoodlife.com/wp-content/uploads/2024/07/1-37.png",video:"https://www.youtube.com/embed/9OK326dtdMA",year:"2026",country:"India",access:"all"},
-  
-   {title:"CHAUTALA 2",poster:"https://st1.bollywoodlife.com/wp-content/uploads/2024/07/1-37.png",video:"https://www.youtube.com/embed/v7bnBboesXM",year:"2026",country:"India",access:"all"},
-   
-   {title:"JAM",poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOHKRDxVQLrNG9trBxcfo-Llyyq7-KAyKsPg&s",video:"https://www.youtube.com/embed/R0c3hy6Euok",year:"2026",country:"India",access:"premium"},
-   
-   {title:"BRANT",poster:"https://i.pinimg.com/736x/5b/55/fb/5b55fbca254ed2016daeb5c8456b0a68.jpg",video:"https://drive.google.com/file/d/1BipH5Qsg-k8Ah_DP1P0iVU9HE-6KfQyp/view",year:"2026",country:"USA",access:"all"},
-   
-   {title:"BRANT 2",poster:"https://i.pinimg.com/736x/5b/55/fb/5b55fbca254ed2016daeb5c8456b0a68.jpg",video:"https://drive.google.com/file/d/1wURAFpDI9N9MAA-ITigYhQP_dIjQzGme/view",year:"2026",country:"USA",access:"all"},
-   
-   {title:"HOTEL RWANDA",poster:"https://m.media-amazon.com/images/I/61jbFFhqOvL.jpg",video:"https://drive.google.com/file/d/1BYv48hR77jxOHvZWjuHKlc7OH5lIN1kr/preview",year:"2026",country:"USA",access:"all"},
-   
-   {title:"THE PICK UP",poster:"https://upload.wikimedia.org/wikipedia/en/d/d8/The_Pickup_2025_poster.jpg",video:"https://drive.google.com/file/d/16HV04cwCCsGbkhrJIATzHb_CKIw4bU6f/view",year:"2026",country:"USA",access:"latest"},
-   
-   {title:"BOB",poster:"https://i.ibb.co/wZLWXscX/Untitled-1.jpg",video:"https://drive.google.com/file/d/15TOiFNFoEWGAVoGp_ruUIa9NQ6TX5jE-/preview",year:"2026",country:"Chine",access:"all"},
-   
-   {title:"BOB 2",poster:"https://i.ibb.co/wZLWXscX/Untitled-1.jpg",video:"https://drive.google.com/file/d/1J-xjvKCz4OmyXi9UUj6vpgwbea3zulnE/preview",year:"2026",country:"Chine",access:"all"},
-   
-   {title:"SANKAT",poster:"https://upload.wikimedia.org/wikipedia/hi/b/b9/%E0%A4%95%E0%A5%81%E0%A4%9B_%E0%A4%A4%E0%A5%8B_%E0%A4%B9%E0%A5%88.jpg",video:"https://drive.google.com/file/d/1A4UJn5OgPowpBPpJlZH6_g1Uk-UGgJrr/preview",year:"2026",country:"India",access:"latest"},
-   
-   {title:"SANKAT 2",poster:"https://upload.wikimedia.org/wikipedia/hi/b/b9/%E0%A4%95%E0%A5%81%E0%A4%9B_%E0%A4%A4%E0%A5%8B_%E0%A4%B9%E0%A5%88.jpg",video:"https://drive.google.com/file/d/1XYpU_XPn-GWQBXBIG52UMq2uHRgCP_lD/preview",year:"2026",country:"India",access:"latest"},
-   
-   {title:"THE VAULT",poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzmPDqOkNsLCDfyHpD_Oq4qGFdnVbkTyVEviWy95hoAERvf9_DFoXxy3oreah_jrMoKHIN&s=10",video:"https://drive.google.com/file/d/1svKcGMOXcy2b9NQXYLqLF9Xs0jdNARq5/preview",year:"2025",country:"India",access:"all"},
-   
-   {title:"THE VAULT 2",poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzmPDqOkNsLCDfyHpD_Oq4qGFdnVbkTyVEviWy95hoAERvf9_DFoXxy3oreah_jrMoKHIN&s=10",video:"https://drive.google.com/file/d/1roGhWKYNuGhti1FFb1aQq7Ov0332ZQhS/preview",year:"2026",country:"India",access:"all"},
-   
-   {title:"AMANI",poster:"https://static.titlovi.com/img/0228/228698-tt0234000.jpg",video:"https://www.youtube.com/embed/D2vaZ6yOfg4",year:"2026",country:"India",access:"all"},
-    
-   {title:"AMANI 2",poster:"https://static.titlovi.com/img/0228/228698-tt0234000.jpg",video:"https://www.youtube.com/embed/aayEWSxngbg",year:"2026",country:"India",access:"all"},
-   
-    
-   {title:"SHOONY",poster:"https://i.ibb.co/DD367QqD/pooooo.jpg",video:"https://www.youtube.com/embed/n-meJRIBMQQ",year:"2026",country:"India",access:"all"},
-    
-   {title:"SHOONY 2",poster:"https://i.ibb.co/DD367QqD/pooooo.jpg",video:"https://www.youtube.com/embed/eLPtLBbi4C8",year:"2026",country:"India",access:"all"},
-   
-   {title:"TEN THOUSAND YEARS BACK",poster:"https://image.tmdb.org/t/p/original/5XNthY4hzdKD2QxnlXbzIFYbtw6.jpg",video:"https://drive.google.com/file/d/1ZvJewP1LQxzjuxfcjbZ1zzO2V8Imthb-/preview",year:"2023",country:"China",access:"all"},
-   
-   {title:"THE CABIN IN THE WOODS",poster:"https://posterspy.com/wp-content/uploads/2022/11/cabin-posterspy-Ygris.jpg",video:"https://drive.google.com/file/d/1n-Er3F4oPUmt0lWh8d4on--rltB45K3m/preview",year:"2023",country:"India",access:"all"},
-   
-   {title:"FAITH CABIN",poster:"https://m.media-amazon.com/images/M/MV5BN2I0NjlkYjgtMWU5Mi00NGYwLThjNTYtMzM1MGI2ZTQ3OTIyXkEyXkFqcGc@._V1_.jpg",video:"https://www.youtube.com/embed/7EV1XVz7dA4",year:"2025",country:"USA",access:"premium"},
-   
-   
-   {title:"FAITH CABIN 2",poster:"https://m.media-amazon.com/images/M/MV5BN2I0NjlkYjgtMWU5Mi00NGYwLThjNTYtMzM1MGI2ZTQ3OTIyXkEyXkFqcGc@._V1_.jpg",video:"https://www.youtube.com/embed/F25D62Y-Q44",year:"2025",country:"USA",access:"premium"},
-   
-   {title:"THE GREAT WALL",poster:"https://i0.wp.com/china-underground.com/wp/wp-content/uploads/2017/03/hm0Z5tpRlSzPO97U5e2Q32Y0Xrb.jpg?fit=1365%2C2048&ssl=1",video:"https://drive.google.com/file/d/1PFWXmSzfR2K21QZyqo3cvxDg3WyvSach/preview",year:"2022",country:"China",access:"all"},
-   
-  {title:"SPECIAL OPS",poster:"https://resizing.flixster.com/TO9bIFhuZUN2dsheqIxZaq36pMQ=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvOTNmODkyZWItOWM5MS00NmM3LTk3ZmUtNzZjNTcyOTc1YjBkLmpwZw==",video:"https://www.youtube.com/embed/77XkSoDOhGc",year:"2019",country:"China",access:"all"},
-   
-   {title:"400 BULLETS",poster:"https://a.ltrbxd.com/resized/film-poster/7/0/6/9/7/8/706978-400-bullets-0-230-0-345-crop.jpg?v=26211e223b",video:"https://www.youtube.com/embed/JCh54UGPqFA",year:"2026",country:"USA",access:"latest"}
-];
+/* BUILD CARDS */
+MOVIES.forEach((m, index)=>{
+  const card = document.createElement("div");
+  card.className = "movie";
+  card.style.animationDelay = (index * 0.05) + "s";
 
-let shareText="";
-const box=document.getElementById("movies");
-
-/* ===== BUILD CARDS ===== */
-MOVIES.forEach(m=>{
-  const allowed=canAccess(m.access);
-  const card=document.createElement("div");
-  card.className="movie"+(allowed?"":" locked");
-
-  card.innerHTML=`
-    <img src="${m.poster}">
-    <h3>${m.title}</h3>
-    ${!allowed?'<div class="lock-msg">Upgrade required</div>':''}
-    <div class="actions">
-      <button class="play">Play</button>
-      <button class="details">Details</button>
-      <button class="share">Share</button>
+  card.innerHTML = `
+    <img src="${m.poster}" loading="lazy">
+    <div class="movie-info">
+      <div class="movie-title">${m.title}</div>
+      <div class="movie-meta">${m.country} • ${m.duration}</div>
+      <button class="watch">Watch</button>
     </div>
   `;
 
-  card.querySelector(".play").onclick=()=>{
-    if(!allowed){location.href="upgrade.html";return;}
-    openPlayer(`<iframe src="${m.video}" allowfullscreen></iframe>`);
-  };
-
-  card.querySelector(".details").onclick=()=>{
-    openPlayer(`
-      <div id="detailsBox">
-        <h3>${m.title}</h3>
-        <p><b>Year:</b> ${m.year}</p>
-        <p><b>Country:</b> ${m.country}</p>
-        <p><b>Access:</b> ${m.access.toUpperCase()}</p>
-      </div>
-    `);
-  };
-
-  card.querySelector(".share").onclick=()=>{
-    shareText=`${m.title}\n${m.year} • ${m.country}\n\nWatch on BUSANSO\n${location.origin}`;
-    shareModal.style.display="flex";
+  card.querySelector(".watch").onclick = ()=>{
+    location.href =
+      `movie.html?title=${encodeURIComponent(m.title)}
+      &video=${encodeURIComponent(m.video)}
+      &year=${m.year}
+      &country=${m.country}
+      &duration=${m.duration}
+      &synopsis=${encodeURIComponent(m.synopsis || "")}`;
   };
 
   box.appendChild(card);
 });
-
-/* ===== PLAYER ===== */
-function openPlayer(content){
-  playerBox.innerHTML=content;
-  playerContainer.style.display="block";
-}
-function closePlayer(){
-  playerContainer.style.display="none";
-  playerBox.innerHTML="";
-}
-
-/* ===== SHARE ACTIONS ===== */
-waShare.onclick=()=>location.href=`https://wa.me/?text=${encodeURIComponent(shareText)}`;
-imoShare.onclick=()=>location.href=`imo://chat?text=${encodeURIComponent(shareText)}`;
-ttShare.onclick=()=>location.href=`https://www.tiktok.com/share?text=${encodeURIComponent(shareText)}`;
-mailShare.onclick=()=>location.href=`mailto:?subject=BUSANSO Movie&body=${encodeURIComponent(shareText)}`;
-copyShare.onclick=()=>{
-  navigator.clipboard.writeText(shareText);
-  alert("Copied to clipboard");
-};
 </script>
 
 </body>
