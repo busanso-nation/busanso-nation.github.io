@@ -203,11 +203,22 @@ const MOVIES = [
     id: "cure1",
     title: "THE CURE",
     poster: "https://m.media-amazon.com/images/M/MV5BNjg1ZDdlMGItYzM3NS00NGQwLWE4ZWQtYTA1YjY1MjQ2YzViXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-    video: "https://www.youtube.com/embed/3TXDJLd6w2Q",
+    video: "https://player.vimeo.com/video/746868048",
     type: "free",
     year: "2019",
     country: "USA",
     duration: "30m",
+    synopsis: "Noah, a mercenary in a post-apocalyptic world where a virus kills hosts within 24 hours. When a permanent cure is stolen, Noah must retrieve it to save his infected daughter, facing intense, high-octane gunfights, vehicular carnage, and explosions against a terrorist organization"
+  },  
+         {
+    id: "cure2",
+    title: "THE CURE 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BNjg1ZDdlMGItYzM3NS00NGQwLWE4ZWQtYTA1YjY1MjQ2YzViXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    video: "https://drive.google.com/file/d/1b0fMqvvrR8qtQLC5wVT_BReqx4swlv_T/preview",
+    type: "premium",
+    year: "2019",
+    country: "USA",
+    duration: "40m",
     synopsis: "Noah, a mercenary in a post-apocalyptic world where a virus kills hosts within 24 hours. When a permanent cure is stolen, Noah must retrieve it to save his infected daughter, facing intense, high-octane gunfights, vehicular carnage, and explosions against a terrorist organization"
   },  
   {
