@@ -197,7 +197,7 @@ function render(data){
       <div class="info">
         <div class="title">${m.title}</div>
         <div class="meta">${m.country} • ${m.year} • ${m.duration || ''}</div>
-        <button class="watch">▶ Watch Now</button>
+        <button class="watch">▶ Watch</button>
       </div>`;
 
     c.querySelector("button").onclick=()=>location.href=`movie.html?id=${m.id}`;
