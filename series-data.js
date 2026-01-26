@@ -60,29 +60,25 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
-    title: "LEGEND OF TIANLAN",
-    poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
-    genre: "Fantasy",
-    added: 1,
-    type: "free",
-    country: "China",
+    id: "ashur",
+    title: "SPARTACUS HOUSE OF ASHUR",
+    poster: "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p30748471_b_v13_ac.jpg",
+    genre: "Action",
+    added: 3,
+    type: "premium",
+    country: "USA",
     year: "2026",
-    synopsis: "A legendary journey of power and destiny between exorcists.",
-    cast: ["Zifeng Li", "Yang Rong", "Yang Xuwen"],
+    synopsis: "Rewarded by the Romans with the Batiatus ludus for his treachery against Spartacus, the former slave becomes "Dominus" of the gladiator school. He rises to power, navigating Roman politics while training a fierce, groundbreaking female gladiator, Achillia. ",
+    cast: ["Tenika Davis", "Nick E. Tarabay", "Claudia Black],
     episodes: [
-      { title: "Episode 1", video: "https://www.youtube.com/embed/RlNqNyrRm_k" },
-      { title: "Episode 2", video: "https://www.youtube.com/embed/egF1sy2FPYs" },
-      { title: "Episode 3", video: "https://www.youtube.com/embed/UPrxaom2THM" },
-      { title: "Episode 4", video: "https://www.youtube.com/embed/squJI3jzkV4" },
-      { title: "Episode 5", video: "https://www.youtube.com/embed/LBrZEOj0w5o" },
-      { title: "Episode 6", video: "https://www.youtube.com/embed/EjXi1_0BnzE" },
-      { title: "Episode 7", video: "https://www.youtube.com/embed/mQAUHdtDbms" },
-      { title: "Episode 8", video: "https://www.youtube.com/embed/KdKOBolUC_U" },
-      { title: "Episode 9", video: "https://www.youtube.com/embed/fWngGIZ8ZLk" },
-      { title: "Episode 10", video: "https://www.youtube.com/embed/D0Op9g37vJs" },
-      { title: "Episode 11", video: "https://www.youtube.com/embed/ZKyROMmbIkI" }
-    ]
+      { title: "Episode 1", video: "https://drive.google.com/file/d/1h3ZX-xolsi2sbS3GZc4UqNOhZLBeMMK2/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1eNw09UOxdxksgrv70rH_0L3JrGx4x34R/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1trUrYKA1d_42Yz4LpWXSbuTuwcVxT6Z1/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1ny14W-WqThR0Gkm97V1X7ZCvdhJQ7dbs/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1eVDBuaemkfDIe34V0vjIPvetrw9AUmgg/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1eQo-qvWuD6OLeqdaVR7FdTBW9u_QMg6C/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1MVDAjXAQ1IeG-cj--rXQE9ISDUQc-jxz/preview" }
+]
   },
 {
     id: "tianlan",
