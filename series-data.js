@@ -633,6 +633,42 @@ const SERIES = [
 { title: "Episode 42", video: "https://drive.google.com/file/d/1NwR2WMiyCe6WgGOSaNIpDaA7i3UG9889/preview" },
 { title: "Episode 43", video: "https://drive.google.com/file/d/1S1sv9RxBIcWr0EcvxytTn5T3ZFIG91Yd/preview" },
 { title: "Episode 44", video: "https://drive.google.com/file/d/1CmmD-PNsT2od3isVe6FXbBABqKV5EEMn/preview" }
+      ]
+  },
+{
+    id: "zuchan",
+    title: "ZUCHAN",
+    poster: "https://artworks.thetvdb.com/banners/v4/series/439306/posters/68d7ceabe12b2.jpg",
+    genre: "Fantasy",
+    added: 14,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: "a fantasy mystery drama following Xu Qi'an (Dylan Wang), a modern-day police academy graduate who transmigrates into a, dangerous,, magic-filled ancient dynasty",
+    cast: ["Dylan Wang","Yue Yang","Tian Xiwei", "Yan Zidong"],
+    episodes: [
+{ title: "Episode 1", video: "https://www.youtube.com/embed/Joy0bF9ViUM" },
+{ title: "Episode 2", video: "https://www.youtube.com/embed/7d3JI5AhPjo" },
+{ title: "Episode 3", video: "https://www.youtube.com/embed/iV7gBSD_xnA" },
+{ title: "Episode 4", video: "https://www.youtube.com/embed/-YLoFHPSJXQ" },
+{ title: "Episode 5", video: "https://www.youtube.com/embed/aRJha6fhx6E" },
+{ title: "Episode 6", video: "https://www.youtube.com/embed/NWHqfesJs2E" },
+{ title: "Episode 7", video: "https://www.youtube.com/embed/zCs31u-0EQw" },
+{ title: "Episode 8", video: "https://www.youtube.com/embed/0nwl0cSugkY" },
+{ title: "Episode 9", video: "https://www.youtube.com/embed/X6f5TIX1O7w" },
+{ title: "Episode 10", video: "https://www.youtube.com/embed/L_3GClEKS0I" },
+{ title: "Episode 11", video: "https://www.youtube.com/embed/rfY3Q_0-sgo" },
+{ title: "Episode 12", video: "https://www.youtube.com/embed/BRP70nBHhkk" },
+{ title: "Episode 13", video: "https://www.youtube.com/embed/EMzUDBOzldA" },
+{ title: "Episode 14", video: "https://www.youtube.com/embed/6FmwJNtT9-w" },
+{ title: "Episode 15", video: "https://www.youtube.com/embed/j3k9fq7m0HI" },
+{ title: "Episode 16", video: "https://www.youtube.com/embed/-8fbh6uoV6I" },
+{ title: "Episode 17", video: "https://www.youtube.com/embed/KRjb2lX1Ctc" },
+{ title: "Episode 18", video: "https://www.youtube.com/embed/qUX-w4AfCUo" },
+{ title: "Episode 19", video: "https://www.youtube.com/embed/Wdrzbb0V0c8" },
+{ title: "Episode 20", video: "https://www.youtube.com/embed/6S880KnQI0M" },
+{ title: "Episode 21", video: "https://www.youtube.com/embed/CO4KpblUtas" },
+{ title: "Episode 22", video: "https://www.youtube.com/embed/OB4K0yP6Bik" }
 
     ]
   }
