@@ -696,7 +696,7 @@ const SERIES = [
 {
     id: "martialrules",
     title: "MARTIAL RULES",
-    poster: "https://i.mydramalist.com/yWdYgd_4f.jpg",
+    poster: "https://i.ibb.co/N2h4DQYm/Untitled-1.jpg",
     genre: "Action",
     added: 16,
     type: "premium",
