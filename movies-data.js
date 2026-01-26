@@ -157,7 +157,7 @@ const MOVIES = [
     {
     id: "kanor",
     title: "CHAUTALA",
-    poster: "https://i.ibb.co/Zphm4pNY/KANOR.jpg",
+    poster: "https://st1.bollywoodlife.com/wp-content/uploads/2024/07/1-37.png?impolicy=Medium_Widthonly&w=400&h=711",
     video: "https://www.youtube.com/embed/9OK326dtdMA",
     type: "premium",
     year: "2026",
