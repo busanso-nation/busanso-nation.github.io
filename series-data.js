@@ -35,8 +35,7 @@ const SERIES = [
     country: "Phillipines",
     year: "2026",
     synopsis: "an innocent, poor young woman living in a beach hut with her grandparents who falls in love with Sergio, a wealthy heir. After marrying to spite his elitist family, she faces intense cruelty, betrayal, and the murder of her grandparents, driving her to transform into a sophisticated woman named Bella Aldama to seek vengeance. .",
-    cast: ["Eduardo Capetillo", "Thalía
-Marimar", "Chantal Andere"],
+    cast: ["Eduardo Capetillo", "Thalía Marimar", "Chantal Andere"],
     episodes: [
       { title: "Episode 1", video: "https://www.youtube.com/embed/NUz_6hcABnY" },
   { title: "Episode 2", video: "https://www.youtube.com/embed/UcfIN1DHfLs" },
