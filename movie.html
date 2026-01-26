@@ -192,7 +192,7 @@ commentsRef.on("value", snapshot => {
     div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
 
     // Admin delete button (replace YOUR_ADMIN_PIN with your admin PIN)
-    const isAdmin = localStorage.getItem("activePIN") === "YOUR_ADMIN_PIN";
+    const isAdmin = localStorage.getItem("activePIN") === "Orion885";
     if(isAdmin){
       const delBtn = document.createElement("button");
       delBtn.textContent = "🗑 Delete";
