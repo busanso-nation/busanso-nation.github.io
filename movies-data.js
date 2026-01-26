@@ -132,6 +132,39 @@ const MOVIES = [
     duration: "1h 20m",
     synopsis: "a high-stakes heist thriller about a genius engineering graduate, Thom (Freddie Highmore), who joins a crew led by Walter (Liam Cunningham) to rob the famously impenetrable Bank of Spain"
   },  
+              {
+    id: "thousand",
+    title: "TEN THOUSAND YEARS BACK",
+    poster: "https://image.tmdb.org/t/p/original/5XNthY4hzdKD2QxnlXbzIFYbtw6.jpg",
+    video: "https://drive.google.com/file/d/1ZvJewP1LQxzjuxfcjbZ1zzO2V8Imthb-/preview",
+    type: "premium",
+    year: "2024",
+    country: "Taiwan",
+    duration: "1h 20m",
+    synopsis: "A handsome Prince from the Qin dynasty travels into the future, and meets a bossy girl. the two madly fall in love"
+  },  
+             {
+    id: "400",
+    title: "400 BULLETS",
+    poster: "https://a.ltrbxd.com/resized/film-poster/7/0/6/9/7/8/706978-400-bullets-0-230-0-345-crop.jpg?v=26211e223b",
+    video: "https://www.youtube.com/embed/JCh54UGPqFA",
+    type: "free",
+    year: "2026",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "Two soldiers in Afghanistan face off against a group of rogue special ops and a cell of heavily armed Taliban"
+  },  
+    {
+    id: "kanor",
+    title: "CHAUTALA",
+    poster: "https://i.ibb.co/Zphm4pNY/KANOR.jpg",
+    video: "https://www.youtube.com/embed/9OK326dtdMA",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "2h 10m",
+    synopsis: "Hindi thriller following four friends—Dev, Devi, Gaurav, and Aditya—whose carefree lives are ruined when they encounter a corrupt, ruthless police officer, SHO Chautala. After an incident involving a local shopkeeper, the friends are blackmailed and framed, forcing them to fight against the system. ."
+  },
   {
     id: "kanor",
     title: "KANOR",
