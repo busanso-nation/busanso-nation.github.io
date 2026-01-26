@@ -199,6 +199,17 @@ const MOVIES = [
     duration: "1h 30m",
     synopsis: "When robots take over the city of Hong Kong, one ultmate Robot with a sense of understanding must come forward to fight the battle"
   },  
+       {
+    id: "cure1",
+    title: "THE CURE",
+    poster: "https://m.media-amazon.com/images/M/MV5BNjg1ZDdlMGItYzM3NS00NGQwLWE4ZWQtYTA1YjY1MjQ2YzViXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    video: "https://www.youtube.com/embed/3TXDJLd6w2Q",
+    type: "free",
+    year: "2019",
+    country: "USA",
+    duration: "30m",
+    synopsis: "Noah, a mercenary in a post-apocalyptic world where a virus kills hosts within 24 hours. When a permanent cure is stolen, Noah must retrieve it to save his infected daughter, facing intense, high-octane gunfights, vehicular carnage, and explosions against a terrorist organization"
+  },  
   {
     id: "kanor",
     title: "KANOR",
