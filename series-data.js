@@ -28,7 +28,7 @@ const SERIES = [
 {
     id: "marimar",
     title: "MARIMAR",
-    poster: "https://image.tmdb.org/t/p/w500/nPD4L7oicYQYmQoDBw2QGdhVGFs.jpg",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV7XlLlm2F4BsOus9bePzVzv_8IOgHczvIYg&s",
     genre: "Drama",
     added: 2,
     type: "free",
