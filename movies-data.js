@@ -475,6 +475,39 @@ const MOVIES = [
     synopsis: "Heroic Freddy has everything it takes to lead a pack... except the appearance. But his wayward wish to transform from a poodle to a werewolf will finally come true with the help of a mischievous moon sprite that reached Earth"
   },
    {
+    id: "wobear",
+    title: "PANDA BEAR",
+    poster: "https://m.media-amazon.com/images/M/MV5BNGI3YWFkMWEtZTZjNS00NWI1LThiYWEtZDBlZDg4NWRjMzcxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    video: "https://drive.google.com/file/d/1e3Ro2fUxWrEbsLVXjnrj7-C4EQtEOmoU/preview",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 50m",
+    synopsis: "Mpanga is a young panda who grows up in an idyllic village in the heart of China. But when her best friend, Jielong the dragoness, is kidnapped to be offered as a gift to a capricious young lion king, Pang leaves for Africa to save her friend"
+  },
+     {
+    id: "litomermaid",
+    title: "LITTLE MERMAID",
+    poster: "https://m.media-amazon.com/images/M/MV5BNGI3YWFkMWEtZTZjNS00NWI1LThiYWEtZDBlZDg4NWRjMzcxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    video: "https://drive.google.com/file/d/1bQLNf9gI4aHTbfohmAARUsiyYZS0Z-vk/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 50m",
+    synopsis: "rebellious 16 year-old mermaid Ariel is fascinated with life on land. On one of her visits to the surface, which are forbidden by her controlling father, King Triton, she falls for a human prince. Determined to be with her new love, Ariel makes a dangerous deal with the sea witch Ursula to become human for three days. But when plans go awry for the star-crossed lovers, the king must make the ultimate sacrifice for his daughter"
+  },
+      {
+    id: "lito2mermaid",
+    title: "LITTLE MERMAID 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BNGI3YWFkMWEtZTZjNS00NWI1LThiYWEtZDBlZDg4NWRjMzcxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    video: "https://drive.google.com/file/d/18iDi6gFCHnpDnaWjdtObuK5V8HwjzWjA/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "rebellious 16 year-old mermaid Ariel is fascinated with life on land. On one of her visits to the surface, which are forbidden by her controlling father, King Triton, she falls for a human prince. Determined to be with her new love, Ariel makes a dangerous deal with the sea witch Ursula to become human for three days. But when plans go awry for the star-crossed lovers, the king must make the ultimate sacrifice for his daughter"
+  },
+   {
     id: "kanor",
     title: "KANOR",
     poster: "https://i.ibb.co/Zphm4pNY/KANOR.jpg",
