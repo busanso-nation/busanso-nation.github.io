@@ -69,7 +69,7 @@ const SERIES = [
     country: "USA",
     year: "2026",
     synopsis: "Rewarded by the Romans with the Batiatus ludus for his treachery against Spartacus, the former slave becomes "Dominus" of the gladiator school. He rises to power, navigating Roman politics while training a fierce, groundbreaking female gladiator, Achillia. ",
-    cast: ["Tenika Davis", "Nick E. Tarabay", "Claudia Black],
+    cast: ["Tenika Davis", "Nick E. Tarabay", "Claudia Black"],
     episodes: [
       { title: "Episode 1", video: "https://drive.google.com/file/d/1h3ZX-xolsi2sbS3GZc4UqNOhZLBeMMK2/preview" },
   { title: "Episode 2", video: "https://drive.google.com/file/d/1eNw09UOxdxksgrv70rH_0L3JrGx4x34R/preview" },
