@@ -65,15 +65,13 @@ small{color:#aaa}
 <body>
 <script>
 const ADMIN_KEY = "BUSANSO2026";
-
 const savedKey = localStorage.getItem("busansoAdminKey");
-
 if(savedKey !== ADMIN_KEY){
   const entered = prompt("Enter Admin Key");
   if(entered !== ADMIN_KEY){
     alert("Access denied");
     location.href = "index.html";
-  }else{
+  } else {
     localStorage.setItem("busansoAdminKey", entered);
   }
 }
@@ -96,8 +94,18 @@ if(savedKey !== ADMIN_KEY){
   <input id="customDays" type="number" placeholder="Or enter custom days (optional)">
 
   <button onclick="generatePin()">Generate PIN</button>
-
   <p id="result"></p>
+</div>
+
+<!-- FILTER -->
+<div class="card">
+  <h3>Filter PINs</h3>
+  <select id="filter" onchange="applyFilter()">
+    <option value="all">All</option>
+    <option value="active">Active</option>
+    <option value="used">Used</option>
+    <option value="expired">Expired</option>
+  </select>
 </div>
 
 <!-- PIN LIST -->
@@ -115,26 +123,15 @@ firebase.initializeApp({
   databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
   projectId: "busanso-pins"
 });
-
 const db = firebase.database();
 
 /* ⏱ DAYS MAP */
-const DAYS = {
-  "Weekly": 7,
-  "Monthly": 30,
-  "Half-Year": 180,
-  "Annual": 365
-};
+const DAYS = { "Weekly": 7, "Monthly": 30, "Half-Year": 180, "Annual": 365 };
 
-/* 🔤 NAME-BASED PIN GENERATOR */
+/* 🔤 PIN GENERATOR */
 function namePin(){
-  const words = [
-    "Luna","Nova","Atlas","Echo","Orion",
-    "Vega","Zen","Astra","Pulse","Halo"
-  ];
-  const word = words[Math.floor(Math.random() * words.length)];
-  const number = Math.floor(100 + Math.random() * 900);
-  return word + number;
+  const words = ["Luna","Nova","Atlas","Echo","Orion","Vega","Zen","Astra","Pulse","Halo"];
+  return words[Math.floor(Math.random() * words.length)] + Math.floor(100 + Math.random() * 900);
 }
 
 /* ➕ CREATE PIN */
@@ -142,46 +139,56 @@ function generatePin(){
   const type = document.getElementById("type").value;
   const custom = Number(document.getElementById("customDays").value);
   const days = custom > 0 ? custom : DAYS[type];
-
-  const pin = namePin(); // ✅ FIXED LINE (no dash, no prefix)
+  const pin = namePin();
   const now = Date.now();
-  const expiry = now + days * 24 * 60 * 60 * 1000;
+  const expiry = now + days*24*60*60*1000;
 
   db.ref("pins/" + pin).set({
-    type,
-    days,
-    createdAt: now,
-    expiry,
-    used: false,
-    device: ""
-  });
-
-  document.getElementById("result").innerHTML =
-    `✅ Generated PIN: <b>${pin}</b> (${days} days)`;
+    type, days, createdAt: now, expiry, used: false, device: ""
+  }).then(() => {
+    document.getElementById("result").innerHTML = `✅ Generated PIN: <b>${pin}</b> (${days} days)`;
+  }).catch(err => alert("Error saving PIN: "+err));
 }
 
 /* 📋 LOAD PINS */
-function loadPins(){
-  db.ref("pins").on("value", snap=>{
-    const box = document.getElementById("pins");
-    box.innerHTML = "";
-    const data = snap.val() || {};
-    Object.keys(data).forEach(pin=>{
-      const p = data[pin];
-      const expired = Date.now() > p.expiry;
+let allPins = {};
+db.ref("pins").on("value", snap=>{
+  allPins = snap.val() || {};
+  renderPins();
+});
+
+/* 🖥 RENDER PINS WITH FILTER */
+function renderPins(){
+  const box = document.getElementById("pins");
+  box.innerHTML = "";
+  const filter = document.getElementById("filter").value;
+
+  Object.keys(allPins).sort().forEach(pin=>{
+    const p = allPins[pin];
+    const expired = Date.now() > p.expiry;
+    let show = false;
+
+    if(filter === "all") show = true;
+    if(filter === "active" && !p.used && !expired) show = true;
+    if(filter === "used" && p.used) show = true;
+    if(filter === "expired" && expired) show = true;
+
+    if(show){
       const div = document.createElement("div");
       div.className = "pin" + (expired ? " expired" : "");
       div.innerHTML = `
         <div>
           <b>${pin}</b><br>
-          <small>${p.type} • expires ${new Date(p.expiry).toDateString()}</small>
+          <small>${p.type} • expires ${new Date(p.expiry).toDateString()} • used: ${p.used}</small>
         </div>
         <div class="delete" onclick="deletePin('${pin}')">🗑</div>
       `;
       box.appendChild(div);
-    });
+    }
   });
 }
+
+function applyFilter(){ renderPins(); }
 
 /* 🗑 DELETE PIN */
 function deletePin(pin){
@@ -192,18 +199,13 @@ function deletePin(pin){
 
 /* 🧹 REMOVE EXPIRED */
 function removeExpired(){
-  db.ref("pins").once("value", snap=>{
-    const data = snap.val() || {};
-    Object.keys(data).forEach(pin=>{
-      if(Date.now() > data[pin].expiry){
-        db.ref("pins/" + pin).remove();
-      }
-    });
-    alert("Expired PINs removed");
+  Object.keys(allPins).forEach(pin=>{
+    if(Date.now() > allPins[pin].expiry){
+      db.ref("pins/" + pin).remove();
+    }
   });
+  alert("Expired PINs removed");
 }
-
-loadPins();
 </script>
 
 </body>
