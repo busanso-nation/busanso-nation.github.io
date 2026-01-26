@@ -23,61 +23,7 @@ const SERIES = [
       { title: "Episode 9", video: "https://www.youtube.com/embed/fWngGIZ8ZLk" },
       { title: "Episode 10", video: "https://www.youtube.com/embed/D0Op9g37vJs" },
       { title: "Episode 11", video: "https://www.youtube.com/embed/ZKyROMmbIkI" }
-    ]
-  },
-{
-    id: "marimar",
-    title: "MARIMAR",
-    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV7XlLlm2F4BsOus9bePzVzv_8IOgHczvIYg&s",
-    genre: "Drama",
-    added: 2,
-    type: "free",
-    country: "Phillipines",
-    year: "2026",
-    synopsis: "an innocent, poor young woman living in a beach hut with her grandparents who falls in love with Sergio, a wealthy heir. After marrying to spite his elitist family, she faces intense cruelty, betrayal, and the murder of her grandparents, driving her to transform into a sophisticated woman named Bella Aldama to seek vengeance. .",
-    cast: ["Eduardo Capetillo", "Thalía Marimar", "Chantal Andere"],
-    episodes: [
-      { title: "Episode 1", video: "https://www.youtube.com/embed/NUz_6hcABnY" },
-  { title: "Episode 2", video: "https://www.youtube.com/embed/UcfIN1DHfLs" },
-  { title: "Episode 3", video: "https://www.youtube.com/embed/UtYFWoU_klw" },
-  { title: "Episode 4", video: "https://www.youtube.com/embed/db9D8yUzses" },
-  { title: "Episode 5", video: "https://www.youtube.com/embed/9Fd-zbhgOUM" },
-  { title: "Episode 6", video: "https://www.youtube.com/embed/KjCCe-YSWrI" },
-  { title: "Episode 7", video: "https://www.youtube.com/embed/jzAtePeQkTY" },
-  { title: "Episode 8", video: "https://www.youtube.com/embed/28cCahat4qs" },
-  { title: "Episode 9", video: "https://www.youtube.com/embed/NpUnrpVbQJU" },
-  { title: "Episode 10", video: "https://www.youtube.com/embed/aaQjedH7a24" },
-  { title: "Episode 11", video: "https://www.youtube.com/embed/wR4ItNRrtwQ" },
-  { title: "Episode 12", video: "https://www.youtube.com/embed/a4EPXOuLcN4" },
-  { title: "Episode 13", video: "https://www.youtube.com/embed/R9U18cXOtxI" },
-  { title: "Episode 14", video: "https://www.youtube.com/embed/SHcDDozXpzk" },
-  { title: "Episode 15", video: "https://www.youtube.com/embed/bcGn9W7Lyvk" },
-  { title: "Episode 16", video: "https://www.youtube.com/embed/veDLuzVQjhA" },
-  { title: "Episode 17", video: "https://www.youtube.com/embed/ZAFZr39JU7g" },
-  { title: "Episode 18", video: "https://www.youtube.com/embed/G8LzjrRLMBc" },
-  { title: "Episode 19", video: "https://www.youtube.com/embed/Eun8gufKszw" },
-  { title: "Episode 20", video: "https://www.youtube.com/embed/vrgxy7pCkC8" }
-    ]
-  },
-{
-    id: "ashur",
-    title: "SPARTACUS HOUSE OF ASHUR",
-    poster: "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p30748471_b_v13_ac.jpg",
-    genre: "Action",
-    added: 3,
-    type: "premium",
-    country: "USA",
-    year: "2026",
-    synopsis: "Rewarded by the Romans with the Batiatus ludus for his treachery against Spartacus, the former slave becomes "Dominus" of the gladiator school. He rises to power, navigating Roman politics while training a fierce, groundbreaking female gladiator, Achillia. ",
-    cast: ["Tenika Davis", "Nick E. Tarabay", "Claudia Black"],
-    episodes: [
-      { title: "Episode 1", video: "https://drive.google.com/file/d/1h3ZX-xolsi2sbS3GZc4UqNOhZLBeMMK2/preview" },
-  { title: "Episode 2", video: "https://drive.google.com/file/d/1eNw09UOxdxksgrv70rH_0L3JrGx4x34R/preview" },
-  { title: "Episode 3", video: "https://drive.google.com/file/d/1trUrYKA1d_42Yz4LpWXSbuTuwcVxT6Z1/preview" },
-  { title: "Episode 4", video: "https://drive.google.com/file/d/1ny14W-WqThR0Gkm97V1X7ZCvdhJQ7dbs/preview" },
-  { title: "Episode 5", video: "https://drive.google.com/file/d/1eVDBuaemkfDIe34V0vjIPvetrw9AUmgg/preview" },
-  { title: "Episode 6", video: "https://drive.google.com/file/d/1eQo-qvWuD6OLeqdaVR7FdTBW9u_QMg6C/preview" },
-  { title: "Episode 7", video: "https://drive.google.com/file/d/1MVDAjXAQ1IeG-cj--rXQE9ISDUQc-jxz/preview" }
+
 
     ]
   }
