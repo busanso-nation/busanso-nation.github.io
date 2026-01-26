@@ -57,8 +57,7 @@ const exp = Number(localStorage.getItem("pinExpiry"));
 if(!pin || !exp || Date.now() > exp){
   localStorage.removeItem("activePIN");
   localStorage.removeItem("pinExpiry");
-  alert("You must enter a valid PIN to watch movies.");
-  location.replace("login.html"); // redirect to PIN entry/login
+  location.replace("packages.html"); // redirect to PIN entry/login
 }
 </script>
 
