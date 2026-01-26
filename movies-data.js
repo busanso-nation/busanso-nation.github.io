@@ -154,17 +154,51 @@ const MOVIES = [
     duration: "1h 30m",
     synopsis: "Two soldiers in Afghanistan face off against a group of rogue special ops and a cell of heavily armed Taliban"
   },  
+ 
+              {
+    id: "cabin",
+    title: "CABIN IN THE WOODS",
+    poster: "https://posterspy.com/wp-content/uploads/2022/11/cabin-posterspy-Ygris.jpg",
+    video: "https://drive.google.com/file/d/1n-Er3F4oPUmt0lWh8d4on--rltB45K3m/preview",
+    type: "premium",
+    year: "2022",
+    country: "USA",
+    duration: "1h 40m",
+    synopsis: "When five college friends (Kristen Connolly, Chris Hemsworth, Anna Hutchison, Fran Kranz, Jesse Williams) arrive at a remote forest cabin for a little vacation, little do they expect the horrors that await them. One by one, the youths fall victim to backwoods zombies, but there is another factor at play. Two scientists (Richard Jenkins, Bradley Whitford) are manipulating the ghoulish goings-on, but even as the body count rises, there is yet more at work than meets the eye."
+  },
     {
-    id: "kanor",
+    id: "chautal1",
     title: "CHAUTALA",
     poster: "https://st1.bollywoodlife.com/wp-content/uploads/2024/07/1-37.png?impolicy=Medium_Widthonly&w=400&h=711",
     video: "https://www.youtube.com/embed/9OK326dtdMA",
     type: "premium",
     year: "2026",
     country: "India",
-    duration: "2h 10m",
+    duration: "1h 10m",
     synopsis: "Hindi thriller following four friends—Dev, Devi, Gaurav, and Aditya—whose carefree lives are ruined when they encounter a corrupt, ruthless police officer, SHO Chautala. After an incident involving a local shopkeeper, the friends are blackmailed and framed, forcing them to fight against the system. ."
   },
+      {
+    id: "chautal2",
+    title: "CHAUTALA",
+    poster: "https://st1.bollywoodlife.com/wp-content/uploads/2024/07/1-37.png?impolicy=Medium_Widthonly&w=400&h=711",
+    video: "https://www.youtube.com/embed/v7bnBboesXM",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 35m",
+    synopsis: "Hindi thriller following four friends—Dev, Devi, Gaurav, and Aditya—whose carefree lives are ruined when they encounter a corrupt, ruthless police officer, SHO Chautala. After an incident involving a local shopkeeper, the friends are blackmailed and framed, forcing them to fight against the system. ."
+  },
+     {
+    id: "unstoppable",
+    title: "UNSTOPABLE ROBOT",
+    poster: "https://m.media-amazon.com/images/M/MV5BNDdhMWExMTItOTNiNy00MDgxLWIyMDktNjYxNWU3ZGFjM2IyXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/3TXDJLd6w2Q",
+    type: "free",
+    year: "2019",
+    country: "China",
+    duration: "1h 30m",
+    synopsis: "When robots take over the city of Hong Kong, one ultmate Robot with a sense of understanding must come forward to fight the battle"
+  },  
   {
     id: "kanor",
     title: "KANOR",
