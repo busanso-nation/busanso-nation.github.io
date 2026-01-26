@@ -8,6 +8,23 @@
 <!-- Load movies data -->
 <script src="movies-data.js"></script>
 
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+  // Initialize Firebase (replace with your config)
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    databaseURL: "https://YOUR_PROJECT.firebaseio.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "SENDER_ID",
+    appId: "APP_ID"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
+
 <style>
 body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16px}
 h1{margin-bottom:10px;text-align:center}
@@ -23,6 +40,11 @@ h1{margin-bottom:10px;text-align:center}
 .secondary{background:#222;color:#fff;margin-top:4px}
 .share{background:#555;color:#fff;margin-top:4px}
 .cast span{background:#181818;padding:6px 10px;border-radius:20px;font-size:12px;margin-right:4px;margin-bottom:4px;display:inline-block;}
+/* Comment Section */
+#commentsSection{max-width:800px;margin:20px auto;background:#111;padding:16px;border-radius:12px;}
+#commentsList div{margin-bottom:6px;padding:8px 10px;background:#222;border-radius:8px;position:relative;}
+#commentInput{width:100%;padding:8px;border-radius:6px;background:#111;color:#fff;border:none;margin-top:6px;}
+#commentBtn{margin-top:6px;padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold;cursor:pointer;}
 </style>
 </head>
 
@@ -65,6 +87,14 @@ if(!pin || !exp || Date.now() > exp){
   </div>
 </div>
 
+<!-- ===== COMMENT SECTION ===== -->
+<div id="commentsSection">
+  <h3>Comments</h3>
+  <div id="commentsList"></div>
+  <textarea id="commentInput" placeholder="Write your comment"></textarea>
+  <button id="commentBtn">Post Comment</button>
+</div>
+
 <script>
 // ----- Get movie ID -----
 const params = new URLSearchParams(location.search);
@@ -102,6 +132,7 @@ function normalizeVideo(url){
 
 // ----- Play movie -----
 function playMovie(){
+  if(movie.type !== "free") { alert("This movie is premium!"); return; }
   const embed = normalizeVideo(movie.video);
   if(!embed){ alert("Video not supported"); return; }
   document.getElementById("player").innerHTML = `<iframe src="${embed}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
@@ -123,6 +154,60 @@ function copyToClipboard(){
   const text = `${movie.title}\n${movie.synopsis}\nWatch on BUSANSO: ${SITE_URL}`;
   navigator.clipboard.writeText(text).then(()=>alert("Movie info copied!"));
 }
+
+// ===== COMMENT SECTION LOGIC =====
+const commentsRef = firebase.database().ref("comments");
+
+// Helper: get or set username
+function getUsername() {
+  let name = localStorage.getItem("username");
+  if (!name) {
+    name = prompt("Enter a nickname to comment:");
+    if(name) localStorage.setItem("username", name.trim());
+  }
+  return name;
+}
+
+// Post comment
+document.getElementById("commentBtn").onclick = () => {
+  const text = document.getElementById("commentInput").value.trim();
+  if(!text) return alert("Type something first");
+  const username = getUsername();
+  if(!username) return alert("Username required");
+  commentsRef.push({ user: username, text, timestamp: Date.now() });
+  document.getElementById("commentInput").value = "";
+};
+
+// Display comments live with admin delete
+commentsRef.on("value", snapshot => {
+  const container = document.getElementById("commentsList");
+  container.innerHTML = "";
+  snapshot.forEach(child => {
+    const c = child.val();
+    const div = document.createElement("div");
+    div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
+
+    // Admin delete button (replace YOUR_ADMIN_PIN with your PIN)
+    const isAdmin = localStorage.getItem("activePIN") === "YOUR_ADMIN_PIN";
+    if(isAdmin){
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "🗑 Delete";
+      delBtn.style.position = "absolute";
+      delBtn.style.right = "8px";
+      delBtn.style.top = "8px";
+      delBtn.style.background="#e50914";
+      delBtn.style.color="#fff";
+      delBtn.style.border="none";
+      delBtn.style.borderRadius="6px";
+      delBtn.style.padding="2px 6px";
+      delBtn.style.cursor="pointer";
+      delBtn.onclick = () => child.ref.remove();
+      div.appendChild(delBtn);
+    }
+
+    container.appendChild(div);
+  });
+});
 </script>
 
 </body>
