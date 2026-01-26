@@ -690,7 +690,29 @@ const SERIES = [
 { title: "Episode 5", video: "https://drive.google.com/file/d/1NG3ywkW_EyF1qek9q-3gLa0ymzhyrRBM/preview" },
 { title: "Episode 6", video: "https://drive.google.com/file/d/1D0cj8qkTomKEZn53gLJKgS67W3CQ_XHn/preview" },
 { title: "Episode 7", video: "https://drive.google.com/file/d/1oGqFDg3MMVJrHmudA83-bzqVHR8MEpRR/preview" },
-{ title: "Episode 8", video: "https://drive.google.com/file/d/1rBVR3BviAn8twD-bWOWYHDJvckjNgVbT/preview" }
+{ title: "Episode 8", video: "https://drive.google.com/file/d/1rBVR3BviAn8twD-bWOWYHDJvckjNgVbT/preview" } 
+      ]
+  },
+{
+    id: "martialrules",
+    title: "MARTIAL RULES",
+    poster: "https://i.mydramalist.com/yWdYgd_4f.jpg",
+    genre: "Action",
+    added: 16,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: "It explores the untold pasts of the Five Greats, featuring a new generation of heroes, and highlights themes of chivalry, honor, and adventure in a reimagined martial world",
+    cast: ["Meng Ziyi","Gao Weiguang",Zhou Yiwei", "Chen Duling"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1sPxF6vD_CdvauadLCulfnkLcaKxGhvPI/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1DPnPnqLc2EuhXEG109_UINXNlkDuMBIS/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1mZyH627qm28Op0s-elokxiKNcbzL_54x/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1k5DlDulwc7Rd1afNtwe4urp91O_j9dIL/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/12-RDwtnge6N1zq4n4M3IiW6OTb6bjDSl/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1o7ZFGT-9VBbWO_Q3Jl7goEKGsotq1Kd7/preview" },
+{ title: "Episode 7", video: "https://drive.google.com/file/d/1P4SCMfFFHwy1S-Ia26vFH5Y6zjHscNTP/preview" },
+{ title: "Episode 8", video: "https://drive.google.com/file/d/1WuG1fQ8s4Kt0mBaBw1UTx8ZWhl6c_CWC/preview" }
 
     ]
   }
