@@ -703,7 +703,7 @@ const SERIES = [
     country: "Chine",
     year: "2025",
     synopsis: "It explores the untold pasts of the Five Greats, featuring a new generation of heroes, and highlights themes of chivalry, honor, and adventure in a reimagined martial world",
-    cast: ["Meng Ziyi","Gao Weiguang",Zhou Yiwei", "Chen Duling"],
+    cast: ["Meng Ziyi","Gao Weiguang","Zhou Yiwei", "Chen Duling"],
     episodes: [
 { title: "Episode 1", video: "https://drive.google.com/file/d/1sPxF6vD_CdvauadLCulfnkLcaKxGhvPI/preview" },
 { title: "Episode 2", video: "https://drive.google.com/file/d/1DPnPnqLc2EuhXEG109_UINXNlkDuMBIS/preview" },
