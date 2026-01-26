@@ -669,6 +669,28 @@ const SERIES = [
 { title: "Episode 20", video: "https://www.youtube.com/embed/6S880KnQI0M" },
 { title: "Episode 21", video: "https://www.youtube.com/embed/CO4KpblUtas" },
 { title: "Episode 22", video: "https://www.youtube.com/embed/OB4K0yP6Bik" }
+      ]
+  },
+{
+    id: "beggerssect",
+    title: "BEGGARS SECT",
+    poster: "https://i.ibb.co/xqK79Mvc/32-Oa-WHp8ip-Rpc-Ky-C0pl-WKUAn89-T.jpg",
+    genre: "Action",
+    added: 15,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: "The story focuses on their fast friendship, misunderstandings, and ultimate rivalry caused by a generational feud, leading to the famous Duel on Mount Hua",
+    cast: ["Peter Ho","Zhou Yiwei","He Yu", "Luo Qiuyun"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/156tPthFOQu8-VxtnqdluPFRuUOBfKJAZ/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1EjOOI38Ig0qW1Cy1Y-9RhjZnKHG05vaT/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1kXMx7fMv23FNS0bsPO94v8meSw3wzU3f/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1JpJyf97E3LU3_aqPB53yYdpFHlFjo2dF/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1NG3ywkW_EyF1qek9q-3gLa0ymzhyrRBM/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1D0cj8qkTomKEZn53gLJKgS67W3CQ_XHn/preview" },
+{ title: "Episode 7", video: "https://drive.google.com/file/d/1oGqFDg3MMVJrHmudA83-bzqVHR8MEpRR/preview" },
+{ title: "Episode 8", video: "https://drive.google.com/file/d/1rBVR3BviAn8twD-bWOWYHDJvckjNgVbT/preview" }
 
     ]
   }
