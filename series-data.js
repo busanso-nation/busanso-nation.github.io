@@ -337,7 +337,7 @@ const SERIES = [
       ]
   },
 {
-    id: "strangelove",
+    id: "strangelove2",
     title: "Strange Love S2",
     poster: "https://img.wattpad.com/cover/158287218-256-k953330.jpg",
     genre: "Drama",
