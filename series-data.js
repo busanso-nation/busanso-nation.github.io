@@ -44,7 +44,7 @@ const SERIES = [
 {
     id: "hotblooded",
     title: "HOT BLOODED",
-    poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
+    poster: "https://i.ibb.co/MxzB0DLC/Untitled-1.jpg",
     genre: "Action",
     added: 5,
     type: "premium",
