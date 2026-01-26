@@ -5,11 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Enter PIN</title>
 <style>
-body {font-family: Arial,sans-serif;background:#111;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;}
-.card {background:#1a1a1a;padding:30px;border-radius:10px;width:100%;max-width:380px;text-align:center;}
-input {width:90%;padding:12px;margin:15px 0;border-radius:6px;border:none;font-size:16px;}
-button {padding:12px 25px;background:#ff7a18;border:none;border-radius:6px;font-weight:bold;cursor:pointer;}
-button:hover { background:#ffb400; }
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.card {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,.6);
+}
+.card h2 {margin-bottom: 20px;}
+input {
+  width: 90%;
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  background: #222;
+  color: #fff;
+}
+button {
+  padding: 12px 25px;
+  background: #ff7a18;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover { background: #ffb400; }
 #msg {margin-top:15px;font-weight:bold;}
 </style>
 </head>
@@ -24,7 +58,7 @@ button:hover { background:#ffb400; }
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-// Firebase Config
+// ===== Firebase Config =====
 const firebaseConfig = {
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain: "busanso-pins.firebaseapp.com",
@@ -37,7 +71,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// Get / generate device ID
+// ===== Device ID =====
 function getDeviceId(){
   let id = localStorage.getItem("deviceId");
   if(!id){
@@ -47,26 +81,26 @@ function getDeviceId(){
   return id;
 }
 
-// Auto-redirect if PIN exists
-const pin = localStorage.getItem("activePIN");
-const exp = Number(localStorage.getItem("pinExpiry"));
-
-if (pin && exp && Date.now() < exp) {
+// ===== Auto-redirect if PIN valid =====
+const pinStored = localStorage.getItem("activePIN");
+const expStored = Number(localStorage.getItem("pinExpiry"));
+if(pinStored && expStored && Date.now() < expStored){
   window.location.href = "watch.html";
 }
 
-
+// ===== LOGIN FUNCTION =====
 async function login(){
   const pin = document.getElementById("pinInput").value.trim();
   const msg = document.getElementById("msg");
   msg.style.color = "#ffb400";
 
-  if(!pin){ msg.textContent="Enter PIN"; return; }
+  if(!pin){ msg.textContent="Enter Password"; return; }
 
-  try{
-    const snapshot = await db.ref("pins/"+pin).get();
+  try {
+    const snapshot = await db.ref("pins/" + pin).get();
     if(!snapshot.exists()){
-      msg.textContent="Incorrect PIN"; return;
+      msg.textContent = "Incorrect Password"; 
+      return;
     }
 
     const data = snapshot.val();
@@ -75,7 +109,13 @@ async function login(){
 
     // Expired PIN
     if(data.expiry && now > data.expiry){
-      msg.textContent="Your subscription has expired";
+      msg.textContent = "Your subscription has expired";
+      return;
+    }
+
+    // Already used on another device
+    if(data.activeDevice && data.activeDevice !== deviceId){
+      msg.textContent = "Password already used on another device. contact admin for another";
       return;
     }
 
@@ -84,18 +124,23 @@ async function login(){
       await db.ref("pins/"+pin+"/activeDevice").set(deviceId);
     }
 
+    // Mark PIN as used if not already
+    if(!data.used){
+      await db.ref("pins/"+pin+"/used").set(true);
+    }
+
     // Success
     localStorage.setItem("activePIN", pin);
-localStorage.setItem("pinExpiry", data.expiry);
-
+    localStorage.setItem("pinExpiry", data.expiry);
     localStorage.setItem("activePackage", JSON.stringify(data));
-    msg.style.color="#00ff66";
-    msg.textContent="Login successful! Redirecting…";
+
+    msg.style.color = "#00ff66";
+    msg.textContent = "Login successful! Taking you inside Busanso…";
     setTimeout(()=>window.location.href="watch.html",1200);
 
   } catch(err){
     console.error(err);
-    msg.textContent="Network error. Try again.";
+    msg.textContent = "Network error. Try again.";
   }
 }
 </script>
