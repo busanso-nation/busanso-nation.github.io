@@ -339,7 +339,7 @@ const SERIES = [
 {
     id: "strangelove",
     title: "Strange Love S2",
-    poster: "https://img.india-forums.com/images/600x0/137436-still-image-of-arnav-and-khushi.jpg",
+    poster: "https://img.wattpad.com/cover/158287218-256-k953330.jpg",
     genre: "Drama",
     added: 10,
     type: "premium",
