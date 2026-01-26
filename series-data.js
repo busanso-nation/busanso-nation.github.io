@@ -79,7 +79,6 @@ const SERIES = [
   { title: "Episode 6", video: "https://drive.google.com/file/d/1eQo-qvWuD6OLeqdaVR7FdTBW9u_QMg6C/preview" },
   { title: "Episode 7", video: "https://drive.google.com/file/d/1MVDAjXAQ1IeG-cj--rXQE9ISDUQc-jxz/preview" }
 
-
     ]
   }
 ];
