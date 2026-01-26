@@ -8,57 +8,141 @@
 <script src="series-data.js"></script>
 
 <style>
-body{margin:0;background:#0f0f0f;color:#fff;font-family:Arial}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#0b1c24,#0a0f1a);
+  color:#eaf6ff;
+  font-family:Arial, sans-serif;
+}
+
+/* LOGO */
+.logo{
+  display:flex;
+  justify-content:center;
+  padding:18px 10px 10px;
+  background:#07141c;
+}
+.logo img{
+  height:46px;
+}
 
 /* NAV */
 .nav{
-  display:flex;gap:8px;padding:10px;
-  background:#000;position:sticky;top:0;z-index:10
+  display:flex;
+  gap:12px;
+  padding:14px;
+  background:#07141c;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 .nav button{
-  flex:1;padding:8px;border:none;border-radius:8px;
-  background:#181818;color:#fff;font-weight:bold;cursor:pointer
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(135deg,#1f6cff,#29ffd8);
+  color:#001018;
+  font-weight:bold;
+  font-size:14px;
+  cursor:pointer;
+  transition:.25s;
 }
-.nav button:hover{background:#e50914}
+.nav button:hover{
+  transform:translateY(-2px) scale(1.02);
+  filter:brightness(1.1);
+}
 
 /* SEARCH */
 .search{
-  padding:10px;background:#000
+  padding:16px;
+  background:#07141c;
 }
 .search input{
-  width:100%;padding:10px;border-radius:8px;
-  border:none;background:#181818;color:#fff
+  width:100%;
+  padding:16px;
+  border-radius:20px;
+  border:none;
+  background:#102a38;
+  color:#eaf6ff;
+  font-size:15px;
 }
+.search input::placeholder{color:#9fc6d9}
 
 /* GRID */
 .series{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:14px;padding:14px
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  padding:18px;
 }
 @media(min-width:600px){
   .series{grid-template-columns:repeat(4,1fr)}
 }
 
+/* CARD */
 .card{
-  background:#181818;border-radius:12px;overflow:hidden;
-  opacity:0;transform:translateY(15px);
-  animation:fade .4s forwards
+  background:linear-gradient(180deg,#102a38,#0b1c24);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 14px 35px rgba(0,0,0,.5);
+  opacity:0;
+  transform:translateY(20px);
+  animation:fade .4s forwards;
+  transition:.25s;
+}
+.card:hover{
+  transform:translateY(-6px);
 }
 @keyframes fade{to{opacity:1;transform:none}}
-.card img{width:100%}
-.info{padding:10px}
-.title{font-weight:bold}
-.meta{font-size:12px;color:#aaa;margin:5px 0}
+
+.card img{
+  width:100%;
+  aspect-ratio:2/3;
+  object-fit:cover;
+}
+
+/* INFO */
+.info{padding:14px}
+.title{
+  font-weight:bold;
+  font-size:15px;
+}
+.meta{
+  font-size:12px;
+  color:#9fc6d9;
+  margin:6px 0 14px;
+}
+
+/* WATCH BUTTON */
 .watch{
-  width:100%;padding:8px;border:none;border-radius:8px;
-  background:#e50914;color:#fff;font-weight:bold
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(135deg,#ff7a18,#ffb347);
+  color:#2a0d00;
+  font-weight:bold;
+  font-size:15px;
+  cursor:pointer;
+  transition:.25s;
+}
+.watch:hover{
+  transform:scale(1.03);
+  filter:brightness(1.1);
 }
 </style>
 </head>
 
 <body>
 
+<!-- LOGO -->
+<div class="logo">
+  <img src="https://i.ibb.co/1GMMrMmS/logo.png" alt="BUSANSO">
+</div>
 
+<!-- NAV -->
 <div class="nav">
   <button onclick="location.href='watch.html'">🏠 Home</button>
   <button onclick="location.href='movies.html'">🎬 Movies</button>
@@ -66,10 +150,12 @@ body{margin:0;background:#0f0f0f;color:#fff;font-family:Arial}
   <button onclick="location.href='https://youtube.com/@marriagetips-f7e?si=LHYc47_CHGxNh7-3'">💍 Marriage Tips</button>
 </div>
 
+<!-- SEARCH -->
 <div class="search">
   <input id="search" placeholder="Search series...">
 </div>
 
+<!-- SERIES GRID -->
 <div class="series" id="list"></div>
 
 <script>
@@ -86,8 +172,8 @@ function render(data){
       <img src="${s.poster}">
       <div class="info">
         <div class="title">${s.title}</div>
-      <div class="meta">${s.country} • ${s.genre} • ${s.year}</div>
-        <button class="watch">Watch Now</button>
+        <div class="meta">${s.country} • ${s.genre} • ${s.year}</div>
+        <button class="watch">▶ Watch Series</button>
       </div>`;
     c.querySelector("button").onclick=()=>{
       location.href=`serie.html?id=${s.id}`;
