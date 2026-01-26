@@ -221,6 +221,28 @@ const MOVIES = [
     duration: "40m",
     synopsis: "Noah, a mercenary in a post-apocalyptic world where a virus kills hosts within 24 hours. When a permanent cure is stolen, Noah must retrieve it to save his infected daughter, facing intense, high-octane gunfights, vehicular carnage, and explosions against a terrorist organization"
   },  
+           {
+    id: "titanic",
+    title: "TITANIC",
+    poster: "https://play-lh.googleusercontent.com/8PmJGVmFtEYVrnjcEvHr2Zl0bMYtjufSxmTBXb87NN7VF16lBr4bD4mUFV5Ae0uQ52-yLp1pdBF7NuOUtm4",
+    video: "https://vimeo.com/862818999",
+    type: "premium",
+    year: "2020",
+    country: "USA",
+    duration: "1h 20m",
+    synopsis: "James Cameron’s Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
+  }, 
+  {
+    id: "titanic2",
+    title: "TITANIC 2",
+    poster: "https://play-lh.googleusercontent.com/8PmJGVmFtEYVrnjcEvHr2Zl0bMYtjufSxmTBXb87NN7VF16lBr4bD4mUFV5Ae0uQ52-yLp1pdBF7NuOUtm4",
+    video: "https://vimeo.com/863044892",
+    type: "premium",
+    year: "2020",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "James Cameron’s Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
+  },  
   {
     id: "kanor",
     title: "KANOR",
