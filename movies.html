@@ -7,14 +7,13 @@
 
 <script src="movies-data.js"></script>
 
-
 <style>
 *{box-sizing:border-box}
 body{
   margin:0;
-  background:#0f0f0f;
+  background:linear-gradient(135deg,#0f0f0f,#1a1a2e);
   color:#fff;
-  font-family:Arial, sans-serif;
+  font-family:'Comic Sans MS', Arial, sans-serif;
 }
 
 /* LOGO */
@@ -22,10 +21,10 @@ body{
   display:flex;
   justify-content:center;
   padding:16px 10px 6px;
-  background:#000;
 }
 .logo img{
-  height:44px;
+  height:50px;
+  border-radius:12px;
 }
 
 /* NAV */
@@ -33,72 +32,77 @@ body{
   display:flex;
   gap:10px;
   padding:12px;
-  background:#000;
+  background:#111;
   position:sticky;
   top:0;
   z-index:10;
 }
 .nav button{
   flex:1;
-  padding:12px;
+  padding:14px;
   border:none;
-  border-radius:14px;
-  background:#181818;
+  border-radius:18px;
+  background:linear-gradient(45deg,#282828,#383838);
   color:#fff;
   font-weight:bold;
-  font-size:14px;
+  font-size:16px;
   cursor:pointer;
-  transition:.2s;
+  transition:.25s;
 }
 .nav button:hover{
-  background:#e50914;
-  transform:translateY(-1px);
+  background:linear-gradient(45deg,#e50914,#ff416c);
+  transform:translateY(-2px);
 }
 
 /* SEARCH */
 .search{
-  padding:14px;
-  background:#000;
+  padding:16px;
 }
 .search input{
   width:100%;
   padding:14px;
-  border-radius:16px;
+  border-radius:18px;
   border:none;
-  background:#181818;
+  background:#222;
   color:#fff;
-  font-size:15px;
+  font-size:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.5);
 }
 
 /* GRID */
 .movies{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-  padding:18px;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  padding:16px;
 }
 @media(min-width:600px){
-  .movies{grid-template-columns:repeat(4,1fr)}
+  .movies{grid-template-columns:repeat(4,1fr);}
+}
+@media(min-width:900px){
+  .movies{grid-template-columns:repeat(5,1fr);}
 }
 
+/* CARD */
 .card{
-  background:#181818;
+  background:linear-gradient(145deg,#181818,#282828);
   border-radius:20px;
   overflow:hidden;
-  box-shadow:0 12px 30px rgba(0,0,0,.45);
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
   opacity:0;
   transform:translateY(20px);
   animation:fade .4s forwards;
-  transition:.25s;
   position:relative;
+  transition:.25s;
 }
-.card:hover{transform:translateY(-4px)}
+.card:hover{transform:translateY(-5px) scale(1.02);}
 @keyframes fade{to{opacity:1;transform:none}}
 
 .card img{
   width:100%;
   aspect-ratio:2/3;
   object-fit:cover;
+  border-bottom:2px solid #444;
 }
 
 /* BADGE */
@@ -106,11 +110,12 @@ body{
   position:absolute;
   top:10px;
   left:10px;
-  padding:6px 10px;
-  font-size:11px;
+  padding:6px 12px;
+  font-size:12px;
   font-weight:bold;
-  border-radius:10px;
+  border-radius:12px;
   text-transform:uppercase;
+  box-shadow:0 2px 8px rgba(0,0,0,.6);
 }
 .badge.free{background:#28a745}
 .badge.premium{background:#e50914}
@@ -119,28 +124,33 @@ body{
 .info{padding:14px}
 .title{
   font-weight:bold;
-  font-size:15px;
+  font-size:16px;
+  text-shadow:0 1px 4px rgba(0,0,0,.7);
 }
 .meta{
-  font-size:12px;
-  color:#aaa;
+  font-size:13px;
+  color:#ccc;
   margin:6px 0 12px;
 }
 
 /* WATCH BUTTON */
 .watch{
   width:100%;
-  padding:15px;
+  padding:16px;
   border:none;
-  border-radius:16px;
-  background:#e50914;
+  border-radius:20px;
+  background:linear-gradient(45deg,#e50914,#ff416c);
   color:#fff;
   font-weight:bold;
-  font-size:15px;
+  font-size:16px;
   cursor:pointer;
-  transition:.2s;
+  transition:.25s;
+  box-shadow:0 4px 12px rgba(0,0,0,.6);
 }
-.watch:hover{background:#ff1f2d}
+.watch:hover{
+  background:linear-gradient(45deg,#ff416c,#e50914);
+  transform:scale(1.03);
+}
 </style>
 </head>
 
@@ -179,9 +189,7 @@ function render(data){
     c.className="card";
     c.style.animationDelay=i*.05+"s";
 
-    const badge = m.type
-      ? `<div class="badge ${m.type.toLowerCase()}">${m.type}</div>`
-      : "";
+    const badge = m.type ? `<div class="badge ${m.type.toLowerCase()}">${m.type}</div>` : "";
 
     c.innerHTML=`
       ${badge}
@@ -192,18 +200,19 @@ function render(data){
         <button class="watch">▶ Watch Now</button>
       </div>`;
 
-    c.querySelector("button").onclick=()=>{
-      location.href=`movie.html?id=${m.id}`;
-    };
-
+    c.querySelector("button").onclick=()=>location.href=`movie.html?id=${m.id}`;
     box.appendChild(c);
   });
 }
 
 /* INITIAL LOAD */
-render(MOVIES);
+if(typeof MOVIES!=="undefined"){
+  render(MOVIES);
+} else {
+  console.error("MOVIES data not found. Make sure movies-data.js is loaded.");
+}
 
-/* SEARCH */
+/* SEARCH FILTER */
 search.oninput=()=>{
   const q=search.value.toLowerCase();
   render(MOVIES.filter(m=>m.title.toLowerCase().includes(q)));
