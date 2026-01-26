@@ -25,25 +25,55 @@ body{
 }
 .header img{height:55px}
 .header h1{margin:8px 0}
-
 /* TOP BUTTONS */
 .top-actions{
   display:flex;
   justify-content:center;
-  gap:12px;
-  margin-bottom:18px;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-bottom:22px;
 }
+
 .btn{
-  padding:12px 22px;
-  border-radius:30px;
-  font-weight:600;
+  padding:12px 24px;
+  border-radius:999px;
+  font-weight:700;
   text-decoration:none;
   font-size:14px;
   color:#fff;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  box-shadow:0 6px 16px rgba(0,0,0,.4);
+  transition:transform .2s ease, box-shadow .2s ease, opacity .2s;
 }
-.subscribe{background:#e50914}
-.login{background:#1f2937}
-.about{background:#111;border:1px solid #333}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(0,0,0,.6);
+  opacity:.95;
+}
+
+/* Individual styles */
+.subscribe{
+  background:linear-gradient(135deg,#e50914,#ff3b3b);
+}
+
+.login{
+  background:linear-gradient(135deg,#2563eb,#1e40af);
+  border:1px solid rgba(255,255,255,.15);
+}
+
+.live{
+  background:linear-gradient(135deg,#16a34a,#22c55e);
+}
+
+.about{
+  background:#111;
+  border:1px solid #333;
+  color:#ddd;
+}
+
 
 /* ===== MOVING POSTER CAROUSEL ===== */
 .carousel-wrap{
@@ -131,7 +161,7 @@ body{
 
 <!-- HEADER -->
 <div class="header">
-  <img src="/uploads/png/logo.png">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
   <h1>Busanso Nation</h1>
   <small>Here we take away your stress with Movies & Series</small>
 </div>
@@ -140,8 +170,10 @@ body{
 <div class="top-actions">
   <a href="packages.html" class="btn subscribe">⭐ Subscribe</a>
   <a href="login.html" class="btn login">🔐 Login</a>
+  <a href="live.html" class="btn live">📺 Live TV</a>
   <a href="about.html" class="btn about">ℹ About</a>
 </div>
+
 
 <!-- ===== AUTO MOVING POSTER CAROUSEL ===== -->
 <div class="carousel-wrap">
