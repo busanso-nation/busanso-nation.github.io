@@ -287,6 +287,17 @@ const MOVIES = [
     duration: "1h 10m",
     synopsis: "When Jason Stantham appears, what do you expect? Super action blockbuster movie"
   },
+             {
+    id: "wwowo",
+    title: "WOLF WORRIOR",
+    poster: "https://i.ibb.co/j9bnDgPG/images-5.jpg",
+    video: "https://drive.google.com/file/d/1wURAFpDI9N9MAA-ITigYhQP_dIjQzGme/view",
+    type: "free",
+    year: "2019",
+    country: "China",
+    duration: "1h 30m",
+    synopsis: "A special forces soldier, known for his marksmanship, must battle a group of foreign mercenaries hired to slay him by a drug lord"
+  },
           {
     id: "faithcabin",
     title: "FAITH CABIN",
@@ -299,7 +310,7 @@ const MOVIES = [
     synopsis: "After suffering a family tragedy, Mack Phillips spirals into a deep depression that causes him to question his innermost beliefs. Facing a crisis of faith, he receives a mysterious letter urging him to an abandoned shack in the Oregon wilderness. Despite his doubts, Mack journeys to the shack and encounters an enigmatic trio of strangers led by a woman named Papa. Through this meeting, Mack finds important truths that will transform his understanding of his tragedy and change his life forever"
   },
             {
-    id: "faithcabin",
+    id: "faithcabin2",
     title: "FAITH CABIN 2",
     poster: "https://m.media-amazon.com/images/M/MV5BN2I0NjlkYjgtMWU5Mi00NGYwLThjNTYtMzM1MGI2ZTQ3OTIyXkEyXkFqcGc@._V1_.jpg",
     video: "https://www.youtube.com/embed/F25D62Y-Q44",
@@ -310,6 +321,160 @@ const MOVIES = [
     synopsis: "After suffering a family tragedy, Mack Phillips spirals into a deep depression that causes him to question his innermost beliefs. Facing a crisis of faith, he receives a mysterious letter urging him to an abandoned shack in the Oregon wilderness. Despite his doubts, Mack journeys to the shack and encounters an enigmatic trio of strangers led by a woman named Papa. Through this meeting, Mack finds important truths that will transform his understanding of his tragedy and change his life forever"
   },
   {
+    id: "warship11",
+    title: "WAR SHIP",
+    poster: "https://m.media-amazon.com/images/M/MV5BYmQzNWM2NTEtNGU2Yi00MmVlLWE5MWItMGE1M2ZlNzI0Y2Y5XkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/x38i6jZnuWk",
+    type: "free",
+    year: "2025",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "another beautiful movie to take away your stress"
+  },
+  {
+    id: "warship12",
+    title: "WAR SHIP 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BYmQzNWM2NTEtNGU2Yi00MmVlLWE5MWItMGE1M2ZlNzI0Y2Y5XkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/RLb5iXT3Udo",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "another beautiful movie to take away your stress"
+  },
+  {
+    id: "amanni",
+    title: "AMANI",
+    poster: "https://static.titlovi.com/img/0228/228698-tt0234000.jpg",
+    video: "https://www.youtube.com/embed/D2vaZ6yOfg4",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Laba film eno olabe omukwano gwa brother bweguba. Oluvanyuma lwokwekalakasa okwali ku kyalo, omwafiira abavubuka amakumi ataano, Amani yabula, wabula Mwanyina anasobola okumuzuula?."
+  },
+   {
+    id: "amannni",
+    title: "AMANI 2",
+    poster: "https://static.titlovi.com/img/0228/228698-tt0234000.jpg",
+    video: "https://www.youtube.com/embed/aayEWSxngbg",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Laba film eno olabe omukwano gwa brother bweguba. Oluvanyuma lwokwekalakasa okwali ku kyalo, omwafiira abavubuka amakumi ataano, Amani yabula, wabula Mwanyina anasobola okumuzuula?."
+  },
+     {
+    id: "shoony",
+    title: "SHOONY",
+    poster: "https://i.ibb.co/DD367QqD/pooooo.jpg",
+    video: "https://www.youtube.com/embed/n-meJRIBMQQ",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Dhritiman Chaterji and Catherine McNally give birth to their first daughter, Michelle  who can neither hear nor see. Not knowing how to care for a deaf and blind child, they isolate their daughter from the outside world and as a result, she is ill-behaved and emotionally distraught. Paul even considers putting Michelle in a mental hospital until an eccentric teacher with a questionable past offers to help."
+  },
+       {
+    id: "shoonnnyyy",
+    title: "SHOONY 2",
+    poster: "https://i.ibb.co/DD367QqD/pooooo.jpg",
+    video: "https://www.youtube.com/embed/eLPtLBbi4C8",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Dhritiman Chaterji and Catherine McNally give birth to their first daughter, Michelle  who can neither hear nor see. Not knowing how to care for a deaf and blind child, they isolate their daughter from the outside world and as a result, she is ill-behaved and emotionally distraught. Paul even considers putting Michelle in a mental hospital until an eccentric teacher with a questionable past offers to help."
+  },
+       {
+    id: "greaterwall",
+    title: "THE GREAT WALL",
+    poster: "https://m.media-amazon.com/images/M/MV5BMjA3MjAzOTQxNF5BMl5BanBnXkFtZTgwOTc5OTY1OTE@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1PFWXmSzfR2K21QZyqo3cvxDg3WyvSach/preview",
+    type: "premium",
+    year: "2024",
+    country: "China",
+    duration: "1h 40m",
+    synopsis: "When a mercenary warrior is imprisoned within the Great Wall, he discovers the mystery behind one of the greatest wonders of the world. As wave after wave of marauding beasts besiege the massive structure, his quest for fortune turns into a journey toward heroism as he joins a huge army of elite warriors to confront the unimaginable and seemingly unstoppable force."
+  },
+         {
+    id: "greaterwalls",
+    title: "THE GREAT WALL 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BMjA3MjAzOTQxNF5BMl5BanBnXkFtZTgwOTc5OTY1OTE@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1YgT9geArNCQvxDq20xgUv3PtOtRarMBB/preview",
+    type: "premium",
+    year: "2024",
+    country: "China",
+    duration: "1h 40m",
+    synopsis: "When a mercenary warrior is imprisoned within the Great Wall, he discovers the mystery behind one of the greatest wonders of the world. As wave after wave of marauding beasts besiege the massive structure, his quest for fortune turns into a journey toward heroism as he joins a huge army of elite warriors to confront the unimaginable and seemingly unstoppable force."
+  },
+           {
+    id: "mugaya",
+    title: "MUGAYA",
+    poster: "https://i.ibb.co/4ZJTjPrg/Sausage-Party-Foodtopia-poster.jpg",
+    video: "https://vimeo.com/862223837",
+    type: "premium",
+    year: "2024",
+    country: "China",
+    duration: "1h 40m",
+    synopsis: "Eno entyuni ekulaga nti sigwe wekka alina ebizibu, ensi yona elina enaku."
+  },
+         {
+    id: "poolhorror",
+    title: "POOL",
+    poster: "https://m.media-amazon.com/images/I/71GP9nsSFsL._AC_UF894,1000_QL80_.jpg",
+    video: "https://drive.google.com/file/d/12W095GJfn1rh1OKpS8XKFbUZQ5ujtJHY/preview",
+    type: "premium",
+    year: "2024",
+    country: "Thailand",
+    duration: "1h 40m",
+    synopsis: "Deyi, is left alone to clear up a 6-meter deep deserted pool after shooting a film. He is really tired and falls asleep on an inflatable raft. When he wakes up again the water level has sunk so low that he cannot climb out of the pool on his own."
+  },
+           {
+    id: "misota",
+    title: "RISING BOARS",
+    poster: "https://m.media-amazon.com/images/M/MV5BMGU4ZTU2N2YtYTM2NC00YTRiLWFkODktYWMyY2Q5NmM4NzUxXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1Zh2xXKVQMku8O8ppRd6pMk2QVVK93sXO/preview",
+    type: "premium",
+    year: "2024",
+    country: "Thailand",
+    duration: "1h 40m",
+    synopsis: "The mutated, ginormous boa and a horde of smaller, aggressive, venomous snakes escape from the breeding base. The snakes head to a nearby flight attendant aviation college, which is preparing for a graduation ceremony and competition."
+  },
+       {
+    id: "calledman",
+    title: "MAN CALLED HERO",
+    poster: "https://pic0.iqiyipic.com/image/20250728/00/ed/v_165631021_m_601_en_m1_260_360.jpg",
+    video: "https://drive.google.com/file/d/1f2eYbmrIMuXCnv7cFholzmKNhJ84ydLF/preview",
+    type: "premium",
+    year: "2024",
+    country: "China",
+    duration: "1h 40m",
+    synopsis: "A martial arts expert flees to New York after carrying out a violent vendetta against his parents murderers. Sixteen years later, the man must repay a debt of honour to the people whom he has wronged."
+  },
+   {
+    id: "midnightsunn",
+    title: "MIDNIGHT SUN",
+    poster: "https://i.pinimg.com/736x/96/5c/c8/965cc8bdbd8562d1c96259bc7715d177.jpg",
+    video: "https://vimeo.com/786472139",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "a romantic drama starring Bella Thorne as Katie Price, a 17-year-old with a rare, fatal, sunlight-sensitive disease XP. Confined to her home during the day, she meets her long-time crush, Charlie Patrick Schwarzenegger, at night, sparking a fleeting summer romance while trying to hide her condition"
+  },
+   {
+    id: "wolf200",
+    title: "200 WOLF",
+    poster: "https://i.ibb.co/tPqBwKvq/werewolf.jpg",
+    video: "https://drive.google.com/file/d/1Rkszg7K3q04q9ULpppQ6TFjmRIE_Qn_u/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "Heroic Freddy has everything it takes to lead a pack... except the appearance. But his wayward wish to transform from a poodle to a werewolf will finally come true with the help of a mischievous moon sprite that reached Earth"
+  },
+   {
     id: "kanor",
     title: "KANOR",
     poster: "https://i.ibb.co/Zphm4pNY/KANOR.jpg",
