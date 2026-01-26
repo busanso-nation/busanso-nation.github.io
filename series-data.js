@@ -447,10 +447,10 @@ const SERIES = [
     title: "Strange Love S3",
     poster: "https://img.wattpad.com/cover/397751915-256-k182918.jpg",
     genre: "Drama",
-    added: 10,
+    added: 11,
     type: "premium",
     country: "India",
-    year: "2025",
+    year: "2026",
     synopsis: "A ruthless, arrogant, and extremely wealthy business tycoon (known as ASR) who runs AR Designs. He is an atheist, does not believe in love or marriage, and is deeply protective of his sister, Anjali and A simple, spirited, and traditional girl from Lucknow. She is deeply rooted in her values, believes in God and love, and often finds herself in chaotic situations",
     cast: ["Barun Sobti", "Sanaya Irani","Utkarsha Naik","Dalljiet Kaur", "Aabhaas Mehta"],
     episodes: [
@@ -531,7 +531,44 @@ const SERIES = [
 { title: "Episode 75", video: "https://drive.google.com/file/d/1UaPwc-mLV51B3sCRfOgaLdGMmt3Ij-DN/preview" },
 { title: "Episode 76", video: "https://drive.google.com/file/d/1WqSFzTYevGEk97pmh129rSPeMqbANTX4/preview" },
 { title: "Episode 77", video: "https://drive.google.com/file/d/1YfL1zzbYtpETIfxnIs2uZFiyKipzASpE/preview" },
-{ title: "Episode 78 – Strange Love (End)", video: "https://drive.google.com/file/d/1tuf5RilGbn2erz_UUOMh2yUBw9dTCZ0y/preview" },
+{ title: "Episode 78 – Strange Love (End)", video: "https://drive.google.com/file/d/1tuf5RilGbn2erz_UUOMh2yUBw9dTCZ0y/preview" }
+      ]
+  },
+{
+    id: "secretsofshenje",
+    title: "SECRETS OF SHENJIE",
+    poster: "https://m.media-amazon.com/images/M/MV5BNzdkOWYzNzQtZjQ4NC00NDEyLTg2NWItNzQxMzAxM2M5ZjhiXkEyXkFqcGc@._V1_.jpg",
+    genre: "Action",
+    added: 12,
+    type: "premium",
+    country: "Chine",
+    year: "2024",
+    synopsis: "Ten years prior, Ling Xuan saved Ying Shi's sister, initiating a pact where Ying Shi would train in the Shadow Pavilion to become her assistant",
+    cast: ["Hu Yiyao", "Lin Zehui"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1ESWn8KaINs2k8ofWV4yY70uLdnKtLH3I/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1C0tlRQ4ZB6-0XBZzgarZ-Midcbf5xVkD/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1RdVKPNJNM8q8yu4ARz_a1gUYKa7T8tIx/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1ztJTO-C5auHicXCrSphIDNmzgEXfuEMm/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1XG1xgzeisKfAsICi-7CxK6p5RVhzeqgM/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1Og616_LGd1uta8nVECZ4YMnsWxw7UOka/preview" },
+{ title: "Episode 7", video: "https://drive.google.com/file/d/11cEISKAPl1QZc5TMjLOxk_0BGjH-nZB6/preview" },
+{ title: "Episode 8", video: "https://drive.google.com/file/d/1h7JUs2ubl0_QyrzVe9U6yMmOdpaRYcDu/preview" },
+{ title: "Episode 9", video: "https://drive.google.com/file/d/1GVNT5ijNVpqOFFMZNGuSvz5mJ51SrBnz/preview" },
+{ title: "Episode 10", video: "https://drive.google.com/file/d/1PJWSRPfdxMJEovc8wJd2FiO3Jit3rzXq/preview" },
+{ title: "Episode 11", video: "https://drive.google.com/file/d/1PyuZNp0h23Zp39D8Ce-jO84epPBGZvNq/preview" },
+{ title: "Episode 12", video: "https://drive.google.com/file/d/1FvLwoSPfnfqd-tKtxEAd29Ez7L8SOota/preview" },
+{ title: "Episode 13", video: "https://drive.google.com/file/d/1x3YC7Py1FZxybGqDIu6kSmfdJNPVWcOj/preview" },
+{ title: "Episode 14", video: "https://drive.google.com/file/d/1AwaWMbzi8a-RlLhz83Cx9Nl_s7wuiOxb/preview" },
+{ title: "Episode 15", video: "https://drive.google.com/file/d/15o_veAk2LRGPBIUMbzswBN6foMw3_To6/preview" },
+{ title: "Episode 16", video: "https://drive.google.com/file/d/1o9bZxszVgMWVNn9H2fYaeGafAun4mdA-/preview" },
+{ title: "Episode 17", video: "https://drive.google.com/file/d/19CUYAEJ-uchv5Uw-2VJtIaeDTjUc5hhQ/preview" },
+{ title: "Episode 18", video: "https://drive.google.com/file/d/17xi1gxVbTk5U70ymiTlfrXz_kAPU_59Y/preview" },
+{ title: "Episode 19", video: "https://drive.google.com/file/d/1qoQ4dl5gYP7-s0kDS5ZopypEgoc_uPYE/preview" },
+{ title: "Episode 20", video: "https://drive.google.com/file/d/1kAmddYx1BArUurx5p5S_Rtp8VsZCrrpw/preview" },
+{ title: "Episode 21", video: "https://drive.google.com/file/d/1v_wygTlZMzZSNgNPWkGm-MSk7dOn5SkQ/preview" },
+{ title: "Episode 22", video: "https://drive.google.com/file/d/1vYdIwe0EvM3vorNXBoaX785rfLPn1xKT/preview" },
+{ title: "Episode 23", video: "https://drive.google.com/file/d/13HvzVkcXx5A13RUouuNYTr3zZA69RUnf/preview" }
 
     ]
   }
