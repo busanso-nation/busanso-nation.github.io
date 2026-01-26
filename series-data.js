@@ -119,7 +119,27 @@ const SERIES = [
   { title: "Episode 5", video: "https://drive.google.com/file/d/1eVDBuaemkfDIe34V0vjIPvetrw9AUmgg/preview" },
   { title: "Episode 6", video: "https://drive.google.com/file/d/1eQo-qvWuD6OLeqdaVR7FdTBW9u_QMg6C/preview" },
   { title: "Episode 7", video: "https://drive.google.com/file/d/1MVDAjXAQ1IeG-cj--rXQE9ISDUQc-jxz/preview" }
-
+]
+  },
+{
+    id: "manvsbaby",
+    title: "MAN vs BABY",
+    poster: "https://www.moviemeter.nl/series/images/cover/33000/33739.jpg?cb=1766010505",
+    genre: "Comedy",
+    added: 6,
+    type: "premium",
+    country: "USA",
+    year: "2025",
+    synopsis: "comedy miniseries starring Rowan Atkinson as Trevor Bingley, a follow-up to the 2022 series Man vs. Bee",
+    cast: ["Rowan Atkinson", "Alanah Bloor", "Susannah"],
+    episodes: [
+   { title: "Episode 1", video: "https://drive.google.com/file/d/1h3ZX-xolsi2sbS3GZc4UqNOhZLBeMMK2/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1eNw09UOxdxksgrv70rH_0L3JrGx4x34R/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1trUrYKA1d_42Yz4LpWXSbuTuwcVxT6Z1/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1ny14W-WqThR0Gkm97V1X7ZCvdhJQ7dbs/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1eVDBuaemkfDIe34V0vjIPvetrw9AUmgg/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1eQo-qvWuD6OLeqdaVR7FdTBW9u_QMg6C/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1MVDAjXAQ1IeG-cj--rXQE9ISDUQc-jxz/preview" }
     ]
   }
 ];
