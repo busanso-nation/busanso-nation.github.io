@@ -200,6 +200,26 @@ const SERIES = [
   { title: "Episode 43", video: "https://www.youtube.com/embed/cFT0RrNa3Ic" },
   { title: "Episode 44", video: "https://www.youtube.com/embed/R9cwxQ3h1sI" },
   { title: "Episode 45", video: "https://www.youtube.com/embed/pSdmaPMh4cE" }
+      ]
+  },
+{
+    id: "grandmaster",
+    title: "GRAND MASTERS",
+    poster: "https://img.tvb.com/mytvs/poster/1442/144157_v1_o.jpg",
+    genre: "Action",
+    added: 8,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: "Chinese wuxia drama focusing on the ultimate martial arts contest to control the Nine Yin True Sutra, featuring iconic masters like Huang Yaoshi and Ouyang Feng",
+    cast: ["Ming Dao", "Meng Ziyi", "Gao Weiguang"],
+    episodes: [
+   { title: "Episode 1", video: "https://drive.google.com/file/d/16GGstLtVVDV-u6xr5L5jb-wtZJzqCHII/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1xyr96Iz2dR6gzQzC7VYACwJqQQOJXtln/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/10b8NqRlFZIqAj0L3ht5onUnraWHNH21j/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1tDeFttzZQQfwtJN_nOryUiG337B5iOoT/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1sAn4JO_8QDT-PguEZpV2YCuf9hUVVyc0/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1gvS-1jktnkJ1jl1wtu3NL8JMf5xP1vAa/preview" }
     ]
   }
 ];
