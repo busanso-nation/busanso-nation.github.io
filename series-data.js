@@ -23,7 +23,7 @@ const episodes = [
   { title: "Episode 9", video: "https://www.youtube.com/embed/fWngGIZ8ZLk" },
   { title: "Episode 10", video: "https://www.youtube.com/embed/D0Op9g37vJs" },
   { title: "Episode 11", video: "https://www.youtube.com/embed/ZKyROMmbIkI" }
-];
+]
 },
 
    {
