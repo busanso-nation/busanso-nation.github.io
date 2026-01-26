@@ -76,7 +76,7 @@ const SERIES = [
     country: "Pilippine",
     year: "2026",
     synopsis: "Marimar is a naive, poor young woman living in a beach hut with her grandparents. She falls in love with and marries Sergio Santibañez, whose wealthy family, especially his stepmother Angélica, humiliates her and drives them apart. After suffering tragic losses, Marimar transforms into the sophisticated Bella Aldama to seek revenge",
-    cast: ["Yiwei Zhou", "Meng Ziyi", "Peter Ho"],
+    cast: ["Thalía", "Chantal Andere", "Tito Guízar"],
     episodes: [
    { title: "Episode 1", video: "https://www.youtube.com/embed/NUz_6hcABnY" },
   { title: "Episode 2", video: "https://www.youtube.com/embed/UcfIN1DHfLs" },
@@ -98,7 +98,27 @@ const SERIES = [
   { title: "Episode 18", video: "https://www.youtube.com/embed/G8LzjrRLMBc" },
   { title: "Episode 19", video: "https://www.youtube.com/embed/Eun8gufKszw" },
   { title: "Episode 20", video: "https://www.youtube.com/embed/vrgxy7pCkC8" }
-
+]
+  },
+{
+    id: "ashur",
+    title: "SPARTACUS HOUSE OF ASHUR",
+    poster: "https://m.media-amazon.com/images/M/MV5BZWQ1NDUwYjEtYTYzYS00YTc3LTgzOTEtZTM0ZDhhMGM3ODAwXkEyXkFqcGc@._V1_.jpg",
+    genre: "Action",
+    added: 5,
+    type: "premium",
+    country: "USA",
+    year: "2026",
+    synopsis: "Rewarded for his role in ending the slave rebellion, Ashur becomes the "Dominus" of Batiatus’ former gladiator school, navigating dangerous Roman politics and managing a fierce gladiatrix, Achillia",
+    cast: ["Nick E. Tarabay", "Claudia Black", "India Shaw"],
+    episodes: [
+   { title: "Episode 1", video: "https://drive.google.com/file/d/1h3ZX-xolsi2sbS3GZc4UqNOhZLBeMMK2/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1eNw09UOxdxksgrv70rH_0L3JrGx4x34R/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1trUrYKA1d_42Yz4LpWXSbuTuwcVxT6Z1/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1ny14W-WqThR0Gkm97V1X7ZCvdhJQ7dbs/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1eVDBuaemkfDIe34V0vjIPvetrw9AUmgg/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1eQo-qvWuD6OLeqdaVR7FdTBW9u_QMg6C/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1MVDAjXAQ1IeG-cj--rXQE9ISDUQc-jxz/preview" }
     ]
   }
 ];
