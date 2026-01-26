@@ -220,6 +220,30 @@ const SERIES = [
   { title: "Episode 4", video: "https://drive.google.com/file/d/1tDeFttzZQQfwtJN_nOryUiG337B5iOoT/preview" },
   { title: "Episode 5", video: "https://drive.google.com/file/d/1sAn4JO_8QDT-PguEZpV2YCuf9hUVVyc0/preview" },
   { title: "Episode 6", video: "https://drive.google.com/file/d/1gvS-1jktnkJ1jl1wtu3NL8JMf5xP1vAa/preview" }
+      ]
+  },
+{
+    id: "strangelove",
+    title: "Strange Love S1",
+    poster: "https://img.india-forums.com/images/600x0/137436-still-image-of-arnav-and-khushi.jpg",
+    genre: "Drama",
+    added: 9,
+    type: "premium",
+    country: "India",
+    year: "2025",
+    synopsis: "A ruthless, arrogant, and extremely wealthy business tycoon (known as ASR) who runs AR Designs. He is an atheist, does not believe in love or marriage, and is deeply protective of his sister, Anjali and A simple, spirited, and traditional girl from Lucknow. She is deeply rooted in her values, believes in God and love, and often finds herself in chaotic situations",
+    cast: ["Barun Sobti", "Sanaya Irani","Utkarsha Naik","Dalljiet Kaur", "Aabhaas Mehta"],
+    episodes: [
+   { title: "Episode 1", video: "https://drive.google.com/file/d/1hBa9X8kVA2ov2VR3iEDnFm4zBYrdJiwo/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1uaaoXUSlxyt_Qeskl3LqnxXiwESSuBJ_/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1Jw2khbCqgqk8fu5A3aE2KKXUio4P0Iv5/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1A_6NtmLIOmqW9WRlg8A1wYBzI3qpIE8W/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1iJO-R-RtRAzi7AMq59OTifJlX5t5FKy7/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1cIaND__ayRleDy1KlB1cz3arRqbuBrM2/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1LRn_hNP5oM-ECQPE5V8Hi_T7bh1zzWKu/preview" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/1_7xwRU0uTRLAq22pQYjGc0XysSw_5JlE/preview" },
+  { title: "Episode 9", video: "https://drive.google.com/file/d/1qmxq19Ss31nJArzR8FowecIwp9BZGn3k/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/1Q7jiRf6iLg_EvXWWlLuasxiTpHiGEaCu/preview" }
     ]
   }
 ];
