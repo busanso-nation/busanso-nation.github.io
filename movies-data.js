@@ -110,6 +110,28 @@ const MOVIES = [
     duration: "1h 12m",
     synopsis: "Hutu Paul Rusesabagina manages the Hôtel des Mille Collines and lives a happy life with his Tutsi wife and their three children, but when Hutu military forces initiate a campaign of ethnic cleansing against the Tutsi minority, Paul is compelled to allow refugees to take shelter in his hotel. As the U.N. pulls out, Paul must struggle alone to protect the Tutsi refugees in the face of the escalating violence later known as the Rwandan genocide."
   },  
+          {
+    id: "vault1",
+    title: "THE VAULT",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzmPDqOkNsLCDfyHpD_Oq4qGFdnVbkTyVEviWy95hoAERvf9_DFoXxy3oreah_jrMoKHIN&s=10",
+    video: "https://drive.google.com/file/d/1svKcGMOXcy2b9NQXYLqLF9Xs0jdNARq5/preview",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "a high-stakes heist thriller about a genius engineering graduate, Thom (Freddie Highmore), who joins a crew led by Walter (Liam Cunningham) to rob the famously impenetrable Bank of Spain"
+  },  
+            {
+    id: "vault2",
+    title: "THE VAULT 2",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkYkw0RY3VkZlFjS_7gPL8UL1ucoL1PfYPcA&s",
+    video: "https://drive.google.com/file/d/1roGhWKYNuGhti1FFb1aQq7Ov0332ZQhS/preview",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 20m",
+    synopsis: "a high-stakes heist thriller about a genius engineering graduate, Thom (Freddie Highmore), who joins a crew led by Walter (Liam Cunningham) to rob the famously impenetrable Bank of Spain"
+  },  
   {
     id: "kanor",
     title: "KANOR",
