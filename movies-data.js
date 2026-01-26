@@ -88,6 +88,28 @@ const MOVIES = [
     duration: "1h 12m",
     synopsis: "One ordinary day, Bob follows his instincts and trails two suspicious-looking men into an alley. When he realizes they are robbing a bank, Bei jumps into action and foils their plans. The resulting publicity brings Bei the shock that his parents were both professional spies. Drawn into a dangerous game of cat and mouse, Bei travels to Turkey to stop a group of evil drug lords."
   },  
+      {
+    id: "pickup",
+    title: "THE PICK UP",
+    poster: "https://upload.wikimedia.org/wikipedia/en/d/d8/The_Pickup_2025_poster.jpg",
+    video: "https://drive.google.com/file/d/16HV04cwCCsGbkhrJIATzHb_CKIw4bU6f/view",
+    type: "premium",
+    year: "2026",
+    country: "USA",
+    duration: "1h 12m",
+    synopsis: "A routine cash pickup takes a wild turn when two mismatched armored truck drivers get ambushed by ruthless criminals. As chaos unfolds around them, the unlikely duo must navigate high-risk danger, clashing personalities, and one very bad day that keeps getting worse."
+  },  
+        {
+    id: "rwanda",
+    title: "HOTEL RWANDA",
+    poster: "https://m.media-amazon.com/images/I/61jbFFhqOvL.jpg",
+    video: "https://drive.google.com/file/d/1BYv48hR77jxOHvZWjuHKlc7OH5lIN1kr/preview",
+    type: "free",
+    year: "2026",
+    country: "Rwanda",
+    duration: "1h 12m",
+    synopsis: "Hutu Paul Rusesabagina manages the Hôtel des Mille Collines and lives a happy life with his Tutsi wife and their three children, but when Hutu military forces initiate a campaign of ethnic cleansing against the Tutsi minority, Paul is compelled to allow refugees to take shelter in his hotel. As the U.N. pulls out, Paul must struggle alone to protect the Tutsi refugees in the face of the escalating violence later known as the Rwandan genocide."
+  },  
   {
     id: "kanor",
     title: "KANOR",
