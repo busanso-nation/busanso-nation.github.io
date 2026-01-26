@@ -221,7 +221,18 @@ const MOVIES = [
     duration: "40m",
     synopsis: "Noah, a mercenary in a post-apocalyptic world where a virus kills hosts within 24 hours. When a permanent cure is stolen, Noah must retrieve it to save his infected daughter, facing intense, high-octane gunfights, vehicular carnage, and explosions against a terrorist organization"
   },  
-           {
+            {
+    id: "jamu",
+    title: "JAM",
+    poster: "https://www.punjabnewsexpress.com/images/article/article206579.jpg",
+    video: "https://www.youtube.com/embed/R0c3hy6Euok",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 55m",
+    synopsis: " Hindi-language emotional thriller directed by the late Rajesh Pillai, featuring an ensemble cast led by Manoj Bajpayee, Jimmy Sheirgill, Prosenjit Chatterjee, and Divya Dutta. It is a remake of the 2011 Malayalam film of the same name and is inspired by a real-life incident in Chennai where a heart was transported for a transplant."
+  },
+  {
     id: "titanic",
     title: "TITANIC",
     poster: "https://play-lh.googleusercontent.com/8PmJGVmFtEYVrnjcEvHr2Zl0bMYtjufSxmTBXb87NN7VF16lBr4bD4mUFV5Ae0uQ52-yLp1pdBF7NuOUtm4",
@@ -243,6 +254,61 @@ const MOVIES = [
     duration: "1h 30m",
     synopsis: "James Cameron’s Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
   },  
+    {
+    id: "tayitanic3",
+    title: "TITANIC 3",
+    poster: "https://play-lh.googleusercontent.com/8PmJGVmFtEYVrnjcEvHr2Zl0bMYtjufSxmTBXb87NN7VF16lBr4bD4mUFV5Ae0uQ52-yLp1pdBF7NuOUtm4",
+    video: "https://vimeo.com/863605809",
+    type: "premium",
+    year: "2020",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "James Cameron’s Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
+  }, 
+      {
+    id: "brant23",
+    title: "BRANT",
+    poster: "https://play-lh.googleusercontent.com/8PmJGVmFtEYVrnjcEvHr2Zl0bMYtjufSxmTBXb87NN7VF16lBr4bD4mUFV5Ae0uQ52-yLp1pdBF7NuOUtm4",
+    video: "https://drive.google.com/file/d/1BipH5Qsg-k8Ah_DP1P0iVU9HE-6KfQyp/view",
+    type: "premium",
+    year: "2023",
+    country: "USA",
+    duration: "1h 40m",
+    synopsis: "When Jason Stantham appears, what do you expect? Super action movie"
+  }, 
+        {
+    id: "brant2",
+    title: "BRANT PART 2",
+    poster: "https://play-lh.googleusercontent.com/8PmJGVmFtEYVrnjcEvHr2Zl0bMYtjufSxmTBXb87NN7VF16lBr4bD4mUFV5Ae0uQ52-yLp1pdBF7NuOUtm4",
+    video: "https://drive.google.com/file/d/1wURAFpDI9N9MAA-ITigYhQP_dIjQzGme/view",
+    type: "premium",
+    year: "2023",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "When Jason Stantham appears, what do you expect? Super action blockbuster movie"
+  },
+          {
+    id: "faithcabin",
+    title: "FAITH CABIN",
+    poster: "https://m.media-amazon.com/images/M/MV5BN2I0NjlkYjgtMWU5Mi00NGYwLThjNTYtMzM1MGI2ZTQ3OTIyXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/7EV1XVz7dA4",
+    type: "free",
+    year: "2025",
+    country: "USA",
+    duration: "1h 20m",
+    synopsis: "After suffering a family tragedy, Mack Phillips spirals into a deep depression that causes him to question his innermost beliefs. Facing a crisis of faith, he receives a mysterious letter urging him to an abandoned shack in the Oregon wilderness. Despite his doubts, Mack journeys to the shack and encounters an enigmatic trio of strangers led by a woman named Papa. Through this meeting, Mack finds important truths that will transform his understanding of his tragedy and change his life forever"
+  },
+            {
+    id: "faithcabin",
+    title: "FAITH CABIN 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BN2I0NjlkYjgtMWU5Mi00NGYwLThjNTYtMzM1MGI2ZTQ3OTIyXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/F25D62Y-Q44",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 20m",
+    synopsis: "After suffering a family tragedy, Mack Phillips spirals into a deep depression that causes him to question his innermost beliefs. Facing a crisis of faith, he receives a mysterious letter urging him to an abandoned shack in the Oregon wilderness. Despite his doubts, Mack journeys to the shack and encounters an enigmatic trio of strangers led by a woman named Papa. Through this meeting, Mack finds important truths that will transform his understanding of his tragedy and change his life forever"
+  },
   {
     id: "kanor",
     title: "KANOR",
