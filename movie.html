@@ -11,17 +11,17 @@
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
-  // Initialize Firebase (replace with your config)
+  // Initialize Firebase
   const firebaseConfig = {
-  const firebaseConfig = {
-  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
-  authDomain: "busanso-pins.firebaseapp.com",
-  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
-  projectId: "busanso-pins",
-  storageBucket: "busanso-pins.firebasestorage.app",
-  messagingSenderId: "137040014808",
-  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
+    apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
+    authDomain: "busanso-pins.firebaseapp.com",
+    databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
+    projectId: "busanso-pins",
+    storageBucket: "busanso-pins.firebasestorage.app",
+    messagingSenderId: "137040014808",
+    appId: "1:137040014808:web:b0684e17b6b0328da596ad"
   };
   firebase.initializeApp(firebaseConfig);
 </script>
@@ -41,6 +41,7 @@ h1{margin-bottom:10px;text-align:center}
 .secondary{background:#222;color:#fff;margin-top:4px}
 .share{background:#555;color:#fff;margin-top:4px}
 .cast span{background:#181818;padding:6px 10px;border-radius:20px;font-size:12px;margin-right:4px;margin-bottom:4px;display:inline-block;}
+
 /* Comment Section */
 #commentsSection{max-width:800px;margin:20px auto;background:#111;padding:16px;border-radius:12px;}
 #commentsList div{margin-bottom:6px;padding:8px 10px;background:#222;border-radius:8px;position:relative;}
@@ -58,7 +59,7 @@ const exp = Number(localStorage.getItem("pinExpiry"));
 if(!pin || !exp || Date.now() > exp){
   localStorage.removeItem("activePIN");
   localStorage.removeItem("pinExpiry");
-  location.replace("packages.html"); // redirect to PIN entry/login
+  location.replace("packages.html");
 }
 </script>
 
@@ -132,7 +133,10 @@ function normalizeVideo(url){
 
 // ----- Play movie -----
 function playMovie(){
-  if(movie.type !== "free") { alert("This movie is premium!"); return; }
+  if(movie.type !== "free") {
+    location.href = "packages.html"; // redirect for premium
+    return;
+  }
   const embed = normalizeVideo(movie.video);
   if(!embed){ alert("Video not supported"); return; }
   document.getElementById("player").innerHTML = `<iframe src="${embed}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
@@ -156,7 +160,7 @@ function copyToClipboard(){
 }
 
 // ===== COMMENT SECTION LOGIC =====
-const commentsRef = firebase.database().ref("comments");
+const commentsRef = firebase.database().ref("comments/" + movie.id);
 
 // Helper: get or set username
 function getUsername() {
@@ -187,7 +191,7 @@ commentsRef.on("value", snapshot => {
     const div = document.createElement("div");
     div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
 
-    // Admin delete button (replace YOUR_ADMIN_PIN with your PIN)
+    // Admin delete button (replace YOUR_ADMIN_PIN with your admin PIN)
     const isAdmin = localStorage.getItem("activePIN") === "YOUR_ADMIN_PIN";
     if(isAdmin){
       const delBtn = document.createElement("button");
