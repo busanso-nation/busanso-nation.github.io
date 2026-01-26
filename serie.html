@@ -11,7 +11,6 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-  // Replace with your Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain: "busanso-pins.firebaseapp.com",
@@ -20,8 +19,8 @@ const firebaseConfig = {
   storageBucket: "busanso-pins.firebasestorage.app",
   messagingSenderId: "137040014808",
   appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-  };
-  firebase.initializeApp(firebaseConfig);
+};
+firebase.initializeApp(firebaseConfig);
 </script>
 
 <style>
@@ -56,12 +55,10 @@ h1{margin-bottom:10px;text-align:center}
 
 <body>
 
-<!-- LOGO -->
 <div class="logo">
   <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
 </div>
 
-<!-- PLAYER -->
 <div class="player" id="player"></div>
 
 <div class="player-nav">
@@ -94,7 +91,6 @@ h1{margin-bottom:10px;text-align:center}
   </div>
 </div>
 
-<!-- ===== COMMENT SECTION ===== -->
 <div id="commentsSection">
   <h3>Comments</h3>
   <div id="commentsList"></div>
@@ -103,16 +99,6 @@ h1{margin-bottom:10px;text-align:center}
 </div>
 
 <script>
-// ----- PIN CHECK -----
-const pin = localStorage.getItem("activePIN");
-const exp = Number(localStorage.getItem("pinExpiry"));
-if(!pin || !exp || Date.now() > exp){
-  localStorage.removeItem("activePIN");
-  localStorage.removeItem("pinExpiry");
-  alert("You must enter a valid PIN to watch episodes.");
-  location.replace("login.html");
-}
-
 // ----- SERIES LOGIC -----
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
@@ -159,9 +145,8 @@ function normalizeVideo(url){
   return url;
 }
 
-// Play episode only if series is free
+// Play episode (all series play; premium not blocked)
 function playEpisode(index){
-  if(serie.type !== "free") { alert("This series is premium!"); return; }
   const ep = serie.episodes[index];
   if(!ep) return;
   currentEpisodeIndex = index;
@@ -194,7 +179,7 @@ serie.episodes.forEach((ep,i)=>{
 });
 
 // ===== COMMENT SECTION LOGIC =====
-const commentsRef = firebase.database().ref("comments");
+const commentsRef = firebase.database().ref("comments/" + serie.id);
 
 function getUsername(){
   let name = localStorage.getItem("username");
@@ -215,36 +200,48 @@ document.getElementById("commentBtn").onclick = () => {
   document.getElementById("commentInput").value = "";
 };
 
-// Display comments live with admin delete
+// Display comments live with admin delete (latest first)
 commentsRef.on("value", snapshot => {
   const container = document.getElementById("commentsList");
   container.innerHTML = "";
+
+  // Collect all comments in array
+  const comments = [];
   snapshot.forEach(child => {
     const c = child.val();
+    comments.push({ ...c, ref: child.ref });
+  });
+
+  // Sort by timestamp descending
+  comments.sort((a,b) => b.timestamp - a.timestamp);
+
+  // Render comments
+  comments.forEach(c => {
     const div = document.createElement("div");
     div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
 
-    // Admin delete (replace YOUR_ADMIN_PIN)
-    const isAdmin = localStorage.getItem("activePIN") === "YOUR_ADMIN_PIN";
+    // Admin delete
+    const isAdmin = localStorage.getItem("activePIN")==="Orion885";
     if(isAdmin){
       const delBtn = document.createElement("button");
       delBtn.textContent = "🗑 Delete";
-      delBtn.style.position = "absolute";
-      delBtn.style.right = "8px";
-      delBtn.style.top = "8px";
+      delBtn.style.position="absolute";
+      delBtn.style.right="8px";
+      delBtn.style.top="8px";
       delBtn.style.background="#e50914";
       delBtn.style.color="#fff";
       delBtn.style.border="none";
       delBtn.style.borderRadius="6px";
       delBtn.style.padding="2px 6px";
       delBtn.style.cursor="pointer";
-      delBtn.onclick = () => child.ref.remove();
+      delBtn.onclick = () => c.ref.remove();
       div.appendChild(delBtn);
     }
 
     container.appendChild(div);
   });
 });
+
 </script>
 
 </body>
