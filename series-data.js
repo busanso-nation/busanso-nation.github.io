@@ -108,7 +108,7 @@ const SERIES = [
     synopsis: "It follows the naive Guo Jing and the clever Huang Rong as they traverse a dangerous jianghu (martial arts world) during the late Song Dynasty, battling invaders and navigating complex personal loyalties.",
     cast: ["Yiwei Zhou", "Meng Ziyi", "Peter Ho"],
     episodes: [
-       { title: "Episode 1", video: "https://www.youtube.com/embed/RlNqNyrRm_k" },
+   { title: "Episode 1", video: "https://www.youtube.com/embed/RlNqNyrRm_k" },
   { title: "Episode 2", video: "https://www.youtube.com/embed/egF1sy2FPYs" },
   { title: "Episode 3", video: "https://www.youtube.com/embed/UPrxaom2THM" },
   { title: "Episode 4", video: "https://www.youtube.com/embed/squJI3jzkV4" },
@@ -122,7 +122,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tifjjhanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -147,7 +147,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiyuiitrruanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -172,7 +172,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tituuyuyanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -197,7 +197,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianruitlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -222,7 +222,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianhuyyulan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -247,7 +247,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiangrkuylan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -272,7 +272,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiahjmhfgfnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -297,7 +297,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiangehkulan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -322,7 +322,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiasfddnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -347,7 +347,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiantrytlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -372,7 +372,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianfytfglan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -397,7 +397,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiakjjtnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -422,7 +422,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianddgtflan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -447,7 +447,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiglhanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -472,7 +472,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlghggfhan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -497,7 +497,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiaddfdswnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -522,7 +522,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianltj66uyan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -547,7 +547,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiatrktnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -572,7 +572,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiaggggjnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -597,7 +597,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianffddfglan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -622,7 +622,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlrtehan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -647,7 +647,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiaggfvjgnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -672,7 +672,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiakjghnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -697,7 +697,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tidrthanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -722,7 +722,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tigkjgmanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -747,7 +747,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianjkuglan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -772,7 +772,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiykytanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -797,7 +797,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianyuiolan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -822,7 +822,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianhtrtuylan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -847,7 +847,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiahytjjhhgnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -872,7 +872,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianltkjtkhan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -897,7 +897,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianltyyttan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -922,7 +922,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianltjyrhgan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -947,7 +947,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiagjkhnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -972,7 +972,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiakgfgfnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -997,7 +997,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianvbhfglan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1022,7 +1022,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tifgfganlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1047,7 +1047,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tikjganlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1072,7 +1072,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiantkjglan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1097,7 +1097,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlgjjgfan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1122,7 +1122,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiakkfhnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1147,7 +1147,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiajjhhhhnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1172,7 +1172,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "thggjianlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1197,7 +1197,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlrrhtan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1222,7 +1222,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tijjjanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1247,7 +1247,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tighjhgkjganlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1272,7 +1272,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianltjkthan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1297,7 +1297,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tkhjkjianlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1322,7 +1322,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tgjjyianlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1347,7 +1347,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianmgglan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1372,7 +1372,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tijhghmganlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1397,7 +1397,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tikkkkkkkkanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1422,7 +1422,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tihhhhhhhhhanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1447,7 +1447,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tihhhhhanlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1472,7 +1472,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianrrrrrlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1497,7 +1497,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiangggglan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1522,7 +1522,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianiiulan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1547,7 +1547,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianiiiiilan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1572,7 +1572,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiannnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1597,7 +1597,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tiannnnnnlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1622,7 +1622,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlssan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1647,7 +1647,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tssssianlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1672,7 +1672,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlanssssss",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1697,7 +1697,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlankkkkkkk",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1722,7 +1722,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlankkjhgfd",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1747,7 +1747,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlanhffd",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1772,7 +1772,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlatrrgfen",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1797,7 +1797,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlanjmhjghgrf",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1822,7 +1822,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlanbgfgff",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1847,7 +1847,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlanlffddd",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1872,7 +1872,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlafefgfn",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1897,7 +1897,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlanffh",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1922,7 +1922,7 @@ const SERIES = [
     ]
   },
 {
-    id: "tianlan",
+    id: "tianlangfhfh",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
@@ -1948,7 +1948,7 @@ const SERIES = [
   },
 
   {
-    id: "tianlan",
+    id: "tianlaBGn",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "Fantasy",
