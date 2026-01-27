@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BUSANSO – Player</title>
+<title>BUSANSO – Series Player</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="series-data.js"></script>
@@ -25,41 +25,36 @@ firebase.initializeApp(firebaseConfig);
 </script>
 
 <style>
-body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16px}
-.logo{text-align:center;margin-bottom:12px}
-.logo img{max-height:50px}
-.player{width:100%;max-width:800px;margin:0 auto}
-.player iframe{width:100%;height:56vw;max-height:450px;border:none}
-.player-nav{max-width:800px;margin:10px auto;display:flex;gap:10px}
-.player-nav button{flex:1;padding:10px;border:none;border-radius:8px;font-weight:bold;background:#222;color:#fff}
-.details{max-width:800px;margin:16px auto;padding:16px;background:#111;border-radius:12px}
-.meta{color:#aaa;font-size:14px}
-.actions button{width:100%;padding:12px;margin-top:8px;border:none;border-radius:8px;font-weight:bold}
-.watch{background:#e50914;color:#fff}
-.secondary{background:#222;color:#fff}
-.episodes{display:grid;gap:8px;margin-top:10px}
-.episode{background:#181818;padding:10px;border-radius:8px;cursor:pointer}
-.episode.active{background:#e50914;font-weight:bold}
-.cast span{background:#181818;padding:6px 10px;border-radius:20px;font-size:12px}
+body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padding:16px; }
+.logo { text-align:center; margin-bottom:12px; }
+.logo img { max-height:50px; }
+.player { width:100%; max-width:800px; margin:0 auto; }
+.player iframe { width:100%; height:56vw; max-height:450px; border:none; }
+.player-nav { max-width:800px; margin:10px auto; display:flex; gap:10px; }
+.player-nav button { flex:1; padding:10px; border:none; border-radius:8px; font-weight:bold; background:#222; color:#fff; cursor:pointer; }
+.details { max-width:800px; margin:16px auto; padding:16px; background:#111; border-radius:12px; }
+.meta { color:#aaa; font-size:14px; margin-bottom:8px; }
+.actions button { width:100%; padding:12px; margin-top:8px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; }
+.watch { background:#e50914; color:#fff; }
+.secondary { background:#222; color:#fff; margin-top:4px; }
+.episodes { display:grid; gap:8px; margin-top:10px; }
+.episode { background:#181818; padding:10px; border-radius:8px; cursor:pointer; }
+.episode.active { background:#e50914; font-weight:bold; }
+.cast span { background:#181818; padding:6px 10px; border-radius:20px; font-size:12px; margin:4px; display:inline-block; }
 
 /* COMMENTS */
-#commentsSection{max-width:800px;margin:20px auto;background:#111;padding:16px;border-radius:12px}
-#commentsList div{margin-bottom:6px;padding:8px 10px;background:#222;border-radius:8px;position:relative}
-#commentInput,#usernameInput{
-  width:100%;padding:8px;border-radius:6px;background:#000;color:#fff;border:none;margin-top:6px
-}
-#commentBtn{
-  margin-top:6px;padding:8px 16px;border:none;border-radius:8px;
-  background:#e50914;color:#fff;font-weight:bold
-}
-#commentMsg{margin-top:6px;font-size:14px}
+#commentsSection { max-width:800px; margin:20px auto; background:#111; padding:16px; border-radius:12px; }
+#commentsList div { margin-bottom:6px; padding:8px 10px; background:#222; border-radius:8px; position:relative; }
+#usernameInput, #commentInput { width:100%; padding:8px; border-radius:6px; background:#111; color:#fff; border:none; margin-top:6px; }
+#commentBtn { margin-top:6px; padding:8px 16px; border:none; border-radius:8px; background:#e50914; color:#fff; font-weight:bold; cursor:pointer; }
+#commentMsg { margin-top:6px; font-size:14px; }
 </style>
 </head>
 
 <body>
 
 <div class="logo">
-  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
 </div>
 
 <div class="player" id="player"></div>
@@ -72,76 +67,94 @@ body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16
 <div class="details">
   <h1 id="title"></h1>
   <div class="meta" id="meta"></div>
-
   <button class="watch" id="watchBtn">▶ Watch Now</button>
   <button class="secondary" onclick="toggleEpisodes()">📺 Episodes</button>
-
   <p id="synopsis"></p>
   <div class="cast" id="cast"></div>
   <div class="episodes" id="episodeList" style="display:none"></div>
 </div>
 
-<!-- COMMENTS -->
 <div id="commentsSection">
   <h3>Comments</h3>
-
-  <input id="usernameInput" placeholder="Choose a nickname (once)">
+  <input id="usernameInput" placeholder="Enter a nickname (stored locally)">
   <textarea id="commentInput" placeholder="Write your comment"></textarea>
   <button id="commentBtn">Post Comment</button>
   <div id="commentMsg"></div>
-
   <div id="commentsList"></div>
 </div>
 
 <script>
-// ===== SERIES LOGIC (UNCHANGED) =====
+// ===== SERIES DATA AND NAVIGATION =====
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
 if(!id) location.replace("series-list.html");
 
-const serie = SERIES.find(s=>s.id===id);
+const serie = SERIES.find(s => s.id === id);
 if(!serie) location.replace("series-list.html");
 
 title.textContent = serie.title;
 meta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
 synopsis.textContent = serie.synopsis || "";
-
-serie.cast?.forEach(c=>{
-  const s=document.createElement("span");
-  s.textContent=c;
-  cast.appendChild(s);
+serie.cast?.forEach(c => {
+  const s = document.createElement("span"); s.textContent = c; cast.appendChild(s);
 });
 
-serie.episodes.forEach((ep,i)=>{
-  const d=document.createElement("div");
-  d.className="episode";
-  d.textContent=`Episode ${i+1} • ${ep.title||""}`;
-  d.onclick=()=>playEpisode(i);
-  episodeList.appendChild(d);
+serie.episodes.forEach((ep, i) => {
+  const div = document.createElement("div");
+  div.className = "episode";
+  div.textContent = `Episode ${i+1} • ${ep.title||""}`;
+  div.onclick = () => playEpisode(i);
+  episodeList.appendChild(div);
 });
 
 function normalizeVideo(u){
-  if(u.includes("youtube")) return "https://www.youtube.com/embed/"+new URL(u).searchParams.get("v");
-  if(u.includes("vimeo")) return "https://player.vimeo.com/video/"+u.split("/").pop();
-  return u;
+  try{
+    if(u.includes("youtube")) return "https://www.youtube.com/embed/"+new URL(u).searchParams.get("v");
+    if(u.includes("vimeo")) return "https://player.vimeo.com/video/"+u.split("/").pop();
+    if(u.includes("/d/")) return "https://drive.google.com/file/d/"+u.split("/d/")[1].split("/")[0]+"/preview";
+    return u;
+  }catch{return u;}
 }
 
-let idx=0;
+// ===== CONDITIONAL PIN CHECK FOR PREMIUM SERIES =====
+function checkPin() {
+  if(serie.type === "premium") {
+    const pin = localStorage.getItem("activePIN");
+    const exp = Number(localStorage.getItem("pinExpiry"));
+    if(!pin || !exp || Date.now() > exp){
+      location.replace("packages.html");
+      return false;
+    }
+  }
+  return true;
+}
+
+// ===== EPISODE PLAYBACK =====
+let idx = 0;
 function playEpisode(i){
-  idx=i;
-  player.innerHTML=`<iframe src="${normalizeVideo(serie.episodes[i].video)}" allowfullscreen></iframe>`;
+  if(!checkPin()) return;
+  const ep = serie.episodes[i];
+  if(!ep) return;
+  player.innerHTML = `<iframe src="${normalizeVideo(ep.video)}" allowfullscreen></iframe>`;
+  idx = i;
+  document.querySelectorAll(".episode").forEach((el,j)=>el.classList.toggle("active", i===j));
+  prevBtn.disabled = i===0;
+  nextBtn.disabled = i===serie.episodes.length-1;
+  window.scrollTo({ top:0, behavior:"smooth" });
 }
+watchBtn.onclick = () => playEpisode(0);
+prevBtn.onclick = () => idx>0 && playEpisode(idx-1);
+nextBtn.onclick = () => idx<serie.episodes.length-1 && playEpisode(idx+1);
+function toggleEpisodes(){ episodeList.style.display = episodeList.style.display==="none" ? "grid" : "none"; }
 
-watchBtn.onclick=()=>playEpisode(0);
-prevBtn.onclick=()=>idx>0&&playEpisode(idx-1);
-nextBtn.onclick=()=>idx<serie.episodes.length-1&&playEpisode(idx+1);
-function toggleEpisodes(){
-  episodeList.style.display = episodeList.style.display==="none"?"grid":"none";
-}
+// ===== COMMENTS LOGIC =====
+const commentsRef = firebase.database().ref("comments/"+serie.id);
+const usernameInput = document.getElementById("usernameInput");
+const commentInput = document.getElementById("commentInput");
+const commentMsg = document.getElementById("commentMsg");
+const commentsList = document.getElementById("commentsList");
 
-// ===== COMMENTS (FIXED PATH) =====
-const commentsRef = firebase.database().ref("comments/series/" + serie.id);
-
+// Load nickname from localStorage
 const savedName = localStorage.getItem("username");
 if(savedName) usernameInput.value = savedName;
 
@@ -149,52 +162,42 @@ commentBtn.onclick = () => {
   const name = usernameInput.value.trim();
   const text = commentInput.value.trim();
 
+  // Validation and inline messages
   if(name.length < 2 || name.length > 20){
-    commentMsg.style.color="#ffb400";
-    commentMsg.textContent="Nickname must be 2–20 characters";
+    commentMsg.style.color = "#ffb400";
+    commentMsg.textContent = "Nickname must be 2–20 characters";
     return;
   }
-
   if(text.length < 2 || text.length > 300){
-    commentMsg.style.color="#ffb400";
-    commentMsg.textContent="Comment must be 2–300 characters";
+    commentMsg.style.color = "#ffb400";
+    commentMsg.textContent = "Comment must be 2–300 characters";
     return;
   }
 
   localStorage.setItem("username", name);
-
-  commentsRef.push({
-    user: name,
-    text: text,
-    timestamp: firebase.database.ServerValue.TIMESTAMP
-  });
-
-  commentInput.value="";
-  commentMsg.style.color="#00ff66";
-  commentMsg.textContent="Comment posted";
+  commentsRef.push({ user: name, text, timestamp: Date.now() });
+  commentInput.value = "";
+  commentMsg.style.color = "#00ff66";
+  commentMsg.textContent = "Comment posted";
 };
 
+// Display comments live
 commentsRef.on("value", snap => {
-  commentsList.innerHTML="";
-  snap.forEach(c=>{
-    const d=document.createElement("div");
-    d.innerHTML=`<strong>${c.val().user}</strong>: ${c.val().text}`;
-
-    if(localStorage.getItem("activePIN")==="Orion885"){
-      const b=document.createElement("button");
-      b.textContent="🗑";
-      b.style.position="absolute";
-      b.style.right="8px";
-      b.style.top="6px";
-      b.style.background="#e50914";
-      b.style.color="#fff";
-      b.style.border="none";
-      b.style.borderRadius="6px";
-      b.onclick=()=>c.ref.remove();
-      d.appendChild(b);
+  commentsList.innerHTML = "";
+  const commentsArray = [];
+  snap.forEach(c => commentsArray.push({ ...c.val(), ref: c.ref }));
+  commentsArray.sort((a,b) => b.timestamp - a.timestamp);
+  commentsArray.forEach(c => {
+    const div = document.createElement("div");
+    div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
+    if(localStorage.getItem("activePIN") === "Orion885"){
+      const b = document.createElement("button");
+      b.textContent = "🗑";
+      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none",borderRadius:"6px"});
+      b.onclick = () => c.ref.remove();
+      div.appendChild(b);
     }
-
-    commentsList.prepend(d);
+    commentsList.appendChild(div);
   });
 });
 </script>
