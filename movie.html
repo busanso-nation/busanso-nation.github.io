@@ -27,11 +27,11 @@ firebase.initializeApp(firebaseConfig);
 <style>
 body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padding:16px; }
 .player { max-width:800px; margin:0 auto; }
-.player iframe { width:100%; height:56vw; max-height:450px; border:none; border-radius:8px; }
-.details { max-width:800px; margin:16px auto; background:#111; padding:16px; border-radius:12px; }
+.player iframe { width:100%; height:56vw; max-height:450px; border:none; border-radius:10px; background:#000; }
+
+.details { max-width:800px; margin:16px auto; background:#111; padding:16px; border-radius:14px; }
 .meta { color:#aaa; font-size:14px; margin-bottom:8px; }
 
-/* WATCH BUTTON BIG & NOTICEABLE */
 .watch {
   background:#e50914;
   color:#fff;
@@ -39,18 +39,44 @@ body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padd
   padding:16px;
   width:100%;
   border:none;
-  border-radius:12px;
+  border-radius:14px;
   font-weight:bold;
   cursor:pointer;
-  box-shadow:0 6px 20px rgba(0,0,0,0.6);
-  transition:transform 0.2s ease;
-}
-.watch:hover {
-  transform:scale(1.05);
+  margin-bottom:10px;
 }
 
+.share {
+  background:#222;
+  color:#fff;
+  font-size:16px;
+  padding:14px;
+  width:100%;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+}
+
+.share-options {
+  display:none;
+  margin-top:10px;
+  gap:10px;
+}
+
+.share-options button {
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.whatsapp { background:#25D366; color:#000; }
+.imo { background:#00b2ff; color:#000; }
+.tiktok { background:#000; color:#fff; border:1px solid #333; }
+
 /* COMMENTS */
-#commentsSection { max-width:800px; margin:20px auto; background:#111; padding:16px; border-radius:12px; }
+#commentsSection { max-width:800px; margin:20px auto; background:#111; padding:16px; border-radius:14px; }
 #commentsList div { background:#222; padding:8px 10px; border-radius:8px; margin-bottom:6px; position:relative; }
 #usernameInput,#commentInput { width:100%; padding:8px; border-radius:6px; background:#111; color:#fff; border:none; margin-bottom:6px; }
 #commentBtn { padding:8px 16px; border:none; border-radius:8px; background:#e50914; color:#fff; font-weight:bold; cursor:pointer; }
@@ -64,7 +90,16 @@ body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padd
 <div class="details">
   <h1 id="title"></h1>
   <div class="meta" id="meta"></div>
+
   <button class="watch" id="watchBtn">▶ Watch Movie</button>
+  <button class="share" id="shareBtn">🔗 Share Movie</button>
+
+  <div class="share-options" id="shareOptions">
+    <button class="whatsapp" id="shareWhatsapp">WhatsApp</button>
+    <button class="imo" id="shareImo">IMO</button>
+    <button class="tiktok" id="shareTiktok">TikTok</button>
+  </div>
+
   <p id="synopsis"></p>
 </div>
 
@@ -81,58 +116,86 @@ body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padd
 // ===== LOAD MOVIE =====
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
-const movie = MOVIES.find(m=>m.id===id);
+const movie = MOVIES.find(m => m.id === id);
 if(!movie) location.replace("movies.html");
 
 title.textContent = movie.title;
 meta.textContent = `${movie.country} • ${movie.year}`;
-synopsis.textContent = movie.synopsis||"";
+synopsis.textContent = movie.synopsis || "";
 
-// ===== VIDEO PLAYBACK (all types) =====
+// ===== VIDEO NORMALIZATION =====
 function normalizeVideo(url){
   try{
     url = url.trim();
-    // YouTube standard or short URLs
+
     if(url.includes("youtube.com") || url.includes("youtu.be")){
-      let vidId = "";
-      if(url.includes("youtu.be")){
-        vidId = url.split("/").pop();
-      } else {
-        vidId = new URL(url).searchParams.get("v");
-      }
-      return `https://www.youtube.com/embed/${vidId}?rel=0&autoplay=1`;
+      const id = url.includes("youtu.be")
+        ? url.split("/").pop()
+        : new URL(url).searchParams.get("v");
+      return `https://www.youtube.com/embed/${id}?rel=0`;
     }
-    // Vimeo
+
     if(url.includes("vimeo.com")){
-      const vimeoId = url.split("/").pop();
-      return `https://player.vimeo.com/video/${vimeoId}?autoplay=1`;
+      return `https://player.vimeo.com/video/${url.split("/").pop()}`;
     }
-    // Google Drive
+
     if(url.includes("/d/")){
       const driveId = url.split("/d/")[1].split("/")[0];
       return `https://drive.google.com/file/d/${driveId}/preview`;
     }
+
     return url;
-  } catch(e){
+  } catch {
     return url;
   }
 }
 
 watchBtn.onclick = () => {
-  player.innerHTML = `<iframe src="${normalizeVideo(movie.video)}" allowfullscreen autoplay></iframe>`;
+  player.innerHTML = `<iframe src="${normalizeVideo(movie.video)}" allowfullscreen></iframe>`;
 };
 
-// ===== COMMENTS =====
+// ===== SHARE LOGIC (FIXED URL) =====
+const shareBtn = document.getElementById("shareBtn");
+const shareOptions = document.getElementById("shareOptions");
+
+const SHARE_URL = "https://busanso-nation.github.io/home.html";
+
+const shareText =
+`${movie.title}
+${movie.country} • ${movie.year}
+
+${movie.synopsis}
+
+Watch on BUSANSO:
+${SHARE_URL}`;
+
+shareBtn.onclick = () => {
+  shareOptions.style.display =
+    shareOptions.style.display === "flex" ? "none" : "flex";
+};
+
+shareWhatsapp.onclick = () => {
+  window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`);
+};
+
+shareImo.onclick = () => {
+  window.open(`imo://chat?text=${encodeURIComponent(shareText)}`);
+};
+
+shareTiktok.onclick = () => {
+  navigator.clipboard.writeText(shareText);
+  alert("Copied! Paste it on TikTok ✨");
+};
+
+// ===== COMMENTS (UNCHANGED) =====
 const commentsRef = firebase.database().ref("comments/movies/"+movie.id);
 const usernameInput = document.getElementById("usernameInput");
 const commentInput = document.getElementById("commentInput");
 const commentsList = document.getElementById("commentsList");
 
-// Load nickname from localStorage
 const savedName = localStorage.getItem("username");
 if(savedName) usernameInput.value = savedName;
 
-// Post comment
 commentBtn.onclick = () => {
   const user = usernameInput.value.trim().slice(0,20);
   const text = commentInput.value.trim().slice(0,300);
@@ -147,7 +210,6 @@ commentBtn.onclick = () => {
   commentInput.value = "";
 };
 
-// Display comments live
 commentsRef.limitToLast(100).on("value", snap => {
   commentsList.innerHTML = "";
   const arr = [];
@@ -156,7 +218,6 @@ commentsRef.limitToLast(100).on("value", snap => {
   arr.forEach(c => {
     const div = document.createElement("div");
     div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
-    // Admin delete button
     if(localStorage.getItem("activePIN")==="Orion196"){
       const b = document.createElement("button");
       b.textContent = "🗑";
