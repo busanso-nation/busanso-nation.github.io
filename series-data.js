@@ -757,6 +757,34 @@ const SERIES = [
 { title: "Episode 8", video: "https://drive.google.com/file/d/1X3tuCHVBIiZxbxMD_hnB3m8kOoH4-EVc/preview" },
 { title: "Episode 9", video: "https://drive.google.com/file/d/14uxRZh_SwXk0x3726cLYDAn7iSykXt7Z/preview" },
 { title: "Episode 10", video: "https://drive.google.com/file/d/1oE53PNvf00Sf2wZhaYw4ydPrX1_58j_y/preview" }
+      ]
+  },
+{
+    id: "monks",
+    title: "MONKS OF JIANGNAN",
+    poster: "https://ik.imagekit.io/aeb9cyo5j/JIANGNAN.jpg?updatedAt=1742994078293",
+    genre: "Action",
+    added: 19,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: " The series follows the legendary Buddhist monk Ji Gong, who lives in Hangzhou’s Lingyin Temple. Known for his unconventional, crazy behavior, he uses his supernatural powers and wisdom to help the poor and vulnerable, while punishing corrupt officials, greedy individuals, and evil spirits",
+    cast: ["Li Hua","Gao Ang","Gu Jia", "Liu Shuo"],
+    episodes: [
+{ title: "Episode 1", video: "https://www.youtube.com/embed/lSjA6Vb3yag" },
+{ title: "Episode 2", video: "https://www.youtube.com/embed/QsyjmEVxp-U" },
+{ title: "Episode 3", video: "https://www.youtube.com/embed/MChgMwCw45k" },
+{ title: "Episode 4", video: "https://www.youtube.com/embed/qqGuz17hwMk" },
+{ title: "Episode 5", video: "https://www.youtube.com/embed/7eqbI9ABNls" },
+{ title: "Episode 6", video: "https://www.youtube.com/embed/-zSgAwX08-s" },
+{ title: "Episode 7", video: "https://www.youtube.com/embed/8c3raE85cFY" },
+{ title: "Episode 8", video: "https://www.youtube.com/embed/hkWDWhFabgA" },
+{ title: "Episode 9", video: "https://www.youtube.com/embed/1jPo1kZBw0E" },
+{ title: "Episode 10", video: "https://www.youtube.com/embed/PsdEsF65ynA" },
+{ title: "Episode 11", video: "https://www.youtube.com/embed/_ar1BoxyLFE" },
+{ title: "Episode 12", video: "https://www.youtube.com/embed/DG8sEVbCreg" },
+{ title: "Episode 13", video: "https://www.youtube.com/embed/rKJIkHZ-5nI" },
+{ title: "Episode 14", video: "https://www.youtube.com/embed/MTqYf8QEdx8" }
 
     ]
   }
