@@ -642,7 +642,7 @@ const MOVIES = [
       {
     id: "kpopdh",
     title: "KPOP Demon Hunters",
-    poster: "https://posterspy.com/wp-content/uploads/2025/08/KPop-Demon-Hunters.jpg,
+    poster: "https://i.ibb.co/chjNSDcM/KPop-Demon-Hunters.jpg",
     video: "https://www.youtube.com/embed/WtXTEOyfIDs",
     type: "premium",
     year: "2025",
@@ -786,7 +786,7 @@ const MOVIES = [
     id: "wenifell",
     title: "When I Fell",
     poster: "https://i.ibb.co/cKvZZNT7/DGH.jpg",
-    video: "https://youtu.be/dmekuoSzha8",
+    video: "https://www.youtube.com/embed/dmekuoSzha8,
     type: "premium",
     year: "2026",
     country: "USA",
