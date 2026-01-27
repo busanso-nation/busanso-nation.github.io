@@ -82,7 +82,7 @@ const MOVIES = [
     title: "BOB 2",
     poster: "https://i.ibb.co/wZLWXscX/Untitled-1.jpg",
     video: "https://drive.google.com/file/d/1J-xjvKCz4OmyXi9UUj6vpgwbea3zulnE/preview",
-    type: "free",
+    type: "premium",
     year: "2026",
     country: "China",
     duration: "1h 12m",
