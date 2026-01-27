@@ -285,7 +285,7 @@ const MOVIES = [
     year: "2020",
     country: "USA",
     duration: "1h 20m",
-    synopsis: "James Cameron’s Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
+    synopsis: "James Camerons Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
   }, 
   {
     id: "titanic2",
@@ -296,7 +296,7 @@ const MOVIES = [
     year: "2020",
     country: "USA",
     duration: "1h 30m",
-    synopsis: "James Cameron’s Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
+    synopsis: "James Camerons Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
   },  
     {
     id: "tayitanic3",
@@ -307,7 +307,7 @@ const MOVIES = [
     year: "2020",
     country: "USA",
     duration: "1h 30m",
-    synopsis: "James Cameron’s Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
+    synopsis: "James Camerons Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
   }, 
       {
     id: "brant23",
