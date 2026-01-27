@@ -836,6 +836,34 @@ const SERIES = [
   { title: "Episode 36", video: "https://player.vimeo.com/video/822422906" },
   { title: "Episode 37", video: "https://player.vimeo.com/video/822423256" },
   { title: "Episode 38", video: "https://player.vimeo.com/video/873618020" }
+      ]
+  },
+{
+    id: "mrcalculator",
+    title: "MR CALCULATOR",
+    poster: "https://i.ibb.co/PMYYvjW/x-mr-calculator.jpg",
+    genre: "Drama",
+    added: 21,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: " Shuai Jiamo, a socially awkward, numbers-obsessed genius (often portrayed as an autistic savant), uncovers a massive, long-standing accounting error in the tax records of Jinhua County. Along with his friend Feng Baoyu, he attempts to petition to have the unfair silk tax burden removed. Their pursuit of justice exposes deep-seated corruption, bureaucratic incompetence, and the intense power struggles between local and higher officials. The drama focuses on the struggles of common people against the ruling class, highlighting the economic crises that led to the decline of the Ming Dynasty",
+    cast: ["Zhang Ruoyun","Wu Gang","Wang Yang", "Stephy Qi"],
+    episodes: [
+{ title: "Episode 1", video: "https://player.vimeo.com/video/828918585" },
+{ title: "Episode 2", video: "https://player.vimeo.com/video/829300875" },
+{ title: "Episode 3", video: "https://player.vimeo.com/video/829717850" },
+{ title: "Episode 4", video: "https://player.vimeo.com/video/830470650" },
+{ title: "Episode 5", video: "https://player.vimeo.com/video/830471125" },
+{ title: "Episode 6", video: "https://player.vimeo.com/video/831159358" },
+{ title: "Episode 7", video: "https://player.vimeo.com/video/831159358" },
+{ title: "Episode 8", video: "https://player.vimeo.com/video/832178254" },
+{ title: "Episode 9", video: "https://player.vimeo.com/video/832547553" },
+{ title: "Episode 10", video: "https://player.vimeo.com/video/832558727" },
+{ title: "Episode 11", video: "https://player.vimeo.com/video/832856200" },
+{ title: "Episode 12", video: "https://player.vimeo.com/video/832856709" },
+{ title: "Episode 13", video: "https://player.vimeo.com/video/833075745" },
+{ title: "Episode 14", video: "https://player.vimeo.com/video/833242662" }
 
 
     ]
