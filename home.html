@@ -19,14 +19,11 @@ body{
 }
 
 /* HEADER */
-.header{
-  padding:20px;
-  text-align:center;
-}
-.header img{height:55px}
-.header h1{margin:8px 0}
+.header{ padding:20px; text-align:center; }
+.header img{ height:55px; }
+.header h1{ margin:8px 0; }
 
-/* TOP BUTTONS */
+/* BUTTONS */
 .top-actions{
   display:flex;
   justify-content:center;
@@ -34,7 +31,6 @@ body{
   gap:14px;
   margin-bottom:22px;
 }
-
 .btn{
   padding:12px 24px;
   border-radius:999px;
@@ -42,70 +38,46 @@ body{
   text-decoration:none;
   font-size:14px;
   color:#fff;
-  display:flex;
-  align-items:center;
-  gap:6px;
   box-shadow:0 6px 16px rgba(0,0,0,.4);
-  transition:transform .2s ease, box-shadow .2s ease, opacity .2s;
-  cursor:pointer;
 }
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 24px rgba(0,0,0,.6);
-  opacity:.95;
-}
-
-/* Individual styles */
-.subscribe{ background:linear-gradient(135deg,#e50914,#ff3b3b); }
-.login{ background:linear-gradient(135deg,#2563eb,#1e40af); border:1px solid rgba(255,255,255,.15); }
-.live{ background:linear-gradient(135deg,#16a34a,#22c55e); }
-.about{ background:#111; border:1px solid #333; color:#ddd; }
-
-/* ===== MOVING POSTER CAROUSEL ===== */
-.carousel-wrap{ overflow:hidden; padding:10px 0 25px; }
-.carousel-track{
-  display:flex;
-  gap:16px;
-  width:max-content;
-  animation:scroll 40s linear infinite;
-}
-.carousel-track img{
-  height:180px;
-  border-radius:14px;
-  box-shadow:0 6px 18px rgba(0,0,0,.6);
-}
-@keyframes scroll{
-  from{ transform:translateX(0); }
-  to{ transform:translateX(-50%); }
-}
+.subscribe{ background:#e50914; }
+.login{ background:#2563eb; }
+.live{ background:#16a34a; }
+.about{ background:#111; border:1px solid #333; }
 
 /* SECTIONS */
 .section{ padding:15px; }
-.section h3{ margin-bottom:10px; }
-
-/* SLIDER */
-.slider{ display:flex; gap:14px; overflow-x:auto; }
+.slider{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+}
 .slider::-webkit-scrollbar{ display:none; }
 
 /* CARD */
 .card{
   min-width:160px;
-  position:relative;
   text-align:center;
 }
 .card img{
   width:100%;
   border-radius:10px;
 }
-.card span{ display:block; margin-top:6px; font-size:14px; font-weight:600; }
-.card .watch-btn{
+.card-title{
   margin-top:6px;
-  padding:8px 12px;
+  font-size:14px;
+  font-weight:600;
+}
+
+/* WATCH BUTTON */
+.watch-btn{
+  margin-top:6px;
+  width:100%;
+  padding:8px;
   border:none;
   border-radius:8px;
   font-weight:bold;
   cursor:pointer;
-  width:100%;
   background:#e50914;
   color:#fff;
 }
@@ -115,22 +87,21 @@ body{
   position:absolute;
   top:8px;
   left:8px;
-  background:#22c55e;
   font-size:11px;
   padding:3px 8px;
   border-radius:6px;
+  background:#22c55e;
 }
 .badge.premium{ background:#e50914; }
 
-/* LOCKED */
-.locked{
-  filter:grayscale(1) brightness(.45);
-}
+/* LOCK */
+.locked{ filter:grayscale(1) brightness(.4); }
 .lock-icon{
   position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size:30px;
 }
 </style>
@@ -138,14 +109,12 @@ body{
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
-  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
   <h1>Busanso Nation</h1>
-  <small>Here we take away your stress with Movies & Series</small>
+  <small>Movies & Series without stress</small>
 </div>
 
-<!-- ACTION BUTTONS -->
 <div class="top-actions">
   <a href="packages.html" class="btn subscribe">⭐ Subscribe</a>
   <a href="login.html" class="btn login">🔐 Login</a>
@@ -153,82 +122,71 @@ body{
   <a href="about.html" class="btn about">ℹ About</a>
 </div>
 
-<!-- ===== AUTO MOVING POSTER CAROUSEL ===== -->
-<div class="carousel-wrap">
-  <div class="carousel-track" id="carouselTrack"></div>
-</div>
-
-<!-- LATEST MOVIES -->
 <div class="section">
   <h3>Latest Movies</h3>
   <div class="slider" id="moviesBox"></div>
 </div>
 
-<!-- LATEST SERIES -->
 <div class="section">
   <h3>Latest Series</h3>
   <div class="slider" id="seriesBox"></div>
 </div>
 
 <script>
+/* ===== PIN VALIDATION (USED ONLY FOR PREMIUM) ===== */
 const pin = localStorage.getItem("activePIN");
-const exp = localStorage.getItem("pinExpiry");
-const pinValid = pin && exp && Date.now() < Number(exp);
+const exp = Number(localStorage.getItem("pinExpiry"));
+const pinValid = !!(pin && exp && Date.now() < exp);
 
-/* SORT LATEST */
-const latestMovies = [...MOVIES].sort((a,b)=>b.added - a.added);
-const latestSeries = [...SERIES].sort((a,b)=>b.added - a.added);
+/* ===== CARD CREATOR ===== */
+function createCard(item, contentType){
+  const isPremium = item.type === "premium";
+  const isLocked = isPremium && !pinValid;
 
-/* MOVING CAROUSEL */
-const carousel = document.getElementById("carouselTrack");
-const mixed = [...latestMovies.slice(0,6), ...latestSeries.slice(0,6)];
-[...mixed, ...mixed].forEach(item=>{
-  const img=document.createElement("img");
-  img.src=item.poster;
-  carousel.appendChild(img);
-});
-
-/* HELPER FUNCTION TO CREATE CARD WITH BUTTONS */
-function createCard(item, type){
   const card = document.createElement("div");
   card.className = "card";
-  
-  const locked = item.type === "premium" && !pinValid;
-  const watchLabel = locked ? "Pay to Watch" : "Watch";
 
   card.innerHTML = `
     <div style="position:relative">
-      <img src="${item.poster}" class="${locked?'locked':''}">
-      <span class="badge ${item.type==='premium'?'premium':''}">${item.type==='premium'?'PREMIUM':'FREE'}</span>
-      ${locked?'<div class="lock-icon">🔒</div>':''}
+      <img src="${item.poster}" class="${isLocked ? 'locked' : ''}">
+      <span class="badge ${isPremium ? 'premium' : ''}">
+        ${isPremium ? 'PREMIUM' : 'FREE'}
+      </span>
+      ${isLocked ? '<div class="lock-icon">🔒</div>' : ''}
     </div>
-    <span>${item.title}</span>
-    <button class="watch-btn">${watchLabel}</button>
+
+    <div class="card-title">${item.title}</div>
+    <button class="watch-btn">
+      ${isLocked ? 'Pay to Watch' : 'Watch'}
+    </button>
   `;
 
-  const btn = card.querySelector(".watch-btn");
-  btn.onclick = () => {
-    if(locked){
+  card.querySelector(".watch-btn").onclick = () => {
+    if(isLocked){
       location.href = "packages.html";
-    } else {
-      if(type==="movie") location.href = `movie.html?id=${item.id}`;
-      if(type==="series") location.href = `serie.html?id=${item.id}`;
+      return;
+    }
+
+    if(contentType === "movie"){
+      location.href = `movie.html?id=${item.id}`;
+    }else{
+      location.href = `serie.html?id=${item.id}`;
     }
   };
 
   return card;
 }
 
-/* RENDER MOVIE CARDS */
-const movieBox = document.getElementById("moviesBox");
-latestMovies.forEach(m=>{
-  movieBox.appendChild(createCard(m, "movie"));
+/* ===== RENDER MOVIES ===== */
+const moviesBox = document.getElementById("moviesBox");
+MOVIES.forEach(m=>{
+  moviesBox.appendChild(createCard(m,"movie"));
 });
 
-/* RENDER SERIES CARDS */
+/* ===== RENDER SERIES ===== */
 const seriesBox = document.getElementById("seriesBox");
-latestSeries.forEach(s=>{
-  seriesBox.appendChild(createCard(s, "series"));
+SERIES.forEach(s=>{
+  seriesBox.appendChild(createCard(s,"series"));
 });
 </script>
 
