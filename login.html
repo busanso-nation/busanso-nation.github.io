@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Enter PIN</title>
+
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -15,6 +16,7 @@ body {
   height: 100vh;
   margin: 0;
 }
+
 .card {
   background: #1a1a1a;
   padding: 30px;
@@ -24,7 +26,9 @@ body {
   text-align: center;
   box-shadow: 0 4px 12px rgba(0,0,0,.6);
 }
+
 .card h2 {margin-bottom: 20px;}
+
 input {
   width: 90%;
   padding: 12px;
@@ -34,7 +38,9 @@ input {
   font-size: 16px;
   background: #222;
   color: #fff;
+  text-align:center;
 }
+
 button {
   padding: 12px 25px;
   background: #ff7a18;
@@ -42,23 +48,38 @@ button {
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
+  width:100%;
 }
+
 button:hover { background: #ffb400; }
-#msg {margin-top:15px;font-weight:bold;}
+
+#msg{
+  margin-top:12px;
+  font-size:14px;
+  min-height:18px;
+  transition: .3s;
+}
+
+.msg-error{color:#ff4d4d;}
+.msg-success{color:#00ff66;}
+.msg-info{color:#ffb400;}
 </style>
 </head>
+
 <body>
+
 <div class="card">
-  <h2>Enter Your PIN</h2>
-  <input id="pinInput" placeholder="Enter PIN">
+  <h2>Enter Your Password</h2>
+  <input id="pinInput" placeholder="Wandiika wano Password Jetwakuwade">
   <button onclick="login()">Login</button>
   <div id="msg"></div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
-// ===== Firebase Config =====
+/* ===== Firebase Config ===== */
 const firebaseConfig = {
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain: "busanso-pins.firebaseapp.com",
@@ -71,7 +92,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// ===== Device ID =====
+/* ===== Device ID ===== */
 function getDeviceId(){
   let id = localStorage.getItem("deviceId");
   if(!id){
@@ -81,25 +102,29 @@ function getDeviceId(){
   return id;
 }
 
-// ===== Auto-redirect if PIN valid =====
-const pinStored = localStorage.getItem("activePIN");
-const expStored = Number(localStorage.getItem("pinExpiry"));
-if(pinStored && expStored && Date.now() < expStored){
-  window.location.href = "watch.html";
-}
-
-// ===== LOGIN FUNCTION =====
+/* ===== LOGIN FUNCTION ===== */
 async function login(){
   const pin = document.getElementById("pinInput").value.trim();
   const msg = document.getElementById("msg");
-  msg.style.color = "#ffb400";
 
-  if(!pin){ msg.textContent="Enter Password"; return; }
+  msg.className = "msg-info";
+  msg.textContent = "";
+
+  if(!pin){
+    msg.className = "msg-error";
+    msg.textContent = "Enter your Password";
+    return;
+  }
+
+  msg.className = "msg-info";
+  msg.textContent = "Checking PIN...";
 
   try {
     const snapshot = await db.ref("pins/" + pin).get();
+
     if(!snapshot.exists()){
-      msg.textContent = "Incorrect Password"; 
+      msg.className = "msg-error";
+      msg.textContent = "Wrong Password. Try again";
       return;
     }
 
@@ -107,42 +132,49 @@ async function login(){
     const now = Date.now();
     const deviceId = getDeviceId();
 
-    // Expired PIN
+    /* Expired */
     if(data.expiry && now > data.expiry){
-      msg.textContent = "Your subscription has expired";
+      msg.className = "msg-error";
+      msg.textContent = "Your Subscription is expired";
       return;
     }
 
-    // Already used on another device
+    /* Used on another device */
     if(data.activeDevice && data.activeDevice !== deviceId){
-      msg.textContent = "Password already used on another device. contact admin for another";
+      msg.className = "msg-error";
+      msg.textContent = "Hahaha, This Password belongs to someone else.";
       return;
     }
 
-    // Bind device if first login
+    /* Bind device */
     if(!data.activeDevice){
       await db.ref("pins/"+pin+"/activeDevice").set(deviceId);
     }
 
-    // Mark PIN as used if not already
+    /* Mark used */
     if(!data.used){
       await db.ref("pins/"+pin+"/used").set(true);
     }
 
-    // Success
+    /* Success */
     localStorage.setItem("activePIN", pin);
     localStorage.setItem("pinExpiry", data.expiry);
     localStorage.setItem("activePackage", JSON.stringify(data));
 
-    msg.style.color = "#00ff66";
-    msg.textContent = "Login successful! Taking you inside Busanso…";
-    setTimeout(()=>window.location.href="watch.html",1200);
+    msg.className = "msg-success";
+    msg.textContent = "Access granted — Welcome to Busanso Nation…";
+
+    setTimeout(()=>{
+      window.location.href = "watch.html";
+    }, 1200);
 
   } catch(err){
     console.error(err);
-    msg.textContent = "Network error. Try again.";
+    msg.className = "msg-error";
+    msg.textContent = "Connection error. Try again.";
   }
 }
 </script>
+
 </body>
 </html>
