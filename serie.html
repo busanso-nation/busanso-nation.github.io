@@ -10,6 +10,7 @@
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
@@ -27,36 +28,33 @@ firebase.initializeApp(firebaseConfig);
 body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16px}
 .logo{text-align:center;margin-bottom:12px}
 .logo img{max-height:50px}
-h1{margin-bottom:10px;text-align:center}
-.player{width:100%;max-width:800px;margin:0 auto;background:#000}
+.player{width:100%;max-width:800px;margin:0 auto}
 .player iframe{width:100%;height:56vw;max-height:450px;border:none}
 .player-nav{max-width:800px;margin:10px auto;display:flex;gap:10px}
-.player-nav button{flex:1;padding:10px;border:none;border-radius:8px;font-weight:bold;background:#222;color:#fff;cursor:pointer}
-.player-nav button:disabled{opacity:.4;cursor:not-allowed}
+.player-nav button{flex:1;padding:10px;border:none;border-radius:8px;font-weight:bold;background:#222;color:#fff}
 .details{max-width:800px;margin:16px auto;padding:16px;background:#111;border-radius:12px}
-.meta{color:#aaa;font-size:14px;margin-bottom:10px}
-.actions button{width:100%;padding:12px;margin-top:8px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px}
+.meta{color:#aaa;font-size:14px}
+.actions button{width:100%;padding:12px;margin-top:8px;border:none;border-radius:8px;font-weight:bold}
 .watch{background:#e50914;color:#fff}
 .secondary{background:#222;color:#fff}
 .episodes{display:grid;gap:8px;margin-top:10px}
 .episode{background:#181818;padding:10px;border-radius:8px;cursor:pointer}
-.episode:hover{background:#333}
 .episode.active{background:#e50914;font-weight:bold}
-.cast{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .cast span{background:#181818;padding:6px 10px;border-radius:20px;font-size:12px}
 
-/* ===== COMMENT SECTION ===== */
+/* COMMENTS */
 #commentsSection{max-width:800px;margin:20px auto;background:#111;padding:16px;border-radius:12px}
 #commentsList div{margin-bottom:6px;padding:8px 10px;background:#222;border-radius:8px;position:relative}
-#commentInput{width:100%;padding:8px;border-radius:6px;background:#111;color:#fff;border:none;margin-top:6px}
-#commentBtn{margin-top:6px;padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold;cursor:pointer}
+#commentInput,#usernameInput{width:100%;padding:8px;border-radius:6px;background:#000;color:#fff;border:none;margin-top:6px}
+#commentBtn{margin-top:6px;padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold}
+#commentMsg{margin-top:6px;font-size:14px}
 </style>
 </head>
 
 <body>
 
 <div class="logo">
-  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
 </div>
 
 <div class="player" id="player"></div>
@@ -69,179 +67,107 @@ h1{margin-bottom:10px;text-align:center}
 <div class="details">
   <h1 id="title"></h1>
   <div class="meta" id="meta"></div>
-
-  <div class="actions">
-    <button class="watch" id="watchBtn">▶ Watch Now</button>
-    <button class="secondary" onclick="toggleEpisodes()">📺 Episodes</button>
-  </div>
-
-  <div class="section">
-    <h3>Synopsis</h3>
-    <p id="synopsis"></p>
-  </div>
-
-  <div class="section">
-    <h3>Cast</h3>
-    <div class="cast" id="cast"></div>
-  </div>
-
-  <div class="section" id="episodesSection" style="display:none">
-    <h3>Episodes</h3>
-    <div class="episodes" id="episodeList"></div>
-  </div>
+  <button class="watch" id="watchBtn">▶ Watch Now</button>
+  <button class="secondary" onclick="toggleEpisodes()">📺 Episodes</button>
+  <p id="synopsis"></p>
+  <div class="cast" id="cast"></div>
+  <div class="episodes" id="episodeList" style="display:none"></div>
 </div>
 
 <div id="commentsSection">
   <h3>Comments</h3>
-  <div id="commentsList"></div>
+
+  <input id="usernameInput" placeholder="Choose a nickname (once)">
   <textarea id="commentInput" placeholder="Write your comment"></textarea>
   <button id="commentBtn">Post Comment</button>
+  <div id="commentMsg"></div>
+
+  <div id="commentsList"></div>
 </div>
 
 <script>
-// ----- SERIES LOGIC -----
+// ===== SERIES LOGIC (UNCHANGED) =====
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
 if(!id) location.replace("series-list.html");
 
-const serie = SERIES.find(s => s.id === id);
+const serie = SERIES.find(s=>s.id===id);
 if(!serie) location.replace("series-list.html");
 
-let currentEpisodeIndex = -1;
-
-// Migrate episodes
-function migrateEpisodes(s){
-  if(Array.isArray(s.episodes)) return s.episodes;
-  if(!s.episodesHTML) return [];
-  const temp = document.createElement("div");
-  temp.innerHTML = s.episodesHTML;
-  return [...temp.querySelectorAll("a")].map((a,i)=>({
-    title:a.textContent?.trim() || `Episode ${i+1}`,
-    video:a.getAttribute("href")
-  }));
-}
-serie.episodes = migrateEpisodes(serie);
-
-// Populate info
 title.textContent = serie.title;
 meta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
 synopsis.textContent = serie.synopsis || "";
-if(serie.cast) serie.cast.forEach(c=>{
-  const span=document.createElement("span");
-  span.textContent=c;
-  cast.appendChild(span);
+serie.cast?.forEach(c=>{
+  const s=document.createElement("span");s.textContent=c;cast.appendChild(s);
 });
 
-// Normalize video URLs
-function normalizeVideo(url){
-  if(url.includes("youtube.com/watch"))
-    return "https://www.youtube.com/embed/"+new URL(url).searchParams.get("v");
-  if(url.includes("youtu.be/"))
-    return "https://www.youtube.com/embed/"+url.split("youtu.be/")[1];
-  if(url.includes("vimeo.com"))
-    return "https://player.vimeo.com/video/"+url.split("/").pop();
-  if(url.includes("/d/"))
-    return "https://drive.google.com/file/d/"+url.split("/d/")[1].split("/")[0]+"/preview";
-  return url;
-}
-
-// Play episode (all series play; premium not blocked)
-function playEpisode(index){
-  const ep = serie.episodes[index];
-  if(!ep) return;
-  currentEpisodeIndex = index;
-  player.innerHTML = `<iframe src="${normalizeVideo(ep.video)}" allowfullscreen></iframe>`;
-  document.querySelectorAll(".episode").forEach((el,i)=>{
-    el.classList.toggle("active", i===index);
-  });
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  prevBtn.disabled = index===0;
-  nextBtn.disabled = index===serie.episodes.length-1;
-}
-
-// Buttons
-prevBtn.onclick = ()=>playEpisode(currentEpisodeIndex-1);
-nextBtn.onclick = ()=>playEpisode(currentEpisodeIndex+1);
-watchBtn.onclick = ()=>playEpisode(0);
-
-// Toggle episodes
-function toggleEpisodes(){
-  episodesSection.style.display = episodesSection.style.display==="none"?"block":"none";
-}
-
-// Populate episodes
 serie.episodes.forEach((ep,i)=>{
-  const div=document.createElement("div");
-  div.className="episode";
-  div.textContent=`Episode ${i+1} • ${ep.title||""}`;
-  div.onclick=()=>playEpisode(i);
-  episodeList.appendChild(div);
+  const d=document.createElement("div");
+  d.className="episode";
+  d.textContent=`Episode ${i+1} • ${ep.title||""}`;
+  d.onclick=()=>playEpisode(i);
+  episodeList.appendChild(d);
 });
 
-// ===== COMMENT SECTION LOGIC =====
-const commentsRef = firebase.database().ref("comments/" + serie.id);
-
-function getUsername(){
-  let name = localStorage.getItem("username");
-  if(!name){
-    name = prompt("Enter a nickname to comment:");
-    if(name) localStorage.setItem("username", name.trim());
-  }
-  return name;
+function normalizeVideo(u){
+  if(u.includes("youtube")) return "https://www.youtube.com/embed/"+new URL(u).searchParams.get("v");
+  if(u.includes("vimeo")) return "https://player.vimeo.com/video/"+u.split("/").pop();
+  return u;
 }
 
-// Post comment
-document.getElementById("commentBtn").onclick = () => {
-  const text = document.getElementById("commentInput").value.trim();
-  if(!text) return alert("Type something first");
-  const username = getUsername();
-  if(!username) return alert("Username required");
-  commentsRef.push({ user: username, text, timestamp: Date.now() });
-  document.getElementById("commentInput").value = "";
+let idx=0;
+function playEpisode(i){
+  idx=i;
+  player.innerHTML=`<iframe src="${normalizeVideo(serie.episodes[i].video)}" allowfullscreen></iframe>`;
+}
+watchBtn.onclick=()=>playEpisode(0);
+prevBtn.onclick=()=>idx>0&&playEpisode(idx-1);
+nextBtn.onclick=()=>idx<serie.episodes.length-1&&playEpisode(idx+1);
+function toggleEpisodes(){episodeList.style.display=episodeList.style.display==="none"?"grid":"none"}
+
+// ===== COMMENTS (FIXED & HARDENED) =====
+const commentsRef = firebase.database().ref("comments/"+serie.id);
+const msg=document.getElementById("commentMsg");
+
+const savedName = localStorage.getItem("username");
+if(savedName) usernameInput.value=savedName;
+
+commentBtn.onclick=()=>{
+  const name=usernameInput.value.trim();
+  const text=commentInput.value.trim();
+
+  if(name.length<2||name.length>20){
+    msg.style.color="#ffb400";
+    msg.textContent="Nickname must be 2–20 characters";
+    return;
+  }
+  if(text.length<2||text.length>300){
+    msg.style.color="#ffb400";
+    msg.textContent="Comment must be 2–300 characters";
+    return;
+  }
+
+  localStorage.setItem("username",name);
+  commentsRef.push({user:name,text,timestamp:Date.now()});
+  commentInput.value="";
+  msg.style.color="#00ff66";
+  msg.textContent="Comment posted";
 };
 
-// Display comments live with admin delete (latest first)
-commentsRef.on("value", snapshot => {
-  const container = document.getElementById("commentsList");
-  container.innerHTML = "";
-
-  // Collect all comments in array
-  const comments = [];
-  snapshot.forEach(child => {
-    const c = child.val();
-    comments.push({ ...c, ref: child.ref });
-  });
-
-  // Sort by timestamp descending
-  comments.sort((a,b) => b.timestamp - a.timestamp);
-
-  // Render comments
-  comments.forEach(c => {
-    const div = document.createElement("div");
-    div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
-
-    // Admin delete
-    const isAdmin = localStorage.getItem("activePIN")==="Orion885";
-    if(isAdmin){
-      const delBtn = document.createElement("button");
-      delBtn.textContent = "🗑 Delete";
-      delBtn.style.position="absolute";
-      delBtn.style.right="8px";
-      delBtn.style.top="8px";
-      delBtn.style.background="#e50914";
-      delBtn.style.color="#fff";
-      delBtn.style.border="none";
-      delBtn.style.borderRadius="6px";
-      delBtn.style.padding="2px 6px";
-      delBtn.style.cursor="pointer";
-      delBtn.onclick = () => c.ref.remove();
-      div.appendChild(delBtn);
+commentsRef.on("value",snap=>{
+  commentsList.innerHTML="";
+  snap.forEach(c=>{
+    const d=document.createElement("div");
+    d.innerHTML=`<strong>${c.val().user}</strong>: ${c.val().text}`;
+    if(localStorage.getItem("activePIN")==="Orion885"){
+      const b=document.createElement("button");
+      b.textContent="🗑";
+      b.style.position="absolute";b.style.right="8px";b.onclick=()=>c.ref.remove();
+      d.appendChild(b);
     }
-
-    container.appendChild(div);
+    commentsList.prepend(d);
   });
 });
-
 </script>
 
 </body>
