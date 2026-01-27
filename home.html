@@ -25,6 +25,7 @@ body{
 }
 .header img{height:55px}
 .header h1{margin:8px 0}
+
 /* TOP BUTTONS */
 .top-actions{
   display:flex;
@@ -55,31 +56,13 @@ body{
 }
 
 /* Individual styles */
-.subscribe{
-  background:linear-gradient(135deg,#e50914,#ff3b3b);
-}
-
-.login{
-  background:linear-gradient(135deg,#2563eb,#1e40af);
-  border:1px solid rgba(255,255,255,.15);
-}
-
-.live{
-  background:linear-gradient(135deg,#16a34a,#22c55e);
-}
-
-.about{
-  background:#111;
-  border:1px solid #333;
-  color:#ddd;
-}
-
+.subscribe{ background:linear-gradient(135deg,#e50914,#ff3b3b); }
+.login{ background:linear-gradient(135deg,#2563eb,#1e40af); border:1px solid rgba(255,255,255,.15); }
+.live{ background:linear-gradient(135deg,#16a34a,#22c55e); }
+.about{ background:#111; border:1px solid #333; color:#ddd; }
 
 /* ===== MOVING POSTER CAROUSEL ===== */
-.carousel-wrap{
-  overflow:hidden;
-  padding:10px 0 25px;
-}
+.carousel-wrap{ overflow:hidden; padding:10px 0 25px; }
 .carousel-track{
   display:flex;
   gap:16px;
@@ -91,45 +74,30 @@ body{
   border-radius:14px;
   box-shadow:0 6px 18px rgba(0,0,0,.6);
 }
-
-/* Smooth infinite loop */
 @keyframes scroll{
   from{ transform:translateX(0); }
   to{ transform:translateX(-50%); }
 }
 
 /* SECTIONS */
-.section{
-  padding:15px;
-}
-.section h3{
-  margin-bottom:10px;
-}
+.section{ padding:15px; }
+.section h3{ margin-bottom:10px; }
 
 /* SLIDER */
-.slider{
-  display:flex;
-  gap:14px;
-  overflow-x:auto;
-}
-.slider::-webkit-scrollbar{display:none}
+.slider{ display:flex; gap:14px; overflow-x:auto; }
+.slider::-webkit-scrollbar{ display:none; }
 
 /* CARD */
 .card{
   min-width:160px;
   cursor:pointer;
+  position:relative;
 }
 .card img{
   width:100%;
   border-radius:10px;
 }
-.card span{
-  display:block;
-  text-align:center;
-  margin-top:6px;
-  font-size:14px;
-  font-weight:600;
-}
+.card span{ display:block; text-align:center; margin-top:6px; font-size:14px; font-weight:600; }
 
 /* BADGES */
 .badge{
@@ -141,11 +109,12 @@ body{
   padding:3px 8px;
   border-radius:6px;
 }
-.badge.premium{background:#e50914}
+.badge.premium{ background:#e50914; }
 
 /* LOCKED */
 .locked{
   filter:grayscale(1) brightness(.45);
+  pointer-events:none;
 }
 .lock-icon{
   position:absolute;
@@ -161,7 +130,7 @@ body{
 
 <!-- HEADER -->
 <div class="header">
-  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
   <h1>Busanso Nation</h1>
   <small>Here we take away your stress with Movies & Series</small>
 </div>
@@ -173,7 +142,6 @@ body{
   <a href="live.html" class="btn live">📺 Live TV</a>
   <a href="about.html" class="btn about">ℹ About</a>
 </div>
-
 
 <!-- ===== AUTO MOVING POSTER CAROUSEL ===== -->
 <div class="carousel-wrap">
@@ -205,8 +173,6 @@ const latestSeries = [...SERIES].sort((a,b)=>b.added - a.added);
 /* ===== MOVING CAROUSEL (MIXED CONTENT) ===== */
 const carousel = document.getElementById("carouselTrack");
 const mixed = [...latestMovies.slice(0,6), ...latestSeries.slice(0,6)];
-
-/* duplicate for seamless loop */
 [...mixed, ...mixed].forEach(item=>{
   const img=document.createElement("img");
   img.src=item.poster;
@@ -221,9 +187,7 @@ latestMovies.forEach(m=>{
   d.innerHTML=`
     <div style="position:relative">
       <img src="${m.poster}" class="${m.type==='premium'&&!pinValid?'locked':''}">
-      <span class="badge ${m.type==='premium'?'premium':''}">
-        ${m.type==='premium'?'PREMIUM':'FREE'}
-      </span>
+      <span class="badge ${m.type==='premium'?'premium':''}">${m.type==='premium'?'PREMIUM':'FREE'}</span>
       ${m.type==='premium'&&!pinValid?'<div class="lock-icon">🔒</div>':''}
     </div>
     <span>${m.title}</span>
@@ -246,9 +210,7 @@ latestSeries.forEach(s=>{
   d.innerHTML=`
     <div style="position:relative">
       <img src="${s.poster}" class="${s.type==='premium'&&!pinValid?'locked':''}">
-      <span class="badge ${s.type==='premium'?'premium':''}">
-        ${s.type==='premium'?'PREMIUM':'FREE'}
-      </span>
+      <span class="badge ${s.type==='premium'?'premium':''}">${s.type==='premium'?'PREMIUM':'FREE'}</span>
       ${s.type==='premium'&&!pinValid?'<div class="lock-icon">🔒</div>':''}
     </div>
     <span>${s.title}</span>
