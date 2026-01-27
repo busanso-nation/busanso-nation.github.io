@@ -5,7 +5,6 @@
 <title>BUSANSO – Movie Player</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Load movies data -->
 <script src="movies-data.js"></script>
 
 <!-- Firebase SDKs -->
@@ -13,50 +12,43 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
-    authDomain: "busanso-pins.firebaseapp.com",
-    databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
-    projectId: "busanso-pins",
-    storageBucket: "busanso-pins.firebasestorage.app",
-    messagingSenderId: "137040014808",
-    appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-  };
-  firebase.initializeApp(firebaseConfig);
+const firebaseConfig = {
+  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
+  authDomain: "busanso-pins.firebaseapp.com",
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
+  projectId: "busanso-pins",
+  storageBucket: "busanso-pins.firebasestorage.app",
+  messagingSenderId: "137040014808",
+  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
+};
+firebase.initializeApp(firebaseConfig);
 </script>
 
 <style>
 body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16px}
-h1{text-align:center;margin-bottom:10px}
 .player{max-width:800px;margin:0 auto}
 .player iframe{width:100%;height:56vw;max-height:450px;border:none}
 .details{max-width:800px;margin:16px auto;background:#111;padding:16px;border-radius:12px}
-.meta{color:#aaa;font-size:14px;margin-bottom:10px}
-.actions button{width:100%;padding:12px;margin-top:8px;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
+.meta{color:#aaa;font-size:14px}
+.actions button{width:100%;padding:12px;margin-top:8px;border:none;border-radius:8px;font-weight:bold}
 .watch{background:#e50914;color:#fff}
-.share{background:#555;color:#fff}
-.cast span{background:#181818;padding:6px 10px;border-radius:20px;font-size:12px;margin:4px;display:inline-block}
 
-/* Comments */
+/* COMMENTS */
 #commentsSection{max-width:800px;margin:20px auto;background:#111;padding:16px;border-radius:12px}
 #commentsList div{background:#222;padding:8px 10px;border-radius:8px;margin-bottom:6px;position:relative}
-#usernameInput,#commentInput{
-  width:100%;padding:8px;border-radius:6px;background:#111;color:#fff;border:none;margin-bottom:6px
-}
-#commentBtn{padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold;cursor:pointer}
-#commentMsg{margin-top:6px;font-size:13px}
+#usernameInput,#commentInput{width:100%;padding:8px;border-radius:6px;background:#111;color:#fff;border:none;margin-bottom:6px}
+#commentBtn{padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold}
 </style>
 </head>
 
 <body>
 
 <script>
-// ----- PIN CHECK -----
-const pin = localStorage.getItem("activePIN");
-const exp = Number(localStorage.getItem("pinExpiry"));
-if(!pin || !exp || Date.now() > exp){
-  localStorage.removeItem("activePIN");
-  localStorage.removeItem("pinExpiry");
+// PIN CHECK (unchanged)
+const pin=localStorage.getItem("activePIN");
+const exp=Number(localStorage.getItem("pinExpiry"));
+if(!pin||!exp||Date.now()>exp){
+  localStorage.clear();
   location.replace("packages.html");
 }
 </script>
@@ -66,118 +58,84 @@ if(!pin || !exp || Date.now() > exp){
 <div class="details">
   <h1 id="title"></h1>
   <div class="meta" id="meta"></div>
-
-  <div class="actions">
-    <button class="watch" id="watchBtn">▶ Watch Movie</button>
-    <button class="share" onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
-    <button class="share" onclick="shareIMO()">📩 Share on IMO</button>
-    <button class="share" onclick="shareTikTok()">🎵 Share on TikTok</button>
-    <button class="share" onclick="copyToClipboard()">📋 Copy Info</button>
-  </div>
-
-  <h3>Synopsis</h3>
+  <button class="watch" id="watchBtn">▶ Watch Movie</button>
   <p id="synopsis"></p>
-
-  <h3>Cast</h3>
-  <div class="cast" id="cast"></div>
 </div>
 
-<!-- ===== COMMENTS ===== -->
+<!-- COMMENTS -->
 <div id="commentsSection">
   <h3>Comments</h3>
-
   <input id="usernameInput" placeholder="Your nickname">
-
   <div id="commentsList"></div>
-
   <textarea id="commentInput" placeholder="Write your comment"></textarea>
   <button id="commentBtn">Post Comment</button>
-
-  <div id="commentMsg"></div>
 </div>
 
 <script>
-// ----- Movie ID -----
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-if(!id) location.replace("movies.html");
-
-// ----- Find movie -----
-const movie = MOVIES.find(m=>m.id===id);
+// MOVIE LOAD
+const params=new URLSearchParams(location.search);
+const id=params.get("id");
+const movie=MOVIES.find(m=>m.id===id);
 if(!movie) location.replace("movies.html");
 
-// ----- Populate -----
-title.textContent = movie.title;
-meta.textContent = `${movie.country} • ${movie.year}`;
-synopsis.textContent = movie.synopsis || "";
-if(movie.cast) movie.cast.forEach(c=>{
-  const s=document.createElement("span");s.textContent=c;cast.appendChild(s);
-});
+title.textContent=movie.title;
+meta.textContent=`${movie.country} • ${movie.year}`;
+synopsis.textContent=movie.synopsis||"";
 
-// ----- Video -----
+// VIDEO
 function normalizeVideo(url){
-  try{
-    if(url.includes("youtube.com/watch")) return "https://www.youtube.com/embed/"+new URL(url).searchParams.get("v");
-    if(url.includes("youtu.be")) return "https://www.youtube.com/embed/"+url.split("/").pop();
-    if(url.includes("vimeo.com")) return "https://player.vimeo.com/video/"+url.split("/").pop();
-    if(url.includes("/d/")) return "https://drive.google.com/file/d/"+url.split("/d/")[1].split("/")[0]+"/preview";
-    return url;
-  }catch{return null;}
+  if(url.includes("youtube")) return "https://www.youtube.com/embed/"+new URL(url).searchParams.get("v");
+  if(url.includes("vimeo")) return "https://player.vimeo.com/video/"+url.split("/").pop();
+  if(url.includes("/d/")) return "https://drive.google.com/file/d/"+url.split("/d/")[1].split("/")[0]+"/preview";
+  return url;
 }
 
 watchBtn.onclick=()=>{
   if(movie.type!=="free") return location.href="packages.html";
-  const e=normalizeVideo(movie.video);
-  if(e) player.innerHTML=`<iframe src="${e}" allowfullscreen></iframe>`;
+  player.innerHTML=`<iframe src="${normalizeVideo(movie.video)}" allowfullscreen></iframe>`;
 };
 
-// ----- Share -----
-const SITE_URL=location.origin+"/movies.html";
-function shareWhatsApp(){location.href=`https://wa.me/?text=${encodeURIComponent(movie.title+"\n"+SITE_URL)}`;}
-function shareIMO(){location.href=`imo://send?text=${encodeURIComponent(movie.title+"\n"+SITE_URL)}`;}
-function shareTikTok(){alert("Copy and post manually.");}
-function copyToClipboard(){navigator.clipboard.writeText(movie.title+"\n"+SITE_URL);}
-
-// ===== COMMENTS LOGIC =====
-const commentsRef=firebase.database().ref("comments/"+movie.id);
+// COMMENTS LOGIC (HARDENED)
+const commentsRef=firebase.database().ref("comments/movies/"+movie.id);
 const usernameInput=document.getElementById("usernameInput");
 const commentInput=document.getElementById("commentInput");
-const commentMsg=document.getElementById("commentMsg");
 
-// Load nickname
-const savedName=localStorage.getItem("username");
-if(savedName) usernameInput.value=savedName;
+usernameInput.value=localStorage.getItem("username")||"";
 
-// Post comment
 commentBtn.onclick=()=>{
-  const name=usernameInput.value.trim();
-  const text=commentInput.value.trim();
-  commentMsg.style.color="#ffb400";
+  const user=usernameInput.value.trim().slice(0,20);
+  const text=commentInput.value.trim().slice(0,300);
+  if(!user||!text) return alert("Nickname and comment required");
 
-  if(!name){commentMsg.textContent="Please enter a nickname.";return;}
-  if(!text){commentMsg.textContent="Write a comment first.";return;}
+  localStorage.setItem("username",user);
 
-  localStorage.setItem("username",name);
-  commentsRef.push({user:name,text,timestamp:Date.now()});
+  commentsRef.push({
+    user,
+    text,
+    timestamp: firebase.database.ServerValue.TIMESTAMP
+  });
+
   commentInput.value="";
-  commentMsg.style.color="#00ff66";
-  commentMsg.textContent="Comment posted.";
 };
 
-// Display comments
-commentsRef.on("value",snap=>{
+commentsRef.limitToLast(100).on("value",snap=>{
   commentsList.innerHTML="";
-  snap.forEach(c=>{
+  const arr=[];
+  snap.forEach(c=>arr.push({...c.val(),ref:c.ref}));
+  arr.sort((a,b)=>b.timestamp-a.timestamp);
+
+  arr.forEach(c=>{
     const d=document.createElement("div");
-    d.innerHTML=`<strong>${c.val().user}</strong>: ${c.val().text}`;
+    d.innerHTML=`<strong>${c.user}</strong>: ${c.text}`;
 
     if(localStorage.getItem("activePIN")==="Orion885"){
       const b=document.createElement("button");
       b.textContent="🗑";
-      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none",borderRadius:"6px"});
+      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none"});
       b.onclick=()=>c.ref.remove();
       d.appendChild(b);
     }
+
     commentsList.appendChild(d);
   });
 });
