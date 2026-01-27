@@ -790,7 +790,7 @@ const SERIES = [
 {
     id: "theprince",
     title: "THE PRINCE",
-    poster: "https://i.ibb.co/vcL4nxv/x-the-prince.jpg",
+    poster: https://i.ibb.co/v6K5nS2C/x-the-prince.jpg",
     genre: "Drama",
     added: 20,
     type: "premium",
