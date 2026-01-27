@@ -800,48 +800,7 @@ const SERIES = [
     cast: ["Zhang Ruoyun","Ding Xiao Ying","Hu Jun", "Gao Weiguang"],
     episodes: [
 { title: "Episode 1", video: "https://player.vimeo.com/video/781156369" }
-{ title: "Episode 2", video: "https://drive.google.com/file/d/1e8CTyjSqW14B_-qID4lJgCDUGd_JSFhs/preview" },
-  { title: "Episode 3", video: "https://drive.google.com/file/d/155OTzTUGOX7XQiX02s_AxEd5Fl4HldJO/preview" },
-  { title: "Episode 4", video: "https://drive.google.com/file/d/1ZEPxNzQtjyvkMWcRltki5h4FvHouqJox/preview" },
-  { title: "Episode 5", video: "https://drive.google.com/file/d/1ppq240eY5x4l4jM45WTosD2zrKaOC57h/preview" },
-  { title: "Episode 6", video: "https://drive.google.com/file/d/1x24Had_RTlHQ9KGkVJzBUqCCRQWiGOI3/preview" },
-  { title: "Episode 7", video: "https://drive.google.com/file/d/1jW0ZutMXaWXBrxqUxEwqJKTLDHxxJ9Xo/preview" },
-  { title: "Episode 8", video: "https://drive.google.com/file/d/1tdzOYCmMgTYqgducFALXCa1jhuvq9MlU/preview" },
-  { title: "Episode 9", video: "https://drive.google.com/file/d/1Oc47wgSXq7B1ck5Q0A_tHTG1V6YsJkO0/preview" },
 
-  { title: "Episode 10", video: "https://player.vimeo.com/video/786191657" },
-  { title: "Episode 11", video: "https://player.vimeo.com/video/787157453" },
-  { title: "Episode 12", video: "https://player.vimeo.com/video/787452330" },
-  { title: "Episode 13", video: "https://player.vimeo.com/video/787448849" },
-
-  { title: "Episode 14", video: "https://drive.google.com/file/d/1kfrGT6kKmZ_MvNjaaHYIoIuxUr7FEaRT/preview" },
-  { title: "Episode 15", video: "https://drive.google.com/file/d/15vG-zbDKkUPN-DA3KRpk4TDQAb1ElU-9/preview-3c" },
-  { title: "Episode 16", video: "https://drive.google.com/file/d/1PcEdwriG0Vku7XE2T56XeOC-m34h6R5I/preview" },
-  { title: "Episode 17", video: "https://drive.google.com/file/d/1oKREouwq0z88BE2bMtDYFsD4iFagG_Jg/preview" },
-  { title: "Episode 18", video: "https://drive.google.com/file/d/1pzmB4YQDvQS-8pvqHIr--gvMQqso_pnG/preview" },
-  { title: "Episode 19", video: "https://drive.google.com/file/d/1RQQdLPdYZdff2gO-gD08VeMQU6X3l0BO/preview" },
-  { title: "Episode 20", video: "https://drive.google.com/file/d/1YdcBQi75WhfCMUBoS9lFmKz-cueKo-h4/preview" },
-  { title: "Episode 21", video: "https://drive.google.com/file/d/1ijxgk3ZkW335qcVKG6ewxm-caeJ0CXgp/preview" },
-  { title: "Episode 22", video: "https://drive.google.com/file/d/1dCB-_mJ-7UhE0--SuEXz9UMfTasXp_4D/preview" },
-  { title: "Episode 23", video: "https://drive.google.com/file/d/1iaTgLkCVlp7u3c1PpGUaSOxH5nKBscAl/preview" },
-  { title: "Episode 24", video: "https://drive.google.com/file/d/1kLFy8U640ja1XxtyCq7tVJZNxxefJKZF/preview" },
-  { title: "Episode 25", video: "https://drive.google.com/file/d/1sP_qAmN3uu9yKmny-qM4mIUOcvye3Y2m/preview" },
-  { title: "Episode 26", video: "https://drive.google.com/file/d/15ZDz_R3dQu-adKs4tSskTLJ62ovCCGxB/preview" },
-
-  { title: "Episode 27", video: "https://player.vimeo.com/video/792864974" },
-  { title: "Episode 28", video: "https://player.vimeo.com/video/793258479" },
-  { title: "Episode 29", video: "https://player.vimeo.com/video/794408130" },
-  { title: "Episode 30", video: "https://player.vimeo.com/video/794631616" },
-  { title: "Episode 31", video: "https://player.vimeo.com/video/795204370" },
-  { title: "Episode 32", video: "https://player.vimeo.com/video/833951973" },
-  { title: "Episode 33", video: "https://player.vimeo.com/video/828917959" },
-
-  { title: "Episode 34", video: "https://drive.google.com/file/d/1TJscajZjLO9UP-sDkIqnE02WgAtfpORp/preview" },
-  { title: "Episode 35", video: "https://drive.google.com/file/d/1VuLS4D3t-odeIP-5j4ziRsmv9C7pcjmH/preview" },
-
-  { title: "Episode 36", video: "https://player.vimeo.com/video/822422906" },
-  { title: "Episode 37", video: "https://player.vimeo.com/video/822423256" },
-  { title: "Episode 38", video: "https://player.vimeo.com/video/873618020" }
 
     ]
   }
