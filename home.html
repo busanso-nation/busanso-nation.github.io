@@ -78,9 +78,9 @@ body{
   border:none;
   border-radius:8px;
   font-weight:bold;
+  cursor:pointer;
   background:#e50914;
   color:#fff;
-  cursor:pointer;
 }
 
 /* BADGES */
@@ -95,7 +95,7 @@ body{
 }
 .badge.premium{ background:#e50914; }
 
-/* Premium cards unclickable only */
+/* Premium = unclickable only */
 .card.premium .watch-btn{
   cursor:default;
 }
@@ -105,12 +105,12 @@ body{
 <body>
 
 <script>
-/* ===== PIN AUTO-REDIRECT ===== */
-const pin = localStorage.getItem("activePIN");
-const exp = Number(localStorage.getItem("pinExpiry"));
+/* ===== PIN AUTO REDIRECT (ONLY NEW LOGIC) ===== */
+const activePIN = localStorage.getItem("activePIN");
+const pinExpiry = Number(localStorage.getItem("pinExpiry"));
 
-if(pin && exp && Date.now() < exp){
-  window.location.replace("watch.html");
+if(activePIN && pinExpiry && Date.now() < pinExpiry){
+  location.replace("watch.html");
 }
 </script>
 
@@ -138,7 +138,7 @@ if(pin && exp && Date.now() < exp){
 </div>
 
 <script>
-/* ===== CARD CREATOR ===== */
+/* ===== CARD CREATOR (RESTORED) ===== */
 function createCard(item, contentType){
   const isPremium = item.type === "premium";
 
