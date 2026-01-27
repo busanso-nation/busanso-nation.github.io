@@ -595,6 +595,39 @@ const MOVIES = [
     duration: "1h 10m",
     synopsis: "A gripping tale of power, revenge, and destiny with super action."
   },
+ {
+    id: "Kabhi",
+    title: "Kabhi Khushi kabhie gham",
+    poster: "https://i.ebayimg.com/images/g/1CcAAOSwVztf21HK/s-l1200.jpg",
+    video: "https://www.youtube.com/embed/v87G_3O6TGc",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Rahul, the adoptive son of business magnate Yash Raichand, feels eternal gratitude to his father for rescuing him from a life of poverty. Yet, when Yash forbids his love for poor Anjali, Rahul marries her and moves to London with new wife and sister-in-law, Pooja breaking the heart of his mother. Ten years later, Rahul's younger brother comes to London intent on brokering peace between father and son."
+  },
+   {
+    id: "Kabhi2",
+    title: "Kabhi Khushi kabhie gham 2",
+    poster: "https://i.ebayimg.com/images/g/1CcAAOSwVztf21HK/s-l1200.jpg",
+    video: "https://www.youtube.com/embed/f9oQblpb8Es",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Rahul, the adoptive son of business magnate Yash Raichand, feels eternal gratitude to his father for rescuing him from a life of poverty. Yet, when Yash forbids his love for poor Anjali, Rahul marries her and moves to London with new wife and sister-in-law, Pooja breaking the heart of his mother. Ten years later, Rahul's younger brother comes to London intent on brokering peace between father and son."
+  },
+    {
+    id: "Kabhi33",
+    title: "Kabhi Khushi kabhie gham 3",
+    poster: "https://i.ebayimg.com/images/g/1CcAAOSwVztf21HK/s-l1200.jpg",
+    video: "https://drive.google.com/file/d/1JgDzesiK6zdXODUDcR73jLJ5-hjFYx3R/preview",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Rahul, the adoptive son of business magnate Yash Raichand, feels eternal gratitude to his father for rescuing him from a life of poverty. Yet, when Yash forbids his love for poor Anjali, Rahul marries her and moves to London with new wife and sister-in-law, Pooja breaking the heart of his mother. Ten years later, Rahul's younger brother comes to London intent on brokering peace between father and son."
+  },
    {
     id: "kanor",
     title: "KANOR",
