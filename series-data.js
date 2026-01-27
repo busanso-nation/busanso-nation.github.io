@@ -870,7 +870,48 @@ const SERIES = [
 { title: "Episode 5", video: "https://drive.google.com/file/d/1jwVVARyz_HYftlHrDOhaw6ruIF3FcFw5/preview" },
 { title: "Episode 6", video: "https://drive.google.com/file/d/156yM6gunR1c1D6RmPIlVgoI_0RHeyj3s/preview" },
 { title: "Episode 7", video: "https://drive.google.com/file/d/1U5z_0HVxrWH9W5krdOoHfOtWVGX-AovM/preview" }
-
+]
+  },
+{
+    id: "bridalmask",
+    title: "BRIDAL MASK",
+    poster: "https://i.ibb.co/Z2PZLRn/x-bridal-mask.jpg",
+    genre: "Action",
+    added: 23,
+    type: "premium",
+    country: "Korea",
+    year: "2024",
+    synopsis: "It follows Lee Kang-to, a pro-Japanese Korean officer who hunts a masked freedom fighter, only to take up the mask himself after a personal tragedy, fighting against injustices while hiding his identity from his best friend, a Japanese police officer",
+    cast: ["Shin Hyun joon","Joo Won","Park Ki-woong", "Jin Se-yeon"],
+    episodes: [
+{ title: "Episode 1", video: "https://player.vimeo.com/video/765970621" },
+{ title: "Episode 2", video: "https://player.vimeo.com/video/765973042" },
+{ title: "Episode 3", video: "https://player.vimeo.com/video/765981712" },
+{ title: "Episode 4", video: "https://player.vimeo.com/video/766799807" },
+{ title: "Episode 5", video: "https://player.vimeo.com/video/766812106" },
+{ title: "Episode 6", video: "https://player.vimeo.com/video/766822086" },
+{ title: "Episode 7", video: "https://player.vimeo.com/video/768839505" },
+{ title: "Episode 8", video: "https://player.vimeo.com/video/770618957" },
+{ title: "Episode 9", video: "https://player.vimeo.com/video/770988154" },
+{ title: "Episode 10", video: "https://player.vimeo.com/video/771011770" },
+{ title: "Episode 11", video: "https://drive.google.com/file/d/1KvVbzhzmJtQ8y8gIe5AsVU7CxvN0OncS/preview" },
+{ title: "Episode 12", video: "https://drive.google.com/file/d/13Y5uCQkV7M7srxODQKWdzoOeaKGJsenZ/preview" },
+{ title: "Episode 13", video: "https://player.vimeo.com/video/774098171" },
+{ title: "Episode 14", video: "https://player.vimeo.com/video/774167366" },
+{ title: "Episode 15", video: "https://player.vimeo.com/video/774213195" },
+{ title: "Episode 16", video: "https://player.vimeo.com/video/775155222" },
+{ title: "Episode 17", video: "https://player.vimeo.com/video/777142493" },
+{ title: "Episode 18", video: "https://player.vimeo.com/video/777554996" },
+{ title: "Episode 19", video: "https://player.vimeo.com/video/777556127" },
+{ title: "Episode 20", video: "https://player.vimeo.com/video/777736930" },
+{ title: "Episode 21", video: "https://drive.google.com/file/d/1BgxT27w9zQH5LEViISMnb4qyojUZtqe6/preview" },
+{ title: "Episode 22", video: "https://drive.google.com/file/d/1u1pXaEl1_NkJj9cSVCmLaN2WZlUHQczh/preview" },
+{ title: "Episode 23", video: "https://drive.google.com/file/d/1NK-U4YcZjE9pLB2u58cU0a9-HRwp3mTe/preview" },
+{ title: "Episode 24", video: "https://player.vimeo.com/video/780690204" },
+{ title: "Episode 25", video: "https://player.vimeo.com/video/780703190" },
+{ title: "Episode 26", video: "https://player.vimeo.com/video/781143048" },
+{ title: "Episode 27", video: "https://player.vimeo.com/video/782042235" },
+{ title: "Episode 28", video: "https://player.vimeo.com/video/782046951" }
     ]
   }
 ];
