@@ -719,7 +719,7 @@ const SERIES = [
     id: "drfan",
     title: "DR. FAN",
     poster: "https://i.ibb.co/fYRz70H2/Untitled-1-Recovered-Recovered.jpg",
-    genre: "Action",
+    genre: "Drama",
     added: 17,
     type: "premium",
     country: "Chine",
@@ -733,6 +733,30 @@ const SERIES = [
 { title: "Episode 4", video: "https://drive.google.com/file/d/1DkRp-njWuZ2swKcn84w2ui862tkd2L4T/preview" },
 { title: "Episode 5", video: "https://drive.google.com/file/d/1afdCgG7WuzSSBuCYN97agVDCnHE8zNmZ/preview" },
 { title: "Episode 6", video: "https://drive.google.com/file/d/1kpN6ur1wL6d_0a5dzmgFkLhECoy4Lr9u/preview" }
+      ]
+  },
+{
+    id: "maid",
+    title: "MAID",
+    poster: "https://i.ibb.co/ZR7c03GS/787774-maid-2021-0-230-0-345-crop.jpg",
+    genre: "Drama",
+    added: 18,
+    type: "premium",
+    country: "USA",
+    year: "2025",
+    synopsis: "The story follows Alex (Margaret Qualley), a young mother who escapes an emotionally abusive relationship with her toddler, Maddy. To provide for her child, she works as a low-paid house cleaner, facing the systemic hurdles of poverty, homelessness, and the complexities of the welfare system",
+    cast: ["Margaret","Andie MacDowell","Nick Robinson", "Raymond Ablack"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1FhAWijt5WKPTK08hZbi2G9L9M0KFLrrK/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1SyP0AuYCJ6k93nVH_W7_eWFqdUztvEjU/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1BjjShC93bYGXE2nwaPMa71hA9MGU0rPF/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1Cz9mmq86cX7PTaiwl3bJJMqNNePF-49m/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1cegafw7SKOoFu5FutQCg1dEuB4G5YEJY/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1ZC-4cqyZK-tol_ER5cvzZautCTgm_jkE/preview" },
+{ title: "Episode 7", video: "https://drive.google.com/file/d/1F6Lu5WNfYmqGpJGMp50APX_r-7sgiG2N/preview" },
+{ title: "Episode 8", video: "https://drive.google.com/file/d/1X3tuCHVBIiZxbxMD_hnB3m8kOoH4-EVc/preview" },
+{ title: "Episode 9", video: "https://drive.google.com/file/d/14uxRZh_SwXk0x3726cLYDAn7iSykXt7Z/preview" },
+{ title: "Episode 10", video: "https://drive.google.com/file/d/1oE53PNvf00Sf2wZhaYw4ydPrX1_58j_y/preview" }
 
     ]
   }
