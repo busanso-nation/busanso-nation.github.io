@@ -29,29 +29,19 @@ body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16
 .player{max-width:800px;margin:0 auto}
 .player iframe{width:100%;height:56vw;max-height:450px;border:none}
 .details{max-width:800px;margin:16px auto;background:#111;padding:16px;border-radius:12px}
-.meta{color:#aaa;font-size:14px}
-.actions button{width:100%;padding:12px;margin-top:8px;border:none;border-radius:8px;font-weight:bold}
+.meta{color:#aaa;font-size:14px;margin-bottom:8px}
+.actions button{width:100%;padding:12px;margin-top:8px;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
 .watch{background:#e50914;color:#fff}
 
 /* COMMENTS */
 #commentsSection{max-width:800px;margin:20px auto;background:#111;padding:16px;border-radius:12px}
 #commentsList div{background:#222;padding:8px 10px;border-radius:8px;margin-bottom:6px;position:relative}
 #usernameInput,#commentInput{width:100%;padding:8px;border-radius:6px;background:#111;color:#fff;border:none;margin-bottom:6px}
-#commentBtn{padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold}
+#commentBtn{padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold;cursor:pointer}
 </style>
 </head>
 
 <body>
-
-<script>
-// PIN CHECK (unchanged)
-const pin=localStorage.getItem("activePIN");
-const exp=Number(localStorage.getItem("pinExpiry"));
-if(!pin||!exp||Date.now()>exp){
-  localStorage.clear();
-  location.replace("packages.html");
-}
-</script>
 
 <div class="player" id="player"></div>
 
@@ -72,71 +62,73 @@ if(!pin||!exp||Date.now()>exp){
 </div>
 
 <script>
-// MOVIE LOAD
-const params=new URLSearchParams(location.search);
-const id=params.get("id");
-const movie=MOVIES.find(m=>m.id===id);
+// ===== LOAD MOVIE =====
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+const movie = MOVIES.find(m=>m.id===id);
 if(!movie) location.replace("movies.html");
 
-title.textContent=movie.title;
-meta.textContent=`${movie.country} • ${movie.year}`;
-synopsis.textContent=movie.synopsis||"";
+title.textContent = movie.title;
+meta.textContent = `${movie.country} • ${movie.year}`;
+synopsis.textContent = movie.synopsis||"";
 
-// VIDEO
+// ===== VIDEO PLAYBACK (all types) =====
 function normalizeVideo(url){
-  if(url.includes("youtube")) return "https://www.youtube.com/embed/"+new URL(url).searchParams.get("v");
-  if(url.includes("vimeo")) return "https://player.vimeo.com/video/"+url.split("/").pop();
-  if(url.includes("/d/")) return "https://drive.google.com/file/d/"+url.split("/d/")[1].split("/")[0]+"/preview";
-  return url;
+  try{
+    if(url.includes("youtube")) return "https://www.youtube.com/embed/"+new URL(url).searchParams.get("v");
+    if(url.includes("vimeo")) return "https://player.vimeo.com/video/"+url.split("/").pop();
+    if(url.includes("/d/")) return "https://drive.google.com/file/d/"+url.split("/d/")[1].split("/")[0]+"/preview";
+    return url;
+  }catch(e){ return url; }
 }
 
-watchBtn.onclick=()=>{
-  if(movie.type!=="free") return location.href="packages.html";
-  player.innerHTML=`<iframe src="${normalizeVideo(movie.video)}" allowfullscreen></iframe>`;
+watchBtn.onclick = () => {
+  player.innerHTML = `<iframe src="${normalizeVideo(movie.video)}" allowfullscreen></iframe>`;
 };
 
-// COMMENTS LOGIC (HARDENED)
-const commentsRef=firebase.database().ref("comments/movies/"+movie.id);
-const usernameInput=document.getElementById("usernameInput");
-const commentInput=document.getElementById("commentInput");
+// ===== COMMENTS =====
+const commentsRef = firebase.database().ref("comments/movies/"+movie.id);
+const usernameInput = document.getElementById("usernameInput");
+const commentInput = document.getElementById("commentInput");
+const commentsList = document.getElementById("commentsList");
 
-usernameInput.value=localStorage.getItem("username")||"";
+// Load nickname from localStorage
+const savedName = localStorage.getItem("username");
+if(savedName) usernameInput.value = savedName;
 
-commentBtn.onclick=()=>{
-  const user=usernameInput.value.trim().slice(0,20);
-  const text=commentInput.value.trim().slice(0,300);
-  if(!user||!text) return alert("Nickname and comment required");
+// Post comment
+commentBtn.onclick = () => {
+  const user = usernameInput.value.trim().slice(0,20);
+  const text = commentInput.value.trim().slice(0,300);
+  if(!user || !text) return;
 
-  localStorage.setItem("username",user);
-
+  localStorage.setItem("username", user);
   commentsRef.push({
     user,
     text,
     timestamp: firebase.database.ServerValue.TIMESTAMP
   });
-
-  commentInput.value="";
+  commentInput.value = "";
 };
 
-commentsRef.limitToLast(100).on("value",snap=>{
-  commentsList.innerHTML="";
-  const arr=[];
-  snap.forEach(c=>arr.push({...c.val(),ref:c.ref}));
+// Display comments live
+commentsRef.limitToLast(100).on("value", snap => {
+  commentsList.innerHTML = "";
+  const arr = [];
+  snap.forEach(c => arr.push({...c.val(), ref:c.ref}));
   arr.sort((a,b)=>b.timestamp-a.timestamp);
-
-  arr.forEach(c=>{
-    const d=document.createElement("div");
-    d.innerHTML=`<strong>${c.user}</strong>: ${c.text}`;
-
+  arr.forEach(c => {
+    const div = document.createElement("div");
+    div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
+    // Admin delete button
     if(localStorage.getItem("activePIN")==="Orion196"){
-      const b=document.createElement("button");
-      b.textContent="🗑";
-      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none"});
-      b.onclick=()=>c.ref.remove();
-      d.appendChild(b);
+      const b = document.createElement("button");
+      b.textContent = "🗑";
+      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none",borderRadius:"4px",cursor:"pointer"});
+      b.onclick = ()=>c.ref.remove();
+      div.appendChild(b);
     }
-
-    commentsList.appendChild(d);
+    commentsList.appendChild(div);
   });
 });
 </script>
