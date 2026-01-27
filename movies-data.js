@@ -742,7 +742,7 @@ const MOVIES = [
     id: "dylanmovie",
     title: "DYLAN",
     poster: "https://i.ibb.co/1GWpZYkh/Untitled-1.jpg",
-    video: "https://youtu.be/PAjBGKM7zxg?si=cBnuUE9DAZJiDDR0",
+    video: "https://www.youtube.com/embed/PAjBGKM7zxg",
     type: "premium",
     year: "2024",
     country: "USA",
