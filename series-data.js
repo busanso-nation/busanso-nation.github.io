@@ -978,6 +978,42 @@ const SERIES = [
 { title: "Episode 50", video: "https://drive.google.com/file/d/1tCbIlqykOtoab-KlGtwMbjni-inmEAWL/preview" },
 { title: "Episode 51", video: "https://drive.google.com/file/d/1CiadjBIfaOSkcsGbIgvNo1fX12qbNkzZ/preview" },
 { title: "Episode 52", video: "https://drive.google.com/file/d/1AJCwGe8Rex21pjAklWl2KNo76iaPOfhm/preview" }
+      ]
+  },
+{
+    id: "bladesofjanghu",
+    title: "BLADES OF JANGHU",
+    poster: "https://i.ibb.co/0GG435H/x-blades-of-jangu.jpg",
+    genre: "Action",
+    added: 25,
+    type: "premium",
+    country: "Chine",
+    year: "2023",
+    synopsis: "Gong Zhen attempts to clear up a misunderstanding with Wei Shuang Yun, leading them to join forces to investigate a series of murders",
+    cast: ["Hwang Jung-min","Cha Seung-won","Han Ji-hye", "Shin Jung-geun"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/175eLpyA2jYJvi8Ti2z9jPXstTQ75eyg9/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1UCNE7biscpAQZ4fWlup7kElCgYJiHsNm/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1P50fnOPVhJh3Q2YgUBUSDSd1-gxKre2q/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/14sBiInNHHDJSWLdBlUn2JMI4dqFxUrLe/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1tc2HGFZHltS-zQPL-kbHXPUjqVvFEsAi/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1tc2HGFZHltS-zQPL-kbHXPUjqVvFEsAi/preview" },
+{ title: "Episode 7", video: "https://drive.google.com/file/d/1ZtJAWNP8svQb-UkC1O0gh-Cc8KZCqtEB/preview" },
+{ title: "Episode 8", video: "https://drive.google.com/file/d/1ovYK-CXd2WVZTkHYOcJm2315DAEwp7jL/preview" },
+{ title: "Episode 9", video: "https://drive.google.com/file/d/1MaesQhz-uAgquoNQNRKYAkG1BeACUfl1/preview" },
+{ title: "Episode 10", video: "https://drive.google.com/file/d/16XdHPMnJcbyF5GcliT1L2Pq-DKgMya3_/preview" },
+{ title: "Episode 11", video: "https://drive.google.com/file/d/1a814zg_XYRS4rwCj-6gDMWc_6n4MUWnT/preview" },
+{ title: "Episode 12", video: "https://drive.google.com/file/d/1vV_d1zgdmW525bmPytKrtozDnUC4K7CA/preview" },
+{ title: "Episode 13", video: "https://drive.google.com/file/d/1U2QbgU6PvFKsVGJMhT-wyfSkp2aVvCCN/preview" },
+{ title: "Episode 14", video: "https://drive.google.com/file/d/1slbDskgZD4zOuGyJS7W8tXFvaTntbblb/preview" },
+{ title: "Episode 15", video: "https://drive.google.com/file/d/1Dd-e3CibSQdQuc2SMnPaEtB0EyjUxlX-/preview" },
+{ title: "Episode 16", video: "https://drive.google.com/file/d/1bMu5TCMaUpFEDuNaWziFp7xAGqFP_t7o/preview" },
+{ title: "Episode 17", video: "https://drive.google.com/file/d/1cnp0cqzLenRsdQAHpajzS6sNU5pr1x2l/preview" },
+{ title: "Episode 18", video: "https://drive.google.com/file/d/1xSA5HkmLZP2Mvys9hxee_4l3eO0tE8_8/preview" },
+{ title: "Episode 19", video: "https://drive.google.com/file/d/1t9SMtHYqXuHvIdQRJOUakBKdXpInhSjO/preview" },
+{ title: "Episode 20", video: "https://drive.google.com/file/d/1rVWNYWBr-JVgtWy8QFRdZaQHaaq7sUAn/preview" },
+{ title: "Episode 21", video: "https://drive.google.com/file/d/14pUQVINgkvryswNZO9OncDq8kW93A1jt/preview" },
+{ title: "Episode 22", video: "https://drive.google.com/file/d/1juasRnRORKxHPEOdb1K0FRz40v9BLVGA/preview" }
     ]
   }
 ];
