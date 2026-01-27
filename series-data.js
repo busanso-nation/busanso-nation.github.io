@@ -26,22 +26,7 @@ const SERIES = [
 ]
   },
 {
-    id: "affairs",
-    title: "AFFAIRS",
-    poster: "https://pic5.iqiyipic.com/image/20250704/40/e6/v_183159476_m_601_374_0.jpg",
-    genre: "love story",
-    added: 2,
-    type: "free",
-    country: "China",
-    year: "2026",
-    synopsis: "The plot follows Shen Yuanzhi, who is forced to marry Fan Xingxu, a man seeking vengeance against her after she takes the blame for her lover's crime.",
-    cast: ["Terry Guo", "Fang Jin", "Qiu Hong Kai"],
-    episodes: [
-      { title: "Episode 1", video: "https://www.youtube.com/embed/OeTA1dwPLKs" }
 
-    ]
-  },
-{
     id: "hotblooded",
     title: "HOT BLOODED",
     poster: "https://i.ibb.co/MxzB0DLC/Untitled-1.jpg",
