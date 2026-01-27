@@ -864,7 +864,27 @@ const SERIES = [
 { title: "Episode 12", video: "https://player.vimeo.com/video/832856709" },
 { title: "Episode 13", video: "https://player.vimeo.com/video/833075745" },
 { title: "Episode 14", video: "https://player.vimeo.com/video/833242662" }
-
+      ]
+  },
+{
+    id: "mercyfornone",
+    title: "MERCY FOR NONE",
+    poster: "https://i.ibb.co/RpTNvTng/mercy-for-none.jpg",
+    genre: "Drama",
+    added: 22,
+    type: "premium",
+    country: "Korea",
+    year: "2025",
+    synopsis: " After his younger brother is murdered, Gi-jun breaks his 11-year exile, returning to Seoul's underworld to ruthlessly hunt down those responsible",
+    cast: ["So Ji-sub","Cha Seung-won","Ahn Gil-kang", "Lee Jun-hyuk"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1BVoJes2Nvk1pftfCKDSFB0nVbIiGJr4F/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1Mg-T0UWZv0-Mx5wYVfQzvtSdevLTLbhA/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1LFzZuvgwRLDp9OYkFh4sPsCDQALOKy3h/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/13PajaWn8Eou9VdahscnPwy0ZzAxp-Cyb/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1jwVVARyz_HYftlHrDOhaw6ruIF3FcFw5/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/156yM6gunR1c1D6RmPIlVgoI_0RHeyj3s/preview" },
+{ title: "Episode 7", video: "https://drive.google.com/file/d/1U5z_0HVxrWH9W5krdOoHfOtWVGX-AovM/preview" }
 
     ]
   }
