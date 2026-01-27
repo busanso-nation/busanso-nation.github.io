@@ -109,7 +109,15 @@ if(!pin){
     }
 
     localStorage.setItem("activePackage", JSON.stringify(data));
-    document.getElementById("planLabel").textContent = data.type;
+  const planNicknames = {
+  "Weekly": "Weekly",
+  "Monthly": "Kabeja",
+  "Half-Year": "Kabeje",
+  "Annual": "Kabejest"
+};
+
+document.getElementById("planLabel").textContent =
+  planNicknames[data.type] || data.type;
 
     // Countdown timer
     const timeLeftEl = document.getElementById("timeLeft");
