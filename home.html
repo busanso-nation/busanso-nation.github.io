@@ -7,6 +7,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
+<!-- DATA FILES -->
 <script src="movies-data.js"></script>
 <script src="series-data.js"></script>
 
@@ -38,7 +39,6 @@ body{
   text-decoration:none;
   font-size:14px;
   color:#fff;
-  box-shadow:0 6px 16px rgba(0,0,0,.4);
 }
 .subscribe{ background:#e50914; }
 .login{ background:#2563eb; }
@@ -78,9 +78,12 @@ body{
   border:none;
   border-radius:8px;
   font-weight:bold;
-  cursor:pointer;
   background:#e50914;
   color:#fff;
+  cursor:pointer;
+}
+.card.premium .watch-btn{
+  cursor:default;
 }
 
 /* BADGES */
@@ -94,28 +97,23 @@ body{
   background:#22c55e;
 }
 .badge.premium{ background:#e50914; }
-
-/* Premium = unclickable only */
-.card.premium .watch-btn{
-  cursor:default;
-}
 </style>
 </head>
 
 <body>
 
 <script>
-/* ===== PIN AUTO REDIRECT (ONLY NEW LOGIC) ===== */
-const activePIN = localStorage.getItem("activePIN");
-const pinExpiry = Number(localStorage.getItem("pinExpiry"));
+/* ===== AUTO REDIRECT IF PIN VALID ===== */
+const pin = localStorage.getItem("activePIN");
+const exp = Number(localStorage.getItem("pinExpiry"));
 
-if(activePIN && pinExpiry && Date.now() < pinExpiry){
+if(pin && exp && Date.now() < exp){
   location.replace("watch.html");
 }
 </script>
 
 <div class="header">
-  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
   <h1>Busanso Nation</h1>
   <small>Movies & Series without stress</small>
 </div>
@@ -138,44 +136,49 @@ if(activePIN && pinExpiry && Date.now() < pinExpiry){
 </div>
 
 <script>
-/* ===== CARD CREATOR (RESTORED) ===== */
-function createCard(item, contentType){
-  const isPremium = item.type === "premium";
+document.addEventListener("DOMContentLoaded", () => {
 
-  const card = document.createElement("div");
-  card.className = "card" + (isPremium ? " premium" : "");
-
-  card.innerHTML = `
-    <div style="position:relative">
-      <img src="${item.poster}">
-      <span class="badge ${isPremium ? 'premium' : ''}">
-        ${isPremium ? 'PREMIUM' : 'FREE'}
-      </span>
-    </div>
-    <div class="card-title">${item.title}</div>
-    <button class="watch-btn">${isPremium ? 'Pay to Watch' : 'Watch'}</button>
-  `;
-
-  if(!isPremium){
-    card.querySelector(".watch-btn").onclick = () => {
-      if(contentType === "movie"){
-        location.href = \`movie.html?id=\${item.id}\`;
-      }else{
-        location.href = \`serie.html?id=\${item.id}\`;
-      }
-    };
+  if(typeof MOVIES === "undefined" || typeof SERIES === "undefined"){
+    console.error("Data files not loaded");
+    return;
   }
 
-  return card;
-}
+  function createCard(item, type){
+    const isPremium = item.type === "premium";
 
-/* ===== RENDER MOVIES ===== */
-const moviesBox = document.getElementById("moviesBox");
-MOVIES.forEach(m => moviesBox.appendChild(createCard(m,"movie")));
+    const card = document.createElement("div");
+    card.className = "card" + (isPremium ? " premium" : "");
 
-/* ===== RENDER SERIES ===== */
-const seriesBox = document.getElementById("seriesBox");
-SERIES.forEach(s => seriesBox.appendChild(createCard(s,"series")));
+    card.innerHTML = `
+      <div style="position:relative">
+        <img src="${item.poster}">
+        <span class="badge ${isPremium ? 'premium' : ''}">
+          ${isPremium ? 'PREMIUM' : 'FREE'}
+        </span>
+      </div>
+      <div class="card-title">${item.title}</div>
+      <button class="watch-btn">${isPremium ? "Pay to Watch" : "Watch"}</button>
+    `;
+
+    if(!isPremium){
+      card.querySelector(".watch-btn").onclick = () => {
+        location.href =
+          type === "movie"
+            ? \`movie.html?id=\${item.id}\`
+            : \`serie.html?id=\${item.id}\`;
+      };
+    }
+
+    return card;
+  }
+
+  const moviesBox = document.getElementById("moviesBox");
+  MOVIES.forEach(m => moviesBox.appendChild(createCard(m,"movie")));
+
+  const seriesBox = document.getElementById("seriesBox");
+  SERIES.forEach(s => seriesBox.appendChild(createCard(s,"series")));
+
+});
 </script>
 
 </body>
