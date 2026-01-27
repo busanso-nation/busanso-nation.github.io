@@ -573,6 +573,28 @@ const MOVIES = [
     duration: "1h 10m",
     synopsis: "Witness the brave boy who begins the journey to seek his father"
   },
+    {
+    id: "jokiii",
+    title: "JOKHIM",
+    poster: "https://i.pinimg.com/736x/2e/9f/45/2e9f4590cc318a0cab0fab544ce46c21.jpg",
+    video: "https://drive.google.com/file/d/19mAxVZTkrUYYlOB--dqfl07SVtaPJeje/view",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "2h 10m",
+    synopsis: "A gripping tale of power, revenge, and destiny with super action."
+  },
+  {
+    id: "joki2ii",
+    title: "JOKHIM 2",
+    poster: "https://i.pinimg.com/736x/2e/9f/45/2e9f4590cc318a0cab0fab544ce46c21.jpg",
+    video: "https://drive.google.com/file/d/1K5WonMkrcyfAP2vgsT8cgMeHHncWZwoR/view",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "A gripping tale of power, revenge, and destiny with super action."
+  },
    {
     id: "kanor",
     title: "KANOR",
