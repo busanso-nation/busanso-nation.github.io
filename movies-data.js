@@ -507,6 +507,28 @@ const MOVIES = [
     duration: "1h 10m",
     synopsis: "rebellious 16 year-old mermaid Ariel is fascinated with life on land. On one of her visits to the surface, which are forbidden by her controlling father, King Triton, she falls for a human prince. Determined to be with her new love, Ariel makes a dangerous deal with the sea witch Ursula to become human for three days. But when plans go awry for the star-crossed lovers, the king must make the ultimate sacrifice for his daughter"
   },
+        {
+    id: "jorneybeijing1",
+    title: "JOURNEY TO BEIJING",
+    poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmQ2YTUtMzFlZi00OWNmLWJmYjMtZjYyODE1YTAxMGZmXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1ZOOo0ozWvk7wYR8NZQwZP-_B-zabKuLK/preview",
+    type: "premium",
+    year: "2024",
+    country: "China",
+    duration: "1h 10m",
+    synopsis: "Witness the brave boy who begins the journey to seek his father"
+  },
+        {
+    id: "jorneybeiji22ng1",
+    title: "JOURNEY TO BEIJING 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmQ2YTUtMzFlZi00OWNmLWJmYjMtZjYyODE1YTAxMGZmXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1L_AWefNfMmECY_vtZdxycpb7BvQ6naYb/preview",
+    type: "premium",
+    year: "2024",
+    country: "China",
+    duration: "1h 10m",
+    synopsis: "Witness the brave boy who begins the journey to seek his father"
+  },
    {
     id: "kanor",
     title: "KANOR",
