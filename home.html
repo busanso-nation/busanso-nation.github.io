@@ -20,7 +20,10 @@ body{
 }
 
 /* HEADER */
-.header{ padding:20px; text-align:center; }
+.header{
+  padding:20px;
+  text-align:center;
+}
 .header img{ height:55px; }
 .header h1{ margin:8px 0; }
 
@@ -78,12 +81,9 @@ body{
   border:none;
   border-radius:8px;
   font-weight:bold;
+  cursor:pointer;
   background:#e50914;
   color:#fff;
-  cursor:pointer;
-}
-.card.premium .watch-btn{
-  cursor:default;
 }
 
 /* BADGES */
@@ -97,32 +97,34 @@ body{
   background:#22c55e;
 }
 .badge.premium{ background:#e50914; }
+
+/* LOCK ICON */
+.lock-icon{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  font-weight:bold;
+  background:rgba(0,0,0,0.6);
+}
 </style>
 </head>
 
 <body>
 
-<script>
-/* ===== AUTO REDIRECT IF PIN VALID ===== */
-const pin = localStorage.getItem("activePIN");
-const exp = Number(localStorage.getItem("pinExpiry"));
-
-if(pin && exp && Date.now() < exp){
-  location.replace("watch.html");
-}
-</script>
-
 <div class="header">
-  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
   <h1>Busanso Nation</h1>
   <small>Movies & Series without stress</small>
 </div>
 
 <div class="top-actions">
-  <a href="packages.html" class="btn subscribe">⭐ Subscribe</a>
-  <a href="login.html" class="btn login">🔐 Login</a>
-  <a href="live.html" class="btn live">📺 Live TV</a>
-  <a href="about.html" class="btn about">ℹ About</a>
+  <a href="packages.html" class="btn subscribe">Subscribe</a>
+  <a href="login.html" class="btn login">Login</a>
+  <a href="live.html" class="btn live">Live TV</a>
+  <a href="about.html" class="btn about">About</a>
 </div>
 
 <div class="section">
@@ -136,49 +138,61 @@ if(pin && exp && Date.now() < exp){
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+/* ===== REDIRECT IF VALID PIN EXISTS ===== */
+(function(){
+  var pin = localStorage.getItem("activePIN");
+  var exp = Number(localStorage.getItem("pinExpiry"));
+  if(pin && exp && Date.now() < exp){
+    location.replace("watch.html");
+  }
+})();
 
-  if(typeof MOVIES === "undefined" || typeof SERIES === "undefined"){
-    console.error("Data files not loaded");
-    return;
+/* ===== CARD CREATOR ===== */
+function createCard(item, type){
+  var isPremium = item.type === "premium";
+
+  var card = document.createElement("div");
+  card.className = "card";
+
+  var html = '';
+  html += '<div style="position:relative">';
+  html += '<img src="' + item.poster + '">';
+  html += '<span class="badge ' + (isPremium ? 'premium' : '') + '">';
+  html += isPremium ? 'PREMIUM' : 'FREE';
+  html += '</span>';
+  if(isPremium){
+    html += '<div class="lock-icon">LOCKED</div>';
+  }
+  html += '</div>';
+  html += '<div class="card-title">' + item.title + '</div>';
+  html += '<button class="watch-btn">' + (isPremium ? 'Pay to Watch' : 'Watch') + '</button>';
+
+  card.innerHTML = html;
+
+  if(!isPremium){
+    card.querySelector(".watch-btn").onclick = function(){
+      if(type === "movie"){
+        location.href = "movie.html?id=" + item.id;
+      }else{
+        location.href = "serie.html?id=" + item.id;
+      }
+    };
   }
 
-  function createCard(item, type){
-    const isPremium = item.type === "premium";
+  return card;
+}
 
-    const card = document.createElement("div");
-    card.className = "card" + (isPremium ? " premium" : "");
+/* ===== RENDER MOVIES ===== */
+var moviesBox = document.getElementById("moviesBox");
+for(var i=0;i<MOVIES.length;i++){
+  moviesBox.appendChild(createCard(MOVIES[i],"movie"));
+}
 
-    card.innerHTML = `
-      <div style="position:relative">
-        <img src="${item.poster}">
-        <span class="badge ${isPremium ? 'premium' : ''}">
-          ${isPremium ? 'PREMIUM' : 'FREE'}
-        </span>
-      </div>
-      <div class="card-title">${item.title}</div>
-      <button class="watch-btn">${isPremium ? "Pay to Watch" : "Watch"}</button>
-    `;
-
-    if(!isPremium){
-      card.querySelector(".watch-btn").onclick = () => {
-        location.href =
-          type === "movie"
-            ? \`movie.html?id=\${item.id}\`
-            : \`serie.html?id=\${item.id}\`;
-      };
-    }
-
-    return card;
-  }
-
-  const moviesBox = document.getElementById("moviesBox");
-  MOVIES.forEach(m => moviesBox.appendChild(createCard(m,"movie")));
-
-  const seriesBox = document.getElementById("seriesBox");
-  SERIES.forEach(s => seriesBox.appendChild(createCard(s,"series")));
-
-});
+/* ===== RENDER SERIES ===== */
+var seriesBox = document.getElementById("seriesBox");
+for(var j=0;j<SERIES.length;j++){
+  seriesBox.appendChild(createCard(SERIES[j],"series"));
+}
 </script>
 
 </body>
