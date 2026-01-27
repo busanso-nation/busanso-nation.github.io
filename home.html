@@ -188,7 +188,7 @@ const mixed = [...latestMovies.slice(0,6), ...latestSeries.slice(0,6)];
   carousel.appendChild(img);
 });
 
-/* HELPER FUNCTION TO CREATE CARDS */
+/* HELPER FUNCTION TO CREATE CARD WITH BUTTONS */
 function createCard(item, type){
   const card = document.createElement("div");
   card.className = "card";
@@ -219,13 +219,13 @@ function createCard(item, type){
   return card;
 }
 
-/* MOVIE CARDS */
+/* RENDER MOVIE CARDS */
 const movieBox = document.getElementById("moviesBox");
 latestMovies.forEach(m=>{
   movieBox.appendChild(createCard(m, "movie"));
 });
 
-/* SERIES CARDS */
+/* RENDER SERIES CARDS */
 const seriesBox = document.getElementById("seriesBox");
 latestSeries.forEach(s=>{
   seriesBox.appendChild(createCard(s, "series"));
