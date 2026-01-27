@@ -1078,6 +1078,56 @@ const SERIES = [
 { title: "Episode 4", video: "https://drive.google.com/file/d/1BNCeQgUiE2zujqbuKzceqx2P_5-lQI-7/preview" },
 { title: "Episode 5", video: "https://drive.google.com/file/d/16NP8j7yypVdvmmW1c7ONcXyvESQp3Jf5/preview" },
 { title: "Episode 6", video: "https://drive.google.com/file/d/1LB51RrfYdP0FT6HL478WQsFVecMm3QrT/preview" }
+      ]
+  },
+{
+    id: "fearlesshero",
+    title: "FEARLESS HERO",
+    poster: "https://a.ltrbxd.com/resized/film-poster/5/5/2/0/9/3/552093-matchless-hero-fang-shiyu-0-230-0-345-crop.jpg?v=5341aae416",
+    genre: "Action",
+    added: 29,
+    type: "premium",
+    country: "Chine",
+    year: "2024",
+    synopsis: "The story highlights the transformation of Fang Shiyu from an arrogant youth into a defender of the innocent",
+    cast: ["Mo Tse","Gabriel Wong","Xinyan Yu", "Chunzhong Zhang"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/18L17dxAHJysfa6ml7qB7PvWxUIRW-0Lr/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1n5XYoj3FqEkXAjU_UX-hIu9VmhnH1HCw/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1mzWDD2R8QsBjJXXlxxitxYGQhFS5PwUI/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1141JfjvBg02kJ4Xdq6U9Gw3whBRmH7Mh/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1onhsXC5FpgxNjx0Zeo40-uBFW_-zAuvG/preview" },
+
+{ title: "Episode 7", video: "https://drive.google.com/file/d/1QKRmXLmSFrvLqXNqLjnNVkU-Yw_aevm8/preview" },
+{ title: "Episode 8", video: "https://drive.google.com/file/d/1HibctqfawvxPEZ0RG9kX_Mc1HNFA2sIp/preview" },
+{ title: "Episode 9", video: "https://drive.google.com/file/d/1wL9jPFLhYig_A4RdM-74XPgI1LZYFkg1/preview" },
+{ title: "Episode 10", video: "https://drive.google.com/file/d/17K9TFIx9vX8gU3HNp_HCav4DIUY7ChK7/preview" },
+{ title: "Episode 11", video: "https://drive.google.com/file/d/1KqRTQISlaE48qohm9WoF_SyYZiv33GIu/preview" },
+
+{ title: "Episode 12", video: "https://player.vimeo.com/video/826656408" },
+{ title: "Episode 13", video: "https://player.vimeo.com/video/826781403" },
+{ title: "Episode 14", video: "https://player.vimeo.com/video/826786797" },
+
+{ title: "Episode 15", video: "https://drive.google.com/file/d/11gq8CLQ_X-iYJ1px_fdgMf6SeBe4l0YS/preview" },
+{ title: "Episode 16", video: "https://drive.google.com/file/d/1ms-JB_czA_PYqrHAv6SEcuVY3cOdNwhl/preview" },
+{ title: "Episode 17", video: "https://drive.google.com/file/d/1AKkr30R95E2VwN-fO2v2X4SaW-a-KiJV/preview" },
+{ title: "Episode 18", video: "https://drive.google.com/file/d/1tYCIViEJmAoDmYAqniWS3PRQqDdXbS6M/preview" },
+{ title: "Episode 19", video: "https://drive.google.com/file/d/19ZQVBKIApJ0IodLXQknDPwfiImlCQF9h/preview" },
+
+{ title: "Episode 20", video: "https://drive.google.com/file/d/13SOXGdd1Ch8-gZJyb-ZEOUrRywNsQQQz/preview" },
+{ title: "Episode 21", video: "https://drive.google.com/file/d/1TRS765kO97ch4AAMO6nYpBlrZ65aJNU8/preview" },
+{ title: "Episode 22", video: "https://drive.google.com/file/d/1UiOavBDr0snGDUsfrmmguKpSDkoDvOQm/preview" },
+{ title: "Episode 23", video: "https://drive.google.com/file/d/1z4LLPzYMvzn0q4dB5qjVXO2GCNq5i_mn/preview" },
+{ title: "Episode 24", video: "https://drive.google.com/file/d/1LNZgDPArflgWCZI-8l5w1QSQMrdhUOrv/preview" },
+
+{ title: "Episode 25", video: "https://drive.google.com/file/d/1PDQb92wzKeE3vItMLIMi9vXLnxrORNhO/preview" },
+{ title: "Episode 26", video: "https://drive.google.com/file/d/17uTkU1czK3ToaJ1r_tag5x-iF-N4ERfa/preview" },
+{ title: "Episode 27", video: "https://drive.google.com/file/d/1z0S7XsZ-D0hZFYVTME3Mt5dMaUZg4iou/preview" },
+{ title: "Episode 28", video: "https://drive.google.com/file/d/1n1M0SdJ8Uth2MQ3_YSf7hq6kAyx9QkU3/preview" },
+{ title: "Episode 29", video: "https://drive.google.com/file/d/1xDbAf-HBDuoBBqm08YGAtGaDgET1Vhby/preview" },
+
+{ title: "Episode 30", video: "https://drive.google.com/file/d/180yDpnKod7PEErB2Sv8s77DkY3Nsfyhp/preview" },
+{ title: "Episode 31", video: "https://drive.google.com/file/d/1LR8qptuQy6eETTAfa-GbH2CNOIsbP8ZB/preview" }
     ]
   }
 ];
