@@ -640,20 +640,31 @@ const MOVIES = [
     synopsis: "Libby McClean, a teenager who works as a salesgirl, must stop a pair of demonic jeans from killing the staff of a clothing store."
   },
       {
-    id: "kpopdh",
-    title: "KPOP Demon Hunters",
-    poster: "https://i.ibb.co/chjNSDcM/KPop-Demon-Hunters.jpg",
-    video: "https://www.youtube.com/embed/WtXTEOyfIDs",
+    id: "redsky",
+    title: "BLOOD RED SKY",
+    poster: "https://m.media-amazon.com/images/M/MV5BMDE2YWFjNTUtZjkxOC00NDRhLTlkNDYtYmI2ZGRlYjE4MDJkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    video: "https://vimeo.com/881233399",
     type: "premium",
-    year: "2025",
-    country: "Korea",
+    year: "2024",
+    country: "USA",
     duration: "1h 30m",
-    synopsis: "When K-pop superstars Rumi, Mira and Zoey aren't selling out stadiums or topping the Billboard charts, they're moonlighting as demon hunters to protect their fans from ever-present supernatural danger.."
+    synopsis: "When a group of terrorists hijacks an overnight transatlantic flight, a mysteriously ill woman must unleash a monstrous secret to protect her young son"
+  },
+        {
+    id: "redbloodsky",
+    title: "BLOOD RED SKY 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BMDE2YWFjNTUtZjkxOC00NDRhLTlkNDYtYmI2ZGRlYjE4MDJkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    video: "https://vimeo.com/881361105",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "When a group of terrorists hijacks an overnight transatlantic flight, a mysteriously ill woman must unleash a monstrous secret to protect her young son"
   },
      {
     id: "kpopdh",
     title: "KPOP Demon Hunters",
-    poster: "https://posterspy.com/wp-content/uploads/2025/08/KPop-Demon-Hunters.jpg,
+    poster: "https://i.ibb.co/chjNSDcM/KPop-Demon-Hunters.jpg",
     video: "https://drive.google.com/file/d/18vHBEBMZaRAwLuE1ScDzMufOHXD-0fa1/preview",
     type: "premium",
     year: "2025",
