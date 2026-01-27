@@ -45,8 +45,13 @@ body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16
 /* COMMENTS */
 #commentsSection{max-width:800px;margin:20px auto;background:#111;padding:16px;border-radius:12px}
 #commentsList div{margin-bottom:6px;padding:8px 10px;background:#222;border-radius:8px;position:relative}
-#commentInput,#usernameInput{width:100%;padding:8px;border-radius:6px;background:#000;color:#fff;border:none;margin-top:6px}
-#commentBtn{margin-top:6px;padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold}
+#commentInput,#usernameInput{
+  width:100%;padding:8px;border-radius:6px;background:#000;color:#fff;border:none;margin-top:6px
+}
+#commentBtn{
+  margin-top:6px;padding:8px 16px;border:none;border-radius:8px;
+  background:#e50914;color:#fff;font-weight:bold
+}
 #commentMsg{margin-top:6px;font-size:14px}
 </style>
 </head>
@@ -67,13 +72,16 @@ body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16
 <div class="details">
   <h1 id="title"></h1>
   <div class="meta" id="meta"></div>
+
   <button class="watch" id="watchBtn">▶ Watch Now</button>
   <button class="secondary" onclick="toggleEpisodes()">📺 Episodes</button>
+
   <p id="synopsis"></p>
   <div class="cast" id="cast"></div>
   <div class="episodes" id="episodeList" style="display:none"></div>
 </div>
 
+<!-- COMMENTS -->
 <div id="commentsSection">
   <h3>Comments</h3>
 
@@ -97,8 +105,11 @@ if(!serie) location.replace("series-list.html");
 title.textContent = serie.title;
 meta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
 synopsis.textContent = serie.synopsis || "";
+
 serie.cast?.forEach(c=>{
-  const s=document.createElement("span");s.textContent=c;cast.appendChild(s);
+  const s=document.createElement("span");
+  s.textContent=c;
+  cast.appendChild(s);
 });
 
 serie.episodes.forEach((ep,i)=>{
@@ -120,51 +131,69 @@ function playEpisode(i){
   idx=i;
   player.innerHTML=`<iframe src="${normalizeVideo(serie.episodes[i].video)}" allowfullscreen></iframe>`;
 }
+
 watchBtn.onclick=()=>playEpisode(0);
 prevBtn.onclick=()=>idx>0&&playEpisode(idx-1);
 nextBtn.onclick=()=>idx<serie.episodes.length-1&&playEpisode(idx+1);
-function toggleEpisodes(){episodeList.style.display=episodeList.style.display==="none"?"grid":"none"}
+function toggleEpisodes(){
+  episodeList.style.display = episodeList.style.display==="none"?"grid":"none";
+}
 
-// ===== COMMENTS (FIXED & HARDENED) =====
-const commentsRef = firebase.database().ref("comments/"+serie.id);
-const msg=document.getElementById("commentMsg");
+// ===== COMMENTS (FIXED PATH) =====
+const commentsRef = firebase.database().ref("comments/series/" + serie.id);
 
 const savedName = localStorage.getItem("username");
-if(savedName) usernameInput.value=savedName;
+if(savedName) usernameInput.value = savedName;
 
-commentBtn.onclick=()=>{
-  const name=usernameInput.value.trim();
-  const text=commentInput.value.trim();
+commentBtn.onclick = () => {
+  const name = usernameInput.value.trim();
+  const text = commentInput.value.trim();
 
-  if(name.length<2||name.length>20){
-    msg.style.color="#ffb400";
-    msg.textContent="Nickname must be 2–20 characters";
-    return;
-  }
-  if(text.length<2||text.length>300){
-    msg.style.color="#ffb400";
-    msg.textContent="Comment must be 2–300 characters";
+  if(name.length < 2 || name.length > 20){
+    commentMsg.style.color="#ffb400";
+    commentMsg.textContent="Nickname must be 2–20 characters";
     return;
   }
 
-  localStorage.setItem("username",name);
-  commentsRef.push({user:name,text,timestamp:Date.now()});
+  if(text.length < 2 || text.length > 300){
+    commentMsg.style.color="#ffb400";
+    commentMsg.textContent="Comment must be 2–300 characters";
+    return;
+  }
+
+  localStorage.setItem("username", name);
+
+  commentsRef.push({
+    user: name,
+    text: text,
+    timestamp: firebase.database.ServerValue.TIMESTAMP
+  });
+
   commentInput.value="";
-  msg.style.color="#00ff66";
-  msg.textContent="Comment posted";
+  commentMsg.style.color="#00ff66";
+  commentMsg.textContent="Comment posted";
 };
 
-commentsRef.on("value",snap=>{
+commentsRef.on("value", snap => {
   commentsList.innerHTML="";
   snap.forEach(c=>{
     const d=document.createElement("div");
     d.innerHTML=`<strong>${c.val().user}</strong>: ${c.val().text}`;
+
     if(localStorage.getItem("activePIN")==="Orion885"){
       const b=document.createElement("button");
       b.textContent="🗑";
-      b.style.position="absolute";b.style.right="8px";b.onclick=()=>c.ref.remove();
+      b.style.position="absolute";
+      b.style.right="8px";
+      b.style.top="6px";
+      b.style.background="#e50914";
+      b.style.color="#fff";
+      b.style.border="none";
+      b.style.borderRadius="6px";
+      b.onclick=()=>c.ref.remove();
       d.appendChild(b);
     }
+
     commentsList.prepend(d);
   });
 });
