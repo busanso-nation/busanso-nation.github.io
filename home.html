@@ -58,6 +58,7 @@ body{
 .card{
   min-width:160px;
   text-align:center;
+  position:relative;
 }
 .card img{
   width:100%;
@@ -95,7 +96,10 @@ body{
 .badge.premium{ background:#e50914; }
 
 /* LOCK */
-.locked{ filter:grayscale(1) brightness(.4); }
+.locked{
+  filter:grayscale(1) brightness(.4);
+  pointer-events:none; /* Entire card unclickable */
+}
 .lock-icon{
   position:absolute;
   inset:0;
@@ -103,6 +107,8 @@ body{
   align-items:center;
   justify-content:center;
   font-size:30px;
+  color:#fff;
+  pointer-events:none;
 }
 </style>
 </head>
@@ -110,7 +116,7 @@ body{
 <body>
 
 <div class="header">
-  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
   <h1>Busanso Nation</h1>
   <small>Movies & Series without stress</small>
 </div>
@@ -133,61 +139,47 @@ body{
 </div>
 
 <script>
-/* ===== PIN VALIDATION (USED ONLY FOR PREMIUM) ===== */
-const pin = localStorage.getItem("activePIN");
-const exp = Number(localStorage.getItem("pinExpiry"));
-const pinValid = !!(pin && exp && Date.now() < exp);
-
 /* ===== CARD CREATOR ===== */
 function createCard(item, contentType){
   const isPremium = item.type === "premium";
-  const isLocked = isPremium && !pinValid;
 
   const card = document.createElement("div");
-  card.className = "card";
+  card.className = "card " + (isPremium ? "locked" : "");
 
   card.innerHTML = `
     <div style="position:relative">
-      <img src="${item.poster}" class="${isLocked ? 'locked' : ''}">
+      <img src="${item.poster}" class="${isPremium ? 'locked' : ''}">
       <span class="badge ${isPremium ? 'premium' : ''}">
         ${isPremium ? 'PREMIUM' : 'FREE'}
       </span>
-      ${isLocked ? '<div class="lock-icon">🔒</div>' : ''}
+      ${isPremium ? '<div class="lock-icon">🔒</div>' : ''}
     </div>
-
     <div class="card-title">${item.title}</div>
-    <button class="watch-btn">
-      ${isLocked ? 'Pay to Watch' : 'Watch'}
-    </button>
+    <button class="watch-btn">${isPremium ? 'Pay to Watch' : 'Watch'}</button>
   `;
 
-  card.querySelector(".watch-btn").onclick = () => {
-    if(isLocked){
-      location.href = "packages.html";
-      return;
-    }
-
-    if(contentType === "movie"){
-      location.href = `movie.html?id=${item.id}`;
-    }else{
-      location.href = `serie.html?id=${item.id}`;
-    }
-  };
+  // Only attach click for free content
+  if(!isPremium){
+    card.querySelector(".watch-btn").onclick = () => {
+      if(contentType === "movie"){
+        location.href = `movie.html?id=${item.id}`;
+      }else{
+        location.href = `serie.html?id=${item.id}`;
+      }
+    };
+    card.style.cursor = "pointer";
+  }
 
   return card;
 }
 
 /* ===== RENDER MOVIES ===== */
 const moviesBox = document.getElementById("moviesBox");
-MOVIES.forEach(m=>{
-  moviesBox.appendChild(createCard(m,"movie"));
-});
+MOVIES.forEach(m=> moviesBox.appendChild(createCard(m,"movie")));
 
 /* ===== RENDER SERIES ===== */
 const seriesBox = document.getElementById("seriesBox");
-SERIES.forEach(s=>{
-  seriesBox.appendChild(createCard(s,"series"));
-});
+SERIES.forEach(s=> seriesBox.appendChild(createCard(s,"series")));
 </script>
 
 </body>
