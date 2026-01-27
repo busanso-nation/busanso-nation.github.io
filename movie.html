@@ -25,61 +25,22 @@ firebase.initializeApp(firebaseConfig);
 </script>
 
 <style>
-body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padding:16px; }
-.player { max-width:800px; margin:0 auto; }
-.player iframe { width:100%; height:56vw; max-height:450px; border:none; border-radius:10px; background:#000; }
-
-.details { max-width:800px; margin:16px auto; background:#111; padding:16px; border-radius:14px; }
-.meta { color:#aaa; font-size:14px; margin-bottom:8px; }
-
-.watch {
-  background:#e50914;
-  color:#fff;
-  font-size:20px;
-  padding:16px;
-  width:100%;
-  border:none;
-  border-radius:14px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-bottom:10px;
-}
-
-.share {
-  background:#222;
-  color:#fff;
-  font-size:16px;
-  padding:14px;
-  width:100%;
-  border:none;
-  border-radius:14px;
-  cursor:pointer;
-}
-
-.share-options {
-  display:none;
-  margin-top:10px;
-  gap:10px;
-}
-
-.share-options button {
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.whatsapp { background:#25D366; color:#000; }
-.imo { background:#00b2ff; color:#000; }
-.tiktok { background:#000; color:#fff; border:1px solid #333; }
-
-/* COMMENTS */
-#commentsSection { max-width:800px; margin:20px auto; background:#111; padding:16px; border-radius:14px; }
-#commentsList div { background:#222; padding:8px 10px; border-radius:8px; margin-bottom:6px; position:relative; }
-#usernameInput,#commentInput { width:100%; padding:8px; border-radius:6px; background:#111; color:#fff; border:none; margin-bottom:6px; }
-#commentBtn { padding:8px 16px; border:none; border-radius:8px; background:#e50914; color:#fff; font-weight:bold; cursor:pointer; }
+body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16px}
+.player{max-width:800px;margin:0 auto}
+.player iframe{width:100%;height:56vw;max-height:450px;border:none;border-radius:10px;background:#000}
+.details{max-width:800px;margin:16px auto;background:#111;padding:16px;border-radius:14px}
+.meta{color:#aaa;font-size:14px;margin-bottom:8px}
+.watch{background:#e50914;color:#fff;font-size:20px;padding:16px;width:100%;border:none;border-radius:14px;font-weight:bold;cursor:pointer;margin-bottom:10px}
+.share{background:#222;color:#fff;font-size:16px;padding:14px;width:100%;border:none;border-radius:14px;cursor:pointer}
+.share-options{display:none;margin-top:10px;gap:10px}
+.share-options button{flex:1;padding:12px;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
+.whatsapp{background:#25D366;color:#000}
+.imo{background:#00b2ff;color:#000}
+.tiktok{background:#000;color:#fff;border:1px solid #333}
+#commentsSection{max-width:800px;margin:20px auto;background:#111;padding:16px;border-radius:14px}
+#commentsList div{background:#222;padding:8px 10px;border-radius:8px;margin-bottom:6px;position:relative}
+#usernameInput,#commentInput{width:100%;padding:8px;border-radius:6px;background:#111;color:#fff;border:none;margin-bottom:6px}
+#commentBtn{padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold;cursor:pointer}
 </style>
 </head>
 
@@ -103,7 +64,6 @@ body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padd
   <p id="synopsis"></p>
 </div>
 
-<!-- COMMENTS -->
 <div id="commentsSection">
   <h3>Comments</h3>
   <input id="usernameInput" placeholder="Your nickname">
@@ -114,124 +74,123 @@ body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padd
 
 <script>
 // ===== LOAD MOVIE =====
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-const movie = MOVIES.find(m => m.id === id);
+var params = new URLSearchParams(location.search);
+var id = params.get("id");
+var movie = MOVIES.find(function(m){ return m.id === id; });
 if(!movie) location.replace("movies.html");
 
 title.textContent = movie.title;
-meta.textContent = `${movie.country} • ${movie.year}`;
+meta.textContent = movie.country + " • " + movie.year;
 synopsis.textContent = movie.synopsis || "";
 
-// ===== VIDEO NORMALIZATION =====
+// ===== VIDEO NORMALIZATION (YOUTUBE FIXED) =====
 function normalizeVideo(url){
   try{
     url = url.trim();
 
     if(url.includes("youtube.com") || url.includes("youtu.be")){
-      const id = url.includes("youtu.be")
-        ? url.split("/").pop()
-        : new URL(url).searchParams.get("v");
-      return `https://www.youtube.com/embed/${id}?rel=0`;
+      var videoId = "";
+
+      if(url.includes("youtu.be")){
+        videoId = url.split("youtu.be/")[1].split(/[?&]/)[0];
+      } 
+      else if(url.includes("/shorts/")){
+        videoId = url.split("/shorts/")[1].split(/[?&]/)[0];
+      }
+      else{
+        var u = new URL(url);
+        videoId = u.searchParams.get("v");
+      }
+
+      if(videoId){
+        return "https://www.youtube.com/embed/" + videoId + "?rel=0&modestbranding=1";
+      }
     }
 
     if(url.includes("vimeo.com")){
-      return `https://player.vimeo.com/video/${url.split("/").pop()}`;
+      return "https://player.vimeo.com/video/" + url.split("/").pop();
     }
 
     if(url.includes("/d/")){
-      const driveId = url.split("/d/")[1].split("/")[0];
-      return `https://drive.google.com/file/d/${driveId}/preview`;
+      var driveId = url.split("/d/")[1].split("/")[0];
+      return "https://drive.google.com/file/d/" + driveId + "/preview";
     }
 
     return url;
-  } catch {
+  }catch(e){
     return url;
   }
 }
 
-watchBtn.onclick = () => {
-  player.innerHTML = `<iframe src="${normalizeVideo(movie.video)}" allowfullscreen></iframe>`;
+watchBtn.onclick = function(){
+  player.innerHTML =
+    '<iframe src="' + normalizeVideo(movie.video) + '" allow="autoplay; fullscreen" allowfullscreen></iframe>';
 };
 
-// ===== SHARE LOGIC (FIXED URL) =====
-const shareBtn = document.getElementById("shareBtn");
-const shareOptions = document.getElementById("shareOptions");
+// ===== SHARE LOGIC (UNCHANGED) =====
+var SHARE_URL = "https://busanso-nation.github.io/home.html";
+var shareText =
+movie.title + "\n" +
+movie.country + " • " + movie.year + "\n\n" +
+movie.synopsis + "\n\nWatch on BUSANSO:\n" +
+SHARE_URL;
 
-const SHARE_URL = "https://busanso-nation.github.io/home.html";
-
-const shareText =
-`${movie.title}
-${movie.country} • ${movie.year}
-
-${movie.synopsis}
-
-Watch on BUSANSO:
-${SHARE_URL}`;
-
-shareBtn.onclick = () => {
+shareBtn.onclick = function(){
   shareOptions.style.display =
     shareOptions.style.display === "flex" ? "none" : "flex";
 };
 
-shareWhatsapp.onclick = () => {
-  window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`);
+shareWhatsapp.onclick = function(){
+  window.open("https://wa.me/?text=" + encodeURIComponent(shareText));
 };
 
-shareImo.onclick = () => {
-  window.open(`imo://chat?text=${encodeURIComponent(shareText)}`);
+shareImo.onclick = function(){
+  window.open("imo://chat?text=" + encodeURIComponent(shareText));
 };
 
-shareTiktok.onclick = () => {
+shareTiktok.onclick = function(){
   navigator.clipboard.writeText(shareText);
-  alert("Copied! Paste it on TikTok ✨");
+  alert("Copied! Paste it on TikTok");
 };
 
 // ===== COMMENTS (UNCHANGED) =====
-const commentsRef = firebase.database().ref("comments/movies/"+movie.id);
-const usernameInput = document.getElementById("usernameInput");
-const commentInput = document.getElementById("commentInput");
-const commentsList = document.getElementById("commentsList");
-
-const savedName = localStorage.getItem("username");
+var commentsRef = firebase.database().ref("comments/movies/" + movie.id);
+var savedName = localStorage.getItem("username");
 if(savedName) usernameInput.value = savedName;
 
-commentBtn.onclick = () => {
-  const user = usernameInput.value.trim().slice(0,20);
-  const text = commentInput.value.trim().slice(0,300);
+commentBtn.onclick = function(){
+  var user = usernameInput.value.trim().slice(0,20);
+  var text = commentInput.value.trim().slice(0,300);
   if(!user || !text) return;
 
   localStorage.setItem("username", user);
   commentsRef.push({
-    user,
-    text,
+    user:user,
+    text:text,
     timestamp: firebase.database.ServerValue.TIMESTAMP
   });
   commentInput.value = "";
 };
 
-commentsRef.limitToLast(100).on("value", snap => {
+commentsRef.limitToLast(100).on("value", function(snap){
   commentsList.innerHTML = "";
-  const arr = [];
-  snap.forEach(c => arr.push({...c.val(), ref:c.ref}));
-  arr.sort((a,b)=>b.timestamp-a.timestamp);
-  arr.forEach(c => {
-    const div = document.createElement("div");
-    div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
-    if(localStorage.getItem("activePIN")==="Orion196"){
-      const b = document.createElement("button");
+  var arr = [];
+  snap.forEach(function(c){
+    arr.push({data:c.val(), ref:c.ref});
+  });
+  arr.sort(function(a,b){
+    return b.data.timestamp - a.data.timestamp;
+  });
+  arr.forEach(function(c){
+    var div = document.createElement("div");
+    div.innerHTML = "<strong>" + c.data.user + "</strong>: " + c.data.text;
+    if(localStorage.getItem("activePIN") === "Orion196"){
+      var b = document.createElement("button");
       b.textContent = "🗑";
-      Object.assign(b.style,{
-        position:"absolute",
-        right:"6px",
-        top:"6px",
-        background:"#e50914",
-        color:"#fff",
-        border:"none",
-        borderRadius:"4px",
-        cursor:"pointer"
-      });
-      b.onclick = ()=>c.ref.remove();
+      b.style.position="absolute";
+      b.style.right="6px";
+      b.style.top="6px";
+      b.onclick=function(){ c.ref.remove(); };
       div.appendChild(b);
     }
     commentsList.appendChild(div);
