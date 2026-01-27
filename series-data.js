@@ -1128,6 +1128,65 @@ const SERIES = [
 
 { title: "Episode 30", video: "https://drive.google.com/file/d/180yDpnKod7PEErB2Sv8s77DkY3Nsfyhp/preview" },
 { title: "Episode 31", video: "https://drive.google.com/file/d/1LR8qptuQy6eETTAfa-GbH2CNOIsbP8ZB/preview" }
+       ]
+  },
+{
+    id: "forgottenarmy",
+    title: "FORGOTTEN ARMY",
+    poster: "https://m.media-amazon.com/images/M/MV5BYzMwZWIyYzAtMWFmNS00M2Y0LWFhNjUtMmQ4NDdhZDM1NmQxXkEyXkFqcGc@._V1_.jpg",
+    genre: "Action",
+    added: 30,
+    type: "premium",
+    country: "India",
+    year: "2024",
+    synopsis: "The story focuses on Indian soldiers who defected from the British Indian Army to join forces with the Japanese. It highlights their journey, sacrifices, and the formation of the first women’s infantry regiment",
+    cast: ["Sharvari","Sunny Kaushal","Karanvir Malhotra", "Akhil Iyer"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1bCy-GrUWIPQBU1dfdB_RK3xZrFCk2W9z/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/13hEiSkp6chd_cz_L1kPKmJkcf9uHWzWM/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1v3A1Y5y8yugyfNZ2ce3ZipWINqQAc4Y-/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1mE_17N_4KJsCTXJybS6QE1v5qpCCHIvZ/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1Y7uwaQp1YQB236n_sb6SfJoDdF7KHnPJ/preview" }
+       ]
+  },
+{
+    id: "lostroom",
+    title: "THE LOST ROOM",
+    poster: "https://resizing.flixster.com/vPOLLwqCcgq3LJQa-pzt5cJGwpU=/fit-in/705x460/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185441_i_v8_ab.jpg",
+    genre: "Action",
+    added: 31,
+    type: "premium",
+    country: "USA",
+    year: "2023",
+    synopsis: "The series revolves around the titular room and some of the everyday items from that room which possess unusual powers. The show's protagonist, Joe Miller, is searching for these objects to rescue his daughter, Anna, who has disappeared inside the Room",
+    cast: ["Elle Fanning","Peter Krause","Julianna Margulies", "Peter Jacobson"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/16tVOjL299EgcxEn5d1l49tNq1AbSnpgi/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/17DaMgbxbvNdlEOW7xvGsPUpc4PIzGaCA/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1OGDORjyNlQJvE0ysCIkfZ8hBhQlBaVUR/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/19WPie10IB2E2gCeqWxmx_ocOK1o8YNR9/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1wN8Yo8DbdSxS-zjmwP6L4-haeQGUVfoe/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/18Kw3I1R6ktVecQlDGtsOqGlgyHVSvVsz/preview" }
+      ]
+  },
+{
+    id: "72hours",
+    title: "72 HOURS",
+    poster: "https://i.ibb.co/pj86FDXg/3478.jpg",
+    genre: "Action",
+    added: 32,
+    type: "premium",
+    country: "Japan",
+    year: "2024",
+    synopsis: "After the launderer's daughter is kidnapped, he has 72 hours to turn himself in to a kingpin, forcing a tense, collaborative rescue mission",
+    cast: ["Laneya Grace","Max Amini","Jessica Serfaty", "Nicky Whelan"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/16tVOjL299EgcxEn5d1l49tNq1AbSnpgi/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/17DaMgbxbvNdlEOW7xvGsPUpc4PIzGaCA/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1OGDORjyNlQJvE0ysCIkfZ8hBhQlBaVUR/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/19WPie10IB2E2gCeqWxmx_ocOK1o8YNR9/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1wN8Yo8DbdSxS-zjmwP6L4-haeQGUVfoe/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/18Kw3I1R6ktVecQlDGtsOqGlgyHVSvVsz/preview" }
     ]
   }
 ];
