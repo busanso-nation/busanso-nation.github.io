@@ -917,7 +917,7 @@ const SERIES = [
 {
     id: "swornbrothers",
     title: "LEGEND OF SWORN BROTHERS",
-    poster: "https://i.ibb.co/Z2PZLRn/x-bridal-mask.jpg",
+    poster: "https://i.ibb.co/B6QXyVs/x-legend-of-sworn.jpg",
     genre: "Action",
     added: 24,
     type: "premium",
