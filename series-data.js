@@ -800,6 +800,14 @@ const SERIES = [
     cast: ["Zhang Ruoyun","Ding Xiao Ying","Hu Jun", "Gao Weiguang"],
     episodes: [
 { title: "Episode 1", video: "https://player.vimeo.com/video/781156369" }
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1e8CTyjSqW14B_-qID4lJgCDUGd_JSFhs/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/155OTzTUGOX7XQiX02s_AxEd5Fl4HldJO/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1ZEPxNzQtjyvkMWcRltki5h4FvHouqJox/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1ppq240eY5x4l4jM45WTosD2zrKaOC57h/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1x24Had_RTlHQ9KGkVJzBUqCCRQWiGOI3/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1jW0ZutMXaWXBrxqUxEwqJKTLDHxxJ9Xo/preview" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/1tdzOYCmMgTYqgducFALXCa1jhuvq9MlU/preview" },
+  { title: "Episode 9", video: "https://drive.google.com/file/d/1Oc47wgSXq7B1ck5Q0A_tHTG1V6YsJkO0/preview" },
 
 
     ]
