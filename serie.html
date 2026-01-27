@@ -29,24 +29,25 @@ body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padd
 .logo { text-align:center; margin-bottom:12px; }
 .logo img { max-height:50px; }
 .player { width:100%; max-width:800px; margin:0 auto; }
-.player iframe { width:100%; height:56vw; max-height:450px; border:none; }
+.player iframe { width:100%; height:56vw; max-height:500px; border:none; }
 .player-nav { max-width:800px; margin:10px auto; display:flex; gap:10px; }
-.player-nav button { flex:1; padding:10px; border:none; border-radius:8px; font-weight:bold; background:#222; color:#fff; cursor:pointer; }
+.player-nav button { flex:1; padding:14px; font-size:16px; border:none; border-radius:10px; font-weight:bold; background:#222; color:#fff; cursor:pointer; }
+.player-nav button:disabled { opacity:0.5; cursor:not-allowed; }
 .details { max-width:800px; margin:16px auto; padding:16px; background:#111; border-radius:12px; }
 .meta { color:#aaa; font-size:14px; margin-bottom:8px; }
-.actions button { width:100%; padding:12px; margin-top:8px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; }
+.actions button { width:100%; padding:16px; margin-top:12px; font-size:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
 .watch { background:#e50914; color:#fff; }
-.secondary { background:#222; color:#fff; margin-top:4px; }
+.secondary { background:#222; color:#fff; margin-top:8px; }
 .episodes { display:grid; gap:8px; margin-top:10px; }
-.episode { background:#181818; padding:10px; border-radius:8px; cursor:pointer; }
+.episode { background:#181818; padding:12px; border-radius:8px; cursor:pointer; }
 .episode.active { background:#e50914; font-weight:bold; }
 .cast span { background:#181818; padding:6px 10px; border-radius:20px; font-size:12px; margin:4px; display:inline-block; }
 
 /* COMMENTS */
 #commentsSection { max-width:800px; margin:20px auto; background:#111; padding:16px; border-radius:12px; }
-#commentsList div { margin-bottom:6px; padding:8px 10px; background:#222; border-radius:8px; position:relative; }
-#usernameInput, #commentInput { width:100%; padding:8px; border-radius:6px; background:#111; color:#fff; border:none; margin-top:6px; }
-#commentBtn { margin-top:6px; padding:8px 16px; border:none; border-radius:8px; background:#e50914; color:#fff; font-weight:bold; cursor:pointer; }
+#commentsList div { margin-bottom:6px; padding:8px 10px; background:#222; border-radius:8px; position:relative; word-wrap:break-word; }
+#usernameInput, #commentInput { width:100%; padding:10px; border-radius:6px; background:#111; color:#fff; border:none; margin-top:6px; }
+#commentBtn { margin-top:8px; padding:10px 18px; border:none; border-radius:8px; background:#e50914; color:#fff; font-weight:bold; cursor:pointer; font-size:15px; }
 #commentMsg { margin-top:6px; font-size:14px; }
 </style>
 </head>
@@ -84,7 +85,7 @@ body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padd
 </div>
 
 <script>
-// ===== SERIES DATA AND NAVIGATION =====
+// ===== SERIES DATA =====
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
 if(!id) location.replace("series-list.html");
@@ -92,14 +93,18 @@ if(!id) location.replace("series-list.html");
 const serie = SERIES.find(s => s.id === id);
 if(!serie) location.replace("series-list.html");
 
+// Populate info
 title.textContent = serie.title;
 meta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
 synopsis.textContent = serie.synopsis || "";
 serie.cast?.forEach(c => {
-  const s = document.createElement("span"); s.textContent = c; cast.appendChild(s);
+  const span = document.createElement("span");
+  span.textContent = c;
+  cast.appendChild(span);
 });
 
-serie.episodes.forEach((ep, i) => {
+// Populate episodes
+serie.episodes.forEach((ep,i) => {
   const div = document.createElement("div");
   div.className = "episode";
   div.textContent = `Episode ${i+1} • ${ep.title||""}`;
@@ -107,6 +112,7 @@ serie.episodes.forEach((ep, i) => {
   episodeList.appendChild(div);
 });
 
+// Normalize video URLs
 function normalizeVideo(u){
   try{
     if(u.includes("youtube")) return "https://www.youtube.com/embed/"+new URL(u).searchParams.get("v");
@@ -116,7 +122,7 @@ function normalizeVideo(u){
   }catch{return u;}
 }
 
-// ===== CONDITIONAL PIN CHECK FOR PREMIUM SERIES =====
+// ===== PIN CHECK FOR PREMIUM SERIES =====
 function checkPin() {
   if(serie.type === "premium") {
     const pin = localStorage.getItem("activePIN");
@@ -142,13 +148,17 @@ function playEpisode(i){
   nextBtn.disabled = i===serie.episodes.length-1;
   window.scrollTo({ top:0, behavior:"smooth" });
 }
+
 watchBtn.onclick = () => playEpisode(0);
 prevBtn.onclick = () => idx>0 && playEpisode(idx-1);
 nextBtn.onclick = () => idx<serie.episodes.length-1 && playEpisode(idx+1);
-function toggleEpisodes(){ episodeList.style.display = episodeList.style.display==="none" ? "grid" : "none"; }
+
+function toggleEpisodes(){ 
+  episodeList.style.display = episodeList.style.display==="none" ? "grid" : "none"; 
+}
 
 // ===== COMMENTS LOGIC =====
-const commentsRef = firebase.database().ref("comments/"+serie.id);
+const commentsRef = firebase.database().ref("comments/series/"+serie.id);
 const usernameInput = document.getElementById("usernameInput");
 const commentInput = document.getElementById("commentInput");
 const commentMsg = document.getElementById("commentMsg");
@@ -162,38 +172,37 @@ commentBtn.onclick = () => {
   const name = usernameInput.value.trim();
   const text = commentInput.value.trim();
 
-  // Validation and inline messages
   if(name.length < 2 || name.length > 20){
-    commentMsg.style.color = "#ffb400";
-    commentMsg.textContent = "Nickname must be 2–20 characters";
+    commentMsg.style.color="#ffb400";
+    commentMsg.textContent="Nickname must be 2–20 characters";
     return;
   }
   if(text.length < 2 || text.length > 300){
-    commentMsg.style.color = "#ffb400";
-    commentMsg.textContent = "Comment must be 2–300 characters";
+    commentMsg.style.color="#ffb400";
+    commentMsg.textContent="Comment must be 2–300 characters";
     return;
   }
 
   localStorage.setItem("username", name);
-  commentsRef.push({ user: name, text, timestamp: Date.now() });
-  commentInput.value = "";
-  commentMsg.style.color = "#00ff66";
-  commentMsg.textContent = "Comment posted";
+  commentsRef.push({ user:name, text, timestamp:Date.now() });
+  commentInput.value="";
+  commentMsg.style.color="#00ff66";
+  commentMsg.textContent="Comment posted";
 };
 
 // Display comments live
 commentsRef.on("value", snap => {
-  commentsList.innerHTML = "";
+  commentsList.innerHTML="";
   const commentsArray = [];
-  snap.forEach(c => commentsArray.push({ ...c.val(), ref: c.ref }));
+  snap.forEach(c => commentsArray.push({...c.val(), ref:c.ref}));
   commentsArray.sort((a,b) => b.timestamp - a.timestamp);
   commentsArray.forEach(c => {
     const div = document.createElement("div");
-    div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
-    if(localStorage.getItem("activePIN") === "Orion885"){
+    div.innerHTML=`<strong>${c.user}</strong>: ${c.text}`;
+    if(localStorage.getItem("activePIN")==="Orion885"){
       const b = document.createElement("button");
-      b.textContent = "🗑";
-      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none",borderRadius:"6px"});
+      b.textContent="🗑";
+      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none",borderRadius:"6px",padding:"2px 6px",cursor:"pointer"});
       b.onclick = () => c.ref.remove();
       div.appendChild(b);
     }
