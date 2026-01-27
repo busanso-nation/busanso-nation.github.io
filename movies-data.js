@@ -210,6 +210,28 @@ const MOVIES = [
     duration: "1h 35m",
     synopsis: "Hindi thriller following four friends—Dev, Devi, Gaurav, and Aditya—whose carefree lives are ruined when they encounter a corrupt, ruthless police officer, SHO Chautala. After an incident involving a local shopkeeper, the friends are blackmailed and framed, forcing them to fight against the system. ."
   },
+    {
+    id: "chattan11",
+    title: "CHATTAN",
+    poster: "https://bollyspice.com/wp-content/uploads/2018/07/Satyameva-Jayate.jpeg",
+    video: "https://drive.google.com/file/d/1AdYRASlD0LJQEAF-Wy1-5CZ692cVcWsP/view",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "Kabir Ahlawat, a quiet, reclusive pawn shop owner in Goa with a dark past as an undercover agent. When his young, neglected neighbor, Naomi, is kidnapped by a drug-and-organ-trafficking mafia, Kabir unleashes a violent, one-man army revenge spree to save her."
+  },
+      {
+    id: "chattan1221",
+    title: "CHATTAN 2",
+    poster: "https://bollyspice.com/wp-content/uploads/2018/07/Satyameva-Jayate.jpeg",
+    video: "https://drive.google.com/file/d/1P0ci6zuE9pwJUOgEkGkcDmKVSR8lGhMb/view",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "Kabir Ahlawat, a quiet, reclusive pawn shop owner in Goa with a dark past as an undercover agent. When his young, neglected neighbor, Naomi, is kidnapped by a drug-and-organ-trafficking mafia, Kabir unleashes a violent, one-man army revenge spree to save her."
+  },
      {
     id: "unstoppable",
     title: "UNSTOPABLE ROBOT",
