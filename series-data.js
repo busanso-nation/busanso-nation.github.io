@@ -713,6 +713,26 @@ const SERIES = [
 { title: "Episode 6", video: "https://drive.google.com/file/d/1o7ZFGT-9VBbWO_Q3Jl7goEKGsotq1Kd7/preview" },
 { title: "Episode 7", video: "https://drive.google.com/file/d/1P4SCMfFFHwy1S-Ia26vFH5Y6zjHscNTP/preview" },
 { title: "Episode 8", video: "https://drive.google.com/file/d/1WuG1fQ8s4Kt0mBaBw1UTx8ZWhl6c_CWC/preview" }
+      ]
+  },
+{
+    id: "drfan",
+    title: "DR. FAN",
+    poster: "https://i.ibb.co/fYRz70H2/Untitled-1-Recovered-Recovered.jpg",
+    genre: "Action",
+    added: 17,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: "It follows the eccentric, top forensic pathologist Qin Ming (Zhang Ruoyun), detective Lin Tao (Li Xian), and assistant Li Dabao (Jiao Junyan) as they solve bizarre, gruesome murder cases in Longfan",
+    cast: ["Zhang Ruoyun","Li Xian","Jiao Junyan", "Haofeng Cheng"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/124X8HBUdN4eQ7p9QsoiwgPCccfscFjKv/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1kL_PPzU8htapdo5DqxG6Yg0CLlGGbSwV/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1w7mxPRTzItJkQBg_FMX6Wl-0Z5P19Yk1/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1DkRp-njWuZ2swKcn84w2ui862tkd2L4T/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1afdCgG7WuzSSBuCYN97agVDCnHE8zNmZ/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1kpN6ur1wL6d_0a5dzmgFkLhECoy4Lr9u/preview" }
 
     ]
   }
