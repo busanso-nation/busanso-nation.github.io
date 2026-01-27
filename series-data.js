@@ -1014,6 +1014,70 @@ const SERIES = [
 { title: "Episode 20", video: "https://drive.google.com/file/d/1rVWNYWBr-JVgtWy8QFRdZaQHaaq7sUAn/preview" },
 { title: "Episode 21", video: "https://drive.google.com/file/d/14pUQVINgkvryswNZO9OncDq8kW93A1jt/preview" },
 { title: "Episode 22", video: "https://drive.google.com/file/d/1juasRnRORKxHPEOdb1K0FRz40v9BLVGA/preview" }
+      ]
+  },
+{
+    id: "squidgame",
+    title: "SQUID GAME season 1",
+    poster: "https://i.pinimg.com/236x/62/a7/94/62a794aea8294f1e73d87bc401471d6b.jpg",
+    genre: "Action",
+    added: 26,
+    type: "premium",
+    country: "Korea",
+    year: "2023",
+    synopsis: "Participants play6 children's games, such as Red Light, Green Light, where losing means immediate death. Over six days, Gi-hun forms alliances while surviving brutal eliminations to win, ultimately discovering the games are a sadistic spectacle for the wealthy, orchestrated by an elderly participant he befriended",
+    cast: ["Lee Byung-hun","T.O.P","Gong Yoo", "Park Gyu-young"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1JNh4fqFVCl4gyifrUk-DB7YKW7rsIgI3/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1f7RKHaVXuYIZ8g0lKrqQE1qI_XqmXXop/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1DPmohCXpCasABPG0W66cGx35LafqP575/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1u87w4VJgzARGHB2AXfz1WbW6ywlfQ1DT/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1mZQy5P1Dz5FfJ2nxViEsXvCocIqg5Y_j/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1t5VwSYf3Nfglny7gcaRUbYlKfmVCg6wR/preview" },
+{ title: "Episode 7", video: "https://drive.google.com/file/d/1if5KlYfpg6JxdoMiDZ5aUCPuaJKc0nq0/preview" },
+{ title: "Episode 8", video: "https://drive.google.com/file/d/1QPyfFHb1qs1p__cF6A_Co5qOcXfkuB8F/preview" },
+{ title: "Episode 9", video: "https://drive.google.com/file/d/1BtUt88535WD9mwEMmNQv2hnY-5ptPVrk/preview" }
+      ]
+  },
+{
+    id: "squidgame2",
+    title: "SQUID GAME season 2",
+    poster: "https://preview.redd.it/5kkbfyed1vu71.jpg?width=183&format=pjpg&auto=webp&s=2adc177fbb24ad5fae2687d0cda041e54d7e33ba",
+    genre: "Action",
+    added: 27,
+    type: "premium",
+    country: "Korea",
+    year: "2024",
+    synopsis: "Three years after winning the first game, Seong Gi-hun (Player 456) abandons his US plans to re-enter the deadly competition, aiming to destroy it from within He faces new, dangerous games alongside a new set of participants, while detective Hwang Jun-ho continues his hunt to expose the Front Man",
+    cast: ["Lee David","Roh Jae-won","Won Ji-an", "Yim Si-wan"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1yAKnR-xuykGj4h9VYoaQ_s2v4-gBmNSQ/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1IOu5_l3gp6IpfZbaGICfc5Lpia7FoHoT/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1jBMmmo-TJyAz1wV6YLXGk0sI8g_Wamib/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1Lq3GD8tDXddvWx1JSGKqiMGR76Is0pxK/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1wH-NPRMn0r6_TpytnlsnXeJmLiIzxL0X/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1nTYzsusz0p21_7XZXyDTZ6SQddck7xuA/preview" },
+{ title: "Episode 7", video: "https://drive.google.com/file/d/1QVS2AdAh9ecMEAEG8cjCG5_kgC9IL5ju/preview" }
+      ]
+  },
+{
+    id: "squidgame3",
+    title: "SQUID GAME season 3",
+    poster: "https://preview.redd.it/new-season-3-poster-v0-19egkvuyze2f1.png?auto=webp&s=2559c0eb18c33c98279d5c51efab28d6c2647453",
+    genre: "Action",
+    added: 28,
+    type: "premium",
+    country: "Korea",
+    year: "2025",
+    synopsis: "As the Front Man manages VIP pressure and a traitor, the final, intense games force, in a surprising turn, the survival of a baby, while highlighting themes of false choice and, according to some reports, ultimately seeing Gi-hun make a final sacrifice",
+    cast: ["Kang Ha-neul","Kang Ae-shim","Lee Jin-wook", "Park Sung-hoon"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1mSZtpdik-3A5tCM0YiMO47i0E1jxUHTZ/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1taEaj4tuuWE7O-KDhO3PMRSXTlKA2BQF/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/18agVsDLMnvkC8aa0L8n6qjhV6yxAOmkE/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1BNCeQgUiE2zujqbuKzceqx2P_5-lQI-7/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/16NP8j7yypVdvmmW1c7ONcXyvESQp3Jf5/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1LB51RrfYdP0FT6HL478WQsFVecMm3QrT/preview" }
     ]
   }
 ];
