@@ -78,9 +78,9 @@ body{
   border:none;
   border-radius:8px;
   font-weight:bold;
-  cursor:pointer;
   background:#e50914;
   color:#fff;
+  cursor:pointer;
 }
 
 /* BADGES */
@@ -95,25 +95,24 @@ body{
 }
 .badge.premium{ background:#e50914; }
 
-/* LOCK */
-.locked{
-  filter:grayscale(1) brightness(.4);
-  pointer-events:none; /* Entire card unclickable */
-}
-.lock-icon{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-  color:#fff;
-  pointer-events:none;
+/* Premium cards unclickable only */
+.card.premium .watch-btn{
+  cursor:default;
 }
 </style>
 </head>
 
 <body>
+
+<script>
+/* ===== PIN AUTO-REDIRECT ===== */
+const pin = localStorage.getItem("activePIN");
+const exp = Number(localStorage.getItem("pinExpiry"));
+
+if(pin && exp && Date.now() < exp){
+  window.location.replace("watch.html");
+}
+</script>
 
 <div class="header">
   <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
@@ -144,30 +143,27 @@ function createCard(item, contentType){
   const isPremium = item.type === "premium";
 
   const card = document.createElement("div");
-  card.className = "card " + (isPremium ? "locked" : "");
+  card.className = "card" + (isPremium ? " premium" : "");
 
   card.innerHTML = `
     <div style="position:relative">
-      <img src="${item.poster}" class="${isPremium ? 'locked' : ''}">
+      <img src="${item.poster}">
       <span class="badge ${isPremium ? 'premium' : ''}">
         ${isPremium ? 'PREMIUM' : 'FREE'}
       </span>
-      ${isPremium ? '<div class="lock-icon">🔒</div>' : ''}
     </div>
     <div class="card-title">${item.title}</div>
     <button class="watch-btn">${isPremium ? 'Pay to Watch' : 'Watch'}</button>
   `;
 
-  // Only attach click for free content
   if(!isPremium){
     card.querySelector(".watch-btn").onclick = () => {
       if(contentType === "movie"){
-        location.href = `movie.html?id=${item.id}`;
+        location.href = \`movie.html?id=\${item.id}\`;
       }else{
-        location.href = `serie.html?id=${item.id}`;
+        location.href = \`serie.html?id=\${item.id}\`;
       }
     };
-    card.style.cursor = "pointer";
   }
 
   return card;
@@ -175,11 +171,11 @@ function createCard(item, contentType){
 
 /* ===== RENDER MOVIES ===== */
 const moviesBox = document.getElementById("moviesBox");
-MOVIES.forEach(m=> moviesBox.appendChild(createCard(m,"movie")));
+MOVIES.forEach(m => moviesBox.appendChild(createCard(m,"movie")));
 
 /* ===== RENDER SERIES ===== */
 const seriesBox = document.getElementById("seriesBox");
-SERIES.forEach(s=> seriesBox.appendChild(createCard(s,"series")));
+SERIES.forEach(s => seriesBox.appendChild(createCard(s,"series")));
 </script>
 
 </body>
