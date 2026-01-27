@@ -47,8 +47,8 @@ body{
   gap:6px;
   box-shadow:0 6px 16px rgba(0,0,0,.4);
   transition:transform .2s ease, box-shadow .2s ease, opacity .2s;
+  cursor:pointer;
 }
-
 .btn:hover{
   transform:translateY(-2px);
   box-shadow:0 10px 24px rgba(0,0,0,.6);
@@ -90,14 +90,25 @@ body{
 /* CARD */
 .card{
   min-width:160px;
-  cursor:pointer;
   position:relative;
+  text-align:center;
 }
 .card img{
   width:100%;
   border-radius:10px;
 }
-.card span{ display:block; text-align:center; margin-top:6px; font-size:14px; font-weight:600; }
+.card span{ display:block; margin-top:6px; font-size:14px; font-weight:600; }
+.card .watch-btn{
+  margin-top:6px;
+  padding:8px 12px;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  width:100%;
+  background:#e50914;
+  color:#fff;
+}
 
 /* BADGES */
 .badge{
@@ -114,7 +125,6 @@ body{
 /* LOCKED */
 .locked{
   filter:grayscale(1) brightness(.45);
-  pointer-events:none;
 }
 .lock-icon{
   position:absolute;
@@ -161,7 +171,6 @@ body{
 </div>
 
 <script>
-/* ===== PIN CHECK ===== */
 const pin = localStorage.getItem("activePIN");
 const exp = localStorage.getItem("pinExpiry");
 const pinValid = pin && exp && Date.now() < Number(exp);
@@ -170,7 +179,7 @@ const pinValid = pin && exp && Date.now() < Number(exp);
 const latestMovies = [...MOVIES].sort((a,b)=>b.added - a.added);
 const latestSeries = [...SERIES].sort((a,b)=>b.added - a.added);
 
-/* ===== MOVING CAROUSEL (MIXED CONTENT) ===== */
+/* MOVING CAROUSEL */
 const carousel = document.getElementById("carouselTrack");
 const mixed = [...latestMovies.slice(0,6), ...latestSeries.slice(0,6)];
 [...mixed, ...mixed].forEach(item=>{
@@ -179,50 +188,47 @@ const mixed = [...latestMovies.slice(0,6), ...latestSeries.slice(0,6)];
   carousel.appendChild(img);
 });
 
-/* ===== MOVIE CARDS ===== */
-const movieBox=document.getElementById("moviesBox");
-latestMovies.forEach(m=>{
-  const d=document.createElement("div");
-  d.className="card";
-  d.innerHTML=`
+/* HELPER FUNCTION TO CREATE CARDS */
+function createCard(item, type){
+  const card = document.createElement("div");
+  card.className = "card";
+  
+  const locked = item.type === "premium" && !pinValid;
+  const watchLabel = locked ? "Pay to Watch" : "Watch";
+
+  card.innerHTML = `
     <div style="position:relative">
-      <img src="${m.poster}" class="${m.type==='premium'&&!pinValid?'locked':''}">
-      <span class="badge ${m.type==='premium'?'premium':''}">${m.type==='premium'?'PREMIUM':'FREE'}</span>
-      ${m.type==='premium'&&!pinValid?'<div class="lock-icon">🔒</div>':''}
+      <img src="${item.poster}" class="${locked?'locked':''}">
+      <span class="badge ${item.type==='premium'?'premium':''}">${item.type==='premium'?'PREMIUM':'FREE'}</span>
+      ${locked?'<div class="lock-icon">🔒</div>':''}
     </div>
-    <span>${m.title}</span>
+    <span>${item.title}</span>
+    <button class="watch-btn">${watchLabel}</button>
   `;
-  d.onclick=()=>{
-    if(m.type==="free" || pinValid){
-      location.href=`movie.html?id=${m.id}`;
-    }else{
-      location.href="packages.html";
+
+  const btn = card.querySelector(".watch-btn");
+  btn.onclick = () => {
+    if(locked){
+      location.href = "packages.html";
+    } else {
+      if(type==="movie") location.href = `movie.html?id=${item.id}`;
+      if(type==="series") location.href = `serie.html?id=${item.id}`;
     }
   };
-  movieBox.appendChild(d);
+
+  return card;
+}
+
+/* MOVIE CARDS */
+const movieBox = document.getElementById("moviesBox");
+latestMovies.forEach(m=>{
+  movieBox.appendChild(createCard(m, "movie"));
 });
 
-/* ===== SERIES CARDS ===== */
-const seriesBox=document.getElementById("seriesBox");
+/* SERIES CARDS */
+const seriesBox = document.getElementById("seriesBox");
 latestSeries.forEach(s=>{
-  const d=document.createElement("div");
-  d.className="card";
-  d.innerHTML=`
-    <div style="position:relative">
-      <img src="${s.poster}" class="${s.type==='premium'&&!pinValid?'locked':''}">
-      <span class="badge ${s.type==='premium'?'premium':''}">${s.type==='premium'?'PREMIUM':'FREE'}</span>
-      ${s.type==='premium'&&!pinValid?'<div class="lock-icon">🔒</div>':''}
-    </div>
-    <span>${s.title}</span>
-  `;
-  d.onclick=()=>{
-    if(s.type==="free" || pinValid){
-      location.href=`serie.html?id=${s.id}`;
-    }else{
-      location.href="packages.html";
-    }
-  };
-  seriesBox.appendChild(d);
+  seriesBox.appendChild(createCard(s, "series"));
 });
 </script>
 
