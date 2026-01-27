@@ -33,6 +33,28 @@ const MOVIES = [
     duration: "1h 05m",
     synopsis: "A group of college students face a tragedic semister when they enter a weird professor's house "
   },  
+    {
+    id: "high11",
+    title: "HIGH",
+    poster: "https://i.ibb.co/8nBd8jMb/Untitled-1-Recovered-Recovered-Recovered.jpg",
+    video: "https://www.youtube.com/embed/TUCxNR97Grs",
+    type: "free",
+    year: "2026",
+    country: "USA",
+    duration: "1h 05m",
+    synopsis: " This is a tense, vertigo-inducing survival thriller where best friends Becky and Hunter get trapped 2,000 feet up on an abandoned radio tower in the Mojave Desert. After the ladder breaks, they must endure extreme dehydration, vultures, and dwindling supplies to surviv "
+  },  
+   {
+    id: "high12",
+    title: "HIGH 2",
+    poster: "https://i.ibb.co/8nBd8jMb/Untitled-1-Recovered-Recovered-Recovered.jpg",
+    video: "https://www.youtube.com/embed/1pFTyO1zLHk",
+    type: "premium",
+    year: "2026",
+    country: "USA",
+    duration: "1h 05m",
+    synopsis: " This is a tense, vertigo-inducing survival thriller where best friends Becky and Hunter get trapped 2,000 feet up on an abandoned radio tower in the Mojave Desert. After the ladder breaks, they must endure extreme dehydration, vultures, and dwindling supplies to surviv "
+  },  
        {
     id: "sankat2",
     title: "SANKAT 2",
