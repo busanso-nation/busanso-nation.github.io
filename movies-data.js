@@ -15,7 +15,7 @@ const MOVIES = [
     title: "JOHN SNIPER 2",
     poster: "https://i.ibb.co/Q7vBC05R/nbvvf.jpg",
     video: "https://www.youtube.com/embed/I-oTe4htS6A",
-    type: "free",
+    type: "premium",
     year: "2026",
     country: "India",
     duration: "1h 05m",
