@@ -1,6 +1,7 @@
-/* DOES NOT TOUCH FIREBASE */
-const KIBANDA_PINS = {
-  "KBD67": true,
-  "2027": true,
-  "KBD-1003": true
+// KIBANDA USERS
+// username: { pin: "PINCODE" }
+const KIBANDA_USERS = {
+  "jojo": { pin: "ASTRA123" },
+  "desiree": { pin: "LUNA509" },
+  "elias": { pin: "VEGA920" }
 };
