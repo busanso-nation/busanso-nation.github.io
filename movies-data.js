@@ -1,5 +1,28 @@
 const MOVIES = [
+   {
+    id: "josniper",
+    title: "JOHN SNIPER",
+    poster: "https://i.ibb.co/ynnpd3s4/urwjkjjd.jpg",
+    video: "https://www.youtube.com/embed/EgchGwvEUEY",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1h 05m",
+    synopsis: "John, an assassin, is filled with remorse after killing a family and decides to mend his ways. However, when his wife is kidnapped, he is forced to return to the criminal world one last time."
+  },
+   {
+    id: "josnipe22r",
+    title: "JOHN SNIPER 2",
+    poster: "https://i.ibb.co/Q7vBC05R/nbvvf.jpg",
+    video: "https://www.youtube.com/embed/I-oTe4htS6A",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1h 05m",
+    synopsis: "John, an assassin, is filled with remorse after killing a family and decides to mend his ways. However, when his wife is kidnapped, he is forced to return to the criminal world one last time."
+  },
   {
+  
     id: "thesoft",
     title: "The SOFT and the SOLID",
     poster: "https://i.ibb.co/XfPD63kq/Untitled-1.jpg",
