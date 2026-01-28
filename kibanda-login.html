@@ -50,7 +50,7 @@ button:hover{background:#22c55e;}
 <body>
 
 <div class="card">
-  <h2>Kibanda Access</h2>
+  <h2>Login Kibanda</h2>
   <input id="username" placeholder="Enter Kibanda name">
   <input id="pin" placeholder="Enter Password">
   <button onclick="login()">Enter</button>
@@ -101,7 +101,7 @@ function login(){
   localStorage.setItem("kibandaActiveUser", username);
 
   msg.style.color = "#00ff66";
-  msg.textContent = "Access granted! Redirecting…";
+  msg.textContent = "Password ekoze, oyingide mukibanda…";
 
   setTimeout(()=>{ location.href = "kibanda.html"; }, 1000);
 }
