@@ -1223,6 +1223,264 @@ const SERIES = [
 { title: "Episode 16", video: "https://drive.google.com/file/d/1bU2YSBJ0gOdB9rxcly3D2Ona9JTRtMXS/preview" },
 { title: "Episode 17", video: "https://drive.google.com/file/d/18GlSOIPgF-Nz-2vKQPnj7-9PXVomoK3A/preview" },
 { title: "Episode 18", video: "https://drive.google.com/file/d/1f_lIAMrqmo1jedrjXrQfWeSF05lpbm29/preview" }
+      ]
+  },
+{
+    id: "chroniclesofnarnia",
+    title: "CHRONICLES OF NARNIA",
+    poster: "https://media.services.cinergy.ch/media/box1600/d1fe87a31a11caddf04e636872bceb152ef31eed.jpg",
+    genre: "Adventure",
+    added: 34,
+    type: "premium",
+    country: "USA",
+    year: "2023",
+    synopsis: "Children from our world (often the Pevensie siblings: Peter, Susan, Edmund, and Lucy) enter Narnia to help defend it against evil forces, such as the White Witch",
+    cast: ["Georgie Henley","Skandar Keynes","Liam Neeson", "Tilda Swinton"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1m5weLsODb-TK1JVgLKHE3G6iHMjhkVqD/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1V7RHUdy1JBSvTkYt5rsCDz7SfE9Ai9Co/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1w2hLAjeYVOev9OgdhitfADZC38z5Yhrc/preview" },
+{ title: "Episode 4", video: "https://player.vimeo.com/video/862221160" },
+{ title: "Episode 5", video: "https://player.vimeo.com/video/862218647" }
+      ]
+  },
+{
+    id: "lordoftherings",
+    title: "LORD OF THE RINGS",
+    poster: "https://i.ibb.co/T4X1yNC/x-lord-of-rings.jpg",
+    genre: "Adventure",
+    added: 35,
+    type: "premium",
+    country: "USA",
+    year: "2023",
+    synopsis: "The fellowship breaks after Boromir’s death and an Orc attack. Frodo and Sam continue to Mordor, aided by the treacherous Gollum. Meanwhile, Aragorn, Legolas, and Gimli help Rohan defend against the corrupted wizard Saruman at Helm's Deep",
+    cast: ["Ian McKellen","Cate Blanchett","Hugo Weaving", "Orlando Bloom"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1qOMqq1jULoSCxGpA5EztRQjqh752Nw5Y/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1h0DUmNnIbbGf4wovOBN-L50YlPCaiRcr/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1SZRHH7TfsyhToacC-4YSGfik7hHIrw73/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1nX9yuawck_cG5WXl6i-lwR4bCEqkb3tc/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1VwipHwjAuyMIqiskteWZK3x4-sYVC2sj/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1zV1kQUFloKQ0bbb2MRaXVc7CxsWq98E_/preview" }
+      ]
+  },
+{
+    id: "troy",
+    title: "TROY",
+    poster: "https://i.ibb.co/8mbVz9g/x-troy.jpg",
+    genre: "Adventure",
+    added: 36,
+    type: "premium",
+    country: "USA",
+    year: "2023",
+    synopsis: "The film begins with Agamemnon, king of Mycenae, having subdued all the Greek kingdoms except Thessaly. The two sides have summoned armies to meet on the field of battle, but Agamemnon proposes single combat between two champions. The king of Thessaly summons Boagrius, while Agamemnon summons Achilles. Although Achilles is unwilling to fight for Agamemnon, Nestor persuades him to do so, saying he can save hundreds of men by fighting Boagrius. Achilles kills Boagrius and Agamemnon gains dominion over Thessaly",
+    cast: ["Brad Pitt","Eric Bana","Diane Kruger", "Orlando Bloom"],
+    episodes: [
+{ title: "Episode 1", video: "https://player.vimeo.com/video/820053836" },
+{ title: "Episode 2", video: "https://player.vimeo.com/video/820414673" },
+{ title: "Episode 3", video: "https://player.vimeo.com/video/821969100" }
+      ]
+  },
+{
+    id: "marasli",
+    title: "MARASLI",
+    poster: "https://i.ibb.co/YBQsFLPs/Untitled-1.jpg",
+    genre: "Drama",
+    added: 37,
+    type: "premium",
+    country: "Turky",
+    year: "2019",
+    synopsis: "Marasli used to be a sergeant at special forces. His life changes drastically all of a sudden when her daughter is shot at the concert hall 2 years ago. After that tragedy, his daughter never speaks. Thus, Marasli quits his job to take care of her daughter",
+    cast: ["Burak Deniz","Alina Boz","Saygın Soysal", "Melis İşiten"],
+    episodes: [
+{
+    title: "Episode 1",
+    video: "https://drive.google.com/file/d/1Kq6BkJyCCRAXcuXJWxgObcGt96J-9xQg/preview"
+  },
+  {
+    title: "Episode 2",
+    video: "https://drive.google.com/file/d/14_hDYYJqK8VILkO78jlhiRXsmh6wpHSW/preview"
+  },
+  {
+    title: "Episode 3",
+    video: "https://drive.google.com/file/d/1YdIeTj4vnZhNGaQ8zd3W6UiVY05e3t2o/preview"
+  },
+  {
+    title: "Episode 4",
+    video: "https://drive.google.com/file/d/1FYkki4ND8CFxicHDnNuPIqeE0yVQxtXJ/preview"
+  },
+  {
+    title: "Episode 5",
+    video: "https://drive.google.com/file/d/1zK5dtzM73i35TtY5QDxh_uE3PP9GqFbb/preview"
+  },
+  {
+    title: "Episode 6",
+    video: "https://drive.google.com/file/d/1IsexiAp_CJ7IbstsK_LKI-P3xEr7Ly_B/preview"
+  },
+  {
+    title: "Episode 7",
+    video: "https://drive.google.com/file/d/1WcRL2XbPYsWslilrIW9pY-iWqgnfKbl-/preview"
+  },
+  {
+    title: "Episode 8",
+    video: "https://drive.google.com/file/d/1lgsoU_vxhKsnMZqtCdo6BLebmGovUS3F/preview"
+  },
+  {
+    title: "Episode 9",
+    video: "https://drive.google.com/file/d/1Y4wXTqXvemDcTTjuBcmdceKSaN3O-yU5/preview"
+  },
+  {
+    title: "Episode 10",
+    video: "https://player.vimeo.com/video/749082636"
+  },
+  {
+    title: "Episode 11",
+    video: "https://player.vimeo.com/video/752408623"
+  },
+      {
+  title: "Episode 12",
+  video: "https://player.vimeo.com/video/753702116"
+},
+{
+  title: "Episode 13",
+  video: "https://player.vimeo.com/video/753707273"
+},
+{
+  title: "Episode 14",
+  video: "https://player.vimeo.com/video/756018614"
+},
+{
+  title: "Episode 15",
+  video: "https://player.vimeo.com/video/756018989"
+},
+{
+  title: "Episode 16",
+  video: "https://drive.google.com/file/d/1i0vgOWnCOAu6yL7JAnvh6F00j0PSPlEd/preview"
+},
+{
+  title: "Episode 17",
+  video: "https://drive.google.com/file/d/1Jov6MmRX3uN9ab22ZjzKmcaFeDWvrOZn/preview"
+},
+{
+  title: "Episode 18",
+  video: "https://drive.google.com/file/d/1qeYP5K-aJoYOo45FATh4GvZuUew0t4rO/preview"
+},
+{
+  title: "Episode 19",
+  video: "https://drive.google.com/file/d/1VcyfzY26aJRlDojYdeG63npwmmx4P0VW/preview"
+},
+{
+  title: "Episode 20",
+  video: "https://drive.google.com/file/d/1IYbmPXlxV1Ujn6T9DuknuyvzLUKFV1qc/preview"
+},
+{
+  title: "Episode 21",
+  video: "https://drive.google.com/file/d/1VKb5KwQO6aPcEoeo1WeyLMxCI1_fwFd5/preview"
+},
+{
+  title: "Episode 22",
+  video: "https://drive.google.com/file/d/1k7CuEM5vfpu421Orlg1jSDDKanaKbNuM/preview"
+},
+      {
+  title: "Episode 24",
+  video: "https://drive.google.com/file/d/1MbcTLqoakNowy9ZQlMQLFKk6KYYcqI23/preview"
+},
+{
+  title: "Episode 25",
+  video: "https://drive.google.com/file/d/1s7LE-Ny5Vk6K3ar7I2SVAcIv-Zuz9aPw/preview"
+},
+{
+  title: "Episode 26",
+  video: "https://drive.google.com/file/d/188BPJPXLitS7TyiY-kfF4GhiIs_ItQB8/preview"
+},
+{
+  title: "Episode 28",
+  video: "https://drive.google.com/file/d/1P3TAa39_riQSBKqPBT-6y75jxWTXBG9U/preview"
+},
+{
+  title: "Episode 29",
+  video: "https://drive.google.com/file/d/1SdVODDaTh6jMdAlXEaOhQ4ui217cXp6Y/preview"
+},
+{
+  title: "Episode 30",
+  video: "https://drive.google.com/file/d/13o5nDyl7zv9jrleHyTMWVnbhKuq_rk7E/preview"
+},
+{
+  title: "Episode 31",
+  video: "https://drive.google.com/file/d/1ZAc7Q-rHccRRBC27AyoaAEYCaFMbdNeR/preview"
+},
+{
+  title: "Episode 32",
+  video: "https://drive.google.com/file/d/1Btq6mp6i0Xl-qWpUefJKNrzMVrgtYs0J/preview"
+},
+{
+  title: "Episode 33",
+  video: "https://player.vimeo.com/video/786475091"
+},
+      {
+  title: "Episode 34",
+  video: "https://drive.google.com/file/d/1L2Y9ETsa8Ql-jvCVeW6xHnrEM8YWWJIe/preview"
+},
+{
+  title: "Episode 35",
+  video: "https://drive.google.com/file/d/17yhid96u0uTXJmfidECcBVfSjbhix-El/preview"
+},
+{
+  title: "Episode 36",
+  video: "https://drive.google.com/file/d/1jrpsd77Ckzlfi7s1Nq-GmOW3f1i6GqMb/preview"
+},
+{
+  title: "Episode 37",
+  video: "https://drive.google.com/file/d/1haDEGEhI4YJUCRb3JdDngFK8am94_HfV/preview"
+},
+{
+  title: "Episode 39",
+  video: "https://drive.google.com/file/d/1q1lYI_aMlqpgDYjlahFSKdHNw1y4_Kr8/preview"
+},
+{
+  title: "Episode 40",
+  video: "https://drive.google.com/file/d/1pbdsn0mQs_wHmrBln2-WqIl7k6Xgf4HB/preview"
+},
+{
+  title: "Episode 41",
+  video: "https://drive.google.com/file/d/17mVbyIuwibAmrYcLinGe-j3_2-ykwmIP/preview"
+},
+{
+  title: "Episode 42",
+  video: "https://drive.google.com/file/d/1xBdumsw_4bYwx0vDVVb4vc48BvEGug4O/preview"
+},
+{
+  title: "Episode 43",
+  video: "https://drive.google.com/file/d/1E6PYIP73LSKmKF-j1SrzBP2sfGnzzNu3/preview"
+},
+{
+  title: "Episode 44",
+  video: "https://drive.google.com/file/d/1VP7xwo4wFINRT7I7ZAWcCqaaOLhOPxqP/preview"
+},
+{
+  title: "Episode 45",
+  video: "https://player.vimeo.com/video/792500450"
+},
+{
+  title: "Episode 46",
+  video: "https://player.vimeo.com/video/793579384"
+},
+{
+  title: "Episode 47",
+  video: "https://drive.google.com/file/d/12fi_xEgXXvBUyALLePMIlqHwxr4gZxwm/preview"
+},
+{
+  title: "Episode 48",
+  video: "https://drive.google.com/file/d/1ADbQBijkd_tbL5Zj_gWRDHOTs8gl7zZe/preview"
+},
+{
+  title: "Episode 49",
+  video: "https://drive.google.com/file/d/1wM7pvn9RGcv2nsMUWzlCissuwC4XH7ov/preview"
+},
+{
+  title: "Episode 50",
+  video: "https://drive.google.com/file/d/1NF0itb4la-YLZgoLlXGyjP_M9CMtL-FZ/preview"
+}
     ]
   }
 ];
