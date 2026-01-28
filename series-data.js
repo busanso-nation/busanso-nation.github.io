@@ -1196,7 +1196,7 @@ const SERIES = [
 {
     id: "gatesofkungfu",
     title: "GATES OF KUNGFU",
-    poster: "https://i.ibb.co/pj86FDXg/3478.jpg",
+    poster: "https://i.ibb.co/7srPSy2/GATES-NEW.jpg",
     genre: "Action",
     added: 33,
     type: "premium",
