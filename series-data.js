@@ -1181,12 +1181,16 @@ const SERIES = [
     synopsis: "After the launderer's daughter is kidnapped, he has 72 hours to turn himself in to a kingpin, forcing a tense, collaborative rescue mission",
     cast: ["Laneya Grace","Max Amini","Jessica Serfaty", "Nicky Whelan"],
     episodes: [
-{ title: "Episode 1", video: "https://drive.google.com/file/d/16tVOjL299EgcxEn5d1l49tNq1AbSnpgi/preview" },
-{ title: "Episode 2", video: "https://drive.google.com/file/d/17DaMgbxbvNdlEOW7xvGsPUpc4PIzGaCA/preview" },
-{ title: "Episode 3", video: "https://drive.google.com/file/d/1OGDORjyNlQJvE0ysCIkfZ8hBhQlBaVUR/preview" },
-{ title: "Episode 4", video: "https://drive.google.com/file/d/19WPie10IB2E2gCeqWxmx_ocOK1o8YNR9/preview" },
-{ title: "Episode 5", video: "https://drive.google.com/file/d/1wN8Yo8DbdSxS-zjmwP6L4-haeQGUVfoe/preview" },
-{ title: "Episode 6", video: "https://drive.google.com/file/d/18Kw3I1R6ktVecQlDGtsOqGlgyHVSvVsz/preview" }
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1v12rSh2hNu6oqB093yYGm0a2mG_IHQjh/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1z21RKQof181cKaNK1DRv1Uz2vPBwHsPn/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1eKR8bPzjl-Mbhowl6142iKshawaQUej3/preview" },
+{ title: "Episode 4", video: "https://player.vimeo.com/video/892131331" },
+{ title: "Episode 5", video: "https://player.vimeo.com/video/892131481" },
+{ title: "Episode 6", video: "https://player.vimeo.com/video/892836374" },
+{ title: "Episode 7", video: "https://player.vimeo.com/video/892835925" },
+{ title: "Episode 8", video: "https://player.vimeo.com/video/892837023" },
+{ title: "Episode 9", video: "https://player.vimeo.com/video/892836817" },
+{ title: "Episode 10", video: "https://player.vimeo.com/video/892836927" }
     ]
   }
 ];
