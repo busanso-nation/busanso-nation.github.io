@@ -56,6 +56,17 @@ const MOVIES = [
     duration: "1h 05m",
     synopsis: "A group of college students face a tragedic semister when they enter a weird professor's house "
   },  
+      {
+    id: "sankat2",
+    title: "SANKAT 2",
+    poster: "https://upload.wikimedia.org/wikipedia/hi/b/b9/%E0%A4%95%E0%A5%81%E0%A4%9B_%E0%A4%A4%E0%A5%8B_%E0%A4%B9%E0%A5%88.jpg",
+    video: "https://drive.google.com/file/d/1XYpU_XPn-GWQBXBIG52UMq2uHRgCP_lD/preview",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "what happens next when A group of college students face a tragedic semister when they enter a weird professor's house "
+  },
     {
     id: "high11",
     title: "HIGH",
@@ -78,17 +89,7 @@ const MOVIES = [
     duration: "1h 05m",
     synopsis: " This is a tense, vertigo-inducing survival thriller where best friends Becky and Hunter get trapped 2,000 feet up on an abandoned radio tower in the Mojave Desert. After the ladder breaks, they must endure extreme dehydration, vultures, and dwindling supplies to surviv "
   },  
-       {
-    id: "sankat2",
-    title: "SANKAT 2",
-    poster: "https://upload.wikimedia.org/wikipedia/hi/b/b9/%E0%A4%95%E0%A5%81%E0%A4%9B_%E0%A4%A4%E0%A5%8B_%E0%A4%B9%E0%A5%88.jpg",
-    video: "https://drive.google.com/file/d/1XYpU_XPn-GWQBXBIG52UMq2uHRgCP_lD/preview",
-    type: "premium",
-    year: "2026",
-    country: "India",
-    duration: "1h 15m",
-    synopsis: "what happens next when A group of college students face a tragedic semister when they enter a weird professor's house "
-  },
+    
   {
     id: "kanor1",
     title: "KANOR",
@@ -102,7 +103,7 @@ const MOVIES = [
   }, 
     {
     id: "kanor2",
-    title: "KANOR",
+    title: "KANOR 2",
     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMJaDNTnLw5P20536cEoRL77HFeQ4dAlm2zQ&s",
     video: "https://www.youtube.com/embed/kZJHntZJKoI",
     type: "premium",
@@ -188,6 +189,17 @@ const MOVIES = [
     duration: "1h 20m",
     synopsis: "A handsome Prince from the Qin dynasty travels into the future, and meets a bossy girl. the two madly fall in love"
   },  
+           {
+    id: "nullaba",
+    title: "NULLARBAOR",
+    poster: "https://m.media-amazon.com/images/M/MV5BOTNmZTViM2QtNzQ0Mi00NGY5LWE0OWItODRhOGU1MmQ1YzY0XkEyXkFqcGc@._V1_.jpg",
+    video: "https://vimeo.com/834799721",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "20m",
+    synopsis: "Animated comedy about two travelers with clashing personalities stuck in the Australian Outback. When one drivers need for a cigarette sparks a surreal, chaotic chain of events, the pair must navigate their differences, resulting in a humorous, visually distinct journey across the desert. "
+  }, 
              {
     id: "400",
     title: "400 BULLETS",
@@ -355,6 +367,17 @@ const MOVIES = [
     synopsis: "When Jason Stantham appears, what do you expect? Super action blockbuster movie"
   },
              {
+    id: "wwohelpmates",
+    title: "HELPMATES",
+    poster: "https://i.ibb.co/8LLdzQky/images-9.jpg",
+    video: "https://drive.google.com/file/d/1r_PP1d7TAdqhmIeJtyz9jJ9vtdDUfO6x/preview",
+    type: "free",
+    year: "2019",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "A special forces soldier, known for his marksmanship, must battle a group of foreign mercenaries hired to slay him by a drug lord"
+  },
+   {
     id: "wwowo",
     title: "WOLF WORRIOR",
     poster: "https://i.ibb.co/j9bnDgPG/images-5.jpg",
