@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Kibanda Access</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="kibanda-pins.js"></script>
-
 <style>
 body{
   background:#0b0b0b;
   color:#fff;
-  font-family:Arial;
+  font-family:Arial, sans-serif;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
+  margin:0;
 }
 .card{
   background:#1a1a1a;
@@ -27,7 +27,7 @@ body{
 input{
   width:90%;
   padding:12px;
-  margin:14px 0;
+  margin:12px 0;
   border-radius:6px;
   border:none;
   background:#222;
@@ -41,16 +41,18 @@ button{
   border:none;
   border-radius:6px;
   font-weight:bold;
+  cursor:pointer;
 }
+button:hover{background:#22c55e;}
 .msg{margin-top:10px;font-size:14px;color:#ff4d4d;}
 </style>
 </head>
-
 <body>
 
 <div class="card">
-  <h2>Kibanda PIN</h2>
-  <input id="pin" placeholder="Enter Kibanda Password">
+  <h2>Kibanda Access</h2>
+  <input id="username" placeholder="Enter Kibanda name">
+  <input id="pin" placeholder="Enter Password">
   <button onclick="login()">Enter</button>
   <div class="msg" id="msg"></div>
 </div>
@@ -60,38 +62,50 @@ const EXPIRY_DAYS = 30;
 const EXPIRY_TIME = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
 
 function login(){
-  const pin = pinInput.value.trim();
+  const username = document.getElementById("username").value.trim().toLowerCase();
+  const pin = document.getElementById("pin").value.trim();
+  const msg = document.getElementById("msg");
+
   msg.textContent = "";
 
-  if(!KIBANDA_PINS[pin]){
-    msg.textContent = "Invalid Kibanda PIN";
+  if(!username || !pin){
+    msg.textContent = "Kibanda name and Password are required";
+    return;
+  }
+
+  if(!KIBANDA_PINS[username] || KIBANDA_PINS[username] !== pin){
+    msg.textContent = "Invalid Kibanda name or Password";
     return;
   }
 
   const now = Date.now();
-  const storedPin = localStorage.getItem("kibandaPIN");
-  const activatedAt = localStorage.getItem("kibandaActivatedAt");
+  const storedPin = localStorage.getItem("kibandaPIN_" + username);
+  const activatedAt = localStorage.getItem("kibandaActivatedAt_" + username);
 
-  // If same PIN already activated
+  // Expiry check
   if(storedPin === pin && activatedAt){
     if(now - activatedAt > EXPIRY_TIME){
-      msg.textContent = "This Kibanda PIN has expired";
-      localStorage.removeItem("kibandaPIN");
-      localStorage.removeItem("kibandaActivatedAt");
+      msg.textContent = "This Kibanda Password has expired";
+      localStorage.removeItem("kibandaPIN_" + username);
+      localStorage.removeItem("kibandaActivatedAt_" + username);
       return;
     }
   }
 
   // First activation
   if(!activatedAt || storedPin !== pin){
-    localStorage.setItem("kibandaPIN", pin);
-    localStorage.setItem("kibandaActivatedAt", now);
+    localStorage.setItem("kibandaPIN_" + username, pin);
+    localStorage.setItem("kibandaActivatedAt_" + username, now);
   }
 
-  location.href = "kibanda.html";
+  localStorage.setItem("kibandaActiveUser", username);
+
+  msg.style.color = "#00ff66";
+  msg.textContent = "Access granted! Redirecting…";
+
+  setTimeout(()=>{ location.href = "kibanda.html"; }, 1000);
 }
 </script>
-
 
 </body>
 </html>
