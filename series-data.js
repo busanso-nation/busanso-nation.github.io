@@ -1191,6 +1191,38 @@ const SERIES = [
 { title: "Episode 8", video: "https://player.vimeo.com/video/892837023" },
 { title: "Episode 9", video: "https://player.vimeo.com/video/892836817" },
 { title: "Episode 10", video: "https://player.vimeo.com/video/892836927" }
+      ]
+  },
+{
+    id: "gatesofkungfu",
+    title: "GATES OF KUNGFU",
+    poster: "https://i.ibb.co/pj86FDXg/3478.jpg",
+    genre: "Action",
+    added: 33,
+    type: "premium",
+    country: "Chine",
+    year: "2024",
+    synopsis: "They hatch a plot to use a blind dancer named Mei (Zhang Ziyi)—suspected of being the former leader's daughter—to find the group's headquarters",
+    cast: ["Zhang Ziyi","Takeshi Kaneshiro","Hongfei Zhao", "Song Dandan"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1qGN4cwgPtksp1Gib8aPUqlqO1KbSFcNO/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1dtMa5ldquZstzySg_40qY4E9QgP6dyxR/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1o1bnlNM-omlYIXzT_IBQp2MblFbBmiBs/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/19hwm84-uMQzu77UA-EfUbUGqgSC0jbAr/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1bysey3XXUX3x7MxVATUpbNJdjkkZyle1/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1ZzTfe7O7XsTv2CUuKyWdS73x0E4sGw1T/preview" },
+{ title: "Episode 7", video: "https://drive.google.com/file/d/1WCdL2Igl2zwUkD-Yh-sRHF0HeFdiNCWH/preview" },
+{ title: "Episode 8", video: "https://drive.google.com/file/d/115gDIbKgd1gaVTSI4I-AKMP6FKgbXxQE/preview" },
+{ title: "Episode 9", video: "https://drive.google.com/file/d/16mlWlD4DGuIwonD4tYvfeXK1RbwSbG8N/preview" },
+{ title: "Episode 10", video: "https://drive.google.com/file/d/1cBj6eEXblOG8Aohi4tXRPli8LKP56VqV/preview" },
+{ title: "Episode 11", video: "https://drive.google.com/file/d/1_DfGZ4dmmMKfl7QVa5AWOfu2gRk5OEdZ/preview" },
+{ title: "Episode 12", video: "https://drive.google.com/file/d/1hHIJJn7fUEDZLA1pd0ni42aHwqlTW_Kd/preview" },
+{ title: "Episode 13", video: "https://drive.google.com/file/d/1EvHLqbboSBlkPSTr62KSEO9-FdebxipE/preview" },
+{ title: "Episode 14", video: "https://drive.google.com/file/d/1Zgl7vHcbswGCFisTFut7jzXJ9COJjAZV/preview" },
+{ title: "Episode 15", video: "https://drive.google.com/file/d/1PEeovrEbsMucerbXxPyOLav1OG8MxRpX/preview" },
+{ title: "Episode 16", video: "https://drive.google.com/file/d/1bU2YSBJ0gOdB9rxcly3D2Ona9JTRtMXS/preview" },
+{ title: "Episode 17", video: "https://drive.google.com/file/d/18GlSOIPgF-Nz-2vKQPnj7-9PXVomoK3A/preview" },
+{ title: "Episode 18", video: "https://drive.google.com/file/d/1f_lIAMrqmo1jedrjXrQfWeSF05lpbm29/preview" }
     ]
   }
 ];
