@@ -56,16 +56,42 @@ button{
 </div>
 
 <script>
+const EXPIRY_DAYS = 30;
+const EXPIRY_TIME = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
+
 function login(){
   const pin = pinInput.value.trim();
+  msg.textContent = "";
+
   if(!KIBANDA_PINS[pin]){
-    msg.textContent="Invalid Kibanda Password";
+    msg.textContent = "Invalid Kibanda PIN";
     return;
   }
-  localStorage.setItem("kibandaPIN", pin);
-  location.href="kibanda.html";
+
+  const now = Date.now();
+  const storedPin = localStorage.getItem("kibandaPIN");
+  const activatedAt = localStorage.getItem("kibandaActivatedAt");
+
+  // If same PIN already activated
+  if(storedPin === pin && activatedAt){
+    if(now - activatedAt > EXPIRY_TIME){
+      msg.textContent = "This Kibanda PIN has expired";
+      localStorage.removeItem("kibandaPIN");
+      localStorage.removeItem("kibandaActivatedAt");
+      return;
+    }
+  }
+
+  // First activation
+  if(!activatedAt || storedPin !== pin){
+    localStorage.setItem("kibandaPIN", pin);
+    localStorage.setItem("kibandaActivatedAt", now);
+  }
+
+  location.href = "kibanda.html";
 }
 </script>
+
 
 </body>
 </html>
