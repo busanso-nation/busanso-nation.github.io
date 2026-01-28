@@ -1566,8 +1566,8 @@ const SERIES = [
     type: "premium",
     country: "Chine",
     year: "2024",
-    synopsis: "Yun Xiang, a disciple of Yuntai, entered the world to exact revenge for his massacred family after fifteen years of cultivation. Though lacking any martial arts skills, but having an incredible intelligence about him, while traveling Yun Xiang made several friends who shared his aura of intrigue and mystique. Shu Ya Nan, an orphan taken in by Yun Xiang's master, possessed amazing martial art skills but also had many secrets she was hiding, Jin Biao was a master swordsman with a sense of his own justice, and Su Ming Yu, who hid his skills and due to his travels, possessed an uncanny ability to understand almost every martial art skill and name as well as its weakness",
-    cast: ["Chen Xiao","Lingyue Xu","Liu Guanlin", "Qin Lan"],
+    synopsis: "A modern businessman travels back to ancient times; he lands in the body of a man about to be married as a matrilocal husband into a family of cloth merchants. He then begins incorporating modern methods and ideals to help his friends and battle corrupt local businesses. Ultimately he becomes involved in the affairs of the country",
+    cast: ["Song Yi","Liu Guanlin","Guo Qilin", "Zhang Ruoyun"],
     episodes: [
 {title:"Episode 1",video:"https://drive.google.com/file/d/1c_eifDK2mMqWnd2WI4Aiv2gOslRpHSer/preview"},
 {title:"Episode 2",video:"https://player.vimeo.com/video/827890726"},
@@ -1616,8 +1616,8 @@ const SERIES = [
     type: "premium",
     country: "Chine",
     year: "2024",
-    synopsis: "Yun Xiang, a disciple of Yuntai, entered the world to exact revenge for his massacred family after fifteen years of cultivation. Though lacking any martial arts skills, but having an incredible intelligence about him, while traveling Yun Xiang made several friends who shared his aura of intrigue and mystique. Shu Ya Nan, an orphan taken in by Yun Xiang's master, possessed amazing martial art skills but also had many secrets she was hiding, Jin Biao was a master swordsman with a sense of his own justice, and Su Ming Yu, who hid his skills and due to his travels, possessed an uncanny ability to understand almost every martial art skill and name as well as its weakness",
-    cast: ["Chen Xiao","Lingyue Xu","Liu Guanlin", "Qin Lan"],
+    synopsis: "The chapter is considered a foundational text in understanding Yangist thought, focusing on a life-cherishing philosophy that combines physical and psychological satisfaction",
+    cast: ["Xiao Zhan","Zhang Jingyi","Zhou Qi", "Huang Jue"],
     episodes: [
 {title:"Episode 1",video:"https://drive.google.com/file/d/1Xa58esrjAtrAV-M5IAtrW53ba3NQCoJE/preview"},
 {title:"Episode 2",video:"https://drive.google.com/file/d/1Vj_TH8gOQOL9lSL8s-D-Lh-mFvCDApK6/preview"},
