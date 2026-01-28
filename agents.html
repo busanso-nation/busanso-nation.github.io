@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Busanso Agents</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    color: #111;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background: #ff7a18;
+    color: #fff;
+    text-align: center;
+    padding: 25px 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  .agent-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 25px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .agent-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  .agent-number {
+    background: #ff7a18;
+    color: #fff;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+
+  .agent-header {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .agent-address {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.4;
+  }
+
+  footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 500px) {
+    .agent-header { font-size: 1rem; }
+    .agent-address { font-size: 0.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>Busanso Movie Agents</header>
+
+<div class="container">
+
+  <div class="agent-card">
+    <div class="agent-header">
+      <div class="agent-number">1</div>
+      EK MUSIC
+    </div>
+    <div class="agent-address">
+      Located in Kanyanya, after Gaz Petrol Station.
+    </div>
+  </div>
+
+  <div class="agent-card">
+    <div class="agent-header">
+      <div class="agent-number">2</div>
+      NICK MOVIE WORLD
+    </div>
+    <div class="agent-address">
+      Located in Mayangayanga, a few kilometers off Nakifuma Town.
+    </div>
+  </div>
+
+  <div class="agent-card">
+    <div class="agent-header">
+      <div class="agent-number">3</div>
+      NASAJI MOVIE LIBRARY
+    </div>
+    <div class="agent-address">
+      Located in Kayunga Town, after Atlanta Hotel.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  &copy; 2026 Busanso Nation. All rights reserved.
+</footer>
+
+</body>
+</html>
