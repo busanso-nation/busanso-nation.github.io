@@ -33,6 +33,17 @@ const MOVIES = [
     duration: "1h 45m",
     synopsis: "Bangkok-based Johnny engages in a treachery that his employer, Ramona, witnesses. She blackmails him into killing a girl, Tanya, but suddenly something unexpected happens."
   },
+       {
+    id: "orion1",
+    title: "ORION AND THE DARK",
+    poster: "https://i.ibb.co/Wvkwcgvz/FB-IMG-1751553903898.jpg",
+    video: "https://drive.google.com/file/d/1l-X93mrCwSiE4Zvs2S6_jMHtgGyWSbI1/preview",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 15m",
+    synopsis: " deeply anxious 11-year-old boy paralyzed by fears—including bees, heights, and the dark—who is visited by the literal, gentle embodiment of dark. Dark takes him on a worldwide, magical journey to prove that nighttime is not to be feared, introducing him to other entities like Sleep, Quiet, and Insomnia. The story is revealed to be a tale told by an adult Orion to his daughter, ultimately focusing on conquering anxiety and embracing life"
+  },
      {
     id: "jurassicrebirth",
     title: "JURRASIC WORLD Rebirth",
