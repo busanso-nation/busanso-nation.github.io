@@ -33,6 +33,28 @@ const MOVIES = [
     duration: "1h 45m",
     synopsis: "Bangkok-based Johnny engages in a treachery that his employer, Ramona, witnesses. She blackmails him into killing a girl, Tanya, but suddenly something unexpected happens."
   },
+     {
+    id: "jurassicrebirth",
+    title: "JURRASIC WORLD Rebirth",
+    poster: "https://i.ibb.co/Wvkwcgvz/FB-IMG-1751553903898.jpg",
+    video: "https://drive.google.com/file/d/1SFy7HCO52Qe1d5pl8PpjdGqmLrpcB37r/preview",
+    type: "premium",
+    year: "2026",
+    country: "USA",
+    duration: "1h 15m",
+    synopsis: " The team seeks a revolutionary drug to cure diseases, but finds the dinosaurs have mutated and a sinister secret is hidden in the ruins of an old, abandoned research facility. ."
+  },
+        {
+    id: "jurassicrebirth",
+    title: "JURRASIC WORLD Rebirth 2",
+    poster: "https://i.ibb.co/Wvkwcgvz/FB-IMG-1751553903898.jpg",
+    video: "https://drive.google.com/file/d/1-n6aSvRil0N0bNCawGJ01n0aTyRyR7TV/preview",
+    type: "premium",
+    year: "2026",
+    country: "USA",
+    duration: "1h 05m",
+    synopsis: " The team seeks a revolutionary drug to cure diseases, but finds the dinosaurs have mutated and a sinister secret is hidden in the ruins of an old, abandoned research facility. ."
+  },
     {
     id: "underdtree",
     title: "UNDER THE TREE",
@@ -66,6 +88,28 @@ const MOVIES = [
     country: "India",
     duration: "1h 15m",
     synopsis: "what happens next when A group of college students face a tragedic semister when they enter a weird professor's house "
+  },
+        {
+    id: "the1field",
+    title: "THE FIELD",
+    poster: "https://stat5.bollywoodhungama.in/wp-content/uploads/2022/10/Crakk-2.jpg1_-306x393.jpg",
+    video: "https://www.youtube.com/embed/-D63zpPOlB0",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "A man journeys from the slums of Mumbai to the world of underground extreme sports, as he attempts to make his mark on the outlaw competition Maidaan and discover what happened to his brother"
+  },
+       {
+    id: "the1field22",
+    title: "THE FIELD 2",
+    poster: "https://stat5.bollywoodhungama.in/wp-content/uploads/2022/10/Crakk-2.jpg1_-306x393.jpg",
+    video: "https://www.youtube.com/embed/P15TKnlrj7c",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "A man journeys from the slums of Mumbai to the world of underground extreme sports, as he attempts to make his mark on the outlaw competition Maidaan and discover what happened to his brother"
   },
     {
     id: "high11",
