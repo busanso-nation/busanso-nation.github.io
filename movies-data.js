@@ -311,6 +311,28 @@ const MOVIES = [
     duration: "1h 55m",
     synopsis: " Hindi-language emotional thriller directed by the late Rajesh Pillai, featuring an ensemble cast led by Manoj Bajpayee, Jimmy Sheirgill, Prosenjit Chatterjee, and Divya Dutta. It is a remake of the 2011 Malayalam film of the same name and is inspired by a real-life incident in Chennai where a heart was transported for a transplant."
   },
+     {
+    id: "jonq",
+    title: "JOHN Q",
+    poster: "https://m.media-amazon.com/images/M/MV5BNjE1ZGEyN2EtYjQ1Ni00MjllLWE0N2UtYTNiMzAxMmI0M2ExXkEyXkFqcGc@._V1_.jpg",
+    video: "https://vimeo.com/879119161",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "John Q is an emotional thriller starring Denzel Washington as John Q. Archibald, a desperate father who takes a hospital emergency room hostage when his insurance refuses to cover his nine-year-old son's life-saving heart transplant. Driven by love and systemic injustice, he forces the staff to treat his son, highlighting flaws in the US healthcare system"
+  },
+        {
+    id: "jon2q",
+    title: "JOHN Q 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BNjE1ZGEyN2EtYjQ1Ni00MjllLWE0N2UtYTNiMzAxMmI0M2ExXkEyXkFqcGc@._V1_.jpg",
+    video: "https://vimeo.com/879124429",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "John Q is an emotional thriller starring Denzel Washington as John Q. Archibald, a desperate father who takes a hospital emergency room hostage when his insurance refuses to cover his nine-year-old son's life-saving heart transplant. Driven by love and systemic injustice, he forces the staff to treat his son, highlighting flaws in the US healthcare system"
+  },
   {
     id: "titanic",
     title: "TITANIC",
