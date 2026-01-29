@@ -1,57 +1,2131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kibanda</title>
-<style>
-body { font-family: Arial; background:#111; color:#fff; margin:0; padding:20px; }
-h1 { text-align:center; margin-bottom:20px; }
-.grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:15px; }
-.card { background:#1a1a1a; padding:15px; border-radius:8px; text-align:center; }
-.card img { max-width:100%; border-radius:6px; }
-button { margin-top:10px; padding:8px 15px; border:none; border-radius:6px; background:#ff7a18; cursor:pointer; color:#fff; font-weight:bold; }
-button:hover { background:#ffb400; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universal Movie & Series Player</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Top Controls */
+    .controls {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-btn {
+      background: #444;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .filter-btn.active {
+      background: #e50914;
+    }
+
+    #searchBar {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    /* Video Player */
+    #videoPlayer {
+      display: none;
+      margin: 0 auto 30px auto;
+      max-width: 900px;
+    }
+
+    #videoPlayer iframe {
+      width: 100%;
+      height: 500px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    /* Grid - Force 2 per row */
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .movie-card {
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      padding-bottom: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.03);
+    }
+
+    .movie-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .movie-card h3 {
+      margin: 10px 0 5px;
+    }
+
+    .movie-card p {
+      font-size: 0.9rem;
+      color: #aaa;
+      padding: 0 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 12px;
+      margin: 8px 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: white;
+    }
+
+    .btn-preview { background: #e50914; }
+    .btn-download { background: #444; }
+    .btn-episodes { background: #0077cc; }
+
+    .episodes {
+      background: #333;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 6px;
+      display: none;
+      text-align: left;
+    }
+
+    .episode {
+      margin: 5px 0;
+      padding: 5px;
+      background: #222;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Kibanda Series & Movies</h1>
-<div class="grid" id="contentGrid"></div>
+  <h3> Movies & Series by King VJ</h3>
 
-<script src="kibanda-pins.js"></script>
-<script>
-// Redirect if no active user
-const activeUser = localStorage.getItem("kibandaActiveUser");
-const activatedAt = localStorage.getItem("kibandaActivatedAt_" + activeUser);
-const EXPIRY_TIME = 30*24*60*60*1000;
+  <!-- Filter Buttons + Search -->
+  <div class="controls">
+    <button class="filter-btn active" onclick="filterItems('all', this)">All</button>
+    <button class="filter-btn" onclick="filterItems('movie', this)">Movies</button>
+    <button class="filter-btn" onclick="filterItems('series', this)">Series</button>
+    <br>
+    <input type="text" id="searchBar" placeholder="🔍 Search by title..." onkeyup="searchItems()">
+  </div>
 
-if(!activeUser || !activatedAt || (Date.now() - activatedAt > EXPIRY_TIME)){
-  alert("Access denied or expired. Login first.");
-  localStorage.removeItem("kibandaActiveUser");
-  window.location.href = "kibanda-login.html";
-}
+  <!-- Player -->
+  <div id="videoPlayer"></div>
 
-// Sample content
-const contentList = [
-  { title:"Movie 1", img:"https://via.placeholder.com/200x300?text=Movie+1", url:"https://www.example.com/video1.mp4" },
-  { title:"Movie 2", img:"https://via.placeholder.com/200x300?text=Movie+2", url:"https://www.example.com/video2.mp4" },
-  { title:"Series 1", img:"https://via.placeholder.com/200x300?text=Series+1", url:"https://www.example.com/series1.mp4" },
-  { title:"Series 2", img:"https://via.placeholder.com/200x300?text=Series+2", url:"https://www.example.com/series2.mp4" }
-];
+  <!-- Movie posters -->
+  <div class="movie-grid" id="movieGrid"></div>
 
-const grid = document.getElementById("contentGrid");
+  <script>
+    const movies = [
 
-contentList.forEach(item => {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <img src="${item.img}" alt="${item.title}">
-    <h3>${item.title}</h3>
-    <a href="${item.url}" download><button>Download</button></a>
-  `;
-  grid.appendChild(card);
-});
-</script>
+         {
+                                                                    type: "series",
+        title: "SANKAT",
+        poster: "https://m.media-amazon.com/images/M/MV5BODcwODE4N2UtMTUyNS00NmE1LWE3MmItYTM4M2JmNGZjNDg5XkEyXkFqcGc@._V1_.jpg",
+        description: "2026 India Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1A4UJn5OgPowpBPpJlZH6_g1Uk-UGgJrr/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1XYpU_XPn-GWQBXBIG52UMq2uHRgCP_lD/view" },
+
+]
+          },
+     {
+                                                           type: "series",
+        title: "THE PICK UP",
+        poster: "https://upload.wikimedia.org/wikipedia/en/d/d8/The_Pickup_2025_poster.jpg",
+        description: "2026 U S A Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/16HV04cwCCsGbkhrJIATzHb_CKIw4bU6f/view" },
+
+]
+          },
+     {
+        
+                                                  type: "series",
+        title: "HOTEL RWANDA",
+        poster: "https://m.media-amazon.com/images/I/61jbFFhqOvL.jpg",
+        description: "2026 U S A Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1BYv48hR77jxOHvZWjuHKlc7OH5lIN1kr/view" },
+
+]
+          },
+     {
+        
+ 
+
+                       type: "series",
+        title: "BOB",
+        poster: "https://i.ibb.co/wZLWXscX/Untitled-1.jpg",
+        description: "2026 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/15TOiFNFoEWGAVoGp_ruUIa9NQ6TX5jE-/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1J-xjvKCz4OmyXi9UUj6vpgwbea3zulnE/view" },
+
+
+]
+          },
+     {
+  
+
+  
+                                                                          type: "series",
+        title: "LEGEND OF TIANLAN",
+        poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
+        description: "2026 Chine kasanso",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1qMspvObA0iOZrvk0nuixV9OsMAgZ8qbU/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1pJZeXqt9xA9Y1DGHQPgDk9aJHJzdoYIy/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1T3_JrFVVvp5PVyorrCHmji-RLMOkMWHm/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1gpA0FTnfQDntecvt0w8e1eUPqKCfbHEe/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1HEMsJolh-rHHpHZQq__mZu_xSdRImmr6/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1prnCWLTeyiPYra9STaEqXd_7iJzI3DVe/preview" },
+
+]
+          },
+     {
+  
+                                                                 type: "series",
+        title: "SPARTACUS HOUSE OF ASHUR",
+        poster: "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p30748471_b_v13_ac.jpg",
+        description: "2026 Action Adventure",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1h3ZX-xolsi2sbS3GZc4UqNOhZLBeMMK2/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1eNw09UOxdxksgrv70rH_0L3JrGx4x34R/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1trUrYKA1d_42Yz4LpWXSbuTuwcVxT6Z1/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1ny14W-WqThR0Gkm97V1X7ZCvdhJQ7dbs/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1eVDBuaemkfDIe34V0vjIPvetrw9AUmgg/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1eQo-qvWuD6OLeqdaVR7FdTBW9u_QMg6C/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1MVDAjXAQ1IeG-cj--rXQE9ISDUQc-jxz/view" },
+
+]
+          },
+     {
+
+          type: "series",
+        title: "HOT BLOODED",
+        poster: "https://i.pinimg.com/originals/d6/89/82/d689823b1efd1b8be8e1880aaa859eb5.jpg",
+        description: "2025 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1Irwrf-euIJEtmW5sqdjHWpy2xqdGshOe/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1LAEU9x8W3AtGx7FL5nPQ8O4uovgzjgdX/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1SeURoe8lTGnvEcIT152QBARIIEYALIYn/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1Pcvq3QWDfV2bc4QdG-zyKOESGYAeDllq/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1CvQSgtE0ceZdlS8inNXO2bIgeu5aWlTz/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1W10S256gnVrJMAPE33rldU9OkksRfnd-/view" },
+
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1OYIe8Dfyp2GGtFULt1Ad0PC0WaIq_3-Z/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1ZZa-MeIn78gEajUBM6f0nfnzFdL28TuN/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1HaMR1Utz4IdpDffVYQDDFm89mlKAv60T/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1n17ohs6WeIPB_PpayWPiuA1uhx-orZpy/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1j3ejskhv6Hz51_OLGVo4ecF5ZCbc1ozT/view" },
+
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1SOcAooskpIK2538MA9GL7OaEGr2pcGnO/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1-hbW7mYDo6rQKXnMeupETRjoxrd-9m84/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/1KF72-NDNMw7n5FdyMkNNAkEQ8iNxSDQN/view" },
+{ title: "Episode 15", url: "https://drive.google.com/file/d/1rUrbve1W8Qn4zs1g-2WhvXUxNKCcQP7z/view" },
+{ title: "Episode 16", url: "https://drive.google.com/file/d/1JtNw4CzLBzLTa6AIenyuFgheFZR5mw-P/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/1aBPZ_QnAl-bhBVOVzv0eUKifBbhw7ImT/view" },
+]
+          },
+     {
+                                             type: "series",
+        title: "THE VAULT",
+        poster: "https://cdn.chili.com/images/public/cms/80/b0/96/f4/80b096f4-f7e3-46f9-ae26-d657a368fa7b.jpg?width=800",
+        description: "2025 U S A Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1svKcGMOXcy2b9NQXYLqLF9Xs0jdNARq5/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1roGhWKYNuGhti1FFb1aQq7Ov0332ZQhS/view" },
+
+]
+          },
+     {
+             
+                                type: "series",
+        title: "THE THOUSAND YEARS BACK",
+        poster: "https://image.tmdb.org/t/p/original/5XNthY4hzdKD2QxnlXbzIFYbtw6.jpg",
+        description: "2025 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ZvJewP1LQxzjuxfcjbZ1zzO2V8Imthb-/view" },
+
+
+]
+          },
+     {
+       
+       type: "series",
+        title: "THE CABIN IN THE WOODS",
+        poster: "https://posterspy.com/wp-content/uploads/2022/11/cabin-posterspy-Ygris.jpg",
+        description: "2025 U S A Action Horror",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1n-Er3F4oPUmt0lWh8d4on--rltB45K3m/view" },
+
+
+]
+          },
+     {
+                                                              type: "series",
+        title: "BRANT",
+        poster: "https://i.pinimg.com/736x/5b/55/fb/5b55fbca254ed2016daeb5c8456b0a68.jpg",
+        description: "2025 U S A Action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1BipH5Qsg-k8Ah_DP1P0iVU9HE-6KfQyp/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1wURAFpDI9N9MAA-ITigYhQP_dIjQzGme/view" },
+
+
+]
+          },
+     {
+       
+                                                         type: "series",
+        title: "GREAT WALL",
+        poster: "https://i0.wp.com/china-underground.com/wp/wp-content/uploads/2017/03/hm0Z5tpRlSzPO97U5e2Q32Y0Xrb.jpg?fit=1365%2C2048&ssl=1",
+        description: "2025 Action Adventure",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1PFWXmSzfR2K21QZyqo3cvxDg3WyvSach/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1YgT9geArNCQvxDq20xgUv3PtOtRarMBB/preview" },
+
+
+]
+          },
+     {
+       
+                                             type: "series",
+        title: "ODYSSEY",
+        poster: "https://static0.srcdn.com/wordpress/wp-content/uploads/2024/03/the-odyssey-movie-poster.jpg?q=50&fit=crop&w=265&h=392&dpr=1.5",
+        description: "2024 Religious movies",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/13mzLKWFuBr3UVY0fveofq0l1v6wiu9T5/view" },
+
+
+
+]
+          },
+     {
+       
+                  
+                                    type: "series",
+        title: "AROUND THE WORLD",
+        poster: "https://m.media-amazon.com/images/M/MV5BNTgyMWFiM2ItZmY2OC00MTEyLWI0MzQtNTM1Y2RjNjIxOTRhXkEyXkFqcGc@._V1_.jpg",
+        description: "2024 Chine Comedy ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1X8qwvkbnAISlGy10VId6JB6oW6kjv607/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1wanhjFACJLOJCCbr7btpCHO8wQFLBzOt/view" },
+
+
+]
+          },
+     {
+     type: "series",
+        title: "SAW",
+        poster: "https://i.redd.it/o5a60xg8l6r61.jpg",
+        description: "2025 U S A Horror ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/17mY_LOnAAvFPUec1MU-XC4U-jZaYIPNW/view" },
+
+
+]
+          },
+     {
+                   type: "series",
+        title: "RESET",
+        poster: "https://upload.wikimedia.org/wikipedia/id/8/8c/Reset_Film.jpg",
+        description: "2025 Chine Sci-fi ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ryM8Ne5BbvbwOrcrpkS3VI1DWiT23WI1/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1FP9zuZK5MJQdaytZHWV7AUXtl7-L1N6C/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1zl3yH1-tiD5_rvAqZU5i7W2PKhD4cbG-/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1nVQszWYKF5GPUg7PakcUJe4wKXCrV_LI/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1hYqGeyOnjcDnfOGgeAX7MLlSe7xeixzN/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1jVICIAo-5m_cp5p9kWecXHakKI8-PJCJ/view" },
+
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1q1KWRaXfO_vnv1LMUoY4PUbnUp6sll5K/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/18Xlpq0SgTvwRtcqI19uHP1t4_um0c-8l/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1DLxjaLII8Z-Pe96Ov7ohueqzzyiWUuYJ/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1jsEtMfh83B20aN7ySsLoHtBOvLpRhyR_/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/15yBD-EsQ5YlQSTGWZzVIW0QulzMS6_z7/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1b9XysrwdI7OxMd_r2ZlSVNVTGpwWAG0M/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1d892HcqI4zjeoX5CNqgea_kg5LYzt0Hy/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/1NrtJC1_fWwPq-mODFDNgLo3X4TZo6ocj/view" },
+]
+          },
+     {
+                                             type: "series",
+        title: "SHOONY",
+        poster: "https://i.ibb.co/DD367QqD/pooooo.jpg",
+        description: "2025 India Family movie ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/15RGdwKs3x4yEFddrQ_gsBMqtEWbXkEV4/view" },
+
+
+]
+          },
+     {
+                                    type: "series",
+        title: "MATILDA",
+        poster: "https://media.vogue.mx/photos/63aa3de7a4dd10bbaf41871f/2:3/w_2560%2Cc_limit/matilda-alisha-weir-emma-thompsonjpg.jpg",
+        description: "2025 U S A Comedy ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/197qsKXqNY7fM_EgqbAX7LgFrdWg_rixF/view" },
+
+
+]
+          },
+     {
+                           type: "series",
+        title: "FIVE LUCKY STARS",
+        poster: "https://resizing.flixster.com/4OOuDXjUGMt1cNIko7YgCDcvYzY=/fit-in/705x460/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p13389359_i_v9_aa.jpg",
+        description: "2025 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1FopePc1Qc3kkiO4BcMxHZ_BR8dq4SewF/view" },
+
+
+]
+          },
+     {
+                                type: "series",
+        title: "DOJO",
+        poster: "https://i.pinimg.com/564x/bc/8c/2f/bc8c2f8a15d74a515ca6fe5d8aba545d.jpg",
+        description: "2025 Japan Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1Go4rtvEta6w39P_rKOEYAjwXL6UvONgr/view" },
+
+
+]
+          },
+     {
+                                            type: "series",
+        title: "LI WANER",
+        poster: "https://64.media.tumblr.com/ee1f89017a417bfd22413782ffebe9f9/573c781580505bbe-05/s500x750/96e5da2bafe5c5de166641f0f522d42153efd34f.jpg",
+        description: "2024 Chine Kasanso ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/18v0NJcmLhbaD6zT-k0xQpJT2vjLiR6lk/view" },
+
+
+]
+          },
+     {
+       
+                                       type: "series",
+        title: "LOVE FROM THE STAR",
+        poster: "https://images.justwatch.com/poster/307718971/s332/season-1",
+        description: "2024 Korea Drama ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ZvJewP1LQxzjuxfcjbZ1zzO2V8Imthb-/preview" },
+
+
+]
+          },
+     {
+       
+                                  type: "series",
+        title: "POOL",
+        poster: "https://m.media-amazon.com/images/I/71GP9nsSFsL._AC_UF894,1000_QL80_.jpg",
+        description: "2024 Chine Horror ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/12W095GJfn1rh1OKpS8XKFbUZQ5ujtJHY/view" },
+
+
+]
+          },
+     {
+
+                   type: "series",
+        title: "SATHREE",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvp0L1PEAsc2wmKliKWI5eaSXh-qgri5EBdg&s",
+        description: "2024 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1_T5POPcED8pKbGoG07nFZYH0pgHARi_-/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/10S0Szk-_x-pHMuH1OcVmJOl2S7tCn4ws/view" },
+
+]
+          },
+     {
+          type: "series",
+        title: "RISING BOARS",
+        poster: "https://m.media-amazon.com/images/M/MV5BMGU4ZTU2N2YtYTM2NC00YTRiLWFkODktYWMyY2Q5NmM4NzUxXkEyXkFqcGc@._V1_.jpg",
+        description: "2024 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1Zh2xXKVQMku8O8ppRd6pMk2QVVK93sXO/view" },
+
+]
+          },
+     {
+                                                            type: "series",
+        title: "ROAD",
+        poster: "https://m.media-amazon.com/images/M/MV5BY2MyNzI2MmUtNGFlYy00NmNkLWE2ZmMtOWQyYjgzODg0ZjgxXkEyXkFqcGc@._V1_.jpg",
+        description: "2023 India Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1lrRN8Yo4NpwuGGQiQlwivGuE_y3U2rUl/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1P5XUse7iZCc5xQptgXfndliYkCAypsgf/view" },
+
+]
+          },
+     {
+                                                   type: "series",
+        title: "BALAATKAR",
+        poster: "https://i.pinimg.com/736x/ab/93/97/ab93979da668d48c383f43991c2dbacf.jpg",
+        description: "2023 India Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ZKIPDdGfseMUmOtJaNb64HstZZxgqetk/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/15bb6uIRSa3noi5yWuyYyqBfPhOxKxb0-/view" },
+
+]
+          },
+     {
+                   type: "series",
+        title: "TRIPLETS",
+        poster: "https://i0.wp.com/moviesandmania.com/wp-content/uploads/2024/01/Mutant-Ghost-Wargirl-sci-fi-action-movie-film-Chinese-2022-review-reviews-3.webp?resize=300%2C421&ssl=1",
+        description: "2023 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1oP0mll_WFTKajBXFKtxCa2763rUaAJlm/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1Jry98QG_9GkSsgHJRJ7DzPZ_Sw6FhrP-/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1iS2NBNpVCJpD8WSZQuMkTexPtUnQlUvf/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1HyXFq0L9VrpDdGnz3x5wAG9IIXpoNrJM/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1HKQLmFXtlEYYAmzGOsSQa-63byrsdGVS/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1DBT8WesJEJFfn-AR6DR63ZuJJ8FfrkM9/view" },
+
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1BlpPt-wZ2-xvieKW0V6FWZ1y1sbirRcy/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1z2hUSoP9-JbE9p6X1lzJ_ar4572UZs8L/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1hjQ23ahTF670_7HPKmsPcq52ISGHPJf_/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1thiOZT9QEYpEL_ev1egEAcse5hBVeEQL/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1W9Hne37yYbP0ftdDz2jMTiwdtrxofvkc/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1mrPNqtVwjTxe3yk0Z-YNcrMjYBvb8BRl/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/10sPA-dtuasbyAmE21Ihvs-8m4SkqChkd/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/1Q55bTOdhhMKPlHFUabFDPiZgiNvDZuns/view" },
+{ title: "Episode 15", url: "https://drive.google.com/file/d/14Wn8dGMmrAAU6wAlGH_tsmPiX5dn4MN2/view" },
+{ title: "Episode 16", url: "https://drive.google.com/file/d/1vWE0_HuPiA0UbwIrX1qFlhTl2CA0ZaiC/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/1t8DXVbwtnDUcPC6Y_HYBvnGm9KZ7vN1Y/view" },
+{ title: "Episode 18", url: "https://drive.google.com/file/d/1QZvkmtFenhn6kNhG7SRi5SyE1vbRyD12/view" },
+{ title: "Episode 19", url: "https://drive.google.com/file/d/1rVV1CJAM269ttVQFWdm_wCG17iy1lbRE/view" },
+{ title: "Episode 20", url: "https://drive.google.com/file/d/1ErKOU9wkNRSS_VdY0cGNtPJY5UXidUo0/view" },
+{ title: "Episode 21", url: "https://drive.google.com/file/d/173JRTtT1oyJqQSWNbvg4v1W41tfewXOZ/view" },
+{ title: "Episode 22", url: "https://drive.google.com/file/d/1b60gbet7pwcsiC6pjBrHLjJSkSh9Gdpu/view" },
+{ title: "Episode 23", url: "https://drive.google.com/file/d/1JoaEqmCRXMwNHp_0ycNfpNTZBt5CsFiH/view" },
+{ title: "Episode 24", url: "https://drive.google.com/file/d/1G5oT4EUkCquvli9mw1W_A3l-feex0xet/view" },
+{ title: "Episode 25", url: "https://drive.google.com/file/d/1_AAT4ud3_hfQxtp7BYMbDuOPyTumG0pk/view" },
+{ title: "Episode 26", url: "https://drive.google.com/file/d/1Vj8g33Bq4ieEd7niCyX1HlRD9HGDZDws/view" },
+{ title: "Episode 27", url: "https://drive.google.com/file/d/1lsQxTN9glkW9vLeidd-6BayE3ex1mf2f/view" },
+{ title: "Episode 28", url: "https://drive.google.com/file/d/1IlTc2tjVKL1aLZLEeva8vkGp2jmAUeCP/view" },
+{ title: "Episode 29", url: "https://drive.google.com/file/d/18CUT8CbpuF8ZIGVMgHuEJbbjT2pplCga/view" },
+{ title: "Episode 30", url: "https://drive.google.com/file/d/1tAB6McfdOn48eMvS2ONj2k8afNeRXwiv/view" },
+{ title: "Episode 31", url: "https://drive.google.com/file/d/1cIAO1V1vxsU7kGoSqI3jOIWLR-T6Mhk9/view" },
+{ title: "Episode 32", url: "https://drive.google.com/file/d/1aes24owEmhXxajfGxxXTpUqMIM5rHZtm/view" },
+{ title: "Episode 33", url: "https://drive.google.com/file/d/1gVOkDUxM8nkfFb7HzX6g0EDYA4hc9tTX/view" },
+{ title: "Episode 34", url: "https://drive.google.com/file/d/1kKhrsowqXOyd7dYnQDfQa1mVaQNj1FYI/view" },
+{ title: "Episode 35", url: "https://drive.google.com/file/d/1QSsuevPCwRz7nCa9vdwmjWljEVir5Ach/view" },
+{ title: "Episode 36", url: "https://drive.google.com/file/d/1IBCVC6TgRiIkzdESLLZJGD3hYy6g8Tob/view" },
+{ title: "Episode 37", url: "https://drive.google.com/file/d/1vgqYjjqQ5GnrVPKwQad1mhK8YmlXH5t-/view" },
+{ title: "Episode 38", url: "https://drive.google.com/file/d/1yombF4IrRoopycRAobmuBERy2_TDzr1v/view" },
+{ title: "Episode 39", url: "https://drive.google.com/file/d/1yombF4IrRoopycRAobmuBERy2_TDzr1v/view" },
+{ title: "Episode 40", url: "https://drive.google.com/file/d/1b-8XLzB9OzjNVGSuci8nnkU1LAtqe0Pw/view" },
+{ title: "Episode 41", url: "https://drive.google.com/file/d/1UvIa6Kn-MU4tt65QoO4KcUbafLV_IFFQ/view" },
+{ title: "Episode 42", url: "https://drive.google.com/file/d/1NwR2WMiyCe6WgGOSaNIpDaA7i3UG9889/view" },
+{ title: "Episode 43", url: "https://drive.google.com/file/d/1S1sv9RxBIcWr0EcvxytTn5T3ZFIG91Yd/view" },
+{ title: "Episode 44", url: "https://drive.google.com/file/d/1CmmD-PNsT2od3isVe6FXbBABqKV5EEMn/view" },
+
+]
+          },
+     {
+                                          type: "series",
+        title: "SUBDUING PALM FIST",
+        poster: "https://m.media-amazon.com/images/M/MV5BMThlZjVkMGMtNDBmNi00YjM2LWIwODYtMmRhZWU3MGE5M2M5XkEyXkFqcGc@._V1_.jpg",
+        description: "2023 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1UGqtyFsECpG_Hd7Wd_NTbaG0hibe8xNx/view" },
+
+
+]
+          },
+     {
+                                 type: "series",
+        title: "SWAT UNDER SIEGE",
+        poster: "https://upload.wikimedia.org/wikipedia/en/b/be/Swat_under_siege.jpg",
+        description: "2022 U S A Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1hXeNCdgQgCOMNfmBwuILFZD_PR3RRZKA/view" },
+
+
+]
+          },
+     {
+      
+          type: "series",
+        title: "SECRETS OF SHENJIE",
+        poster: "https://i.mydramalist.com/NvjeJf.jpg",
+        description: "2023 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ESWn8KaINs2k8ofWV4yY70uLdnKtLH3I/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1C0tlRQ4ZB6-0XBZzgarZ-Midcbf5xVkD/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1RdVKPNJNM8q8yu4ARz_a1gUYKa7T8tIx/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1ztJTO-C5auHicXCrSphIDNmzgEXfuEMm/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1XG1xgzeisKfAsICi-7CxK6p5RVhzeqgM/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1Og616_LGd1uta8nVECZ4YMnsWxw7UOka/view" },
+
+{ title: "Episode 7", url: "https://drive.google.com/file/d/11cEISKAPl1QZc5TMjLOxk_0BGjH-nZB6/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1h7JUs2ubl0_QyrzVe9U6yMmOdpaRYcDu/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1GVNT5ijNVpqOFFMZNGuSvz5mJ51SrBnz/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1PJWSRPfdxMJEovc8wJd2FiO3Jit3rzXq/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1PyuZNp0h23Zp39D8Ce-jO84epPBGZvNq/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1FvLwoSPfnfqd-tKtxEAd29Ez7L8SOota/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1x3YC7Py1FZxybGqDIu6kSmfdJNPVWcOj/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/1AwaWMbzi8a-RlLhz83Cx9Nl_s7wuiOxb/view" },
+{ title: "Episode 15", url: "https://drive.google.com/file/d/15o_veAk2LRGPBIUMbzswBN6foMw3_To6/view" },
+{ title: "Episode 16", url: "https://drive.google.com/file/d/1o9bZxszVgMWVNn9H2fYaeGafAun4mdA-/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/19CUYAEJ-uchv5Uw-2VJtIaeDTjUc5hhQ/view" },
+{ title: "Episode 18", url: "https://drive.google.com/file/d/17xi1gxVbTk5U70ymiTlfrXz_kAPU_59Y/preview" },
+{ title: "Episode 19", url: "https://drive.google.com/file/d/1qoQ4dl5gYP7-s0kDS5ZopypEgoc_uPYE/view" },
+{ title: "Episode 20", url: "https://drive.google.com/file/d/1kAmddYx1BArUurx5p5S_Rtp8VsZCrrpw/view" },
+{ title: "Episode 21", url: "https://drive.google.com/file/d/1v_wygTlZMzZSNgNPWkGm-MSk7dOn5SkQ/view" },
+{ title: "Episode 22", url: "https://drive.google.com/file/d/1vYdIwe0EvM3vorNXBoaX785rfLPn1xKT/view" },
+{ title: "Episode 23", url: "https://drive.google.com/file/d/13HvzVkcXx5A13RUouuNYTr3zZA69RUnf/view" },
+
+]
+          },
+     {
+                        type: "series",
+        title: "SILENT NIGHT",
+        poster: "https://img.lazcdn.com/g/p/93d5ec9106dac55598dc21ccf1fdcb61.jpg_720x720q80.jpg",
+        description: "2024 U S A Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/19wSykC20SppOO12AA_50OvvToVCvURhv/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1eBDe-OVnQ38nNvKRDjm0uZ8eKiuHR8sT/view" },
+
+]
+          },
+     {
+       
+                        type: "series",
+        title: "HENAN",
+        poster: "https://girlswithguns.org/wp-content/uploads/2024/10/girl-of-destiny.jpg",
+        description: "2025 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1wpZk8JyZIBiIyp7ie-jkcEpNMleAbe9l/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1lotd5U5gcKbaOpuOs8YxgkMvrsm7zkhE/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1P_kWYyfknkF8mIB0xYph8LazX0uQxwLO/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1QnKqfvqLwss5lBhNroE82DrW3ZpWfzH9/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1_QuJqmlC_el3ukjIN1oFeQokNdSHb0Rt/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1hzrQvRjjdcodJx40q42fnIGisVixgn76/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1zuRhrPU_kupv66cs_F1fUQzkXev_v6zQ/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1M1TQzxBOtjwNcaTRLyjyqLDAQnSELyIh/view" },
+
+
+]
+          },
+     {
+               type: "series",
+        title: "INFINITE",
+        poster: "https://twinchaptertrading.mta4.sitegiant.cc/image/twinchaptertrading/image/data/all_product_images/product-7673/735316ed-3cb2-4450-b081-db554bb6ba17.jpg",
+        description: "2025 U S A Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1Nac0Z_akuzO5ISoXAQa0gdktWxsH0Loe/view" },
+
+
+]
+          },
+     {
+         type: "series",
+        title: "MASH",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWS7D97UO-gSN3fnOz6xQ8VqUOuX1huWsd-A&s",
+        description: "2025 India Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1_cFTd_eJI5pVzwsM8itEXrwRY8yIKSCL/view" },
+
+
+]
+          },
+     {
+       
+                                                          type: "series",
+        title: "THE INCREDIBLE​ HULK",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRalTCqkbhKx60Q8hh-n6yxE_Lg5_Leh0etBA&s",
+        description: "2025 U S A Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1WJb1MIfEjlzbC97YHEnwJg-0VeR19OSx/view" },
+
+
+]
+          },
+     {
+       
+                                                         
+                                                        type: "series",
+        title: "BLADES OF JANGHU",
+        poster: "https://i.ibb.co/0GG435H/x-blades-of-jangu.jpg",
+        description: "2025 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/175eLpyA2jYJvi8Ti2z9jPXstTQ75eyg9/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1UCNE7biscpAQZ4fWlup7kElCgYJiHsNm/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1P50fnOPVhJh3Q2YgUBUSDSd1-gxKre2q/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/14sBiInNHHDJSWLdBlUn2JMI4dqFxUrLe/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1tc2HGFZHltS-zQPL-kbHXPUjqVvFEsAi/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1tc2HGFZHltS-zQPL-kbHXPUjqVvFEsAi/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1ZtJAWNP8svQb-UkC1O0gh-Cc8KZCqtEB/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1ovYK-CXd2WVZTkHYOcJm2315DAEwp7jL/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1MaesQhz-uAgquoNQNRKYAkG1BeACUfl1/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/16XdHPMnJcbyF5GcliT1L2Pq-DKgMya3_/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1a814zg_XYRS4rwCj-6gDMWc_6n4MUWnT/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1vV_d1zgdmW525bmPytKrtozDnUC4K7CA/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1U2QbgU6PvFKsVGJMhT-wyfSkp2aVvCCN/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/1slbDskgZD4zOuGyJS7W8tXFvaTntbblb/view" },
+{ title: "Episode 15", url: "https://drive.google.com/file/d/1Dd-e3CibSQdQuc2SMnPaEtB0EyjUxlX-/view" },
+{ title: "Episode 16", url: "https://drive.google.com/file/d/1bMu5TCMaUpFEDuNaWziFp7xAGqFP_t7o/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/1cnp0cqzLenRsdQAHpajzS6sNU5pr1x2l/view" },
+{ title: "Episode 18", url: "https://drive.google.com/file/d/1xSA5HkmLZP2Mvys9hxee_4l3eO0tE8_8/view" },
+{ title: "Episode 19", url: "https://drive.google.com/file/d/1t9SMtHYqXuHvIdQRJOUakBKdXpInhSjO/view" },
+{ title: "Episode 20", url: "https://drive.google.com/file/d/1rVWNYWBr-JVgtWy8QFRdZaQHaaq7sUAn/view" },
+{ title: "Episode 21", url: "https://drive.google.com/file/d/14pUQVINgkvryswNZO9OncDq8kW93A1jt/view" },
+{ title: "Episode 22", url: "https://drive.google.com/file/d/1juasRnRORKxHPEOdb1K0FRz40v9BLVGA/view" },
+]
+          },
+     {
+                                                 type: "series",
+        title: "MWAY THAI",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZoLkcMeFnJPxE-UFIOhWW1E4MBzqyXnnMTQ&s",
+        description: "2025 thailand Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1xpmfc1IhZCQJLsSRCWYMyRJA28ZZN7WK/view" },
+
+
+]
+          },
+     {
+                                        type: "series",
+        title: "JIAN SABER",
+        poster: "https://img.tvb.com/mytvs/poster/1157/115625_v1_o.jpg",
+        description: "2025 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1XWOn0ipWLOOp_H2ri9y6_ZEN8R6H_UTe/view" },
+
+
+]
+          },
+     {
+                                type: "series",
+        title: "DCB",
+        poster: "https://mxp-media.ilnmedia.com/media/content/2022/Apr/john-abraham-films-that-deserved-hit-4_624d571806f46.jpeg",
+        description: "2025 India Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1iEoLt5ATiiS_VZzdRchpQf21O0ka8Y15/view" },
+
+
+]
+          },
+     {
+        
+                         type: "series",
+        title: "ANJALI",
+        poster: "https://i.pinimg.com/564x/57/7b/2d/577b2d8f6ce3d646db75bf62fdc14282.jpg",
+        description: "2025 India Love story ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1Dka1qV0vOFv-1Zi-A_n9FKZbXZySbnDS/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1p6oFRyKJR4h9lnyiMwV5mKPvDrAktxxQ/view" },
+
+]
+          },
+     {
+                type: "series",
+        title: "MAROW",
+        poster: "https://upload.wikimedia.org/wikipedia/en/thumb/9/93/Baahubali_2_The_Conclusion_poster.jpg/250px-Baahubali_2_The_Conclusion_poster.jpg",
+        description: "2025 India Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1dDH6dp6DOj4NXZpUM_pWpQRsr1HBZyUJ/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1MbGV5ch1xHM5bnjA6YH6-5CpnV3PCZa6/view" },
+
+]
+          },
+     {
+           type: "series",
+        title: "JUVENILE COMANDOS",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzEiZojSVHr_beTge82AlH-lzjbxwL2P8_-5McLZwmjrjlInoLiqwYyBr4-zD3Y-pN5Ns&usqp=CAU",
+        description: "2025 U.S.A Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1niwJsPyI5Sxgc8_L1cE0gV9oU50gdrLO/view" },
+
+
+]
+          },
+     {
+       
+                                                                         type: "series",
+        title: "BLOODY ISHQ",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHt7uAYD1WcqUvRChQWwhTf5EGXSYbpHAKCjwyhSmfuDOFZFmQT_xdfZxul5B0KRygjC0&usqp=CAU",
+        description: "2025 India Horror ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/11_qEiHnf6VVlH8R65bmvVNlefnMc5-DM/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1eR_yLp8oDmmWZJm013cvSXob6cqQdt79/view" },
+
+]
+          },
+     {
+                                                                type: "series",
+        title: "MILTARY DRAGONS",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd4CrkckyY3yEOK02ckG0MIfnM2O2nj4BhU2Ue9l9n7HwB2I4BAK1IJdCj_KwyqOVxtPo&usqp=CAU",
+        description: "2025 Chine Action ",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1rIEDxxPJ1C1r0mik-XyFszHsPOPgjZTQ/view" },
+
+]
+          },
+     {
+       
+                                                       type: "series",
+        title: "SPARTACUS HOUSE OF ASHUR",
+        poster: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjbJzuLqw2Sboo2oQ5saAHR7siDgrFgLssUBLOfccjt64qNpoEkVDJAMSr_njiihd8ffzKcrLtpvX2p9cf2myI49e-rMd5Qw2KdF5glbtgI4_95CbxZLnwuDVYvL5xQ86Pb2s-0P2Sa2v8eOZuhfYXrXXE8WNcNhbR3QjFHz802AtM1oURgeNVCCg/s423/IMG_3292.webp",
+        description: "2025 U.S.A  Action Adventure",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1h3ZX-xolsi2sbS3GZc4UqNOhZLBeMMK2/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1eNw09UOxdxksgrv70rH_0L3JrGx4x34R/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1trUrYKA1d_42Yz4LpWXSbuTuwcVxT6Z1/view" },
+
+]
+          },
+     {
+                                                   type: "series",
+        title: "CRY OF BANDITS",
+        poster: "https://i0.wp.com/maactioncinema.com/wp-content/uploads/2024/04/431328517_824920996109492_6718839367406806156_n.jpg?ssl=1",
+        description: "2025 Chine action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1UeNyLWwcLZ8rQBuJ6HHEWcfgG1UuaYLz/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1NicAs__jA0ra5Ok8_PZbV_fqlmt_nhMz/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1xn2H9tYJMFXS3oMW2sKCCgCAyLgnnGYK/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1AxG_7s9pvQcYcvPnDN2O71sKPIOXgXIu/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1rrTR1bdMl0RFU7dbr1ZuC8keV-Ex95H_/view" },
+
+
+]
+          },
+     {
+                                               type: "series",
+        title: "MAD MAX",
+        poster: "https://external-preview.redd.it/eJzA4wtVGKuSOOu_JGxz7VdhZuaj5ZeqhvWKbruzP5A.jpg?width=640&crop=smart&auto=webp&s=533e62926780fec865a3a1ec59e4ca453c913997",
+        description: "2025 U.S.A action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/19F1ZhZ21CpiuaE0Tm5N2Tzzz8Qf8URTE/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1MGRifTMp3fqkbvkAosAHn7_pGiAcKfio/view" },
+
+]
+          },
+     {                                          type: "series",
+        title: "NORBIT",
+        poster: "https://i.redd.it/ty8g2jmjremd1.jpeg",
+        description: "2025 U.S.A Comedy",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ZSwEDmtI3x1j2-wbyWmTe1lPOn4aJYG8/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1b6rG4r-9nkF280A_fdIy8Lccmvrc0wNL/view" },
+
+]
+          },
+     {
+                                          type: "series",
+        title: "HIJACK",
+        poster: "https://www.sonypictures.my/sites/malaysia/files/2025-01/DP_9351201_HIJACK1971_2000x3000LSR_HEKeyArt.jpg",
+        description: "2025 Chine action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1CMLlWwXwS2xb5KJXm9aK5nUzB1UcAPqd/view" },
+
+
+]
+          },
+     {
+                                 type: "series",
+        title: "BADE MIYAN CHOTE MIYAN",
+        poster: "https://media2.cimanow.cc/wp-content/uploads/2024/06/%D9%81%D9%8A%D9%84%D9%85-Bade-Miyan-Chote-Miyan-2024-%D9%85%D8%AA%D8%B1%D8%AC%D9%85-%D9%83%D9%84%D9%8A%D9%86.jpg?quality=50",
+        description: "2025 India action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1d0EHVVcyZEljcZp71CrM041ZBe0QZNhn/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1wRzwiu935ZSbWBpSHgbA2zooLreMRVNT/view" },
+
+
+]
+          },
+     {
+                        type: "series",
+        title: "DARC",
+        poster: "https://www.actionfreunde.de/wp-content/uploads/Darc.jpg",
+        description: "2025.U.S.A action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1nS27oelxKYx7dln2ErOi_yfpi8J1Lulq/view" },
+
+
+
+]
+          },
+     {
+               type: "series",
+        title: "REVENANT",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFrqQ0oBiCEAT2fDN-8mUtatg1v_2Jv-AHBXmjG0Q6Nxav21e9MXL1arQlWJshMIflc4o&usqp=CAU",
+        description: "2025.U.S.A action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1Qe5Pn3yTS_64l5jT831UmjAdNzeGgl6p/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1D5j_7U7fGocQSjSGm_ZM44Uni_0VyDjk/view" },
+
+
+]
+          },
+     {
+                   type: "series",
+        title: "65",
+        poster: "https://m.media-amazon.com/images/S/pv-target-images/9ca426b6d3bb1862c115d7e93e45cd0f4f53bf9747bc6944f95fb2e5942ceb22.jpg",
+        description: "2025.U.S.A Si-fi",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ZjfNBmRntniOE6NA1HDcedWoHqkdSYz4/view" },
+
+
+]
+     }, 
+     {type: "series",
+        title: "OM",
+        poster: "https://resizing.flixster.com/QTK_d3N6bAz76_BEjWMY7Ktqkko=/fit-in/705x460/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p22391087_k_v8_af.jpg",
+        description: "2025.India action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1N8MFLND-ytFK_cDx0WFvQ6Tk76aFNH9J/view" },
+
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1r4SP6h_skJNTXa1riYS0VyRtR5WXZOD3/view" },
+
+]
+          },
+     {
+      type: "series",
+        title: "CHIRUTHA",
+        poster: "https://m.media-amazon.com/images/S/pv-target-images/f312a103401c4f3aa849cea8bd893860db83626e80476b96ee7adb6ee0ec7f95.jpg",
+        description: "2025.India action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1WYZlo-psEfrpF0vZHn0A85Rv-71CuaLP/view" },
+
+
+
+]
+          },
+     {
+      type: "series",
+        title: "NAAYAK",
+        poster: "https://w0.peakpx.com/wallpaper/306/217/HD-wallpaper-pathan-movie-fighting-scene-actor-shahrukh-khan.jpg",
+        description: "2025.India action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1PgqZgQD5JZSGlYrtW5oUKZT4RTAIzhrF/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1Vroh00IKAro4dos38mfK6_lczFuZuVdq/view" },
+
+
+]
+          },
+     {
+                                                                  type: "series",
+        title: "WALTER",
+        poster: "https://resizing.flixster.com/8y2Izt6Ypxfzrv5Lxvof9NVUOUg=/fit-in/705x460/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p17671633_i_v13_aa.jpg",
+        description: "2025.U.S.A action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1rTcpGphGbRHDgXWQRB0niK54dRfzM0st/view" },
+
+
+
+]
+          },
+     {
+                                                         type: "series",
+        title: "ANNA",
+        poster: "https://i.pinimg.com/736x/c2/3a/cd/c23acd89369cfcb3273f632c374ed2b4.jpg",
+        description: "2025.U.S.A action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1nXNtSOTBKAjx2tD99-l9MSVkBH36twPl/preview" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1Wvt1FEqJTdj6uE0rjfzMTgKuPVN6pH0O/preview" },
+
+
+]
+          },
+     {
+      
+                                                    type: "series",
+        title: "SUBSERVIENCE",
+        poster: "https://play-lh.googleusercontent.com/w2ZBkEPQldhWMjg3Ol2cNRId-IewyCbGADRv3j_ZIETdZr2AvPYwMVZXva5qrCCvGh-Qt-voE8wFFZubYdg",
+        description: "2025.U.S.A action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1hJUuX5BfQPyasnqhKKE9aQd2y7k6D9Ib/view" },
+
+
+]
+          },
+     {
+                                           type: "series",
+        title: "UPRISING",
+        poster: "https://resizing.flixster.com/77Xnjk7WkLrLcxi0dL84DtsDtQE=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzhmMWU5OTcxLTA4ZDMtNDg1Yy05YmVjLTEwM2FhNjFmYWExMS5qcGc=",
+        description: "2025.korea action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1hlUmYhYBjDuT00Vj3DOCcEzrteLENLRW/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1rP8BPEaMvtNf9ehQ9u_KTPqhPMcP1PK3/view" },
+
+
+]
+          },
+     {
+                                    type: "series",
+        title: "MUNNI",
+        poster: "https://i.redd.it/je3mp9oqs6qe1.jpeg",
+        description: "2025.india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ApHQ-IAUEinMmY4O_Kzma-SzLqy4Mjuu/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1VffXMcn9xgeY7fdxdrWrNaXzlk4zrhZn/view" },
+
+
+]
+          },
+     {
+       
+                           type: "series",
+        title: "MAIDAAN",
+        poster: "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202404/ajay-devgn-maidaan-090151371-3x4.jpg?VersionId=6KGlj6h6v0NtUB.KiewXJZDpr7fVJpuf",
+        description: "2025.india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1FhIQ_eDc9Ic8n9pC20VEup90fRvTpje3/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1S44_kjQNxqyVgTpl58WvSbuemcJFoYhO/view" },
+
+
+]
+          },
+     {
+       
+                  type: "series",
+        title: "KILL",
+        poster: "https://images.static-bluray.com/products/20/154521_2_front.jpg",
+        description: "2025.india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1IClj5jx6f89AQIOsTQ5GeQo_VPRwvV0_/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1P2imDIK4AMWDcAWXAHyh08DMcYa83zKy/view" },
+
+
+]
+          },
+     {
+         type: "series",
+        title: "WORRIORS OF GLORY",
+        poster: "https://dramapanda.com/wp-content/uploads/2020/05/Wolf2BWarrior2B22BCharacter2B1.jpg",
+        description: "2025.chine action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1wPdzqMza-rlKS1BwaXOwj_B0fLh7JP0O/preview" },
+
+
+]
+          },
+     {
+                                                                       type: "series",
+        title: "THE KILLER",
+        poster: "https://img.lazcdn.com/g/p/09cdde276847d34886a7c9fd01b497b7.jpg_720x720q80.jpg",
+        description: "2025. u.s.a action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1MMg-XaGj4BAxA4Svu4BVLnjeW8dKxz0c/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1oJHx458ikvwCsgpOj7d6YvxSn4TWXbke/view" },
+
+]
+          },
+     {
+                                                              type: "series",
+        title: "UNBROKEN",
+        poster: "https://gfx.nrk.no/xSV7wQuxsLDW-eyPOuedvQHkVrCScAQDj4lf2BK0jo-w.jpg",
+        description: "2025. u.s.a action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1Aw5X2lBxEYb4tmWEd8g8mzB17vKU3TtT/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1NSNGnJysRneE_Mz4_8CCxN8vlgcxvSAh/view" },
+
+]
+          },
+     {
+                                                     type: "series",
+        title: "VIGILANT",
+        poster: "https://idiva-media.ilnmedia.com/content/2020/Apr/iDiva-Bizarre-Situations-In-Bollywood-Movies-That-Will-Never-Really-Happen_6_5e872ebe7385d.jpg?w=900&h=1125&cc=1",
+        description: "2025. india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1aNS2byVEYkJ3MU0cK83v2Do4bLeOrevd/viewg" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1vDvTFVVxuMhWfWt9GAP4o8-j7uOxvFdf/view" },
+
+]
+          },
+     {
+       
+                                            type: "series",
+        title: "YOJANA",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvtWSGCH-FGD50nPXDG8AVyb2uLaHIHFqzPg&s",
+        description: "2025. india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1lnccUwbDPUmsh8JJSoiXVRR0YtpMS4iG/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/18RgEQ9JZSov28IUhrfuvEJxDktPI1_27/view" },
+
+]
+          },
+     {
+       
+                                   type: "series",
+        title: "KUNGFU BOY",
+        poster: "https://canvas-lb.tubitv.com/opts/Uim84BUTM9eUtA==/edbb5638-6111-41bb-a9fb-53c04a7a0478/CIACEPACOgUxLjEuOA==",
+        description: "2024. chine action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/17ktkwFfYVP7VIyHuueKG4meqpY-INzUU/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1NsrplCwqikbtLCewhSEMyESRX54Az4vb/view" },
+
+]
+          },
+     {
+                               type: "series",
+        title: "KAAMPANA",
+        poster: "https://assets.eenadu.net/article_img/280522cinema3a.jpg",
+        description: "2025. india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1zr8sPg5AWoan36sqj9JwQ5bsoyiHbY7l/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/10MzGiTgY-KnE07iGtXN6HSY1k1YJmk0q/view" },
+
+]
+          },
+     {
+                                    type: "series",
+        title: "HOME ALONE",
+        poster: "https://i.pinimg.com/474x/a3/ce/d4/a3ced40bd22a3608ad2c2e1d6552921c.jpg",
+        description: "2025. usa action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/14B79OeiI9Suq3cCiTftaidmPuYWFmj7p/view" },
+
+
+]
+          },
+     {
+                   type: "series",
+        title: "CHANDAKE",
+        poster: "https://st1.bollywoodlife.com/wp-content/uploads/2023/12/Salaar-2.png",
+        description: "2025. india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1heFymWM2Cf-h0c5OXtjyd_-IKcNzGVt5/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1Obu6L52Kychnp_mmn-aUHLxbidbss66Z/view" },
+
+]
+          },
+     {
+                        type: "series",
+        title: "ZUCHAN",
+        poster: "https://i.pinimg.com/236x/35/71/5c/35715cd9f4f9904c2ae5188cb6941b59.jpg",
+        description: "2025. chine action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1NclTkwltaTwrbt4IExooaCwLb4wbbVok/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1Du7IDnskCWgRipp1y3zy7JTvP94uzPFx/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1_hksWyRdbqei3bBeeiDmd2xzT6PXejoX/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1XUElyE_ntiluKAYWcipvB_eUmgObn5f6/view" },
+
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1KlTcEIGm1WKPTHoawl3dhEa4PpgraUfU/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1J_KDEPrk8AqluST3HNoqPGB6jrzDyy4d/view" },
+
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1QRVoHuOcDmH55u1uyzbisjx6AFKuJ5xw/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1AiHbkg7mnu7A3cO4r2zUo7Mj0zUnqr7c/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1ayJr-Er4TDUPc3qRkLuMkHALvRdk2l8J/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1-8DVHkTVtfJycBALVRVRL-Ev-J7cdPqn/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1ha6eiAvJat-rpbKcJ6fWXWmLcGGhm-Xf/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1FYDb1yWNFcFu9nj4ev8beIJ3nYiXq2QZ/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1tvNPCVysV8pIdVlk7Lsmn0pzqvzuu2Hz/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/10AJTNammhlf_avlAdckZU8V-83mLlg3c/view" },
+{ title: "Episode 15", url: "https://drive.google.com/file/d/1k2AzevqAG9kOA0bXr8JTJ9EBFZvmwuUd/view" },
+{ title: "Episode 16", url: "https://drive.google.com/file/d/1arrPNZtSOVZA53epAltJDtChEnetDDf7/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/1sT0LCKZxcNT9o4s_bLCXBY808JslAfqY/view" },
+{ title: "Episode 18", url: "https://drive.google.com/file/d/1TH2J9HT9IxMyf57FqQYl8iOQukwEFtQF/view" },
+{ title: "Episode 19", url: "https://drive.google.com/file/d/1m6O0krzQe5xswjPC4QCOLsYdTwyBxv1w/view" },
+{ title: "Episode 20", url: "https://drive.google.com/file/d/1FYH4xwnGFS8M5shjqXxl_nJ4B-n5L05h/view" },
+
+]
+          },
+     {
+   
+                   type: "series",
+        title: "WEAPON",
+        poster: "https://images.justwatch.com/poster/317094695/s718/weapon-2024.jpg",
+        description: "2024. india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1hC3R9QadEkNJIaI_RxiGi09pCQ5k6ywZ/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1v3ioHdE7VGTMEBz2u29lN3sz1YxyWQfO/view" },
+
+]
+          },
+     {
+   
+                                                                                                type: "series",
+        title: "JOURNEY TO BEIJING",
+        poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmQ2YTUtMzFlZi00OWNmLWJmYjMtZjYyODE1YTAxMGZmXkEyXkFqcGc@._V1_.jpg",
+        description: "2024. japan action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ZOOo0ozWvk7wYR8NZQwZP-_B-zabKuLK/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1L_AWefNfMmECY_vtZdxycpb7BvQ6naYb/view" },
+
+]
+          },
+     {
+                                                                                       type: "series",
+        title: "SUPERIOR DAY",
+        poster: "https://m.media-amazon.com/images/M/MV5BOGZlMGE0YWEtZTdlOS00ZGZkLTkxNGYtZmUwMjQwNmY5YmVlXkEyXkFqcGc@._V1_.jpg",
+        description: "2024. korea action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1-17DKsCaArug0E4aUvmKRM4rmC_wXB5H/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1Cw9A2700_Apw_meEHHSHlYZK6zq9yHEJ/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1rMHPku-cGGh2VvEaFtDwrDXwXQJoi7Pf/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1c4wGKwiila5yVXcfVIfusmBsoGl1I6nj/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1U1393hCBpgrPy0wRfp6QwVuBlyx-J-cd/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1lHCctTfL6pDacQlNjg6lLT8ZvUyfLEuP/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1cfM35pH-YYB6xZJwDHyiG68em-S7FjRd/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1ktFEf9y0E6T-f1MzhQLFN3NfSvnCUBgJ/view" },
+,
+]
+          },
+     {
+                                                                              type: "series",
+        title: "DIRTY DOZEN",
+        poster: "https://i.ibb.co/zkk7HZp/Untitled-1.jpg",
+        description: "action movie",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1pleS1NBtZuZZJwk1gAnWUKsGu2PHiKSi/view" },
+
+,
+]
+          },
+     {
+                                                                     type: "series",
+        title: "72 SOULS",
+        poster: "https://i.pinimg.com/originals/ee/2a/4d/ee2a4d0fcd25091e02d73a0ea4c5dc43.jpg",
+        description: "action kasanso",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1JEJBIJnbjRgA5NZEGYbj4HyHZxfl7ydR/view" },
+
+,
+]
+          },
+     {
+                                                            type: "series",
+        title: "TERUE",
+        poster: "https://resizing.flixster.com/3NzeB-9NTjXDWYUxuBE4871epX8=/fit-in/705x460/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p178884_k_v8_aa.jpg",
+        description: "family movie",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1D13asqlSwHskeXWo8Fg5AlrRYOcPjnVS/view" },
+
+,
+]
+          },
+     {
+                                                            type: "series",
+        title: "WITHERING",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKN6LFIG5wmwaOR-pn84FXL8XjA1UhkANu6VPB8aIgV1bK2k3PJbLbw59Br5QBca0p_-A&usqp=CAU",
+        description: "action kasanso",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1R6pRGoIg9UcLltSbphDjycPIRUdBNTvX/view" },
+
+,
+]
+          },
+     {
+                                                                     type: "series",
+        title: "PAAGAL",
+        poster: "https://stat5.bollywoodhungama.in/wp-content/uploads/2022/11/An-Action-Hero-1-1-322x572.jpg",
+        description: "action india movie",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1_nGvsMz4pHRuZQpmbzfVju8LZAmgPfBJ/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/12r8IYDwLdyDOK50cpPmhcNA6UQIuNy-R/view" },
+,
+]
+          },
+     {
+       
+                                                                   type: "series",
+        title: "YOU ARE MINE",
+        poster: "https://resizing.flixster.com/Q9nmKDkM7Fd-ZVvsdpKKei4_yrY=/fit-in/705x460/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p17533913_k_v13_aa.jpg",
+        description: "russia action movie",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1fe3pS2TJ1wzvSbA9wYZk7YrEVaFqGP9v/view" },
+
+,
+]
+          },
+     {
+       
+                                                            type: "series",
+        title: "JAGON",
+        poster: "https://images.squarespace-cdn.com/content/v1/5167abf2e4b0fdc6c239a718/1619321145460-L5XVNYYPK1K1H7W6F1HI/Jagon_Film_Poster.png",
+        description: "action kasanso",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/15i23y9apkdK_L_gQ6p_b-XzuE4Ohy6pX/view" },
+
+,
+]
+          },
+     {
+       
+                                                   type: "series",
+        title: "DIVAAR",
+        poster: "https://images.news18.com/webstories/uploads/2024/12/salman-khan-upcoming-movies-2024-1705314741-2024-12-0c85b66ecae8fab48d6f29e08b745d36.jpeg",
+        description: "action kasanso",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/18dccX_jzOYBNzpAxyXI9TL2Rea8aTUcE/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1wXHbR7AxzgISDcW2mXXVjuDFesa5997z/view" },
+,
+]
+          },
+     {
+                                          type: "series",
+        title: "GRAND MASTERS",
+        poster: "https://i.ibb.co/S4Y3GrSQ/unnamed.jpg",
+        description: "action kasanso",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/16GGstLtVVDV-u6xr5L5jb-wtZJzqCHII/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1xyr96Iz2dR6gzQzC7VYACwJqQQOJXtln/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/10b8NqRlFZIqAj0L3ht5onUnraWHNH21j/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1tDeFttzZQQfwtJN_nOryUiG337B5iOoT/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1sAn4JO_8QDT-PguEZpV2YCuf9hUVVyc0/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1gvS-1jktnkJ1jl1wtu3NL8JMf5xP1vAa/view" },
+]
+          },
+     {
+                                       type: "series",
+        title: "GATES OF KUNGFU",
+        poster: "https://i.ibb.co/7srPSy2/GATES-NEW.jpg",
+        description: "action kasanso",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1qGN4cwgPtksp1Gib8aPUqlqO1KbSFcNO/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1dtMa5ldquZstzySg_40qY4E9QgP6dyxR/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1o1bnlNM-omlYIXzT_IBQp2MblFbBmiBs/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/19hwm84-uMQzu77UA-EfUbUGqgSC0jbAr/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1bysey3XXUX3x7MxVATUpbNJdjkkZyle1/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1ZzTfe7O7XsTv2CUuKyWdS73x0E4sGw1T/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1WCdL2Igl2zwUkD-Yh-sRHF0HeFdiNCWH/preview" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/115gDIbKgd1gaVTSI4I-AKMP6FKgbXxQE/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/16mlWlD4DGuIwonD4tYvfeXK1RbwSbG8N/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1cBj6eEXblOG8Aohi4tXRPli8LKP56VqV/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1_DfGZ4dmmMKfl7QVa5AWOfu2gRk5OEdZ/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1hHIJJn7fUEDZLA1pd0ni42aHwqlTW_Kd/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1EvHLqbboSBlkPSTr62KSEO9-FdebxipE/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/1Zgl7vHcbswGCFisTFut7jzXJ9COJjAZV/view" },
+{ title: "Episode 15", url: "https://drive.google.com/file/d/1PEeovrEbsMucerbXxPyOLav1OG8MxRpX/view" },
+{ title: "Episode 16", url: "https://drive.google.com/file/d/1bU2YSBJ0gOdB9rxcly3D2Ona9JTRtMXS/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/18GlSOIPgF-Nz-2vKQPnj7-9PXVomoK3A/view" },
+{ title: "Episode 18", url: "https://drive.google.com/file/d/1f_lIAMrqmo1jedrjXrQfWeSF05lpbm29/view" },
+]
+          },
+     {
+                                            type: "series",
+        title: "DANCING SWORDS",
+        poster: "https://i.ibb.co/SDXr4GDF/BUSINBA.jpg",
+        description: "action kasanso",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1Ngmt_ShAYq3bABXlL4b1VzXd1OiC_oEM/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1Pk3T7yGfP5O3DkgXqHSRr9B7D7_iPqp0/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1tu8vgzdLYnCBRA3SSaNfmmZKKdIFnOgt/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1t12xCJ7QIC-V4WdwieCdGZhF50dVudf1/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1WvJW_Xbl34RfyAPbMxrsMJzJCbOGhkjy/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1STTCBmjOvdlYWmxS_flM8OWETSFzG1-a/PREview?" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/14CeNsbEZEXv-ToOygI7vXvZEvka3ZYWl/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 15", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 16", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 18", url: "https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/view" },
+{ title: "Episode 19", url: "https://drive.google.com/file/d/1BKe_355eVoCp8C5xEN7tAkokfuSl_y0R/view" },
+{ title: "Episode 20", url: "https://drive.google.com/file/d/1i8puHYtqGJ95QQ5bWEDywJXINjAUqY5L/view" },
+]
+          },
+               {
+                                                           type: "series",
+        title: "TOMB SECT",
+        poster: "https://i.ibb.co/GfbrJGpF/Untitled-1.jpg",
+        description: "USA action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1cdAFoney_l85fqF4VhChvvLEN4qohzOL/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1SS-T3LCWc-qJmwJfbYe8LqglLvtPZg0d/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1EZIZiHs6TTOZbhLUp3zdprXAqzZY3aJ5/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1L-_L3v-0NL56Yo2LD-29AHLuWTtum5jL/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1OsfO8X8L608arZ3nSTOUUOanwdzGEZmY/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1x1H7ekrUXlwtsCiQ4jY_CcsBMGDxMjOy/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1bzi-HlhDdQgVPA_ceJUA9vUTFIvfmlGL/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1gZdq8ivIFr7K-wz6yMpgrn1bCzf4x-M6/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1DrqyCkXPSRUJ2g_hbA-aHC04-8-dxQy2/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1DrqyCkXPSRUJ2g_hbA-aHC04-8-dxQy2/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/12NasitMXUdQsB2no6wQSVpBeROvU0cog/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1aSdThUTTKHwxBOa0ldnrZJxP2VuSoNTT/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1aSdThUTTKHwxBOa0ldnrZJxP2VuSoNTT/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/1xHldAi_coJPM6xYF5eoT6Eb7FFY8Twvu/view" },
+
+{ title: "Episode 15", url: "https://drive.google.com/file/d/1snmrEKYjrLV3A-ejPWVq6Hl_SR3SI1_g/view" },
+{ title: "Episode 16", url: "https://drive.google.com/file/d/1stLAVJvnsIZ2UNGGQZZzXFo8qvsHznb9/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/1rHdbxExKZEWRI0be_WxSC7fwYQZ-HBWF/view" },
+{ title: "Episode 18", url: "https://drive.google.com/file/d/1RkG6kZccUaC3Cuaf0bYW2rUPNEv2WkZ4/view" },
+{ title: "Episode 19", url: "https://drive.google.com/file/d/1EoJCwTR2vegXZogyFtnN9V8ov-mi1zdV/view" },
+{ title: "Episode 20", url: "https://drive.google.com/file/d/1m26rUa6M0-7oaofR8rKHILqXm-YyBkte/view" },
+]
+          },
+      {
+         
+                                                  type: "series",
+        title: "IMMORTAL SWORDS",
+        poster: "https://i.ibb.co/LhbCrqLQ/Untitled-1-Recovered.jpg",
+        description: "USA action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1-6o69U7IPYPbuuA415lRuCQ6lRJ7fIou/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1ujN8SlrlZLMGd1nrLBSV2Y6DVfmdHKgF/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1WJSYkFKLHkTojRVJqU3leQuHA7CUSvpW/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1_G_nMzbXFJWgYN10pZDpTZrRxBvg3Opd/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1_6nI6MKUuwshRxCXBuoJw7KS3CYjSVIp/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1Bw_OplYwUJAUIrPhg3BWyuL_JOP64k-w/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1ozXFg_WhwRRlmwQjxRucJ5IcxzlC9pJB/view" },
+
+
+
+]
+          },
+      {
+                                            type: "series",
+        title: "SUPER WOMAN",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo3VKdLvHrTxY4oTTbhJXqjePnMp3Jygh5vPkPz3UVIjHZs8H2RvAFv-IMaoioAcGwJxw&usqp=CAU",
+        description: "USA action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/11eQoR-7GN6HYcP4QtQsVV840rDNnwLYH/view" },
+
+
+
+]
+          },
+      {
+                                   type: "series",
+        title: "YADAV",
+        poster: "https://images.news18.com/webstories/uploads/2024/08/cropped-4d1561972cc6a8eb9ff80e212ac3e5d6-2024-08-f3e2aa67090e71e6d3cd80245c557702.jpg",
+        description: "USA action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1bSuh4KYDL41pl8sG61riG1g7_mrgsMTF/view" },
+
+
+
+]
+          },
+      {
+                            type: "series",
+        title: "ROUGH JUSTICE",
+        poster: "https://static0.colliderimages.com/wordpress/wp-content/uploads/2018/01/den-of-thieves-gerard-butler-437x600.jpg?q=50&fit=crop&w=437&dpr=1.5",
+        description: "USA action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1BJQq3dVZyKQQ-sFLCyaUtuQ2oJPjEM1k/view" },
+
+
+
+]
+          },
+      {
+                    type: "series",
+        title: "RISHVAT",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVHp5HNaJ2dMsldcXuGF05AkMWT4alXogIml0I1cbrYVH1KkswvKuv2h4IyuTcrcoPbFU&usqp=CAU",
+        description: "india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1kg7PslWHo45ClphOj58DY8qrQO9n9f8J/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1oarjhaF02U7-api176kL32mk-Xa4OqQJ/view" },
+
+
+]
+          },
+      {
+           type: "series",
+        title: "SAIKIL",
+        poster: "https://st1.bollywoodlife.com/wp-content/uploads/2024/02/Untitled-design-2-9.png?impolicy=Medium_Widthonly&w=400&h=711",
+        description: "india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1yPXRf8C1L3rQauEqn4U02mM-eolYw3cP/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1Ghws-8MWfgL6s7MV5TQZhzRR7aH0fihH/view" },
+
+
+]
+          },
+      {
+          
+                                                                               type: "series",
+        title: "CHATTAN",
+        poster: "https://bollyspice.com/wp-content/uploads/2018/07/Satyameva-Jayate.jpeg",
+        description: "india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1AdYRASlD0LJQEAF-Wy1-5CZ692cVcWsP/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1P0ci6zuE9pwJUOgEkGkcDmKVSR8lGhMb/view" },
+
+
+]
+          },
+      {
+          
+                                                                      type: "series",
+        title: "THUG LIFE",
+        poster: "https://stat4.bollywoodhungama.in/wp-content/uploads/2024/11/Thug-Life.jpeg",
+        description: "india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1xgFft5fLDtWcAYBX_tPG_0MhyZQ-zOE8/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1SowmMxYO3UdCTzwg7DczMxC3ivjY3hZt/view" },
+
+
+]
+          },
+      {
+                          
+                                                             type: "series",
+        title: "JOKHIM",
+        poster: "https://i.pinimg.com/736x/2e/9f/45/2e9f4590cc318a0cab0fab544ce46c21.jpg",
+        description: "india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/19mAxVZTkrUYYlOB--dqfl07SVtaPJeje/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1K5WonMkrcyfAP2vgsT8cgMeHHncWZwoR/view" },
+
+]
+          },
+      {
+                 
+                                                             type: "series",
+        title: "GOAL THE DREAM BEDINS",
+        poster: "https://upload.wikimedia.org/wikipedia/en/9/96/GoalPoster.jpg",
+        description: "Football soccer",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1la7hgEm138xamER0OzB9NhBBJMrF0g88/view" },
+
+]
+          },
+      {
+        
+         
+ type: "series",
+title: "SAND BLADES",
+poster: "https://i.redd.it/good-bye-my-princess-v0-ok8fqmx33zzd1.jpg?width=736&format=pjpg&auto=webp&s=3d66d3c0085f607ecf3183f5bb1039446e05c3cb",
+        description: "chine kasanso",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1yjHROJKCXqApO4Tb8EP9QJ6dKQFqtC-w/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1zPIM-_pAp882gJ52x2uDrHriSQ1TVwtD/view" },
+{ title: "Episode 27", url: "https://drive.google.com/file/d/1zPIM-_pAp882gJ52x2uDrHriSQ1TVwtD/view" },
+{ title: "Episode 28", url: "https://drive.google.com/file/d/1Y75jXtaGuXe-AYhXmO7pgcerHW6zGp8E/view" },
+{ title: "Episode 29", url: "https://drive.google.com/file/d/1z42UullPEaTqZFW64k0fUw1-TA9___N4/view" },
+{ title: "Episode 30", url: "https://drive.google.com/file/d/1VHD9zLGGjVIovWyxulqIyTOvq2rg1wg0/view" },
+{ title: "Episode 31", url: "https://drive.google.com/file/d/1ZaTR6qG8Mz4KNJPoEmUDVZ_xMLgbuAZI/view" },
+{ title: "Episode 32", url: "https://drive.google.com/file/d/1mwlI6liPHxO-uCx6BLbDLkAtFqsC5Rgy/view" },
+{ title: "Episode 33", url: "https://drive.google.com/file/d/1WqGzpNL3l0dwt26pw2_XcOJSzCVipsyR/view" },
+{ title: "Episode 34", url: "https://drive.google.com/file/d/13LGII-VHJnWL8BVvI1gSTwnOnDl06EON/view" },
+{ title: "Episode 35", url: "https://drive.google.com/file/d/1YRRHWxf8U9X7x9rxr6gbpOAirt0Jt4S9/view" },
+{ title: "Episode 36", url: "https://drive.google.com/file/d/1kNbYpQ7xBnmIdTynUqoyhb13UqNdgaSm/view" },
+{ title: "Episode 37", url: "https://drive.google.com/file/d/1n5nC1zGH30m-dTDRklG6_qCE25EfgrLr/view" },
+{ title: "Episode 35", url: "https://drive.google.com/file/d/1Fvm9uifxocWXt3al60st6wmt3TM0P3uw/view" },
+{ title: "Episode 39", url: "https://drive.google.com/file/d/1nfqrd3ZYEpouyNXYOmV4CM5ajkFTzQ_-/view" },
+{ title: "Episode 40", url: "https://drive.google.com/file/d/1i3PvXjAEeKkdwtdxSjIt7WaAl0Qw8XPC/view" },
+{ title: "Episode 41", url: "https://drive.google.com/file/d/1e4vhGGHgkNpvSkO5FxIFHfYvZWuC01bY/view" },
+{ title: "Episode 42", url: "https://drive.google.com/file/d/1oiAJwEshMcgGT-QKnhhM8gPZiWFTRRGi/view" },
+{ title: "Episode 43", url: "https://drive.google.com/file/d/1BxG9TNa_pNcK4udd2Ld2mUwKF9weZ5ck/view" },
+{ title: "Episode 44", url: "https://drive.google.com/file/d/1lugCbkCGdeIB4cSEaRI7cbhk7cd8ESk9/view" },
+{ title: "Episode 45", url: "https://drive.google.com/file/d/1RQlYLO4QQqv0j7_jlkHuaYaWQPTbXiiQ/view" },
+]
+          },
+      {
+        
+                                                             type: "series",
+        title: "RUBBER",
+        poster: "https://en.notrecinema.com/images/wallpapers/vign/jaquette_395793.jpg",
+        description: "india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1RJugc0wgjW6Ew7iK4BhkKv1WM8_J4Kt1/view" },
+
+]
+          },
+      {
+        
+                                                    type: "series",
+        title: "FIRE",
+        poster: "https://img.over-blog.com/229x300/4/09/75/91/srk11122.jpg",
+        description: "india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/11kx2CItNZIkmSGSRVQEQg8_zXJA_hIDL/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1KPoozFkOrEthYrflfqT6cZFBCYocEIBS/view" },
+
+]
+          },
+      {
+        
+                                             type: "series",
+        title: "KIDNAP",
+        poster: "https://m.media-amazon.com/images/M/MV5BNzY4MTE5Njc1MV5BMl5BanBnXkFtZTgwNjA1MTgzNzE@._V1_.jpg",
+        description: "india action",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1A8KN6SzMLC_tdlAhIyzqdBb2G_onHIXV/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1zyembBex4I-GAKvU9jagmjxOM7PNzWv5/view" },
+
+]
+          },
+      {
+        
+                                    type: "series",
+        title: "DAR",
+        poster: "https://images.radiocity.in/images/uploads/web-stories/maa-review-june27-1_ws.png",
+        description: "horror mate thriller",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ldCTIs8panLy19eGEZMLTdYGFHEzyvYK/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1Jixs9awkXfpN6W5cR-Jei4ICPCcWfgu5/view" },
+
+]
+          },
+      {
+                        type: "series",
+        title: "DESTINY OF KANG CHIL",
+        poster: "https://i.ibb.co/FLwpnyZt/p.jpg",
+        description: "action kasanso",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1ec4I8xi6T4n13axaeDOreigHPlwLGkwL/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1grP7PhWbIungGilEsyk6eKlGprIyJePG/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1rpo0zKrevfku_UmL4d8nQmqUGSEyqAkw/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/14_HsoJLzEFzHl41v0G-n5AtM2tzfJ4Q2/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1GwH13o2YEtQQ2FmMWATRlQaoW7azXiCn/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1InOlEeRqLGRxrwTsrwjZmuvtoFvSwpGC/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1bPmP--jPkaVaFN73BT8YyjHu0LDkCwfO/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1Z2GhiWxprmrF5VLWNH8mZIzzviztUHdm/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1pkSll_-RsTYO5JqWS-H_U8M29UvlU8wz/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1Wi3cDOQ2FS26gXpgEjsGnRGEkA66bq9O/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1lcpUcWYSmeh2wuuBqpbrBCsfMcbiWP_c/view" },
+
+]
+          },
+      {
+                  type: "series",
+        title: "YUNTAI MASTERS",
+        poster: "https://m.media-amazon.com/images/I/81wf8PL6g0L._UF894,1000_QL80_.jpg",
+        description: "action aventure",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1Gy-eS6wdtTmGfjmssBffmcFj5L7rTg0l/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1eDbsALZBKaW2i9OhryWnzbF0xe8fb32H/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/18aW-h2TtAIcP9ZQ-QfVaY0pXdJ4rpazB/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1wX3Uygqu44cXmoOi16U77ouNYtxA2sgS/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/17sbgLvXFhaLpEVYq8M37-1WLLm9U1_Jl/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1nkmMzpBMEXvRAmkZEBA0399uk6ZQ3sJT/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/16EGIljTV--I6j23iAdLoF1t80ts4kNGQ/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1IEXc6k2k0UDxS5LaU77dvGKC-G8UUeEQ/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1iKv8lS1PYJq3vCKFXDkl38OKAC71qIRM/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1ONe0utyg34-CltQpPiexHLRr0SmC7Y1L/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1RX82YnywN32OplFbLnkAnl6lLmFubN0-/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1Wpq_NHxhIEazgmBXRp9zSfFPnO0b7zC7/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1CcBpwRBOz8DbY1euNCut-xJAWGud6vMa/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/10HFKW2AJdfByEiHf_2oCZ1iDhoSvl-v6/view" },
+{ title: "Episode 15", url: "https://drive.google.com/file/d/1zT91iu4V91n9lZvofKc2MbEvuxhvk8-c/view" },
+{ title: "Episode 16", url: "https://drive.google.com/file/d/1sF9uZQwpszcOX7TuwvOV-nlod60-uX87/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/18BE3TsLVQcGjxfPCsW4soh6yJJsNqnGF/view" },
+{ title: "Episode 18", url: "https://drive.google.com/file/d/1m6hf45akkPD3CadGMCG5_6uuxvSv7m-E/view" },
+{ title: "Episode 19", url: "https://drive.google.com/file/d/1qsLrHfcx4tvez_UXnIg1LrCKGCRg9pAk/view" },
+{ title: "Episode 20", url: "https://drive.google.com/file/d/1Au5xKJVjmVrjo69nKCGTc6kKMthw_ils/view" },
+{ title: "Episode 21", url: "https://drive.google.com/file/d/12tVkDkQHwW5jbHbGHz2JY6L_7bCMftgk/view" },
+{ title: "Episode 22", url: "https://drive.google.com/file/d/1OM8JylGAk9SngjQTEgpTe0bmYfbe_boo/view" },
+{ title: "Episode 23", url: "https://drive.google.com/file/d/1-OikZCTkAAR9Tjm0gH3omeo1sPTkEc3a/preview" },
+{ title: "Episode 24", url: "https://drive.google.com/file/d/1nuoDOFS3TZJtShCCNoHRI4KisRNHPqPu/preview" },
+{ title: "Episode 25", url: "https://drive.google.com/file/d/1ONsfPjnr1T8ctYFwxpZceba6ASGQG2-9/preview" },
+{ title: "Episode 26", url: "https://drive.google.com/file/d/1_EMIsD3PIJrjttLYJoj38coLTn0xgfAZ/preview" },
+{ title: "Episode 27", url: "https://drive.google.com/file/d/18NjMAt6RE8t_0Tv0lnBxH_Di7IsTbYRW/preview" },
+{ title: "Episode 28", url: "https://drive.google.com/file/d/1z1YYSs9cpYD5O8la5UtIV8bC9HQkHzyI/preview" },
+{ title: "Episode 29", url: "https://drive.google.com/file/d/1tbu5miJ_jqBDCi4EKbX4FOVxYFqdUT5g/preview" },
+{ title: "Episode 30", url: "https://drive.google.com/file/d/1wcCsshlUknLH7hGEPcFxP4FXCQN9EWKu/preview" },
+{ title: "Episode 31", url: "https://drive.google.com/file/d/1OF-Pd-yqLtGsVDUUeYlPajqvkfYWY12-/preview" },
+{ title: "Episode 32", url: "https://drive.google.com/file/d/1ZaRDx-5oFRAmAFM3dUC4o6wzc9jpRLPB/preview" },
+{ title: "Episode 33", url: "https://drive.google.com/file/d/1ndQUUJDnKKSlnc1vSG1bkMUi3M3E148U/preview" },
+{ title: "Episode 34", url: "https://drive.google.com/file/d/1qZ0JO8juyAaiHrdvFjNF0kUsz4cY6xVH/preview" },
+{ title: "Episode 35", url: "https://drive.google.com/file/d/1hHwKnQC1XlUmJ8Tn77Ha49_uEu4jon2V/preview" },
+{ title: "Episode 36", url: "https://drive.google.com/file/d/17WsuX6WHHUmvZ0E_bPxVMCzpkMUWWjMW/preview" },
+]
+          },
+      {
+                  type: "series",
+        title: "THE LEGEND OF YANG ZHU",
+        poster: "https://i.ibb.co/Q6vsMqn/x-yang-zhu.jpg",
+        description: "action aventure",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1Xa58esrjAtrAV-M5IAtrW53ba3NQCoJE/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1Vj_TH8gOQOL9lSL8s-D-Lh-mFvCDApK6/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1Y2J5tQRTzjfO96c7KpmshXpch46opvEJ/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1GQm5nRpJqJhc1McmtM-syshXLvgAYq6k/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1DPbL8VrYy2g8KVQD4itlhWXVgUslIMJg/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1x1BSU1gexMjcXcMpCbmPvFvjnqjuvQs0/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1dQVn3GvSoTr_O7b2qdk0JS9q3oKINj6y/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1Q_Izq5L2PgDJw5QXKUidzQzMo0xpboiu/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/1SU_l86EBJqNGJB8stWY5hxyQj7tj22BQ/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1CJu-7epaCUAjnMwYK7of96TZusRuHExl/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1oyKlmglAtvlvLrdg0xkxARAtPWXq7Wi1/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1ZzkDuUJmjV_AZSom98RWm_obrouD4-BD/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1CcBpwRBOz8DbY1euNCut-xJAWGud6vMa/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/10HFKW2AJdfByEiHf_2oCZ1iDhoSvl-v6/view" },
+{ title: "Episode 15", url: "https://drive.google.com/file/d/1zT91iu4V91n9lZvofKc2MbEvuxhvk8-c/view" },
+{ title: "Episode 16" , url: "https://drive.google.com/file/d/1UCtEklXl93upA9dOYaxmahgtvkMkCTUZ/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/1aVWLxayUfyscnisMiqIwrovIySx8QfBw/view" },
+{ title: "Episode 18" , url: "https://drive.google.com/file/d/1cYbs3t204Gvdy1ocj1esTTwDGYO9sqNT/view" },
+{ title: "Episode 19" , url: "https://drive.google.com/file/d/1_r7TuKpTQtOzAbLvHEta7gEHREvGRoJI/view" },
+{ title: "Episode 20", url: "https://drive.google.com/file/d/1_r7TuKpTQtOzAbLvHEta7gEHREvGRoJI/view" },
+ { title: "Episode 21" , url: "https://drive.google.com/file/d/1Yxk3s-teHq7Oi6XeMMA_bTbIcnLiNCZE/view" },
+ { title: "Episode 22" , url: "https://drive.google.com/file/d/1SQb_BI9lkBYg2kOLieySWZ0vqx7z8E9Y/view" },
+{ title: "Episode 23", url: "https://drive.google.com/file/d/1ses7vBjCPfvDuGbMHW1UjiNpzwrOTJgF/view" }, 
+{ title: "Episode 24" , url: "https://drive.google.com/file/d/1noJRMdpLmF311HnGMSGNZHWpwb6D6l9L/view" },
+{ title: "Episode 25", url: "https://drive.google.com/file/d/1TgCvznqbt5NBBfpoSCjaBQLUk-cp_IWC/view" },
+{ title: "Episode 26", url: "https://drive.google.com/file/d/1PVIyXHR9vBAvOg0rS29KzPkE9EBC5v47/view" },
+{ title: "Episode 27", url: "https://drive.google.com/file/d/1i2Y71ZxPwfbrGAJulZfC4cl2Ni6QU7SH/view" },
+{ title: "Episode 28" , url: "https://drive.google.com/file/d/1GAckopsOqNthM56wzq1PbHpFMJN4sVSL/view" },
+{ title: "Episode 29" , url: "https://drive.google.com/file/d/1BR1u_asMOZJNFXxtC68ELuY1uDFbQbpm/view" },
+{ title: "Episode 30" , url: "https://drive.google.com/file/d/1qpGwiY_o9J5TNHSoSj6dExG8F2Rr4vEO/view" },
+{ title: "Episode 31", url: "https://drive.google.com/file/d/1ETsBUgg-h4ILEYgvWRl8vzK30g_3S_NA/view" }
+]
+          },
+           {
+                  type: "series",
+        title: "LORD OF THE RINGS",
+        poster: "https://i.ibb.co/T4X1yNC/x-lord-of-rings.jpg",
+        description: "action aventure",
+        episodes: [
+{ title: "Episode 1", url: "https://drive.google.com/file/d/1qOMqq1jULoSCxGpA5EztRQjqh752Nw5Y/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1h0DUmNnIbbGf4wovOBN-L50YlPCaiRcr/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1SZRHH7TfsyhToacC-4YSGfik7hHIrw73/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1nX9yuawck_cG5WXl6i-lwR4bCEqkb3tc/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1VwipHwjAuyMIqiskteWZK3x4-sYVC2sj/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1zV1kQUFloKQ0bbb2MRaXVc7CxsWq98E_/view" }
+
+        ]
+          },
+      
+      {
+        type: "series",
+        title: "MARTIAL RULES",
+        poster: "https://i.ibb.co/N2h4DQYm/Untitled-1.jpg",
+        description: "China | Martial Arts",
+        episodes: [
+          { title: "Episode 1", url: "https://drive.google.com/file/d/1sPxF6vD_CdvauadLCulfnkLcaKxGhvPI/view" },
+{ title: "Episode 2", url: "https://drive.google.com/file/d/1DPnPnqLc2EuhXEG109_UINXNlkDuMBIS/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1mZyH627qm28Op0s-elokxiKNcbzL_54x/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1k5DlDulwc7Rd1afNtwe4urp91O_j9dIL/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/12-RDwtnge6N1zq4n4M3IiW6OTb6bjDSl/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1o7ZFGT-9VBbWO_Q3Jl7goEKGsotq1Kd7/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1P4SCMfFFHwy1S-Ia26vFH5Y6zjHscNTP/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/1WuG1fQ8s4Kt0mBaBw1UTx8ZWhl6c_CWC/view" }
+        ]
+      },
+      
+      {
+        type: "series",
+        title: "PEACH BLOSSOM",
+        poster: "https://i.ibb.co/gM2XfGGk/Untitled-1.jpg",
+        description: "China | 2025 | Martial Arts",
+        episodes: [
+          { title: "Episode 1", url: "https://drive.google.com/file/d/1mzP6k_u8NEJsFDWwgK5Jj62kbqw1PXs-/view" },
+          { title: "Episode 2", url: "https://drive.google.com/file/d/1x9rsnqpj92NwFhlHGKDRxlu-ukz30Coy/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1m0AYRJnq-KIOKYzpYTkqEGwh0MQG9vjC/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1eZ8VmKkTmKqgIdUloyRJH9R_kEwX5tx_/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1_D0FJjfB1A2NzCAQmFzaKJBuQifJeOqu/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1MkdCGV_v0kOE1ogE7MOnRA5ZCNbBMygm/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1fOOX0Bbank7mF48tOQKZHm5V31xx-nNN/view" },
+        { title: "Episode 7", url: "https://drive.google.com/file/d/1eN1jwn09io8q1J-z0tijjD6SHoBf4iZI/view" }
+        ]
+      },
+      
+      {
+        type: "series",
+        title: "BEGGARS SECT",
+        poster: "https://i.ibb.co/xqK79Mvc/32-Oa-WHp8ip-Rpc-Ky-C0pl-WKUAn89-T.jpg",
+        description: "China | 2025 | Martial Arts",
+        episodes: [
+          { title: "Episode 1", url: "https://drive.google.com/file/d/156tPthFOQu8-VxtnqdluPFRuUOBfKJAZ/view" },
+          { title: "Episode 2", url: "https://drive.google.com/file/d/1EjOOI38Ig0qW1Cy1Y-9RhjZnKHG05vaT/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1kXMx7fMv23FNS0bsPO94v8meSw3wzU3f/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1JpJyf97E3LU3_aqPB53yYdpFHlFjo2dF/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1NG3ywkW_EyF1qek9q-3gLa0ymzhyrRBM/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/1D0cj8qkTomKEZn53gLJKgS67W3CQ_XHn/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1oGqFDg3MMVJrHmudA83-bzqVHR8MEpRR/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1rBVR3BviAn8twD-bWOWYHDJvckjNgVbT/view" }
+        ]
+      },
+      
+       {
+        type: "series",
+        title: "DANZU HERO season 1",
+        poster: "https://i.ibb.co/zxtMH4R/x-danzu-hero.jpg",
+        description: "China | 2025 | Martial Arts",
+        episodes: [
+{ title: "Episode 1", url:"https://vimeo.com/832857145?fl=pl&fe=sh?title=0&byline=0" },
+{ title: "Episode 2", url:"https://vimeo.com/746377550?fl=pl&fe=sh" },
+{ title: "Episode 3", url: "https://vimeo.com/747043385?fl=pl&fe=sh" },
+{ title: "Episode 4", url: "https://vimeo.com/750136183?fl=pl&fe=sh" },
+{ title: "Episode 5", url: "https://vimeo.com/750139531?fl=pl&fe=sh" },
+{ title: "Episode 6", url: "https://vimeo.com/751105510?fl=pl&fe=sh" },
+{ title: "Episode 7", url: "https://vimeo.com/751107098?fl=pl&fe=sh" },
+{ title: "Episode 8", url: "https://vimeo.com/751529159?fl=pl&fe=sh" }
+        ]
+      },
+      
+      
+            
+       {
+        type: "series",
+        title: "WESTERN HEROES",
+        poster: "https://i.ibb.co/W48scYgh/Untitled-1.jpg",
+        description: "China | 2025 | Martial Arts",
+        episodes: [
+{ title: "Episode 1", url:"https://drive.google.com/file/d/1FQx-XZKa-dfir6v82AQxCloFDXh4PRtb/view" },
+{ title: "Episode 2", url:"https://drive.google.com/file/d/1zUbIyTlBdtAUHLvGdiAzua59t5JaxwZr/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/1o_pVPTl0VaP_Zsx0sSVQCmxJodioiTW3/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/1mVNv0UBXFKOxZUEuVA6PdWGnNHfkEP4x/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1Ri08Ew3LsGlKjUUjfIOgBNweCZRszHw2/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/10WtCnwrsRfpM94Y_tSJH2vKNTNnCjHC5/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1y1A-GbpLg-3Mc6bcK4_AACtUr_lHMyKJ/view" },
+{ title: "Episode 8", url: "https://drive.google.com/file/d/13y8QlQx0IjA2SKwnFdW5IujCXWNcFGzG/view" },
+{ title: "Episode 9", url: "https://drive.google.com/file/d/13y8QlQx0IjA2SKwnFdW5IujCXWNcFGzG/view" },
+{ title: "Episode 10", url: "https://drive.google.com/file/d/1vJRDvL5YmpIWM9tXwtAYDG7CdkPU1DMd/view" },
+{ title: "Episode 11", url: "https://drive.google.com/file/d/1dHJm9aAoofNj-Krh12OTGQ30QLbA2zFp/view" },
+{ title: "Episode 12", url: "https://drive.google.com/file/d/1ufOqsDRAmDyvIE4MlTZ7U97AIBabTC5R/view" },
+{ title: "Episode 13", url: "https://drive.google.com/file/d/1aM3XErSFU3d265eZ8BOLH6ohhIhlw4yz/view" },
+{ title: "Episode 14", url: "https://drive.google.com/file/d/19WD_3D-eXwVEk5HM0c2q_rlUYJtkhznO/view" },
+{ title: "Episode 15", url: "https://drive.google.com/file/d/1fl7EiHgVW3dZICL0kKp0crv-D_NeIFsI/view" },
+{ title: "Episode 16", url: "https://drive.google.com/file/d/1t5BwALm5EwSGm_p5koOLyJDifd95LO7K/view" },
+{ title: "Episode 17", url: "https://drive.google.com/file/d/1JVyl-gi9U3vLZ3WRAGO0QB0m9vcmr-1I/view" },
+{ title: "Episode 18", url: "https://drive.google.com/file/d/1XuvzPPPucSJ5RY3P6bP4nN_9dqYUCBDz/view" },
+{ title: "Episode 19", url: "https://drive.google.com/file/d/1JKDYvMkaC1jwVFgBdFRPOv0WwHuJYB8P/view" },
+{ title: "Episode 20", url: "https://drive.google.com/file/d/1KAyTXRh37fRIdVpJCW7_bCJI7DMgIXNc/view" }
+        ]
+      },
+      
+      
+      {
+        type: "movie",
+        title: "DEADLY OCEAN",
+        poster: "https://i.ibb.co/V05qK36q/Untitled-1.jpg",
+        description: "USA | Action | Horror",
+        url: "https://youtu.be/YDPRzcip9b4"
+      },
+      
+      
+          
+      {
+        type: "movie",
+        title: "DONT STEP DOWN",
+        poster: "https://resizing.flixster.com/_d_AVndVbXgpOPkjrAM29XkwvUo=/fit-in/352x330/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p12020601_k_v10_aa.jpg",
+        description: "USA | Horror | ",
+        url: "https://youtu.be/V8MLC5mmRFo"
+      },
+      
+      {
+        type: "movie",
+        title: "TANK",
+        poster: "https://gonewiththetwins.com/wp-content/uploads/2014/10/fury_tall.jpg",
+        description: "USA | Action | ",
+        url: "https://youtu.be/Z7L9lanYA-M"
+      },
+      
+      {
+        type: "movie",
+        title: "BAHUT",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTac2RIWUy7L--rtErvvFi_eV079oZ91w3YkQ&s",
+        description: "2025 | India",
+        url: "https://youtu.be/jP8d-GnWacY"
+      },
+      
+      {
+      type: "movie",
+      title:"JURRASIC WORLD Rebirth",
+    poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrypJP9c-KloZrs9At6T_Q8itIgpEHA3ObH66AjUTLQ5nv4tAhnd_AbceRjqX5Vs2lfWE&usqp=CAU",url:"https://drive.google.com/file/d/1SFy7HCO52Qe1d5pl8PpjdGqmLrpcB37r/view?usp=drive_link", description: "2025 | Horror",
+    },
+       {
+      type: "movie",
+      title:"JURRASIC WORLD Rebirth 2",
+    poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrypJP9c-KloZrs9At6T_Q8itIgpEHA3ObH66AjUTLQ5nv4tAhnd_AbceRjqX5Vs2lfWE&usqp=CAU",url:"https://drive.google.com/file/d/1-n6aSvRil0N0bNCawGJ01n0aTyRyR7TV/view?usp=sharing", description: "2025 | Horror",
+    },
+         {
+      type: "movie",
+      title:"THE FIELD",
+    poster:"https://stat5.bollywoodhungama.in/wp-content/uploads/2022/10/Crakk-2.jpg1_-306x393.jpg",url:"https://www.youtube.com/embed/-D63zpPOlB0", description: "India | Action",
+    },
+     {
+      type: "movie",
+      title:"THE FIELD 2",
+    poster:"https://stat5.bollywoodhungama.in/wp-content/uploads/2022/10/Crakk-2.jpg1_-306x393.jpg",url:"https://www.youtube.com/embed/P15TKnlrj7c", description: "India | Action",
+    },
+    
+      {
+        type: "series",
+        title: "MERCY FOR NONE",
+        poster: "https://i.ibb.co/RpTNvTng/mercy-for-none.jpg",
+        description: "Korea | 2025 | Action",
+        episodes: [
+          { title: "Episode 1", url: "https://drive.google.com/file/d/1BVoJes2Nvk1pftfCKDSFB0nVbIiGJr4F/view" },
+          { title: "Episode 2", url: "https://drive.google.com/file/d/1Mg-T0UWZv0-Mx5wYVfQzvtSdevLTLbhA/view" },
+{ title: "Episode 3", url: "https://drive.google.com/file/d/13PajaWn8Eou9VdahscnPwy0ZzAxp-Cyb/view" },
+{ title: "Episode 4", url: "https://drive.google.com/file/d/13PajaWn8Eou9VdahscnPwy0ZzAxp-Cyb/view" },
+{ title: "Episode 5", url: "https://drive.google.com/file/d/1jwVVARyz_HYftlHrDOhaw6ruIF3FcFw5/view" },
+{ title: "Episode 6", url: "https://drive.google.com/file/d/156yM6gunR1c1D6RmPIlVgoI_0RHeyj3s/view" },
+{ title: "Episode 7", url: "https://drive.google.com/file/d/1U5z_0HVxrWH9W5krdOoHfOtWVGX-AovM/view" }
+        ]
+      },
+
+      
+      {
+        type: "movie",
+        title: "FINAL DESTINATION 1",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqVPKrerf8PEbv7V-vO5nHYVywwp17Ldst7w&s",
+        description: "USA | Horror",
+        url: "https://vimeo.com/832514711?fl=pl&fe=sh"
+      },
+            {
+        type: "movie",
+        title: "FINAL DESTINATION 3",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGdFEmJ08ApejJk4487nnFyuNuRj9YP7BtXQ&s",
+        description: "USA | Horror",
+        url: "https://vimeo.com/833246693?fl=pl&fe=sh"
+      },
+      
+                {
+        type: "movie",
+        title: "GANGSTER COP DEVIL",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQX8ZEfJGQde_Fd1y0-J4h0J2Zv-FWIGxZmPUV-6vi5KJ1tTD1CdoLC8YgLmv_gV3fMa0&usqp=CAU",
+        description: "Korea | Action",
+        url: "https://vimeo.com/890316259?fl=pl&fe=sh"
+      },
+                      {
+        type: "movie",
+        title: "APOCALYPTO",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyhiDycMHgTlnAPn_er8FPv9YiHhIF49QJug&s",
+        description: "USA | Adventure",
+        url: "https://drive.google.com/file/d/19kEnvObyU5YRvAQkN8IDk6CuTlvNeoJ3/preview"
+      },
+        {
+        type: "movie",
+        title: "APOCALYPTO 2",
+        poster: "https://cdn.displate.com/artwork/270x380/2024-10-14/7a7b8ae5-3ae5-4ef7-9506-1d2a53634249.jpg",
+        description: "USA | Action",
+        url: "https://drive.google.com/file/d/1-X1lrFB_hsYWW-_Wvn8WW5on_jxnsWoX/preview"
+      },
+        {
+        type: "movie",
+        title: "APARAJEY",
+        poster: "https://i.ibb.co/0RRSMb9t/Untitled-1-Recovered.jpg",
+        description: "India | Action",
+        url: "https://drive.google.com/file/d/11oN31y0iqiDf1W3wftw2XTGjzGmxx3n1/preview"
+      },
+       {
+        type: "movie",
+        title: "APARAJEY 2",
+        poster: "https://i.ibb.co/0RRSMb9t/Untitled-1-Recovered.jpg",
+        description: "India | Action",
+        url: "https://drive.google.com/file/d/1XOF2xpJL_tEupDblF1ZiX6szU1M515hA/preview"
+      }, 
+         {
+        type: "movie",
+        title: "BLOOD RED SKY",
+        poster: "https://m.media-amazon.com/images/M/MV5BMDE2YWFjNTUtZjkxOC00NDRhLTlkNDYtYmI2ZGRlYjE4MDJkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+        description: "USA | Horror",
+        url: "https://vimeo.com/881233399?fl=pl&fe=sh"
+      },
+        {
+        type: "movie",
+        title: "BLOOD RED SKY 2",
+        poster: "https://m.media-amazon.com/images/M/MV5BMDE2YWFjNTUtZjkxOC00NDRhLTlkNDYtYmI2ZGRlYjE4MDJkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+        description: "USA | Horror",
+        url: "https://vimeo.com/881361105?fl=pl&fe=sh"
+      },
+        {
+        type: "movie",
+        title: "CHAKRA",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPK0j9jLNYpa1jai5FslXesup5Qxlxz7bqGg&s",
+        description: "India | Action",
+        url: "https://vimeo.com/775159625?fl=pl&fe=sh"
+      },
+           {
+        type: "movie",
+        title: "CHAKRA 2",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPK0j9jLNYpa1jai5FslXesup5Qxlxz7bqGg&s",
+        description: "India | Action",
+        url: "https://vimeo.com/775164855?fl=pl&fe=sh"
+      },
+       {
+       type: "movie",
+       title:"GUNS AKIMBO",
+    poster:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRolXQaBZK2pQqU-ak2sCTxT-v2cAj1gz35VA&s",
+    url:"https://vimeo.com/764859386?fl=pl&fe=sh",
+   description: "USA | Action",
+    },
+       {
+        type: "movie",
+        title: "DYLAN",
+        poster: "https://ik.imagekit.io/qpsct08oc/Untitled-1.jpg?updatedAt=1745568240828",
+        description: "USA | Action",
+        url: "https://youtu.be/PAjBGKM7zxg?si=cBnuUE9DAZJiDDR0"
+      },
+         {
+        type: "movie",
+        title: "DRIVE ANGRY",
+        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXpGlKs-IAtW0quJ7MPQLvlIFD0E_0wdYvyw&s",
+        description: "USA | Action",
+        url: "https://drive.google.com/file/d/1VabUNOHw8JLmhgtkmE-ibSmWfqfEcDxq/view"
+      },
+         {
+        type: "movie",
+        title: "CLOSE RANGE",
+        poster: "https://upload.wikimedia.org/wikipedia/en/2/2a/CloseRange.Adkins.png",
+        description: "USA | Action",
+        url: "https://drive.google.com/file/d/1UnXD5uFvtFkwT8zwRTEduuGxr9Ih5jVd/preview"
+      },
+       {
+       
+
+
+        type: "movie",
+        title: "KILLER JEANS",
+        poster: "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Slaxx.jpg/250px-Slaxx.jpg",
+        description: "USA | Horror",
+        url: "https://youtu.be/WtXTEOyfIDs"
+      },
+      
+     
+    ];
+
+    const grid = document.getElementById("movieGrid");
+
+    function renderItems(items) {
+      grid.innerHTML = "";
+      items.forEach((movie, index) => {
+        const card = document.createElement("div");
+        card.className = "movie-card";
+        card.setAttribute("data-type", movie.type);
+        card.setAttribute("data-title", movie.title.toLowerCase());
+
+        if (movie.type === "movie") {
+          card.innerHTML = `
+            <img src="${movie.poster}" alt="${movie.title}">
+            <h3>${movie.title}</h3>
+            <p>${movie.description}</p>
+            <button class="btn btn-preview" onclick="playVideo('${movie.url}')">Preview</button>
+            ${generateDownloadButton(movie.url)}
+          `;
+        } else if (movie.type === "series") {
+          let episodeList = movie.episodes.map(ep => `
+            <div class="episode">
+              <b>${ep.title}</b><br>
+              <button class="btn btn-preview" onclick="playVideo('${ep.url}')">Preview</button>
+              ${generateDownloadButton(ep.url)}
+            </div>
+          `).join("");
+
+          card.innerHTML = `
+            <img src="${movie.poster}" alt="${movie.title}">
+            <h3>${movie.title}</h3>
+            <p>${movie.description}</p>
+            <button class="btn btn-episodes" onclick="toggleEpisodes(${index})">Show Episodes</button>
+            <div class="episodes" id="episodes-${index}">
+              ${episodeList}
+            </div>
+          `;
+        }
+        grid.appendChild(card);
+      });
+    }
+
+    // Initial load
+    renderItems(movies);
+
+    function toggleEpisodes(index) {
+      const section = document.getElementById("episodes-" + index);
+      section.style.display = section.style.display === "block" ? "none" : "block";
+    }
+
+    function generateDownloadButton(url) {
+      if (url.includes("youtube.com") || url.includes("youtu.be")) {
+        let videoId = url.includes("youtu.be") 
+            ? url.split("youtu.be/")[1].split("?")[0] 
+            : url.split("v=")[1]?.split("&")[0];
+        return `<a class="btn btn-download" href="https://www.y2mate.com/youtube/${videoId}" target="_blank">⬇️ Download</a>`;
+      }
+      else if (url.includes("drive.google.com")) {
+        let fileId = (url.match(/\/d\/(.*?)\//) || [])[1];
+        return `<a class="btn btn-download" href="https://drive.google.com/uc?export=download&id=${fileId}" target="_blank">⬇️ Download</a>`;
+      }
+      else if (url.includes("vimeo.com")) {
+        let vimeoId = url.split("vimeo.com/")[1].split("?")[0];
+        return `<a class="btn btn-download" href="https://www.9xbuddy.org/process?url=https://vimeo.com/${vimeoId}" target="_blank">⬇️ Download</a>`;
+      }
+      return "";
+    }
+
+    function playVideo(url) {
+      let player = document.getElementById("videoPlayer");
+      player.style.display = "block";
+      player.innerHTML = "";
+
+      if (url.includes("youtube.com") || url.includes("youtu.be")) {
+        let videoId = url.includes("youtu.be") 
+            ? url.split("youtu.be/")[1].split("?")[0] 
+            : url.split("v=")[1]?.split("&")[0];
+        player.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+      }
+      else if (url.includes("drive.google.com")) {
+        let fileId = (url.match(/\/d\/(.*?)\//) || [])[1];
+        player.innerHTML = `<iframe src="https://drive.google.com/file/d/${fileId}/preview" allow="autoplay"></iframe>`;
+      }
+      else if (url.includes("vimeo.com")) {
+        let vimeoId = url.split("vimeo.com/")[1].split("?")[0];
+        player.innerHTML = `<iframe src="https://player.vimeo.com/video/${vimeoId}" allowfullscreen></iframe>`;
+      }
+
+      player.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Filtering by type
+    function filterItems(type, btn) {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const cards = document.querySelectorAll(".movie-card");
+      cards.forEach(card => {
+        if (type === "all" || card.getAttribute("data-type") === type) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    // Search function
+    function searchItems() {
+      const query = document.getElementById("searchBar").value.toLowerCase();
+      const cards = document.querySelectorAll(".movie-card");
+      cards.forEach(card => {
+        const title = card.getAttribute("data-title");
+        card.style.display = title.includes(query) ? "block" : "none";
+      });
+    }
+  </script>
+
 </body>
 </html>
