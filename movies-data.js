@@ -78,6 +78,28 @@ const MOVIES = [
     duration: "1h 05m",
     synopsis: "A group of college students face a tragedic semister when they enter a weird professor's house "
   },  
+       {
+    id: "1anna1",
+    title: "ANNA",
+    poster: "https://i.pinimg.com/736x/c2/3a/cd/c23acd89369cfcb3273f632c374ed2b4.jpg",
+    video: "https://www.youtube.com/embed/K0-AdBt0ncg",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1h 05m",
+    synopsis: "Anna is a griping emotional action moviet that you can't miss"
+  },
+          {
+    id: "1anna2",
+    title: "ANNA 2",
+    poster: "https://i.pinimg.com/736x/c2/3a/cd/c23acd89369cfcb3273f632c374ed2b4.jpg",
+    video: "https://www.youtube.com/embed/eZNIvshGBPo",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1h 05m",
+    synopsis: "Anna is a griping emotional action moviet that you can't miss"
+  },
       {
     id: "sankat2",
     title: "SANKAT 2",
