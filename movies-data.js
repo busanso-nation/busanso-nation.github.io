@@ -77,7 +77,73 @@ const MOVIES = [
     duration: "1h 15m",
     synopsis: "A mysterious drama unfolding beneath an ancient tree."
   },
-
+     {
+    id: "hinduta",
+    title: "HINDUTAN",
+    poster: "https://images.news18.com/webstories/uploads/2024/11/FotoJet-38-2024-11-893b35063c060c56bf57d5f2b89c47f0.jpg",
+    video: "https://www.youtube.com/embed/2e2m8XLMpo4",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "A great tale about a Moslem nation that could not allow their King mary a christian princess, yet  she was the only key to peace and unity among the nations."
+  },
+       {
+    id: "hindutwo",
+    title: "HINDUTAN 2",
+    poster: "https://images.news18.com/webstories/uploads/2024/11/FotoJet-38-2024-11-893b35063c060c56bf57d5f2b89c47f0.jpg",
+    video: "https://www.youtube.com/embed/Xpe9R7Wl_1Y",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "A great tale about a Moslem nation that could not allow their King mary a christian princess, yet  she was the only key to peace and unity among the nations."
+  },
+       {
+    id: "hinduthree",
+    title: "HINDUTAN 3",
+    poster: "https://images.news18.com/webstories/uploads/2024/11/FotoJet-38-2024-11-893b35063c060c56bf57d5f2b89c47f0.jpg",
+    video: "https://www.youtube.com/embed/BV-ATSKOSrw",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "A great tale about a Moslem nation that could not allow their King mary a christian princess, yet  she was the only key to peace and unity among the nations."
+  },
+          {
+    id: "chotebro",
+    title: "CHOTE",
+    poster: "https://img.indiaforums.com/movie/350x525/7/319-daaku-maharaaj.webp?c=2oO5F7",
+    video: "https://www.youtube.com/embed/EQXcutRBXvA",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 25m",
+    synopsis: "Everyone calls him brother. his love for his sister is endless. he can fight and even ready to die for her"
+  },
+             {
+    id: "chotebros",
+    title: "CHOTE 2",
+    poster: "https://img.indiaforums.com/movie/350x525/7/319-daaku-maharaaj.webp?c=2oO5F7",
+    video: "https://www.youtube.com/embed/GqZmqHF0rRU",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 25m",
+    synopsis: "Everyone calls him brother. his love for his sister is endless. he can fight and even ready to die for her"
+  },
+               {
+    id: "liwena",
+    title: "SILVER SLIPPERS",
+    poster: "https://i.ibb.co/FNgNbcL/BBBBB.jpg",
+    video: "https://www.youtube.com/embed/DtRoBh0jppI",
+    type: "premium",
+    year: "2026",
+    country: "USA",
+    duration: "1h 15m",
+    synopsis: "During a tornado, Dorothy is once again whisked away to the Land of Oz and encounters the cousin of the Wicked Witch of the West, who is attacking the Emerald City with an army of monstrous green elephants"
+  },
+   
       {
     id: "sankat1",
     title: "SANKAT",
