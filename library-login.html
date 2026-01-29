@@ -43,8 +43,15 @@ button{
   font-weight:bold;
   cursor:pointer;
 }
+  .ad-box{
+  margin:20px auto;
+  text-align:center;
+  max-width:100%;
+}
+
 button:hover{background:#22c55e;}
 .msg{margin-top:10px;font-size:14px;color:#ff4d4d;}
+  
 </style>
 </head>
 <body>
@@ -106,6 +113,19 @@ function login(){
   setTimeout(()=>{ location.href = "kibanda.html"; }, 1000);
 }
 </script>
+<!-- MONETAG BANNER AD -->
+<div class="ad-box">
+  <script>
+    (function(s){
+      s.dataset.zone='10536867',
+      s.src='https://nap5k.com/tag.min.js'
+    })([document.documentElement, document.body]
+      .filter(Boolean)
+      .pop()
+      .appendChild(document.createElement('script')))
+  </script>
+</div>
+
 
 </body>
 </html>
