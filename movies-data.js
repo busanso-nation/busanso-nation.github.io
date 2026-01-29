@@ -36,7 +36,7 @@ const MOVIES = [
        {
     id: "orion1",
     title: "ORION AND THE DARK",
-    poster: "https://i.ibb.co/Wvkwcgvz/FB-IMG-1751553903898.jpg",
+    poster: "https://i.ibb.co/YncvYyd/photo-size-large-1920-scale-1-url-https-metadata-static-plex-tv-4-gracenote-484529c533.jpg",
     video: "https://drive.google.com/file/d/1l-X93mrCwSiE4Zvs2S6_jMHtgGyWSbI1/preview",
     type: "premium",
     year: "2025",
