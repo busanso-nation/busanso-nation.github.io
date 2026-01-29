@@ -1744,6 +1744,26 @@ const SERIES = [
 {title:"Episode 13",video:"https://player.vimeo.com/video/891573419"},
 {title:"Episode 14",video:"https://player.vimeo.com/video/891732840"},
 {title:"Episode 15",video:"https://player.vimeo.com/video/891737637"}
+       ]
+  },
+{
+    id: "jesusof",
+    title: "JESUS OF NAZARETH",
+    poster: "https://bible-daily.org/wp-content/uploads/2009/09/passion_of_christ_simon_of_cyrene.jpg?w=200&h=245",
+    genre: "Religious",
+    added: 44,
+    type: "premium",
+    country: "USA",
+    year: "2024",
+    synopsis: "The narrative covers the Annunciation, the Nativity, the childhood in Nazareth, the baptism by John the Baptist, his public ministry, the Sermon on the Mount, the raising of Lazarus, the Last Supper, and the Resurrection",
+    cast: ["Robert Powell","Olivia Hussey","James Farentino", "Ian McShane"],
+    episodes: [
+{title:"Episode 1",video:"https://drive.google.com/file/d/1fNbRNGQ0PRhpxXTL6mO97QyaP1hgrtmd/preview"},
+{title:"Episode 2",video:"https://drive.google.com/file/d/1AxAuepG__RkAMUmQClZVzksN68PLh3x6/preview"},
+{title:"Episode 3",video:"https://drive.google.com/file/d/1uVl2-zjdJmmXGlZ0krq-RDSOUi_Hgp5f/preview"},
+{title:"Episode 4",video:"https://drive.google.com/file/d/1vhgsKDM56Ek6D3JA1RDlEvxwWUUJusSO/preview"},
+{title:"Episode 5",video:"https://drive.google.com/file/d/1UK2WEzJvMdVex7QLWRsOsGqYh66_NmrR/preview"},
+{title:"Episode 6",video:"https://drive.google.com/file/d/1aHvjGFx2jGgWTrboRprE3ayUkNRL8Hrp/preview"}
     ]
   }
 ];
