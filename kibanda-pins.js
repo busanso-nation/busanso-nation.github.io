@@ -5,7 +5,7 @@
 const KIBANDA_PINS = {
   "jojo": "ASTRA123",
   "kuteesa": "JAN29K",
-  "elias": "VEGA920",
+  "pimako": "VEGA2255",
   "nick": "NICKMOV123",
   "nasaji": "NASAJILIB456"
 };
