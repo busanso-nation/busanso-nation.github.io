@@ -60,6 +60,8 @@ body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16
     <button class="imo" id="shareImo">IMO</button>
     <button class="tiktok" id="shareTiktok">TikTok</button>
   </div>
+<!-- AD SLOT (FREE CONTENT ONLY) -->
+<div id="adBox" class="ad-box" style="display:none;"></div>
 
   <p id="synopsis"></p>
 </div>
@@ -78,6 +80,36 @@ var params = new URLSearchParams(location.search);
 var id = params.get("id");
 var movie = MOVIES.find(function(m){ return m.id === id; });
 if(!movie) location.replace("movies.html");
+
+/* ===== ADS: FREE CONTENT ONLY ===== */
+var AD_INTERVAL = 10 * 60 * 1000; // 10 minutes
+var adTimer = null;
+
+function hasValidPIN(){
+  var pin = localStorage.getItem("activePIN");
+  var exp = Number(localStorage.getItem("pinExpiry"));
+  return pin && exp && Date.now() < exp;
+}
+
+function showAd(){
+  if(movie.type !== "free") return;
+  if(hasValidPIN()) return;
+
+  var adBox = document.getElementById("adBox");
+  if(!adBox) return;
+
+  adBox.style.display = "block";
+  adBox.innerHTML = "";
+
+  var s = document.createElement("script");
+  s.dataset.zone = "10536867";
+  s.src = "https://nap5k.com/tag.min.js";
+  s.async = true;
+
+  adBox.appendChild(s);
+}
+
+
 
 title.textContent = movie.title;
 meta.textContent = movie.country + " • " + movie.year;
@@ -121,11 +153,26 @@ function normalizeVideo(url){
     return url;
   }
 }
-
 watchBtn.onclick = function(){
   player.innerHTML =
     '<iframe src="' + normalizeVideo(movie.video) + '" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+
+  // Show ad immediately for free users
+  showAd();
+
+  // Clear any old ad timer
+  if(adTimer) clearInterval(adTimer);
+
+  // Show ads every 10 minutes
+  adTimer = setInterval(function(){
+    if(hasValidPIN()){
+      clearInterval(adTimer);
+      return;
+    }
+    showAd();
+  }, AD_INTERVAL);
 };
+
 
 // ===== SHARE LOGIC (UNCHANGED) =====
 var SHARE_URL = "https://busanso-nation.github.io/home.html";
