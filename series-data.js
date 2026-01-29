@@ -1764,6 +1764,40 @@ const SERIES = [
 {title:"Episode 4",video:"https://drive.google.com/file/d/1vhgsKDM56Ek6D3JA1RDlEvxwWUUJusSO/preview"},
 {title:"Episode 5",video:"https://drive.google.com/file/d/1UK2WEzJvMdVex7QLWRsOsGqYh66_NmrR/preview"},
 {title:"Episode 6",video:"https://drive.google.com/file/d/1aHvjGFx2jGgWTrboRprE3ayUkNRL8Hrp/preview"}
+      ]
+  },
+{
+    id: "dancingswords",
+    title: "DANCING SWORDS",
+    poster: "https://m.media-amazon.com/images/M/MV5BY2Y0Y2RjYTItOGU4Mi00OWQ4LTk3MGQtMzdkMjIxNDc1N2IxXkEyXkFqcGc@._V1_.jpg",
+    genre: "Action",
+    added: 45,
+    type: "premium",
+    country: "Chine",
+    year: "2024",
+    synopsis: "In the early Ming Dynasty, Lau, the owner of the Book of Sword, is murdered. Lau's subordinate Kok raises his son Zhen-ho and teaches him martial arts from the Book of Sword so that he can seek revenge for his father",
+    cast: ["Wang Yanan", "Park Ji-yoon"],
+    episodes: [
+{title:"Episode 1",video:"https://drive.google.com/file/d/1Ngmt_ShAYq3bABXlL4b1VzXd1OiC_oEM/preview"},
+{title:"Episode 2",video:"https://drive.google.com/file/d/1Pk3T7yGfP5O3DkgXqHSRr9B7D7_iPqp0/preview"},
+{title:"Episode 3",video:"https://drive.google.com/file/d/1tu8vgzdLYnCBRA3SSaNfmmZKKdIFnOgt/preview"},
+{title:"Episode 4",video:"https://drive.google.com/file/d/1t12xCJ7QIC-V4WdwieCdGZhF50dVudf1/preview"},
+{title:"Episode 5",video:"https://drive.google.com/file/d/1WvJW_Xbl34RfyAPbMxrsMJzJCbOGhkjy/preview"},
+{title:"Episode 6",video:"https://drive.google.com/file/d/1STTCBmjOvdlYWmxS_flM8OWETSFzG1-a/preview"},
+{title:"Episode 7",video:"https://drive.google.com/file/d/14CeNsbEZEXv-ToOygI7vXvZEvka3ZYWl/preview"},
+{title:"Episode 8",video:"https://drive.google.com/file/d/1QU0LlU1q4fKys_s_0PdamWY7DoTVWGmk/preview"},
+{title:"Episode 9",video:"https://drive.google.com/file/d/1yZBiASqL3DwsIji6HkV9yOyaEh8xCTO8/preview"},
+{title:"Episode 10",video:"https://drive.google.com/file/d/1-OHcJRyk3lRJRh82Oexna-WFxY6bqdez/preview"},
+{title:"Episode 11",video:"https://drive.google.com/file/d/1HP7e6E47se8QOPek32yEErLEtksFQ1mL/preview"},
+{title:"Episode 12",video:"https://drive.google.com/file/d/1psJFFkLsQJU5CdlCcdO5nwy_A93pKo88/preview"},
+{title:"Episode 13",video:"https://drive.google.com/file/d/1wZxF_0Yw3uDiw-AYq82y2ukpLRZb22uQ/preview"},
+{title:"Episode 14",video:"https://drive.google.com/file/d/1I1I76rrWg1-Kq3pAt2CwGkG62nIZnoPb/preview"},
+{title:"Episode 15",video:"https://drive.google.com/file/d/1KNtG-ChVBXBioa5DlHkJpGEgqAh4KV2s/preview"},
+{title:"Episode 16",video:"https://drive.google.com/file/d/1h5pZ7nQd7WWyOffKRC--mIwUjeFf6OoC/preview"},
+{title:"Episode 17",video:"https://drive.google.com/file/d/1BgzA3dqFhjQGol-fL_kz_uHSb_dSdHkS/preview"},
+{title:"Episode 18",video:"https://drive.google.com/file/d/18_NfRAw3BG1xzdMH32Z8cu7DllnOmTKq/preview"},
+{title:"Episode 19",video:"https://drive.google.com/file/d/1BKe_355eVoCp8C5xEN7tAkokfuSl_y0R/preview"},
+{title:"Episode 20",video:"https://drive.google.com/file/d/1i8puHYtqGJ95QQ5bWEDywJXINjAUqY5L/preview"}
     ]
   }
 ];
