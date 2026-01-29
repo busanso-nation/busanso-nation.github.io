@@ -27,26 +27,70 @@ body{
 .header img{ height:55px; }
 .header h1{ margin:8px 0; }
 
+<style>
 /* BUTTONS */
 .top-actions{
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
-  gap:14px;
+  gap:12px;
   margin-bottom:22px;
+  padding:0 10px;
 }
+
 .btn{
-  padding:12px 24px;
+  padding:12px 22px;
   border-radius:999px;
   font-weight:700;
   text-decoration:none;
-  font-size:14px;
+  font-size:13px;
   color:#fff;
+  letter-spacing:.3px;
+  transition:all .25s ease;
+  box-shadow:0 6px 16px rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.08);
 }
-.subscribe{ background:#e50914; }
-.login{ background:#2563eb; }
-.live{ background:#16a34a; }
-.about{ background:#111; border:1px solid #333; }
+
+/* INDIVIDUAL BUTTON COLORS */
+.subscribe{
+  background:linear-gradient(135deg,#e50914,#ff4d4d);
+}
+
+.login{
+  background:linear-gradient(135deg,#2563eb,#38bdf8);
+}
+
+.live{
+  background:linear-gradient(135deg,#16a34a,#4ade80);
+}
+
+.about{
+  background:#111;
+  border:1px solid #333;
+  color:#ddd;
+}
+
+.agents{
+  background:linear-gradient(135deg,#9333ea,#c084fc);
+}
+
+.library{
+  background:linear-gradient(135deg,#f59e0b,#facc15);
+  color:#000;
+}
+
+.kibanda{
+  background:linear-gradient(135deg,#14b8a6,#2dd4bf);
+  color:#002;
+}
+
+/* HOVER EFFECT */
+.btn:hover{
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 10px 24px rgba(0,0,0,.5);
+  opacity:.95;
+}
+
 
 /* SECTIONS */
 .section{ padding:15px; }
@@ -129,6 +173,7 @@ body{
   <a href="library-login.html" class="btn library">Library</a>
   <a href="kibanda-login.html" class="btn kibanda">Kibanda</a>
 </div>
+
 
 
 <div class="section">
