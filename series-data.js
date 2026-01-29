@@ -1860,6 +1860,28 @@ const SERIES = [
 {title:"Episode 44",video:"https://drive.google.com/file/d/1yvvYomvbGNLt1g0GI4blxUTXG2I-6N_I/preview"},
 {title:"Episode 45",video:"https://drive.google.com/file/d/1cnJR9r_LVPs1JbSztf32jeaDYbj61Nv9/preview"},
 {title:"Episode 46",video:"https://drive.google.com/file/d/16ST0XMAj0vWpbYgyhfbQuEcB-rHlhxIK/preview"}
+       ]
+  },
+{
+    id: "manvsbee",
+    title: "MAN VS BEE",
+    poster: "https://upload.wikimedia.org/wikipedia/en/d/de/Man_vs_Bee.png",
+    genre: "Comedy",
+    added: 47,
+    type: "premium",
+    country: "USA",
+    year: "2025",
+    synopsis: "The story follows a simple premise: Trevor finds himself at war with a single bumblebee while trying to look after the mansion. As he attempts to kill the insect, his increasingly desperate and chaotic efforts lead to the systematic, irreparable destruction of the house, its art, and its contents",
+    cast: ["Rowan Atkinson", "India Fowler", "Jing Lusi"],
+    episodes: [
+{title:"Episode 1",video:"https://drive.google.com/file/d/1f7lF7No6RBx2zm6zDVRfsh2RvXLEhes9/preview"},
+{title:"Episode 2",video:"https://drive.google.com/file/d/17y4lW041WjEUVIKY4P8EsMIEMnt4bmjd/preview"},
+{title:"Episode 3",video:"https://drive.google.com/file/d/1lUabtCeyZgNdbwoBYwZzvD1DZNhsTZkw/preview"},
+{title:"Episode 4",video:"https://drive.google.com/file/d/1kKoePXcLs7WfPde89Q7cX3xp1H696ltC/preview"},
+{title:"Episode 5",video:"https://drive.google.com/file/d/1TCLpsV1bgLWgU_yozOp9hGWU9s_y4TuB/preview"},
+{title:"Episode 6",video:"https://drive.google.com/file/d/1yC298bF6aUhucFYkDcJhfZY23gqOm0gJ/preview"},
+{title:"Episode 7",video:"https://drive.google.com/file/d/1Eia2tsklfS9L0eoabaaszvLfTli5TXXQ/preview"},
+{title:"Episode 8",video:"https://drive.google.com/file/d/1RtrhktgA4vf_5gdQuT48SJgfkzKaVsCe/preview"}
     ]
   }
 ];
