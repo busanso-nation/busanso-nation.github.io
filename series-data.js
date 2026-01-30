@@ -1896,7 +1896,7 @@ const SERIES = [
     synopsis: "expert thief Mehdi and apprentice Liana, who get caught in a brutal drug turf war in Belgium",
     cast: ["Sami Bouajila", "Tracy Gotoas", "Nabiha Akkari"],
     episodes: [
-{{title:"Episode 1",video:"https://drive.google.com/file/d/10AND8gO2avy3t4tjy9mnpV5Mv9eFUFMm/preview"},
+{title:"Episode 1",video:"https://drive.google.com/file/d/10AND8gO2avy3t4tjy9mnpV5Mv9eFUFMm/preview"},
 {title:"Episode 2",video:"https://drive.google.com/file/d/1BlnGlzE2Q37o-ldaLFxtttFXPygoPBiA/preview"},
 {title:"Episode 3",video:"https://drive.google.com/file/d/1gRrkrVK1y4OrLj5FhjN7Ep_RnJ8S1F8D/preview"},
 {title:"Episode 4",video:"https://drive.google.com/file/d/1ohQmctZqnm23JEDqugW0nSlJr3fsfchp/preview"},
