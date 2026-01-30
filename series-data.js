@@ -1882,26 +1882,7 @@ const SERIES = [
 {title:"Episode 6",video:"https://drive.google.com/file/d/1yC298bF6aUhucFYkDcJhfZY23gqOm0gJ/preview"},
 {title:"Episode 7",video:"https://drive.google.com/file/d/1Eia2tsklfS9L0eoabaaszvLfTli5TXXQ/preview"},
 {title:"Episode 8",video:"https://drive.google.com/file/d/1RtrhktgA4vf_5gdQuT48SJgfkzKaVsCe/preview"}
-      ]
-  },
-{
-    id: "ganglands",
-    title: "GANGLANDS",
-    poster: "https://i.ibb.co/jZRX6HBm/poster-342.jpg",
-    genre: "Action",
-    added: 48,
-    type: "premium",
-    country: "USA",
-    year: "2023",
-    synopsis: "An experienced heist leader robs a gold refinery with his heavily armed crew. In an unrelated situation across the city, and unbeknownst to the heist leader, his teenage niece is making money posing as a prostitute to lure men to encounters and rob them. She and a female accomplice steal a man's personal effects, but they are unaware he is a drug courier. They are dismayed to find eight kilos of cocaine in his bag. His boss, a drug baron, kidnaps the niece and demands the return of his drugs. The heist leader negotiates with the drug lord, who gives him one day to recover the cocaine",
-    cast: ["Sami Bouajila", "Tracy Gotoas", "Nabiha Akkari"],
-    episodes: [
-{{title:"Episode 1",video:"https://drive.google.com/file/d/10AND8gO2avy3t4tjy9mnpV5Mv9eFUFMm/preview"},
-{title:"Episode 2",video:"https://drive.google.com/file/d/1BlnGlzE2Q37o-ldaLFxtttFXPygoPBiA/preview"},
-{title:"Episode 3",video:"https://drive.google.com/file/d/1gRrkrVK1y4OrLj5FhjN7Ep_RnJ8S1F8D/preview"},
-{title:"Episode 4",video:"https://drive.google.com/file/d/1ohQmctZqnm23JEDqugW0nSlJr3fsfchp/preview"},
-{title:"Episode 5",video:"https://drive.google.com/file/d/1NRpTrR-DNSIMpgTUZ5a178EeoEuxEFWu/preview"},
-{title:"Episode 6",video:"https://drive.google.com/file/d/1PtEFMDpCMkwYW8lbW_fdSfpjtuCZpKqa/preview"}
+      
     ]
   }
 ];
