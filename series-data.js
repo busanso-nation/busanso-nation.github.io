@@ -2131,6 +2131,62 @@ const SERIES = [
 {title:"Episode 8",video:"https://player.vimeo.com/video/826490621?h=173523632a"},
 {title:"Episode 9",video:"https://player.vimeo.com/video/826588001?h=3a09a513c7"},
 {title:"Episode 10",video:"https://player.vimeo.com/video/827304831?h=49c836de81"}
+      ]
+  },
+{
+    id: "westernheroes",
+    title: "WESTERN HEROES",
+    poster: "https://i.ibb.co/W48scYgh/Untitled-1.jpg",
+    genre: "Action",
+    added: 55,
+    type: "premium",
+    country: "Chine",
+    year: "2024",
+    synopsis: " The drama is about the female lead, who is sent to form a marriage alliance with the male lead's family, in order to stop the feud between them. However",
+    cast: ["Song Zu Er", "Liu Duan Duan", "Xuan Lu", "Wang Cheng Si", "Li Xue Qin"],
+    episodes: [
+{title:"Episode 1",video:"https://drive.google.com/file/d/1FQx-XZKa-dfir6v82AQxCloFDXh4PRtb/preview"},
+{title:"Episode 2",video:"https://drive.google.com/file/d/1zUbIyTlBdtAUHLvGdiAzua59t5JaxwZr/preview"},
+{title:"Episode 3",video:"https://drive.google.com/file/d/1o_pVPTl0VaP_Zsx0sSVQCmxJodioiTW3/preview"},
+{title:"Episode 4",video:"https://drive.google.com/file/d/1mVNv0UBXFKOxZUEuVA6PdWGnNHfkEP4x/preview"},
+{title:"Episode 5",video:"https://drive.google.com/file/d/1Ri08Ew3LsGlKjUUjfIOgBNweCZRszHw2/preview"},
+{title:"Episode 6",video:"https://drive.google.com/file/d/10WtCnwrsRfpM94Y_tSJH2vKNTNnCjHC5/preview"},
+{title:"Episode 7",video:"https://drive.google.com/file/d/1y1A-GbpLg-3Mc6bcK4_AACtUr_lHMyKJ/preview"},
+{title:"Episode 8",video:"https://drive.google.com/file/d/13y8QlQx0IjA2SKwnFdW5IujCXWNcFGzG/preview"},
+{title:"Episode 9",video:"https://drive.google.com/file/d/13y8QlQx0IjA2SKwnFdW5IujCXWNcFGzG/preview"},
+{title:"Episode 10",video:"https://drive.google.com/file/d/1vJRDvL5YmpIWM9tXwtAYDG7CdkPU1DMd/preview"},
+{title:"Episode 11",video:"https://drive.google.com/file/d/1dHJm9aAoofNj-Krh12OTGQ30QLbA2zFp/preview"},
+{title:"Episode 12",video:"https://drive.google.com/file/d/1ufOqsDRAmDyvIE4MlTZ7U97AIBabTC5R/preview"},
+{title:"Episode 13",video:"https://drive.google.com/file/d/1aM3XErSFU3d265eZ8BOLH6ohhIhlw4yz/view"},
+{title:"Episode 14",video:"https://drive.google.com/file/d/19WD_3D-eXwVEk5HM0c2q_rlUYJtkhznO/preview"},
+{title:"Episode 15",video:"https://drive.google.com/file/d/1fl7EiHgVW3dZICL0kKp0crv-D_NeIFsI/preview"},
+{title:"Episode 16",video:"https://drive.google.com/file/d/1t5BwALm5EwSGm_p5koOLyJDifd95LO7K/preview"},
+{title:"Episode 17",video:"https://drive.google.com/file/d/1JVyl-gi9U3vLZ3WRAGO0QB0m9vcmr-1I/preview"},
+{title:"Episode 18",video:"https://drive.google.com/file/d/1XuvzPPPucSJ5RY3P6bP4nN_9dqYUCBDz/preview"},
+{title:"Episode 19",video:"https://drive.google.com/file/d/1JKDYvMkaC1jwVFgBdFRPOv0WwHuJYB8P/preview"},
+{title:"Episode 20",video:"https://drive.google.com/file/d/1KAyTXRh37fRIdVpJCW7_bCJI7DMgIXNc/preview"}
+      ]
+  },
+{
+    id: "peachblossom",
+    title: "PEACH BLOSSOM",
+    poster: "https://i.mydramalist.com/yWdYgd_4f.jpg",
+    genre: "Action",
+    added: 56,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: " After her family is massacred by the treacherous Qiu Yunhai, Mei Chaofeng is sold into a brothel before being saved and trained by Huang Yaoshi",
+    cast: ["Zhou Yiwei", "Meng Ziyi", "Chen Duling", "Vengo Gao Weiguang", "Peter Ho"],
+    episodes: [
+{title:"Episode 1",video:"https://drive.google.com/file/d/1mzP6k_u8NEJsFDWwgK5Jj62kbqw1PXs-/preview"},
+{title:"Episode 2",video:"https://drive.google.com/file/d/1x9rsnqpj92NwFhlHGKDRxlu-ukz30Coy/preview"},
+{title:"Episode 3",video:"https://drive.google.com/file/d/1m0AYRJnq-KIOKYzpYTkqEGwh0MQG9vjC/preview"},
+{title:"Episode 4",video:"https://drive.google.com/file/d/1eZ8VmKkTmKqgIdUloyRJH9R_kEwX5tx_/preview"},
+{title:"Episode 5",video:"https://drive.google.com/file/d/1_D0FJjfB1A2NzCAQmFzaKJBuQifJeOqu/preview"},
+{title:"Episode 6",video:"https://drive.google.com/file/d/1MkdCGV_v0kOE1ogE7MOnRA5ZCNbBMygm/preview"},
+{title:"Episode 7",video:"https://drive.google.com/file/d/1fOOX0Bbank7mF48tOQKZHm5V31xx-nNN/preview"},
+{title:"Episode 8",video:"https://drive.google.com/file/d/1eN1jwn09io8q1J-z0tijjD6SHoBf4iZI/preview"}
       
     ]
   }
