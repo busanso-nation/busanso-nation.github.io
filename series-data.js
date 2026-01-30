@@ -2189,6 +2189,40 @@ const SERIES = [
 {title:"Episode 6",video:"https://drive.google.com/file/d/1MkdCGV_v0kOE1ogE7MOnRA5ZCNbBMygm/preview"},
 {title:"Episode 7",video:"https://drive.google.com/file/d/1fOOX0Bbank7mF48tOQKZHm5V31xx-nNN/preview"},
 {title:"Episode 8",video:"https://drive.google.com/file/d/1eN1jwn09io8q1J-z0tijjD6SHoBf4iZI/preview"}
+      ]
+  },
+{
+    id: "tombsect",
+    title: "TOMB SECT",
+    poster: "https://i.ibb.co/GfbrJGpF/Untitled-1.jpg",
+    genre: "Action",
+    added: 57,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: " Luo Wu Zi helped Li Si Xiu to build the mound of Qin Shi Huang; the first emperor who united China. His disciples continued to build and safeguard the royal tombstone. In between lies the appearance of the Nine Great Tombstones, also known as Great King of the Graves. For thousands of years, the tombs were never robbed. The outsiders regard these guardians of the tombs like the Tomb Sect. After the death of Luo Wu Zi, the position of Grave King is transferred to his eldest disciple, Mu Rong Xiu",
+    cast: ["Li Yifeng", "Yang Yang", "Liu Tianzuo", "Ken Chang", "Wei Wei"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/1cdAFoney_l85fqF4VhChvvLEN4qohzOL/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1SS-T3LCWc-qJmwJfbYe8LqglLvtPZg0d/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1EZIZiHs6TTOZbhLUp3zdprXAqzZY3aJ5/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1L-_L3v-0NL56Yo2LD-29AHLuWTtum5jL/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1OsfO8X8L608arZ3nSTOUUOanwdzGEZmY/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1OsfO8X8L608arZ3nSTOUUOanwdzGEZmY/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1bzi-HlhDdQgVPA_ceJUA9vUTFIvfmlGL/preview" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/1gZdq8ivIFr7K-wz6yMpgrn1bCzf4x-M6/preview" },
+  { title: "Episode 9", video: "https://drive.google.com/file/d/1gZdq8ivIFr7K-wz6yMpgrn1bCzf4x-M6/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/1u4zSyns4Dy49V-MTc7Z_rtwH1bcu8BQx/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/12NasitMXUdQsB2no6wQSVpBeROvU0cog/preview" },
+  { title: "Episode 12", video: "https://drive.google.com/file/d/1aSdThUTTKHwxBOa0ldnrZJxP2VuSoNTT/preview" },
+  { title: "Episode 13", video: "https://drive.google.com/file/d/1t81CMZxsmSHkmzEa9jg-g9pJ4tVAqhSA/preview" },
+  { title: "Episode 14", video: "https://drive.google.com/file/d/1xHldAi_coJPM6xYF5eoT6Eb7FFY8Twvu/preview" },
+  { title: "Episode 15", video: "https://drive.google.com/file/d/1snmrEKYjrLV3A-ejPWVq6Hl_SR3SI1_g/preview" },
+  { title: "Episode 16", video: "https://drive.google.com/file/d/1stLAVJvnsIZ2UNGGQZZzXFo8qvsHznb9/preview" },
+  { title: "Episode 17", video: "https://drive.google.com/file/d/1rHdbxExKZEWRI0be_WxSC7fwYQZ-HBWF/preview" },
+  { title: "Episode 18", video: "https://drive.google.com/file/d/1RkG6kZccUaC3Cuaf0bYW2rUPNEv2WkZ4/preview" },
+  { title: "Episode 19", video: "https://drive.google.com/file/d/1EoJCwTR2vegXZogyFtnN9V8ov-mi1zdV/preview" },
+  { title: "Episode 20", video: "https://drive.google.com/file/d/1m26rUa6M0-7oaofR8rKHILqXm-YyBkte/preview" }
 
       
     ]
