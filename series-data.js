@@ -58,7 +58,8 @@ const SERIES = [
 { title: "Episode 15", video: "https://drive.google.com/file/d/1rUrbve1W8Qn4zs1g-2WhvXUxNKCcQP7z/preview" },
 { title: "Episode 16", video: "https://drive.google.com/file/d/1JtNw4CzLBzLTa6AIenyuFgheFZR5mw-P/preview" },
 { title: "Episode 17", video: "https://drive.google.com/file/d/1aBPZ_QnAl-bhBVOVzv0eUKifBbhw7ImT/preview" },
-{ title: "Episode 18", video: "https://drive.google.com/file/d/1GIVylMC0g7k3JdV-iI7VeTlaYbXvpjRV/preview" }
+{ title: "Episode 18", video: "https://drive.google.com/file/d/1GIVylMC0g7k3JdV-iI7VeTlaYbXvpjRV/preview" },
+{ title: "Episode 19", video: "https://drive.google.com/file/d/1YKlKxmhBUqzdfuhTI5_kCKHQXkM4-_m_/preview" }
       ]
   },
 {
@@ -94,7 +95,8 @@ const SERIES = [
   { title: "Episode 19", video: "https://www.youtube.com/embed/Eun8gufKszw" },
   { title: "Episode 20", video: "https://www.youtube.com/embed/vrgxy7pCkC8" },
   { title: "Episode 21", video: "https://www.youtube.com/embed/zeJ95UcNdPI" },
- { title: "Episode 22", video: "https://www.youtube.com/embed/2QguCyge5IQ" }
+ { title: "Episode 22", video: "https://www.youtube.com/embed/2QguCyge5IQ" },
+ { title: "Episode 23", video: "https://www.youtube.com/embed/eMfqpEIsDLI" }
       ]
   },
 {
@@ -2187,6 +2189,7 @@ const SERIES = [
 {title:"Episode 6",video:"https://drive.google.com/file/d/1MkdCGV_v0kOE1ogE7MOnRA5ZCNbBMygm/preview"},
 {title:"Episode 7",video:"https://drive.google.com/file/d/1fOOX0Bbank7mF48tOQKZHm5V31xx-nNN/preview"},
 {title:"Episode 8",video:"https://drive.google.com/file/d/1eN1jwn09io8q1J-z0tijjD6SHoBf4iZI/preview"}
+
       
     ]
   }
