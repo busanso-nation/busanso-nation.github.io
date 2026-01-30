@@ -2080,6 +2080,57 @@ const SERIES = [
 {title:"Episode 7",video:"https://drive.google.com/file/d/19WdSEy3rkO1NXkYHeR3ao6zBZJYGWcKM/preview"},
 {title:"Episode 8",video:"https://drive.google.com/file/d/1TRNtazrtCLGw4rAdEyrnvu8ozypxIF7q/preview"},
 {title:"Episode 9",video:"https://drive.google.com/file/d/1Da-RDUq8ChBzwCtT44lEFdewX_4RZJUB/preview"}
+      ]
+  },
+{
+    id: "spartacus",
+    title: "SPARTACUS",
+    poster: "​https://i.ibb.co/938pKFQ/x-spartacus.jpg",
+    genre: "Action",
+    added: 54,
+    type: "premium",
+    country: "USA",
+    year: "2024",
+    synopsis: " Spartacus attempts to lead his army, including wife Varinia, out of Italy. While successful in early battles, his army is eventually hemmed in by Roman forces under Crassus",
+    cast: ["Andy Whitfield", "Manu Bennett", "John Hannah", "Nick E. Tarabay", "Peter Mensah"],
+    episodes: [
+{title:"Episode 1",video:"https://drive.google.com/file/d/1zv0gtPvW7Oz0pwbr3UbzxdpjRpnoM6h4/preview"},
+{title:"Episode 2",video:"https://player.vimeo.com/video/820403291"},
+{title:"Episode 3",video:"https://player.vimeo.com/video/820407372"},
+{title:"Episode 4",video:"https://player.vimeo.com/video/820402357"},
+{title:"Episode 5",video:"https://player.vimeo.com/video/820410988"},
+{title:"Episode 6",video:"https://player.vimeo.com/video/820771789"},
+{title:"Episode 7",video:"https://player.vimeo.com/video/821190035"},
+{title:"Episode 8",video:"https://player.vimeo.com/video/821557726"},
+{title:"Episode 9",video:"https://player.vimeo.com/video/821961548"},
+{title:"Episode 10",video:"https://player.vimeo.com/video/821965504"},
+{title:"Episode 11",video:"https://player.vimeo.com/video/822249891"},
+{title:"Episode 12",video:"https://player.vimeo.com/video/822289138"},
+{title:"Episode 13",video:"https://player.vimeo.com/video/822424465"}
+      ]
+  },
+{
+    id: "spartacus2",
+    title: "SPARTACUS S2",
+    poster: "https://i.ibb.co/9FFmXrv/tjujyytytjjkuujy.jpg",
+    genre: "Action",
+    added: 54,
+    type: "premium",
+    country: "USA",
+    year: "2024",
+    synopsis: " Spartacus attempts to lead his army, including wife Varinia, out of Italy. While successful in early battles, his army is eventually hemmed in by Roman forces under Crassus",
+    cast: ["Andy Whitfield", "Manu Bennett", "John Hannah", "Nick E. Tarabay", "Peter Mensah"],
+    episodes: [
+{title:"Episode 1",video:"https://player.vimeo.com/video/822905512?h=6d98c4e247"},
+{title:"Episode 2",video:"https://player.vimeo.com/video/823401331?h=4df61f6d84"},
+{title:"Episode 3",video:"https://player.vimeo.com/video/823987098?h=d70f779a87"},
+{title:"Episode 4",video:"https://player.vimeo.com/video/824461325?h=2827eaaf09"},
+{title:"Episode 5",video:"https://player.vimeo.com/video/824707426?h=4d87d96872"},
+{title:"Episode 6",video:"https://player.vimeo.com/video/824989503?h=7c95b8776e"},
+{title:"Episode 7",video:"https://player.vimeo.com/video/825731781?h=301209c5ac"},
+{title:"Episode 8",video:"https://player.vimeo.com/video/826490621?h=173523632a"},
+{title:"Episode 9",video:"https://player.vimeo.com/video/826588001?h=3a09a513c7"},
+{title:"Episode 10",video:"https://player.vimeo.com/video/827304831?h=49c836de81"}
       
     ]
   }
