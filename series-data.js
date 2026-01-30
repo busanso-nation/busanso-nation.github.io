@@ -1902,6 +1902,25 @@ const SERIES = [
 {title:"Episode 4",video:"https://drive.google.com/file/d/1ohQmctZqnm23JEDqugW0nSlJr3fsfchp/preview"},
 {title:"Episode 5",video:"https://drive.google.com/file/d/1NRpTrR-DNSIMpgTUZ5a178EeoEuxEFWu/preview"},
 {title:"Episode 6",video:"https://drive.google.com/file/d/1PtEFMDpCMkwYW8lbW_fdSfpjtuCZpKqa/preview"}
+      ]
+  },
+{
+    id: "nighthunter",
+    title: "NIGHT HUNTER",
+    poster: "https://i.ibb.co/tMLDWHvg/Night-Hunter.jpg",
+    genre: "Action",
+    added: 49,
+    type: "premium",
+    country: "USA",
+    year: "2024",
+    synopsis: "Detective Walter Marshall suspects that the victim leapt to her death to escape from a captor. A breakthrough is inadvertently made in the case when former judge Michael Cooper's vigilante sting to capture a child predator results in his ward Lara being kidnapped. Through a tracker in Lara's earrings, Marshall finds her and other captive young women in a mansion owned by Simon Stulls, a man who appears to suffer from mental disability. Simon is arrested, and the police attempt to determine if he is responsible for the abductions. In investigating Simon's background, they discover that he was born from rape and his mother attempted suicide before giving birth to him",
+    cast: ["Henry Cavill", " Alexandra Daddario", "Ben Kingsley"],
+    episodes: [
+{title:"Episode 1",video:"https://drive.google.com/file/d/1su8DNox6wY7DuBtpczvnNk-aUnb6u1MZ/preview"},
+{title:"Episode 2",video:"https://drive.google.com/file/d/1KZWEqXLGRElxwkzdy_x8qxQGR6meycnE/preview"},
+{title:"Episode 3",video:"https://drive.google.com/file/d/1Oxf-6E4pyOOIq0nvTkh6Bxr0vNWy4kKo/preview"},
+{title:"Episode 4",video:"https://drive.google.com/file/d/17EBw8WcRqLsZL8NLCgeSAPUydjfKTGYK/preview"},
+{title:"Episode 5",video:"https://drive.google.com/file/d/1ir20E25MFsVRCroxS4S9JxpEF7UOgrbM/preview"}
       
     ]
   }
