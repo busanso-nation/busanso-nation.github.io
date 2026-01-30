@@ -1887,7 +1887,7 @@ const SERIES = [
 {
     id: "ganglands",
     title: "GANGLANDS",
-    poster: "https://img.rgstatic.com/content/show/cc38efc0-2af5-4799-80bc-339fd3d5178f/poster-342.jpg",
+    poster: "https://i.ibb.co/jZRX6HBm/poster-342.jpg",
     genre: "Action",
     added: 48,
     type: "premium",
