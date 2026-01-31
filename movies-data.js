@@ -42,7 +42,18 @@ const MOVIES = [
     duration: "1h 15m",
     synopsis: " Accompanied by his valet Passepartout, they face adventures, dangers, and romantic entanglements while racing against time, often involving a chase by an inspector who suspects Fogg of theft. "
   },
-            {
+      {
+    id: "prabbit",
+    title: "PETER RABBIT"",
+    poster: "https://i.ibb.co/KzmTFdkG/images-q-tbn-ANd9-Gc-Sze-JAyey527scw-NLNc-Vqh-Dy-Nt-Sx-UMfjza-LJQ-s.jpg",
+    video: "https://vimeo.com/857026166",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 15m",
+    synopsis: " a mischievous young rabbit who disobeys his mother by entering Mr. McGregor’s garden. After gorging on vegetables, Peter is chased by McGregor, losing his jacket"
+  },
+       {
     id: "saw51",
     title: "SAW",
     poster: "https://i.redd.it/o5a60xg8l6r61.jpg",
@@ -624,8 +635,8 @@ const MOVIES = [
        {
     id: "walter",
     title: "WALTER",
-    poster: "https://m.media-amazon.com/images/M/MV5BMzYxNDFiZmQtYjNmZi00MzE1LWE3ODQtOTdlYjhhM2Y2ZmE2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-    video: "https://drive.google.com/file/d/1BipH5Qsg-k8Ah_DP1P0iVU9HE-6KfQyp/view",
+    poster: "https://i.ibb.co/Q7w7cJsS/images-q-tbn-ANd9-Gc-Qqxd-Iu-S98-YGfp-OAGUrjv-H1-X-CLVYjztn-O5-CQ-s.jpg",
+    video: "https://drive.google.com/file/d/1rTcpGphGbRHDgXWQRB0niK54dRfzM0st/preview",
     type: "premium",
     year: "2022",
     country: "USA",
