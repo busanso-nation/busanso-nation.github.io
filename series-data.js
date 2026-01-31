@@ -2087,7 +2087,7 @@ const SERIES = [
 {
     id: "spartacus",
     title: "SPARTACUS",
-    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcr7WSCNKBun7BnVdTvJuOSQUvG-fNOO_XyCLMNjVXEjrIgosc",
+    poster: "https://i.ibb.co/Wv9KxrLY/MNNBVX.jpg",
     genre: "Action",
     added: 54,
     type: "premium",
