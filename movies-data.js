@@ -1,5 +1,26 @@
 const MOVIES = [
-              {
+       {
+    id: "mother",
+    title: "MOTHER",
+    poster: "https://i.ibb.co/WvHpNdQH/mrs-chatterjee-v-s-norway.jpg",
+    video: "https://www.youtube.com/embed/n6lIp1mt74U",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1h 25m",
+    synopsis: "Debika Chatterjee, an Indian woman living in Norway with her family, fights to regain custody of her children after Norwegian authorities take them away from her.."
+  },      {
+    id: "mo12ther",
+    title: "MOTHER 2",
+    poster: "https://i.ibb.co/WvHpNdQH/mrs-chatterjee-v-s-norway.jpg",
+    video: "https://drive.google.com/file/d/1rCO7Y35snrYkQUxVLfcu6CXVNLH3Yc2p/preview",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 30m",
+    synopsis: "Debika Chatterjee, an Indian woman living in Norway with her family, fights to regain custody of her children after Norwegian authorities take them away from her.."
+  },
+  {
     id: "aroundtheworl",
     title: "AROUND THE WORLD",
     poster: "https://m.media-amazon.com/images/M/MV5BNTgyMWFiM2ItZmY2OC00MTEyLWI0MzQtNTM1Y2RjNjIxOTRhXkEyXkFqcGc@._V1_.jpg",
@@ -21,6 +42,18 @@ const MOVIES = [
     duration: "1h 15m",
     synopsis: " Accompanied by his valet Passepartout, they face adventures, dangers, and romantic entanglements while racing against time, often involving a chase by an inspector who suspects Fogg of theft. "
   },
+            {
+    id: "saw51",
+    title: "SAW",
+    poster: "https://i.redd.it/o5a60xg8l6r61.jpg",
+    video: "https://drive.google.com/file/d/17mY_LOnAAvFPUec1MU-XC4U-jZaYIPNW/preview",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 15m",
+    synopsis: " Photographer Adam Stanheight and oncologist Lawrence Gordon regain consciousness while chained to pipes at either end of a filthy bathroom. As the two men realize they've been trapped by a sadistic serial killer nicknamed jigsaw and must complete his perverse puzzle to live, flashbacks relate the fates of his previous victims. Meanwhile, Dr. Gordon's wife and young daughter are forced to watch his torture via closed-circuit video"
+  },
+  
          {
     id: "rwanda",
     title: "HOTEL RWANDA",
