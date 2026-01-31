@@ -59,7 +59,8 @@ const SERIES = [
 { title: "Episode 16", video: "https://drive.google.com/file/d/1JtNw4CzLBzLTa6AIenyuFgheFZR5mw-P/preview" },
 { title: "Episode 17", video: "https://drive.google.com/file/d/1aBPZ_QnAl-bhBVOVzv0eUKifBbhw7ImT/preview" },
 { title: "Episode 18", video: "https://drive.google.com/file/d/1GIVylMC0g7k3JdV-iI7VeTlaYbXvpjRV/preview" },
-{ title: "Episode 19", video: "https://drive.google.com/file/d/1YKlKxmhBUqzdfuhTI5_kCKHQXkM4-_m_/preview" }
+{ title: "Episode 19", video: "https://drive.google.com/file/d/1YKlKxmhBUqzdfuhTI5_kCKHQXkM4-_m_/preview" },
+{ title: "Episode 20", video: "https://drive.google.com/file/d/14KoaGObxNEFzL3nlITOSIaQImm5KmIct/preview" }
       ]
   },
 {
@@ -2244,6 +2245,26 @@ const SERIES = [
   { title: "Episode 5", video: "https://drive.google.com/file/d/1_6nI6MKUuwshRxCXBuoJw7KS3CYjSVIp/preview" },
   { title: "Episode 6", video: "https://drive.google.com/file/d/1Bw_OplYwUJAUIrPhg3BWyuL_JOP64k-w/preview" },
   { title: "Episode 7", video: "https://drive.google.com/file/d/1ozXFg_WhwRRlmwQjxRucJ5IcxzlC9pJB/preview" }
+       ]
+  },
+{
+    id: "queensword",
+    title: "QUEEN'S SWORD",
+    poster: "https://i.ibb.co/CZyxF05/Untitled-1.jpg",
+    genre: "Action",
+    added: 59,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: " The most relevant, recently highlighted series in that genre includes Sword and Beloved (Fox Spirit Matchmaker: Sword and Beloved) and Queen Dugu",
+    cast: ["Hu Ge", "Tiffany Tang", "Guli Nazha", "Lin Gengxin", "Cheng Peipei"],
+    episodes: [
+{ title: "Episode 1", video: "https://www.youtube.com/embed/zSANbVDSgzA" },
+  { title: "Episode 2", video: "https://www.youtube.com/embed/1R1f5e630pI" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1uPoRjH2gZKJ9mRATa0mptA9n5_qulXCC/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1-z5g1avY1975pGdcGlUiXocB0Pl9UXHs/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1BgqA4b_weaMjd1FGi3sJ6z2xfJCiyRaB/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1xb19TpgEi8635H4wz2VPHuCib4IV8KD4/preview" }
       
     ]
   }
