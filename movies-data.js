@@ -621,7 +621,29 @@ const MOVIES = [
     duration: "1h 30m",
     synopsis: "James Camerons Titanic is an epic romance and disaster film following Rose DeWitt Bukater, a 17-year-old aristocrat, who falls for Jack Dawson , a poor artist, aboard the ill-fated 1912 maiden voyage of the RMS Titanic. Their forbidden love story unfolds against the backdrop of the sinking ship"
   }, 
-      {
+       {
+    id: "walter",
+    title: "WALTER",
+    poster: "https://m.media-amazon.com/images/M/MV5BMzYxNDFiZmQtYjNmZi00MzE1LWE3ODQtOTdlYjhhM2Y2ZmE2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    video: "https://drive.google.com/file/d/1BipH5Qsg-k8Ah_DP1P0iVU9HE-6KfQyp/view",
+    type: "premium",
+    year: "2022",
+    country: "USA",
+    duration: "1h 40m",
+    synopsis: "Walter is an imposing but gentle man who works as a night security guard at a supermarket. A team of five amateur burglars, led by the determined Victor, plan a perfect robbery to steal from the store's jeweler. They deliberately trigger the alarm to lure the security guard out, expecting an easy takeover."
+  }, 
+       {
+    id: "mine",
+    title: "MINE",
+    poster: "https://m.media-amazon.com/images/M/MV5BMzYxNDFiZmQtYjNmZi00MzE1LWE3ODQtOTdlYjhhM2Y2ZmE2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    video: "https://drive.google.com/file/d/1BipH5Qsg-k8Ah_DP1P0iVU9HE-6KfQyp/view",
+    type: "premium",
+    year: "2022",
+    country: "USA",
+    duration: "1h 40m",
+    synopsis: "Mine is a psychological thriller starring Armie Hammer as a U.S. Marine sniper stranded in the desert after a botched mission. After stepping on a landmine, he must stay still for 52 hours to survive, battling the elements, hostile forces, and his own psychological demons while waiting for rescue. "
+  }, 
+          {
     id: "brant23",
     title: "BRANT",
     poster: "https://play-lh.googleusercontent.com/8PmJGVmFtEYVrnjcEvHr2Zl0bMYtjufSxmTBXb87NN7VF16lBr4bD4mUFV5Ae0uQ52-yLp1pdBF7NuOUtm4",
