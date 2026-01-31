@@ -1,5 +1,16 @@
 const MOVIES = [
          {
+   id: "rwanda2",
+    title: "HOTEL RWANDA 2",
+    poster: "https://m.media-amazon.com/images/I/61jbFFhqOvL.jpg",
+    video: "https://drive.google.com/file/d/16QwnMdiL21lLScVmJBMZlWwhyCXqI5jq/preview",
+    type: "premium",
+    year: "2026",
+    country: "Rwanda",
+    duration: "1h 12m",
+    synopsis: "Hutu Paul Rusesabagina manages the Hôtel des Mille Collines and lives a happy life with his Tutsi wife and their three children, but when Hutu military forces initiate a campaign of ethnic cleansing against the Tutsi minority, Paul is compelled to allow refugees to take shelter in his hotel. As the U.N. pulls out, Paul must struggle alone to protect the Tutsi refugees in the face of the escalating violence later known as the Rwandan genocide."
+  },
+  {    
     id: "rwanda",
     title: "HOTEL RWANDA",
     poster: "https://m.media-amazon.com/images/I/61jbFFhqOvL.jpg",
