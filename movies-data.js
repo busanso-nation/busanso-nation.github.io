@@ -1,4 +1,26 @@
 const MOVIES = [
+              {
+    id: "aroundtheworl",
+    title: "AROUND THE WORLD",
+    poster: "https://m.media-amazon.com/images/M/MV5BNTgyMWFiM2ItZmY2OC00MTEyLWI0MzQtNTM1Y2RjNjIxOTRhXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1X8qwvkbnAISlGy10VId6JB6oW6kjv607/preview",
+    type: "free",
+    year: "2025",
+    country: "USA",
+    duration: "1h 05m",
+    synopsis: " Accompanied by his valet Passepartout, they face adventures, dangers, and romantic entanglements while racing against time, often involving a chase by an inspector who suspects Fogg of theft. "
+  },
+           {
+    id: "aroundtheworld2",
+    title: "AROUND THE WORLD 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BNTgyMWFiM2ItZmY2OC00MTEyLWI0MzQtNTM1Y2RjNjIxOTRhXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1wanhjFACJLOJCCbr7btpCHO8wQFLBzOt/preview",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 15m",
+    synopsis: " Accompanied by his valet Passepartout, they face adventures, dangers, and romantic entanglements while racing against time, often involving a chase by an inspector who suspects Fogg of theft. "
+  },
          {
     id: "rwanda",
     title: "HOTEL RWANDA",
@@ -21,6 +43,7 @@ const MOVIES = [
     duration: "1h 12m",
     synopsis: "Hutu Paul Rusesabagina manages the Hôtel des Mille Collines and lives a happy life with his Tutsi wife and their three children, but when Hutu military forces initiate a campaign of ethnic cleansing against the Tutsi minority, Paul is compelled to allow refugees to take shelter in his hotel. As the U.N. pulls out, Paul must struggle alone to protect the Tutsi refugees in the face of the escalating violence later known as the Rwandan genocide."
   },
+   
    {
     id: "josniper",
     title: "JOHN SNIPER",
