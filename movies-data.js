@@ -1,4 +1,26 @@
 const MOVIES = [
+   {
+    id: "underdtree",
+    title: "UNDER THE TREE",
+    poster: "https://i.ibb.co/DPQGhfgn/Untitled-1.jpg",
+    video: "https://www.youtube.com/embed/dazxm7NXbqQ",
+    type: "free",
+    year: "2026",
+    country: "Japan",
+    duration: "1h 15m",
+    synopsis: "A mysterious drama unfolding beneath an ancient tree."
+  },
+     {
+          id: "underdtree2",
+    title: "UNDER THE TREE 2",
+    poster: "https://i.ibb.co/DPQGhfgn/Untitled-1.jpg",
+    video: "https://www.youtube.com/embed/M7ybLzwN6pk",
+    type: "premium",
+    year: "2026",
+    country: "Japan",
+    duration: "1h 15m",
+    synopsis: "A mysterious drama unfolding beneath an ancient tree."
+  },
        {
     id: "mother",
     title: "MOTHER",
@@ -155,28 +177,7 @@ const MOVIES = [
     duration: "1h 05m",
     synopsis: " The team seeks a revolutionary drug to cure diseases, but finds the dinosaurs have mutated and a sinister secret is hidden in the ruins of an old, abandoned research facility. ."
   },
-    {
-    id: "underdtree",
-    title: "UNDER THE TREE",
-    poster: "https://i.ibb.co/DPQGhfgn/Untitled-1.jpg",
-    video: "https://www.youtube.com/embed/dazxm7NXbqQ",
-    type: "free",
-    year: "2026",
-    country: "Japan",
-    duration: "1h 15m",
-    synopsis: "A mysterious drama unfolding beneath an ancient tree."
-  },
-     {
-          id: "underdtree2",
-    title: "UNDER THE TREE 2",
-    poster: "https://i.ibb.co/DPQGhfgn/Untitled-1.jpg",
-    video: "https://www.youtube.com/embed/M7ybLzwN6pk",
-    type: "free",
-    year: "2026",
-    country: "Japan",
-    duration: "1h 15m",
-    synopsis: "A mysterious drama unfolding beneath an ancient tree."
-  },
+   
      {        
     id: "hinduta",
     title: "HINDUTAN",
@@ -888,7 +889,7 @@ const MOVIES = [
      {
     id: "litomermaid",
     title: "LITTLE MERMAID",
-    poster: "https://m.media-amazon.com/images/M/MV5BNGI3YWFkMWEtZTZjNS00NWI1LThiYWEtZDBlZDg4NWRjMzcxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    poster: "https://i.ibb.co/ds0HC7ZH/image-3b188446.jpg",
     video: "https://drive.google.com/file/d/1bQLNf9gI4aHTbfohmAARUsiyYZS0Z-vk/preview",
     type: "premium",
     year: "2024",
@@ -899,7 +900,7 @@ const MOVIES = [
       {
     id: "lito2mermaid",
     title: "LITTLE MERMAID 2",
-    poster: "https://m.media-amazon.com/images/M/MV5BNGI3YWFkMWEtZTZjNS00NWI1LThiYWEtZDBlZDg4NWRjMzcxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    poster: "https://i.ibb.co/ds0HC7ZH/image-3b188446.jpg",
     video: "https://drive.google.com/file/d/18iDi6gFCHnpDnaWjdtObuK5V8HwjzWjA/preview",
     type: "premium",
     year: "2024",
