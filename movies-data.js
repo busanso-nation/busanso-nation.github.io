@@ -100,6 +100,17 @@ const MOVIES = [
     synopsis: "A mysterious drama unfolding beneath an ancient tree."
   },
      {
+          id: "underdtree2",
+    title: "UNDER THE TREE 2",
+    poster: "https://i.ibb.co/DPQGhfgn/Untitled-1.jpg",
+    video: "https://www.youtube.com/embed/M7ybLzwN6pk",
+    type: "free",
+    year: "2026",
+    country: "Japan",
+    duration: "1h 15m",
+    synopsis: "A mysterious drama unfolding beneath an ancient tree."
+  },
+     {        
     id: "hinduta",
     title: "HINDUTAN",
     poster: "https://images.news18.com/webstories/uploads/2024/11/FotoJet-38-2024-11-893b35063c060c56bf57d5f2b89c47f0.jpg",
