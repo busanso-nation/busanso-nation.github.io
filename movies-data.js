@@ -66,7 +66,7 @@ const MOVIES = [
   },
       {
     id: "prabbit",
-    title: "PETER RABBIT"",
+    title: "PETER RABBIT",
     poster: "https://i.ibb.co/KzmTFdkG/images-q-tbn-ANd9-Gc-Sze-JAyey527scw-NLNc-Vqh-Dy-Nt-Sx-UMfjza-LJQ-s.jpg",
     video: "https://vimeo.com/857026166",
     type: "premium",
