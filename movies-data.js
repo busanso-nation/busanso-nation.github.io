@@ -1,6 +1,6 @@
 const MOVIES = [
          {
-   id: "rwanda2",
+   id: "rwanda3",
     title: "HOTEL RWANDA 2",
     poster: "https://m.media-amazon.com/images/I/61jbFFhqOvL.jpg",
     video: "https://drive.google.com/file/d/16QwnMdiL21lLScVmJBMZlWwhyCXqI5jq/preview",
