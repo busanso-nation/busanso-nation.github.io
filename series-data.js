@@ -2265,6 +2265,28 @@ const SERIES = [
   { title: "Episode 4", video: "https://drive.google.com/file/d/1-z5g1avY1975pGdcGlUiXocB0Pl9UXHs/preview" },
   { title: "Episode 5", video: "https://drive.google.com/file/d/1BgqA4b_weaMjd1FGi3sJ6z2xfJCiyRaB/preview" },
   { title: "Episode 6", video: "https://drive.google.com/file/d/1xb19TpgEi8635H4wz2VPHuCib4IV8KD4/preview" }
+      ]
+  },
+{
+    id: "lasthour",
+    title: "LAST HOUR",
+    poster: "https://upload.wikimedia.org/wikipedia/en/thumb/1/19/The_Last_Hour.jpg/250px-The_Last_Hour.jpg",
+    genre: "Action",
+    added: 60,
+    type: "premium",
+    country: "Chine",
+    year: "2024",
+    synopsis: " a newly transferred Mumbai cop, Arup (Sanjay Kapoor), partners with a mysterious shaman named Dev (Karma Takapa) to solve murders in a small Himalayan town",
+    cast: ["Sanjay Kapoor", "Karma Takapa", "Shahana Goswami", "Raima Sen", "Robin Tamang"],
+    episodes: [
+ { title: "Episode 1", video: "https://drive.google.com/file/d/18lFMj-hEk5TmdGW60P1yCoFfnOukwNGt/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1t5gM5W-QsfoFKjUsKUcp0f_H55Z4It5o/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/17zwsAmACLYSZDpQfOX4jIv3NdT5s4bIo/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1akSbqagvBj8mBztXb1iJmbyu2BXN_KKp/preview" },
+  { title: "Episode 5", video: "https://player.vimeo.com/video/753255829?title=0&byline=0" },
+  { title: "Episode 6", video: "https://player.vimeo.com/video/754820032?title=0&byline=0" },
+  { title: "Episode 7", video: "https://player.vimeo.com/video/754823768?title=0&byline=0" },
+  { title: "Episode 8", video: "https://player.vimeo.com/video/755312797?title=0&byline=0" }
       
     ]
   }
