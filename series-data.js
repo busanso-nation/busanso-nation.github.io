@@ -632,7 +632,7 @@ const SERIES = [
 {
     id: "zuchan",
     title: "ZUCHAN",
-    poster: "https://artworks.thetvdb.com/banners/v4/series/439306/posters/68d7ceabe12b2.jpg",
+    poster: "https://i.ibb.co/MxkxpvvW/fethfgfgtr.jpg",
     genre: "Fantasy",
     added: 14,
     type: "premium",
