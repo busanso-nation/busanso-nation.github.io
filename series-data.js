@@ -2223,7 +2223,27 @@ const SERIES = [
   { title: "Episode 18", video: "https://drive.google.com/file/d/1RkG6kZccUaC3Cuaf0bYW2rUPNEv2WkZ4/preview" },
   { title: "Episode 19", video: "https://drive.google.com/file/d/1EoJCwTR2vegXZogyFtnN9V8ov-mi1zdV/preview" },
   { title: "Episode 20", video: "https://drive.google.com/file/d/1m26rUa6M0-7oaofR8rKHILqXm-YyBkte/preview" }
-
+      ]
+  },
+{
+    id: "immortalswords",
+    title: "IMMORTAL SWORDS",
+    poster: "https://i.ibb.co/GfbrJGpF/Untitled-1.jpg",
+    genre: "Action",
+    added: 58,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: " This is China's only pure cultivation drama in recent years — no romance, just pure xianxia cultivation and witnessing the mortal realm. If you're fascinated by Chinese cultivation culture, we strongly recommend diving into this series",
+    cast: ["Yang Yang", "Gina Jin", "Wang Duo", "Zhao Xiaotang", "Zhao Qing"],
+    episodes: [
+ { title: "Episode 1", video: "https://drive.google.com/file/d/1-6o69U7IPYPbuuA415lRuCQ6lRJ7fIou/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1ujN8SlrlZLMGd1nrLBSV2Y6DVfmdHKgF/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1WJSYkFKLHkTojRVJqU3leQuHA7CUSvpW/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1_G_nMzbXFJWgYN10pZDpTZrRxBvg3Opd/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1_6nI6MKUuwshRxCXBuoJw7KS3CYjSVIp/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1Bw_OplYwUJAUIrPhg3BWyuL_JOP64k-w/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1ozXFg_WhwRRlmwQjxRucJ5IcxzlC9pJB/preview" }
       
     ]
   }
