@@ -325,7 +325,7 @@ const MOVIES = [
   {
     id: "kanor1",
     title: "KANOR",
-    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMJaDNTnLw5P20536cEoRL77HFeQ4dAlm2zQ&s",
+    poster: "https://i.ibb.co/Zphm4pNY/KANOR.jpg",
     video: "https://www.youtube.com/embed/p31wdNO5ibQ",
     type: "free",
     year: "2026",
@@ -336,7 +336,7 @@ const MOVIES = [
     {
     id: "kanor2",
     title: "KANOR 2",
-    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMJaDNTnLw5P20536cEoRL77HFeQ4dAlm2zQ&s",
+    poster: "https://i.ibb.co/Zphm4pNY/KANOR.jpg",
     video: "https://www.youtube.com/embed/kZJHntZJKoI",
     type: "premium",
     year: "2026",
@@ -945,7 +945,7 @@ const MOVIES = [
     title: "Kabhi Khushi kabhie gham 3",
     poster: "https://i.ebayimg.com/images/g/1CcAAOSwVztf21HK/s-l1200.jpg",
     video: "https://drive.google.com/file/d/1JgDzesiK6zdXODUDcR73jLJ5-hjFYx3R/preview",
-    type: "premium",
+    type: "free",
     year: "2025",
     country: "India",
     duration: "1h 10m",
@@ -1127,26 +1127,37 @@ const MOVIES = [
     duration: "1h 30m",
     synopsis: "A gripping Story of powerful love."
   },
+          {
+    id: "wvenomlad",
+    title: "VENOM LADY",
+    poster: "https://i.ibb.co/cKvZZNT7/DGH.jpg",
+    video: "https://drive.google.com/file/d/10MMZSCFEYdi83s66osppAkfl3AYkBd9Y/preview",
+    type: "premium",
+    year: "2019",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "A woman who treats her daughter in law like shit."
+  },
    {
-    id: "kanor",
-    title: "KANOR",
-    poster: "https://i.ibb.co/Zphm4pNY/KANOR.jpg",
-    video: "https://www.youtube.com/embed/p31wdNO5ibQ",
+    id: "lovefromsta",
+    title: "LOVE FROM THE STAR",
+    poster: "https://images.justwatch.com/poster/307718971/s332/season-1",
+    video: "https://drive.google.com/file/d/1ZvJewP1LQxzjuxfcjbZ1zzO2V8Imthb-/preview",
     type: "premium",
     year: "2026",
-    country: "India",
-    duration: "2h 10m",
+    country: "Korea",
+    duration: "1h 10m",
     synopsis: "A gripping tale of power, revenge, and destiny."
   },
    {
-    id: "kanor",
-    title: "KANOR",
-    poster: "https://i.ibb.co/Zphm4pNY/KANOR.jpg",
-    video: "https://www.youtube.com/embed/p31wdNO5ibQ",
+    id: "lubyong",
+    title: "LUBYONGO",
+    poster: "https://i.ibb.co/0RmrbzzM/images-q-tbn-ANd9-Gc-T7c3fm-C-9lfk-Gq-r-XFs-Pn-Rf-N6-LM6-SHGibdx-Q-s.jpg",
+    video: "https://vimeo.com/747897485",
     type: "premium",
     year: "2026",
-    country: "India",
-    duration: "2h 10m",
-    synopsis: "A gripping tale of power, revenge, and destiny."
+    country: "USA",
+    duration: "10m",
+    synopsis: "3D animated short film from ESMA about a small, weak prisoner in a brutal, law-of-the-fittest prison. Constantly bullied by the muscular king of the jail, the protagonist's life shifts when he befriends a tiny bug that turns out to be the only thing the big bully fears, allowing the underdog to take control. "
   }
 ];
