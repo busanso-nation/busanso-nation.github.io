@@ -2228,7 +2228,7 @@ const SERIES = [
 {
     id: "immortalswords",
     title: "IMMORTAL SWORDS",
-    poster: "https://i.ibb.co/GfbrJGpF/Untitled-1.jpg",
+    poster: "https://i.ibb.co/LhbCrqLQ/Untitled-1-Recovered.jpg",
     genre: "Action",
     added: 58,
     type: "premium",
