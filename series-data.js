@@ -2381,8 +2381,7 @@ const SERIES = [
   { title: "Episode 98", video: "https://player.vimeo.com/video/862548810" },
   { title: "Episode 99", video: "https://player.vimeo.com/video/862613707" },
   { title: "Episode 100", video: "https://player.vimeo.com/video/862810299" }
-];
-      
+ 
     ]
   }
 ];
