@@ -1,6 +1,17 @@
 const MOVIES = [
    
    {
+ id: "talavar",
+    title: "TALAVAR",
+    poster: "https://m.media-amazon.com/images/M/MV5BMjVmZTM5YmMtODY4Mi00ZGZlLThhZjEtMWFhZDY4ZDZhYWJmXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/VkHxtZ8vAhc",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 52seconds",
+    synopsis: "Dalvayi Dange (2020) is a Kannada historical action film based on Dr. B.L. Venu's novel, chronicling the 16th-century Chitradurga Palegara reign. It follows a brave warrior fighting against the oppressive military rule established by army officers who usurped power from the Nayaka kings"
+  },
+     {
               id: "dangebaaji",
     title: "DANGEBAAJI",
     poster: "https://stat4.bollywoodhungama.in/wp-content/uploads/2019/03/Kick-2.jpg",
@@ -9,7 +20,7 @@ const MOVIES = [
     year: "2026",
     country: "India",
     duration: "55 16seconds",
-    synopsis: "n action-thriller starring Salman Khan as Devi Lal Singh, a thrill-seeking adrenaline junkie who constantly changes jobs to find a  After abandoning his girlfriend Shaina (Jacqueline Fernandez he becomes the masked thief Devil targeting a corrupt businessman to fund cancer treatments for children"
+    synopsis: "an action-thriller starring Salman Khan as Devi Lal Singh, a thrill-seeking adrenaline junkie who constantly changes jobs to find a  After abandoning his girlfriend Shaina (Jacqueline Fernandez he becomes the masked thief Devil targeting a corrupt businessman to fund cancer treatments for children"
   },
      {
           id: "railwaymemories",
