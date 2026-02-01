@@ -1,5 +1,28 @@
 const MOVIES = [
+   
    {
+          id: "railwaymemories",
+    title: "RAILWAY MEMORIES",
+    poster: "https://i.ibb.co/whTnsKZK/Untitled-1-Recovered-Recovered-Recovered.jpg",
+    video: "https://www.youtube.com/embed/EtTIfp-xAPY",
+    type: "free",
+    year: "2026",
+    country: "Japan",
+    duration: "1h 15m",
+    synopsis: "The plot follows Avinash (Kapoor), who travels to Kolkata to find his kidnapped son, navigating a dangerous web of criminals and political corruption while being aided by a woman named Bulbul Mukerji"
+  },
+     {
+          id: "railwaymemories2",
+    title: "RAILWAY MEMORIES 2",
+    poster: "https://i.ibb.co/whTnsKZK/Untitled-1-Recovered-Recovered-Recovered.jpg",
+    video: "https://www.youtube.com/embed/LxsNeNxkXxU",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "The plot follows Avinash (Kapoor), who travels to Kolkata to find his kidnapped son, navigating a dangerous web of criminals and political corruption while being aided by a woman named Bulbul Mukerji"
+  },
+     {
     id: "underdtree",
     title: "UNDER THE TREE",
     poster: "https://i.ibb.co/DPQGhfgn/Untitled-1.jpg",
