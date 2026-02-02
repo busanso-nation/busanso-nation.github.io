@@ -345,7 +345,28 @@ const MOVIES = [
     duration: "1h 05m",
     synopsis: " The team seeks a revolutionary drug to cure diseases, but finds the dinosaurs have mutated and a sinister secret is hidden in the ruins of an old, abandoned research facility. ."
   },
-   
+       {
+    id: "tanka",
+    title: "TANK",
+    poster: "https://gonewiththetwins.com/wp-content/uploads/2014/10/fury_tall.jpg",
+    video: "https://www.youtube.com/embed/Z7L9lanYA-M",
+    type: "free",
+    year: "2025",
+    country: "USA",
+    duration: "1h 15m",
+    synopsis: " In April 1945, the Allies are making their final push in the European theater. A battle-hardened Army sergeant named Don Wardaddy Collier, leading a Sherman tank and a five-man crew, undertakes a deadly mission behind enemy lines. Hopelessly outnumbered, outgunned and saddled with an inexperienced soldier in their midst, Wardaddy and his men face overwhelming odds as they move to strike at the heart of Nazi Germany.."
+  },
+     {
+    id: "tanka2",
+    title: "TANK 2",
+    poster: "https://gonewiththetwins.com/wp-content/uploads/2014/10/fury_tall.jpg",
+    video: "https://www.youtube.com/embed/jdRiEQWfUSg",
+    type: "free",
+    year: "2025",
+    country: "USA",
+    duration: "1h 15m",
+    synopsis: " In April 1945, the Allies are making their final push in the European theater. A battle-hardened Army sergeant named Don Wardaddy Collier, leading a Sherman tank and a five-man crew, undertakes a deadly mission behind enemy lines. Hopelessly outnumbered, outgunned and saddled with an inexperienced soldier in their midst, Wardaddy and his men face overwhelming odds as they move to strike at the heart of Nazi Germany.."
+  },
      {        
     id: "hinduta",
     title: "HINDUTAN",
