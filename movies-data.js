@@ -12,6 +12,17 @@ const MOVIES = [
     synopsis: "Dalvayi Dange (2020) is a Kannada historical action film based on Dr. B.L. Venu's novel, chronicling the 16th-century Chitradurga Palegara reign. It follows a brave warrior fighting against the oppressive military rule established by army officers who usurped power from the Nayaka kings"
   },
      {
+       id: "talavar2",
+    title: "TALAVAR 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BMjVmZTM5YmMtODY4Mi00ZGZlLThhZjEtMWFhZDY4ZDZhYWJmXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/cIYZsx8MLNM",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 52seconds",
+    synopsis: "Dalvayi Dange (2020) is a Kannada historical action film based on Dr. B.L. Venu's novel, chronicling the 16th-century Chitradurga Palegara reign. It follows a brave warrior fighting against the oppressive military rule established by army officers who usurped power from the Nayaka kings"
+  },
+     {  
               id: "dangebaaji",
     title: "DANGEBAAJI",
     poster: "https://stat4.bollywoodhungama.in/wp-content/uploads/2019/03/Kick-2.jpg",
