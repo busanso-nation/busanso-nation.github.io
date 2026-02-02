@@ -2661,6 +2661,62 @@ const SERIES = [
   { title: "Episode 11", video: "https://drive.google.com/file/d/1QrGaBUChAZ6F-rBeMgFO1lc9CiXtUVdN/preview" },
   { title: "Episode 12", video: "https://drive.google.com/file/d/1-R2AWmVY48DanJouuVW4hqBQXVPa5apA/preview" },
   { title: "Episode 13", video: "https://drive.google.com/file/d/1xAt54UeceydKNOPikFppnmuscSsw9QTR/preview" }
+      ]
+  },
+{
+    id: "swornrevenge",
+    title: "SWORN REVENGE",
+   poster: "https://i.ibb.co/69zs2Fg/zzzzzzzzzzzzz.jpg",
+    genre: "Action",
+    added: 68,
+    type: "premium",
+    country: "Chine",
+    year: "2024",
+    synopsis: "The story focuses on Chen Wendao's redemption after a brutal betrayal, leading him to seek refuge in the Shaolin Temple to learn kung fu, seek vengeance, and find enlightenment",
+    cast:["Yiwei Zhou", "Cristy Guo", "Zhang Zhijian", "He Saifei", "Jiayi Feng"],
+    episodes: [
+  { title: "Episode 1",  video: "https://player.vimeo.com/video/862094305?badge=0&autopause=0&player_id=0&app_id=58479" },
+  { title: "Episode 2",  video: "https://player.vimeo.com/video/861625608?badge=0&autopause=0&player_id=0&app_id=58479" },
+
+  { title: "Episode 3",  video: "https://drive.google.com/file/d/1z6UIjYMoZj8KrqSO0zRZGCNMKZ6OFikn/preview" },
+  { title: "Episode 4",  video: "https://drive.google.com/file/d/1W5sPJSxF4i_o0ePlM3U5H47ELNhtZ9b3/preview" },
+  { title: "Episode 5",  video: "https://drive.google.com/file/d/1trvFNSmcCOlvTxSpvbrfdQIHkWqdCFjp/preview" },
+  { title: "Episode 6",  video: "https://drive.google.com/file/d/1bh1G-PclTAupxbn0zgnu3A27cegKMzrT/preview" },
+  { title: "Episode 7",  video: "https://drive.google.com/file/d/1QakgwF1tI-yOPAKa9HeRROuJ5ytD1AdP/preview" },
+  { title: "Episode 8",  video: "https://drive.google.com/file/d/1hD3yQi016mhoT1pqWV04U8pu7RXOetQs/preview" },
+  { title: "Episode 9",  video: "https://drive.google.com/file/d/1LBrLPaOv43Idnez6-X1Le3yjRbu4tROC/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/19bnD0y7S6v7Tq7I_5EmrlorXASPplQoV/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/18RtkrJuCSu32ztZRHTtBwr9KEkpC-2q1/preview" },
+  { title: "Episode 12", video: "https://drive.google.com/file/d/1GwcDlFJbBaSy7nhyTDowTafnv3hca56x/preview" },
+  { title: "Episode 13", video: "https://drive.google.com/file/d/111BrAXJ2l9xTIG3BmRer4wOlwkT_b4kY/preview" },
+  { title: "Episode 14", video: "https://drive.google.com/file/d/1Ca397REH7ZE-qjdBEDjDEmSc4sxU6CZH/preview" },
+  { title: "Episode 15", video: "https://drive.google.com/file/d/1e6fR9wHrel-OGW2t0jzJLFvRpCwNuJP8/preview" },
+  { title: "Episode 16", video: "https://drive.google.com/file/d/1g6nIBcHrUYhy_SDVzSo7hLp57myvVibF/preview" },
+  { title: "Episode 17", video: "https://drive.google.com/file/d/1QYGLVJg_rfc0ai0iQSP8Jav8DtO8aVko/preview" },
+
+  { title: "Episode 18", video: "https://player.vimeo.com/video/864405141?badge=0&autopause=0&player_id=0&app_id=58479" },
+  { title: "Episode 19", video: "https://drive.google.com/file/d/1PP1wjKVfmeUQu2_F-7VKwSRqDLqH4mGb/preview" },
+  { title: "Episode 20", video: "https://drive.google.com/file/d/1BFsUbZa6NHBSNAnASsQ63rIOK4MqKQXX/preview" },
+  { title: "Episode 21", video: "https://drive.google.com/file/d/1AIZnCgW6-72O3keVij-nPALPMru5212U/preview" },
+
+  { title: "Episode 22", video: "https://player.vimeo.com/video/866246297?badge=0&autopause=0&player_id=0&app_id=58479" },
+  { title: "Episode 23", video: "https://drive.google.com/file/d/1vfPRyX_TJdqzUV47aYgLnSgzxJ7wYdJr/preview" },
+  { title: "Episode 24", video: "https://player.vimeo.com/video/867046224?badge=0&autopause=0&player_id=0&app_id=58479" },
+
+  { title: "Episode 25", video: "https://drive.google.com/file/d/1Xul42zK84ZTYrEiFzG9yuatk-zuKa24b/preview" },
+  { title: "Episode 26", video: "https://drive.google.com/file/d/109Z_gD17BzFcUc8d9GOetU6jbFXO6jtS/preview" },
+  { title: "Episode 27", video: "https://drive.google.com/file/d/1QBgn4enZYgpEb2v2PQIfmKDWO0s8vj3h/preview" },
+  { title: "Episode 28", video: "https://drive.google.com/file/d/1jtfCrR6BdB47tZ7XF9G-WB7jWygaEbgt/preview" },
+  { title: "Episode 29", video: "https://drive.google.com/file/d/12dYtzuJIQ74-2DUxkPvx-NRTFYMzH3QT/preview" },
+  { title: "Episode 30", video: "https://drive.google.com/file/d/1K07CzvXRjGuUusTJ3Q6W6o-1VCrEbyFR/preview" },
+  { title: "Episode 31", video: "https://drive.google.com/file/d/1YlF6-PDwe3bo-qZm7XcilLY2Og5XdqLM/preview" },
+  { title: "Episode 32", video: "https://drive.google.com/file/d/1tP6qlBgosQxY4wdJc0YgYOe2ceP4v5LA/preview" },
+  { title: "Episode 33", video: "https://drive.google.com/file/d/1uZn4QoddF9i615XO38-hOlIo4Zy9ZaA8/preview" },
+  { title: "Episode 34", video: "https://drive.google.com/file/d/1kKLyIACjWPkHIpaahxTqIyH6CJFUp7XM/preview" },
+  { title: "Episode 35", video: "https://drive.google.com/file/d/18W3iYrR7BFrZ75RLKQQweSgK-PhLX7Re/preview" },
+  { title: "Episode 36", video: "https://drive.google.com/file/d/1rxp6mR66xkpqf9IXM8Habt-spz7tzXBZ/preview" },
+  { title: "Episode 37", video: "https://drive.google.com/file/d/1HEvlbzS_Z1IY3zJtjuW0dQdFxe7TBCPb/preview" },
+  { title: "Episode 38", video: "https://drive.google.com/file/d/1-yoZVaQyt8XgfP6h9Vd71QV2a2erXDEg/preview" }
 
     ]
   }
