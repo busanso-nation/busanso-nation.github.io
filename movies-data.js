@@ -34,6 +34,17 @@ const MOVIES = [
     synopsis: "an action-thriller starring Salman Khan as Devi Lal Singh, a thrill-seeking adrenaline junkie who constantly changes jobs to find a  After abandoning his girlfriend Shaina (Jacqueline Fernandez he becomes the masked thief Devil targeting a corrupt businessman to fund cancer treatments for children"
   },
      {
+               id: "dangebaaji2",
+    title: "DANGEBAAJI 2",
+    poster: "https://stat4.bollywoodhungama.in/wp-content/uploads/2019/03/Kick-2.jpg",
+    video: "https://drive.google.com/file/d/1upyeGZ4e9l-9xabp6XldvXvkQc8PuPU3/preview",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "59 11seconds",
+    synopsis: "an action-thriller starring Salman Khan as Devi Lal Singh, a thrill-seeking adrenaline junkie who constantly changes jobs to find a  After abandoning his girlfriend Shaina (Jacqueline Fernandez he becomes the masked thief Devil targeting a corrupt businessman to fund cancer treatments for children"
+  },
+     {
           id: "railwaymemories",
     title: "RAILWAY MEMORIES",
     poster: "https://i.ibb.co/whTnsKZK/Untitled-1-Recovered-Recovered-Recovered.jpg",
