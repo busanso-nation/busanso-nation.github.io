@@ -2609,7 +2609,7 @@ const SERIES = [
 {
     id: "reset",
     title: "RESET",
-   poster: "https://images.justwatch.com/poster/310220881/s166/season-1",
+   poster: "https://upload.wikimedia.org/wikipedia/en/c/c6/Kaiduan.jpeg",
     genre: "sci-fi thriller",
     added: 66,
     type: "premium",
@@ -2635,33 +2635,31 @@ const SERIES = [
       ]
   },
 {
-    id: "hero",
-    title: "HERO",
-   poster: "https://images.justwatch.com/poster/310220881/s166/season-1",
-    genre: "sci-fi thriller",
+    id: "foshan",
+    title: "FISTS OF FOSHAN",
+   poster: "https://i.ibb.co/0jCKLPbN/qqqqqqqqqq.jpg",
+    genre: "Action",
     added: 67,
     type: "premium",
-    country: "Korea",
-    year: "2023",
-    synopsis: "Chinese sci-fi thriller about a game designer and a college student trapped in a time loop following a bus explosion. Working with police, they repeatedly relive the event to uncover the bomber and prevent the tragedy. It is known for its fast-paced suspense,,, and emotional character-driven storytelling",
-    cast: ["First Chalongrat Novsamrong Ren", "Intanont", "Namyard Yardpirun Poolun Lilly", "NJ Dangpan Thomsen Sam", "Winner Tanatat Kunaneksin Pharit"],
+    country: "Chine",
+    year: "2025",
+    synopsis: "The story follows fraternal twins, JC and Aris, who are separated in childhood to save the life of one brother Their mother gives up Aris for adoption to afford medical treatment for JC, who suffers from a congenital heart ailment",
+    cast: "Lee Jung Shin", "Goo Ha Ra", "Uee", "Im Soo Hyang", "Ha Jae Sook"],
     episodes: [
- { title: "Episode 1",  video: "https://drive.google.com/file/d/1ryM8Ne5BbvbwOrcrpkS3VI1DWiT23WI1/preview" },
-  { title: "Episode 2",  video: "https://drive.google.com/file/d/1FP9zuZK5MJQdaytZHWV7AUXtl7-L1N6C/preview" },
-  { title: "Episode 3",  video: "https://drive.google.com/file/d/1zl3yH1-tiD5_rvAqZU5i7W2PKhD4cbG-/preview" },
-  { title: "Episode 4",  video: "https://drive.google.com/file/d/1nVQszWYKF5GPUg7PakcUJe4wKXCrV_LI/preview" },
-  { title: "Episode 5",  video: "https://drive.google.com/file/d/1hYqGeyOnjcDnfOGgeAX7MLlSe7xeixzN/preview" },
-  { title: "Episode 6",  video: "https://drive.google.com/file/d/1jVICIAo-5m_cp5p9kWecXHakKI8-PJCJ/preview" },
-  { title: "Episode 7",  video: "https://drive.google.com/file/d/1q1KWRaXfO_vnv1LMUoY4PUbnUp6sll5K/preview" },
-  { title: "Episode 8",  video: "https://drive.google.com/file/d/18Xlpq0SgTvwRtcqI19uHP1t4_um0c-8l/preview" },
-  { title: "Episode 9",  video: "https://drive.google.com/file/d/1DLxjaLII8Z-Pe96Ov7ohueqzzyiWUuYJ/preview" },
-  { title: "Episode 10", video: "https://drive.google.com/file/d/1jsEtMfh83B20aN7ySsLoHtBOvLpRhyR_/preview" },
-  { title: "Episode 11", video: "https://drive.google.com/file/d/15yBD-EsQ5YlQSTGWZzVIW0QulzMS6_z7/preview" },
-  { title: "Episode 12", video: "https://drive.google.com/file/d/1b9XysrwdI7OxMd_r2ZlSVNVTGpwWAG0M/preview" },
-  { title: "Episode 13", video: "https://drive.google.com/file/d/1d892HcqI4zjeoX5CNqgea_kg5LYzt0Hy/preview" },
-  { title: "Episode 14", video: "https://drive.google.com/file/d/1NrtJC1_fWwPq-mODFDNgLo3X4TZo6ocj/preview" }
-      
- 
+ { title: "Episode 1",  video: "https://www.youtube.com/embed/FJgeyJR9or8" },
+  { title: "Episode 2",  video: "https://www.youtube.com/embed/zqHVDKS88XQ" },
+  { title: "Episode 3",  video: "https://drive.google.com/file/d/1wWpb3HbJsBwjGMe3zEJ1X4gpDRdpW0IE/preview" },
+  { title: "Episode 4",  video: "https://drive.google.com/file/d/1dEesX_UoYuqRAzbCFnPX_sI9DN6YGJcp/preview" },
+  { title: "Episode 5",  video: "https://drive.google.com/file/d/1Wvw4i_XTFMaFmwDKOpi1K8fvWmdXwB0F/preview" },
+  { title: "Episode 6",  video: "https://drive.google.com/file/d/1saTMz7A8UbxWD97W5xH3JSIsTlBmbnEO/preview" },
+  { title: "Episode 7",  video: "https://drive.google.com/file/d/1KJl8yzTwprtp2JgtRbGjXE-3gXBjXfrg/preview" },
+  { title: "Episode 8",  video: "https://drive.google.com/file/d/1OhX4Ed8BPA-uNnc3fVYShmFjARwa51rA/preview" },
+  { title: "Episode 9",  video: "https://drive.google.com/file/d/1Ou4OWLGS3xKJv9s5ETHetxnx5HDlUkQZ/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/176-aVaUjtufxxNrtTYAs2A3kZs_tdONg/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/1QrGaBUChAZ6F-rBeMgFO1lc9CiXtUVdN/preview" },
+  { title: "Episode 12", video: "https://drive.google.com/file/d/1-R2AWmVY48DanJouuVW4hqBQXVPa5apA/preview" },
+  { title: "Episode 13", video: "https://drive.google.com/file/d/1xAt54UeceydKNOPikFppnmuscSsw9QTR/preview" }
+
     ]
   }
 ];
