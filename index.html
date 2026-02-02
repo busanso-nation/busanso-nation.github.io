@@ -106,6 +106,9 @@ body{
   <div class="message">
     Welcome to the source of unique and quality Movies and Series
   </div>
+<button id="installBtn" style="display:none; padding:12px 20px; font-size:16px; cursor:pointer;">
+  Install App
+</button>
 
   <div class="loader"></div>
 </div>
@@ -124,19 +127,40 @@ setTimeout(() => {
 }, 5500);
 </script>
 <script>
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+/* Register service worker */
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
-</script>
-<script>
-let deferredPrompt;
 
-window.addEventListener('beforeinstallprompt', (e) => {
+/* Detect install availability */
+window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  console.log("PWA install available");
+  installBtn.style.display = "inline-block";
 });
+
+/* Handle install button click */
+installBtn.addEventListener("click", async () => {
+  installBtn.style.display = "none";
+  deferredPrompt.prompt();
+  const choiceResult = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+});
+
+/* Hide button if already installed */
+window.addEventListener("appinstalled", () => {
+  installBtn.style.display = "none";
+});
+
+/* Extra check: hide if running as app */
+if (window.matchMedia('(display-mode: standalone)').matches) {
+  installBtn.style.display = "none";
+}
 </script>
+
 
 </body>
 </html>
