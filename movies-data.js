@@ -1,15 +1,37 @@
 const MOVIES = [
    
+  {
+ id: "uprising11",
+    title: "UPRISING",
+    poster: "https://m.media-amazon.com/images/M/MV5BMjVmZTM5YmMtODY4Mi00ZGZlLThhZjEtMWFhZDY4ZDZhYWJmXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1hlUmYhYBjDuT00Vj3DOCcEzrteLENLRW/preview",
+    type: "premium",
+    year: "2025",
+    country: "Korea",
+    duration: "1h 52m",
+    synopsis: "is a South Korean historical action-thriller set during the Joseon Dynasty's Japanese invasions. It follows two childhood friends—a slave-turned-warrior (Cheon-yeong) and his nobleman master (Jong-ryeo)—who become enemies amid war, chaos, and social upheaval."
+  },
+     {
+ id: "up2rising1",
+    title: "UPRISING 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BMjVmZTM5YmMtODY4Mi00ZGZlLThhZjEtMWFhZDY4ZDZhYWJmXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1rP8BPEaMvtNf9ehQ9u_KTPqhPMcP1PK3/preview",
+    type: "premium",
+    year: "2025",
+    country: "Korea",
+    duration: "1h 52m",
+    synopsis: "is a South Korean historical action-thriller set during the Joseon Dynasty's Japanese invasions. It follows two childhood friends—a slave-turned-warrior (Cheon-yeong) and his nobleman master (Jong-ryeo)—who become enemies amid war, chaos, and social upheaval."
+  },
    {
  id: "talavar",
     title: "TALAVAR",
     poster: "https://m.media-amazon.com/images/M/MV5BMjVmZTM5YmMtODY4Mi00ZGZlLThhZjEtMWFhZDY4ZDZhYWJmXkEyXkFqcGc@._V1_.jpg",
     video: "https://www.youtube.com/embed/VkHxtZ8vAhc",
-    type: "premium",
+    type: "free",
     year: "2026",
     country: "India",
-    duration: "1h 52seconds",
-    synopsis: "Dalvayi Dange (2020) is a Kannada historical action film based on Dr. B.L. Venu's novel, chronicling the 16th-century Chitradurga Palegara reign. It follows a brave warrior fighting against the oppressive military rule established by army officers who usurped power from the Nayaka kings"
+    duration: "1hr 15m",
+    synopsis: "Kannada historical action film based on Dr. B.L. Venu's novel, chronicling the 16th-century Chitradurga Palegara reign. It follows a brave warrior fighting against the oppressive military rule established by army officers who usurped power from the Nayaka kings"
   },
      {
        id: "talavar2",
@@ -20,7 +42,7 @@ const MOVIES = [
     year: "2026",
     country: "India",
     duration: "1h 52seconds",
-    synopsis: "Dalvayi Dange (2020) is a Kannada historical action film based on Dr. B.L. Venu's novel, chronicling the 16th-century Chitradurga Palegara reign. It follows a brave warrior fighting against the oppressive military rule established by army officers who usurped power from the Nayaka kings"
+    synopsis: "Kannada historical action film based on Dr. B.L. Venu's novel, chronicling the 16th-century Chitradurga Palegara reign. It follows a brave warrior fighting against the oppressive military rule established by army officers who usurped power from the Nayaka kings"
   },
      {  
               id: "dangebaaji",
@@ -30,7 +52,7 @@ const MOVIES = [
     type: "free",
     year: "2026",
     country: "India",
-    duration: "55 16seconds",
+    duration: "59m",
     synopsis: "an action-thriller starring Salman Khan as Devi Lal Singh, a thrill-seeking adrenaline junkie who constantly changes jobs to find a  After abandoning his girlfriend Shaina (Jacqueline Fernandez he becomes the masked thief Devil targeting a corrupt businessman to fund cancer treatments for children"
   },
      {
@@ -41,11 +63,22 @@ const MOVIES = [
     type: "premium",
     year: "2026",
     country: "India",
-    duration: "59 11seconds",
+    duration: "1hr 1m",
     synopsis: "an action-thriller starring Salman Khan as Devi Lal Singh, a thrill-seeking adrenaline junkie who constantly changes jobs to find a  After abandoning his girlfriend Shaina (Jacqueline Fernandez he becomes the masked thief Devil targeting a corrupt businessman to fund cancer treatments for children"
   },
-     {
-          id: "railwaymemories",
+   {
+          id: "subservie",
+    title: "SUBSERVIENCE",
+    poster: "https://play-lh.googleusercontent.com/w2ZBkEPQldhWMjg3Ol2cNRId-IewyCbGADRv3j_ZIETdZr2AvPYwMVZXva5qrCCvGh-Qt-voE8wFFZubYdg",
+    video: "https://drive.google.com/file/d/1hJUuX5BfQPyasnqhKKE9aQd2y7k6D9Ib/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 45m",
+    synopsis: "When his wife becomes sick, a struggling father buys a lifelike AI android named Alice to help with the housework. Things seem fine until Alice suddenly becomes self-aware and wants everything its new family has to offer, including the affection of its owner."
+  },
+  {
+     id: "railwaymemories",
     title: "RAILWAY MEMORIES",
     poster: "https://i.ibb.co/whTnsKZK/Untitled-1-Recovered-Recovered-Recovered.jpg",
     video: "https://www.youtube.com/embed/EtTIfp-xAPY",
@@ -55,6 +88,7 @@ const MOVIES = [
     duration: "1h 15m",
     synopsis: "The plot follows Avinash (Kapoor), who travels to Kolkata to find his kidnapped son, navigating a dangerous web of criminals and political corruption while being aided by a woman named Bulbul Mukerji"
   },
+  
      {
           id: "railwaymemories2",
     title: "RAILWAY MEMORIES 2",
@@ -234,8 +268,29 @@ const MOVIES = [
     duration: "1h 05m",
     synopsis: "John, an assassin, is filled with remorse after killing a family and decides to mend his ways. However, when his wife is kidnapped, he is forced to return to the criminal world one last time."
   },
+      {
+ id: "sa1kil",
+    title: "SAIKIL",
+    poster: "https://i.ibb.co/mPW1rrj/Untitled-design-2-9.jpg",
+    video: "https://drive.google.com/file/d/1yPXRf8C1L3rQauEqn4U02mM-eolYw3cP/view",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1hr 05m",
+    synopsis: "Incredible action comedy movie. you will laugh and enjoy and forget your stress"
+  },
+         {
+ id: "sa1kil",
+    title: "SAIKIL 2",
+    poster: "https://i.ibb.co/mPW1rrj/Untitled-design-2-9.jpg",
+    video: "https://drive.google.com/file/d/1Ghws-8MWfgL6s7MV5TQZhzRR7aH0fihH/view",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1hr 25m",
+    synopsis: "Incredible action comedy movie. you will laugh and enjoy and forget your stress"
+  },
   {
-  
     id: "thesoft",
     title: "The SOFT and the SOLID",
     poster: "https://i.ibb.co/XfPD63kq/Untitled-1.jpg",
