@@ -71,12 +71,35 @@ const MOVIES = [
     title: "GRAVITY",
     poster: "https://m.media-amazon.com/images/M/MV5BNjE5MzYwMzYxMF5BMl5BanBnXkFtZTcwOTk4MTk0OQ@@._V1_FMjpg_UX1000_.jpg",
     video: "https://drive.google.com/file/d/19zEFpFqE2F32L4nBNwte2CO6efVitNaY/preview",
-    type: "free",
+    type: "premium",
     year: "2024",
     country: "USA",
     duration: "1h 35m",
     synopsis: "Its a SCIFI Action film where Dr. Ryan Stone is a medical engineer on her first shuttle mission. Her commander is veteran astronaut Matt Kowalsky, helming his last flight before retirement. Then, during a routine space walk by the pair, disaster strikes. The shuttle is destroyed, leaving Ryan and Matt stranded in deep space with no link to Earth and no hope of rescue. As fear turns to panic, they realize that the only way home may be to venture further into space."
   },
+       {
+    id: "facebkfrnd",
+    title: "FACEBOOK FRIEND",
+    poster: "https://i.pinimg.com/736x/c3/60/b3/c360b338f48cb4b5d473338aae6d4279.jpg",
+    video: "https://www.youtube.com/embed/8Ur0kzwosPE",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1h 25m",
+    synopsis: "Debika is a married woman. she falls in a trap of a cyber bully she met on facebook. the bully wants to expose her nudes on the internet."
+  }, 
+   
+       {
+    id: "facebkfrnd2",
+    title: "FACEBOOK FRIEND 2",
+    poster: "https://i.pinimg.com/736x/c3/60/b3/c360b338f48cb4b5d473338aae6d4279.jpg",
+    video: "https://www.youtube.com/embed/iWofr04dfUg",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 35m",
+    synopsis: "Debika is a married woman. she falls in a trap of a cyber bully she met on facebook. the bully wants to expose her nudes on the internet."
+  }, 
    {
     id: "underdtree",
     title: "UNDER THE TREE",
@@ -109,7 +132,8 @@ const MOVIES = [
     country: "India",
     duration: "1h 25m",
     synopsis: "Debika Chatterjee, an Indian woman living in Norway with her family, fights to regain custody of her children after Norwegian authorities take them away from her.."
-  },      {
+  }, 
+   {
     id: "mo12ther",
     title: "MOTHER 2",
     poster: "https://i.ibb.co/WvHpNdQH/mrs-chatterjee-v-s-norway.jpg",
