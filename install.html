@@ -76,11 +76,10 @@ button:hover{opacity:.9}
 
 <script>
 const installBtn = document.getElementById("installBtn");
-const iosHint = document.getElementById("iosHint");
-
 let deferredPrompt = null;
+let interacted = false;
 
-/* 1️⃣ Redirect if already installed */
+/* Redirect if already installed */
 if (
   window.matchMedia('(display-mode: standalone)').matches ||
   window.navigator.standalone === true
@@ -88,55 +87,52 @@ if (
   location.replace("home.html");
 }
 
-/* 2️⃣ Register service worker */
+/* Register service worker */
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
 
-/* 3️⃣ Always show button (but disable if needed) */
+/* Show button immediately */
 installBtn.style.display = "inline-block";
-installBtn.textContent = "Checking availability…";
-installBtn.disabled = true;
+installBtn.textContent = "Tap to enable install";
 
-/* 4️⃣ Detect install availability */
+/* Detect interaction */
+["click","scroll","keydown","touchstart"].forEach(evt => {
+  window.addEventListener(evt, () => {
+    interacted = true;
+  }, { once:true });
+});
+
+/* Chrome install event */
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  installBtn.textContent = "Install App";
-  installBtn.disabled = false;
+  installBtn.textContent = "Install BUSANSO NATION";
 });
 
-/* 5️⃣ Button click */
+/* Button click */
 installBtn.addEventListener("click", async () => {
-  if (!deferredPrompt) {
-    alert("Install option will appear after you interact with the site.");
+
+  if (!interacted) {
+    alert("Please tap anywhere on the page first.");
     return;
   }
+
+  if (!deferredPrompt) {
+    alert("Install option not ready yet. Wait a moment or reload once.");
+    return;
+  }
+
   deferredPrompt.prompt();
   await deferredPrompt.userChoice;
   deferredPrompt = null;
 });
 
-/* 6️⃣ Track + redirect after install */
+/* After install */
 window.addEventListener("appinstalled", () => {
-  trackInstall();
+  localStorage.setItem("installed","yes");
   location.replace("home.html");
 });
-
-/* 7️⃣ iPhone fallback */
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-if (isIOS && !window.matchMedia('(display-mode: standalone)').matches) {
-  iosHint.style.display = "block";
-  installBtn.style.display = "none";
-}
-
-/* 8️⃣ Local install tracking */
-function trackInstall(){
-  let count = localStorage.getItem("installCount");
-  count = count ? Number(count) + 1 : 1;
-  localStorage.setItem("installCount", count);
-  console.log("Local installs:", count);
-}
 </script>
 
 </body>
