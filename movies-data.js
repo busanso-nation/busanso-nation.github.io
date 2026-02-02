@@ -66,7 +66,18 @@ const MOVIES = [
     duration: "1h 15m",
     synopsis: "The plot follows Avinash (Kapoor), who travels to Kolkata to find his kidnapped son, navigating a dangerous web of criminals and political corruption while being aided by a woman named Bulbul Mukerji"
   },
-     {
+  {
+    id: "omuttujju",
+    title: "GRAVITY",
+    poster: "https://m.media-amazon.com/images/M/MV5BNjE5MzYwMzYxMF5BMl5BanBnXkFtZTcwOTk4MTk0OQ@@._V1_FMjpg_UX1000_.jpg",
+    video: "https://drive.google.com/file/d/19zEFpFqE2F32L4nBNwte2CO6efVitNaY/preview",
+    type: "free",
+    year: "2024",
+    country: "USA",
+    duration: "1h 35m",
+    synopsis: "Its a SCIFI Action film where Dr. Ryan Stone is a medical engineer on her first shuttle mission. Her commander is veteran astronaut Matt Kowalsky, helming his last flight before retirement. Then, during a routine space walk by the pair, disaster strikes. The shuttle is destroyed, leaving Ryan and Matt stranded in deep space with no link to Earth and no hope of rescue. As fear turns to panic, they realize that the only way home may be to venture further into space."
+  },
+   {
     id: "underdtree",
     title: "UNDER THE TREE",
     poster: "https://i.ibb.co/DPQGhfgn/Untitled-1.jpg",
