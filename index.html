@@ -114,18 +114,28 @@ body{
 </div>
 
 <script>
-/* 🔐 SPLASH REDIRECT LOGIC */
 const pin = localStorage.getItem("activePIN");
 const exp = localStorage.getItem("pinExpiry");
 
+let allowRedirect = true;
+
+/* If install is available, pause redirect */
+window.addEventListener("beforeinstallprompt", () => {
+  allowRedirect = false;
+});
+
+/* Redirect */
 setTimeout(() => {
+  if (!allowRedirect) return;
+
   if(pin && exp && Date.now() < Number(exp)){
     location.replace("watch.html");
-  }else{
+  } else {
     location.replace("home.html");
   }
 }, 5500);
 </script>
+
 <script>
 let deferredPrompt;
 const installBtn = document.getElementById("installBtn");
