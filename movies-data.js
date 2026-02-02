@@ -1273,6 +1273,17 @@ const MOVIES = [
     duration: "1h 30m",
     synopsis: "Set in the waning days of the Maya civilization, Apocalypto follows Jaguar Paw, a peaceful tribesman whose village is brutally raided by Mayan warriors seeking slaves and sacrifices. After hiding his pregnant wife and son in a pit, he is captured and must escape his captors and return to his family before a predicted downfall. ."
   },
+      {
+    id: "appocalyp",
+    title: "APOCALYPTO 2",
+    poster: "https://i.ibb.co/xKjbFNdX/images-7.jpg",
+    video: "https://drive.google.com/file/d/1-X1lrFB_hsYWW-_Wvn8WW5on_jxnsWoX/preview",
+    type: "premium",
+    year: "2020",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "Set in the waning days of the Maya civilization, Apocalypto follows Jaguar Paw, a peaceful tribesman whose village is brutally raided by Mayan warriors seeking slaves and sacrifices. After hiding his pregnant wife and son in a pit, he is captured and must escape his captors and return to his family before a predicted downfall. ."
+  },
  {
     id: "closerange",
     title: "CLOSE RANGE",
@@ -1283,6 +1294,17 @@ const MOVIES = [
     country: "USA",
     duration: "1h 40m",
     synopsis: "action thriller starring Scott Adkins as Colton MacReady, a rogue soldier who rescues his niece from a Mexican drug cartel. After stealing a flash drive during the rescue, Colton and his family are besieged at their remote ranch by the cartel and a corrupt sheriff. The film focuses on intense, non-stop, close-quarters combat.  ."
+  },
+    {
+    id: "blackadam",
+    title: "BLACK ADAM",
+    poster: "https://m.media-amazon.com/images/M/MV5BYmM3OTM4NDktMmI2NS00OWU0LTg4OTQtNjZhMmFkYjhmOGY1XkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1DXAkM4zNmq-7ZuaC8c5zq7oeEf-y6wFH/preview",
+    type: "premium",
+    year: "2021",
+    country: "USA",
+    duration: "1h 40m",
+    synopsis: "In ancient Kahndaq, Teth Adam was bestowed the almighty powers of the gods. After using these powers for vengeance, he was imprisoned, becoming Black Adam. Nearly 5,000 years have passed, and Black Adam has gone from man to myth to legend. Now free, his unique form of justice, born out of rage, is challenged by modern-day heroes who form the Justice Society: Hawkman, Dr. Fate, Atom Smasher and Cyclone"
   },
  {
     id: "emunduakimbo",
