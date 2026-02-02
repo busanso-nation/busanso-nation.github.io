@@ -27,7 +27,7 @@ const MOVIES = [
     title: "DANGEBAAJI",
     poster: "https://stat4.bollywoodhungama.in/wp-content/uploads/2019/03/Kick-2.jpg",
     video: "https://www.youtube.com/embed/cAhdeP6puGA",
-    type: "premium",
+    type: "free",
     year: "2026",
     country: "India",
     duration: "55 16seconds",
