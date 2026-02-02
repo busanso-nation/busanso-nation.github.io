@@ -77,9 +77,8 @@ button:hover{opacity:.9}
 <script>
 const installBtn = document.getElementById("installBtn");
 let deferredPrompt = null;
-let interacted = false;
 
-/* Redirect if already installed */
+/* Redirect installed users */
 if (
   window.matchMedia('(display-mode: standalone)').matches ||
   window.navigator.standalone === true
@@ -92,36 +91,28 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
 
-/* Show button immediately */
+/* Initial button state */
 installBtn.style.display = "inline-block";
-installBtn.textContent = "Tap to enable install";
+installBtn.textContent = "Checking availability…";
+installBtn.disabled = true;
+installBtn.style.opacity = "0.7";
 
-/* Detect interaction */
-["click","scroll","keydown","touchstart"].forEach(evt => {
-  window.addEventListener(evt, () => {
-    interacted = true;
-  }, { once:true });
-});
-
-/* Chrome install event */
+/* Chrome install availability */
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
+
   installBtn.textContent = "Install BUSANSO NATION";
+  installBtn.disabled = false;
+  installBtn.style.opacity = "1";
 });
 
-/* Button click */
+/* Install click */
 installBtn.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
 
-  if (!interacted) {
-    alert("Please tap anywhere on the page first.");
-    return;
-  }
-
-  if (!deferredPrompt) {
-    alert("Install option not ready yet. Wait a moment or reload once.");
-    return;
-  }
+  installBtn.disabled = true;
+  installBtn.textContent = "Installing…";
 
   deferredPrompt.prompt();
   await deferredPrompt.userChoice;
