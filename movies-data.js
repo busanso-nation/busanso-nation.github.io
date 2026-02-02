@@ -3,7 +3,7 @@ const MOVIES = [
   {
  id: "uprising11",
     title: "UPRISING",
-    poster: "https://m.media-amazon.com/images/M/MV5BMjVmZTM5YmMtODY4Mi00ZGZlLThhZjEtMWFhZDY4ZDZhYWJmXkEyXkFqcGc@._V1_.jpg",
+    poster: "https://i.ibb.co/YTwjPXMw/images-q-tbn-ANd9-Gc-Qe1-7b9-OBPo-Cz2i3e-Zf-S1xk-W-By-OVSehes8-A-s.jpg",
     video: "https://drive.google.com/file/d/1hlUmYhYBjDuT00Vj3DOCcEzrteLENLRW/preview",
     type: "premium",
     year: "2025",
@@ -14,7 +14,7 @@ const MOVIES = [
      {
  id: "up2rising1",
     title: "UPRISING 2",
-    poster: "https://m.media-amazon.com/images/M/MV5BMjVmZTM5YmMtODY4Mi00ZGZlLThhZjEtMWFhZDY4ZDZhYWJmXkEyXkFqcGc@._V1_.jpg",
+    poster: "https://i.ibb.co/YTwjPXMw/images-q-tbn-ANd9-Gc-Qe1-7b9-OBPo-Cz2i3e-Zf-S1xk-W-By-OVSehes8-A-s.jpg",
     video: "https://drive.google.com/file/d/1rP8BPEaMvtNf9ehQ9u_KTPqhPMcP1PK3/preview",
     type: "premium",
     year: "2025",
