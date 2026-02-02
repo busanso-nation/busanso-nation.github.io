@@ -2788,6 +2788,24 @@ const SERIES = [
   { title: "Episode 34", video: "https://drive.google.com/file/d/13EnBASUv0JN-tRE3q9htZv0LH2SboAWc/preview" },
   { title: "Episode 35", video: "https://vimeo.com/766755735" },
   { title: "Episode 36", video: "https://vimeo.com/766759236" }
+      ]
+  },
+{
+    id: "coldheart",
+    title: "COLD HEART",
+   poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/cYh6ygbYbrVvLtNARNY0tnu2ug9.jpg",
+    genre: "Action",
+    added: 71,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: "The story of a young millionaire and a talented financier, who was nicknamed the 'God of Economics'. Yiamyuth - a proud and charming guy who believes that in life there is nothing more important than money. Outside, he seems cunning and irritable, but it's all just a mask that he wears because of his lack of love. At heart he is understanding and sensitive. Abandoned as a child by his parents, Yiamyuth does not believe in love and uses women only as a mechanism to achieve his goals. When he learns who his father is, he decides to take revenge by taking over his father's company. There he meets Dao Nuer - a carefree and cheerful, but poor girl. At first, they don't get along well and bicker all the time, but they gradually start to develop feelings for each other. Dao Nuer will help Yiamyuth realize the value of love and will do everything for him to abandon his revenge",
+    cast:["James Ma", "Yeena Salas", "Nattasha Bunprachom",  "Sarin Ronnakiat"],
+    episodes: [
+   { title: "Episode 1", video: "https://youtu.be/UXROfjLXDmY" },
+  { title: "Episode 2", video: "https://www.youtube.com/embed/0qx9SO3RTmo" },
+  { title: "Episode 3", video: "https://www.youtube.com/embed/BcYTJGiRYlo" },
+  { title: "Episode 4", video: "https://www.youtube.com/embed/QmjNwVfTGZQ" }
 
     ]
   }
