@@ -2675,9 +2675,8 @@ const SERIES = [
     synopsis: "The story focuses on Chen Wendao's redemption after a brutal betrayal, leading him to seek refuge in the Shaolin Temple to learn kung fu, seek vengeance, and find enlightenment",
     cast:["Yiwei Zhou", "Cristy Guo", "Zhang Zhijian", "He Saifei", "Jiayi Feng"],
     episodes: [
-  { title: "Episode 1",  video: "https://player.vimeo.com/video/862094305?badge=0&autopause=0&player_id=0&app_id=58479" },
-  { title: "Episode 2",  video: "https://player.vimeo.com/video/861625608?badge=0&autopause=0&player_id=0&app_id=58479" },
-
+  { title: "Episode 1",  video: "https://player.vimeo.com/video/862094305" },
+  { title: "Episode 2",  video: "https://player.vimeo.com/video/861625608" },
   { title: "Episode 3",  video: "https://drive.google.com/file/d/1z6UIjYMoZj8KrqSO0zRZGCNMKZ6OFikn/preview" },
   { title: "Episode 4",  video: "https://drive.google.com/file/d/1W5sPJSxF4i_o0ePlM3U5H47ELNhtZ9b3/preview" },
   { title: "Episode 5",  video: "https://drive.google.com/file/d/1trvFNSmcCOlvTxSpvbrfdQIHkWqdCFjp/preview" },
@@ -2693,16 +2692,13 @@ const SERIES = [
   { title: "Episode 15", video: "https://drive.google.com/file/d/1e6fR9wHrel-OGW2t0jzJLFvRpCwNuJP8/preview" },
   { title: "Episode 16", video: "https://drive.google.com/file/d/1g6nIBcHrUYhy_SDVzSo7hLp57myvVibF/preview" },
   { title: "Episode 17", video: "https://drive.google.com/file/d/1QYGLVJg_rfc0ai0iQSP8Jav8DtO8aVko/preview" },
-
-  { title: "Episode 18", video: "https://player.vimeo.com/video/864405141?badge=0&autopause=0&player_id=0&app_id=58479" },
+  { title: "Episode 18", video: "https://player.vimeo.com/video/864405141" },
   { title: "Episode 19", video: "https://drive.google.com/file/d/1PP1wjKVfmeUQu2_F-7VKwSRqDLqH4mGb/preview" },
   { title: "Episode 20", video: "https://drive.google.com/file/d/1BFsUbZa6NHBSNAnASsQ63rIOK4MqKQXX/preview" },
   { title: "Episode 21", video: "https://drive.google.com/file/d/1AIZnCgW6-72O3keVij-nPALPMru5212U/preview" },
-
-  { title: "Episode 22", video: "https://player.vimeo.com/video/866246297?badge=0&autopause=0&player_id=0&app_id=58479" },
+  { title: "Episode 22", video: "https://player.vimeo.com/video/866246297" },
   { title: "Episode 23", video: "https://drive.google.com/file/d/1vfPRyX_TJdqzUV47aYgLnSgzxJ7wYdJr/preview" },
-  { title: "Episode 24", video: "https://player.vimeo.com/video/867046224?badge=0&autopause=0&player_id=0&app_id=58479" },
-
+  { title: "Episode 24", video: "https://player.vimeo.com/video/867046224" },
   { title: "Episode 25", video: "https://drive.google.com/file/d/1Xul42zK84ZTYrEiFzG9yuatk-zuKa24b/preview" },
   { title: "Episode 26", video: "https://drive.google.com/file/d/109Z_gD17BzFcUc8d9GOetU6jbFXO6jtS/preview" },
   { title: "Episode 27", video: "https://drive.google.com/file/d/1QBgn4enZYgpEb2v2PQIfmKDWO0s8vj3h/preview" },
@@ -2717,6 +2713,32 @@ const SERIES = [
   { title: "Episode 36", video: "https://drive.google.com/file/d/1rxp6mR66xkpqf9IXM8Habt-spz7tzXBZ/preview" },
   { title: "Episode 37", video: "https://drive.google.com/file/d/1HEvlbzS_Z1IY3zJtjuW0dQdFxe7TBCPb/preview" },
   { title: "Episode 38", video: "https://drive.google.com/file/d/1-yoZVaQyt8XgfP6h9Vd71QV2a2erXDEg/preview" }
+
+       ]
+  },
+{
+    id: "taichi",
+    title: "TAI CHI",
+   poster: "https://i.ibb.co/HLpxMFX9/ffffffffffffffffffff.jpg",
+    genre: "Action",
+    added: 69,
+    type: "premium",
+    country: "Chine",
+    year: "2023",
+    synopsis: "When the temple where he studies is threatened by developers, Tiger agrees to fight in Donaka's lucrative, illegal underground fight club for money.",
+    cast:["Iko Uwais", "Karen Mok", "Hai Yu",  "Tiger Hu Chen"],
+    episodes: [
+  { title: "Episode 1", video: "https://player.vimeo.com/video/860396694" },
+  { title: "Episode 2", video: "https://player.vimeo.com/video/860573931" },
+  { title: "Episode 3", video: "https://player.vimeo.com/video/861127337" },
+  { title: "Episode 4", video: "https://player.vimeo.com/video/858126160" },
+  { title: "Episode 5", video: "https://player.vimeo.com/video/858535571" },
+  { title: "Episode 6", video: "https://player.vimeo.com/video/857789974" },
+  { title: "Episode 7", video: "https://player.vimeo.com/video/858531713" },
+  { title: "Episode 9", video: "https://player.vimeo.com/video/858878251" },
+  { title: "Episode 10", video: "https://player.vimeo.com/video/865042736" },
+  { title: "Episode 11", video: "https://player.vimeo.com/video/865086155" },
+  { title: "Episode 12", video: "https://player.vimeo.com/video/866723463" }
 
     ]
   }
