@@ -75,7 +75,12 @@ button:hover{opacity:.9}
 </div>
 
 <script>
-/* 🔍 Detect installed app */
+const installBtn = document.getElementById("installBtn");
+const iosHint = document.getElementById("iosHint");
+
+let deferredPrompt = null;
+
+/* 1️⃣ Redirect if already installed */
 if (
   window.matchMedia('(display-mode: standalone)').matches ||
   window.navigator.standalone === true
@@ -83,50 +88,54 @@ if (
   location.replace("home.html");
 }
 
-/* 🔧 Service Worker */
+/* 2️⃣ Register service worker */
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
 
-/* 📲 Install logic */
-let deferredPrompt;
-const installBtn = document.getElementById("installBtn");
-const iosHint = document.getElementById("iosHint");
+/* 3️⃣ Always show button (but disable if needed) */
+installBtn.style.display = "inline-block";
+installBtn.textContent = "Checking availability…";
+installBtn.disabled = true;
 
-/* iOS detection */
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-
-/* Chrome / Edge install */
+/* 4️⃣ Detect install availability */
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  installBtn.style.display = "inline-block";
+  installBtn.textContent = "Install App";
+  installBtn.disabled = false;
 });
 
-/* Button click */
+/* 5️⃣ Button click */
 installBtn.addEventListener("click", async () => {
-  installBtn.style.display = "none";
+  if (!deferredPrompt) {
+    alert("Install option will appear after you interact with the site.");
+    return;
+  }
   deferredPrompt.prompt();
   await deferredPrompt.userChoice;
+  deferredPrompt = null;
 });
 
-/* 📊 Track install */
+/* 6️⃣ Track + redirect after install */
 window.addEventListener("appinstalled", () => {
   trackInstall();
   location.replace("home.html");
 });
 
-/* iPhone fallback */
+/* 7️⃣ iPhone fallback */
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 if (isIOS && !window.matchMedia('(display-mode: standalone)').matches) {
   iosHint.style.display = "block";
+  installBtn.style.display = "none";
 }
 
-/* 📈 Install tracking (no backend) */
+/* 8️⃣ Local install tracking */
 function trackInstall(){
   let count = localStorage.getItem("installCount");
   count = count ? Number(count) + 1 : 1;
   localStorage.setItem("installCount", count);
-  console.log("App installs:", count);
+  console.log("Local installs:", count);
 }
 </script>
 
