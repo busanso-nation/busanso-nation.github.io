@@ -1339,10 +1339,32 @@ const MOVIES = [
     duration: "1h 20m",
     synopsis: "They all think he is a psycho"
   },
+   {
+    id: "road1",
+    title: "ROAD",
+    poster: "https://m.media-amazon.com/images/M/MV5BY2MyNzI2MmUtNGFlYy00NmNkLWE2ZmMtOWQyYjgzODg0ZjgxXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1lrRN8Yo4NpwuGGQiQlwivGuE_y3U2rUl/preview",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Arvind and Lakshmi decide to give a lift to a hitchhiker, Babu. However, things take a turn for the worse when Babu kidnaps Lakshmi"
+  },
+      {
+    id: "road2",
+    title: "ROAD 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BY2MyNzI2MmUtNGFlYy00NmNkLWE2ZmMtOWQyYjgzODg0ZjgxXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1P5XUse7iZCc5xQptgXfndliYkCAypsgf/view",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Arvind and Lakshmi decide to give a lift to a hitchhiker, Babu. However, things take a turn for the worse when Babu kidnaps Lakshmi"
+  },
  {
     id: "chakra1",
     title: "CHAKRA",
-    poster: "https://i.ibb.co/1GWpZYkh/Untitled-1.jpg",
+    poster: "https://i.ibb.co/t1D6w4S/images-q-tbn-ANd9-Gc-Ro-Tpz-Za70-Jjhf-Ivdf-KXWa-Yz-TP4-OOv-Ukh-F9-Q-s.jpg",
     video: "https://vimeo.com/775159625",
     type: "premium",
     year: "2025",
@@ -1353,7 +1375,7 @@ const MOVIES = [
  {
     id: "chakra22",
     title: "CHAKRA 2",
-    poster: "https://i.ibb.co/1GWpZYkh/Untitled-1.jpg",
+    poster: "https://i.ibb.co/7ttWk1kf/images-q-tbn-ANd9-Gc-TNUE3-M1-cs5foruefp-JQLg-W8v-VYZ-ft-ig-s.jpg",
     video: "https://vimeo.com/775164855",
     type: "premium",
     year: "2025",
@@ -1364,7 +1386,7 @@ const MOVIES = [
  {
     id: "driveangry",
     title: "DRIVE ANGRY",
-    poster: "https://i.ibb.co/1GWpZYkh/Untitled-1.jpg",
+    poster: "https://i.ibb.co/prrMk8JK/images-q-tbn-ANd9-Gc-Rko-Vs-K4-Ictkg-HGto-B-1-KCKm-Nvw-Aat-hy-SA-s.jpg",
     video: "https://drive.google.com/file/d/1VabUNOHw8JLmhgtkmE-ibSmWfqfEcDxq/view",
     type: "premium",
     year: "2024",
@@ -1386,7 +1408,7 @@ const MOVIES = [
           {
     id: "wvenomlad",
     title: "VENOM LADY",
-    poster: "https://i.ibb.co/cKvZZNT7/DGH.jpg",
+    poster: "https://i.ibb.co/cXgjmw9h/images-q-tbn-ANd9-Gc-RZkmgwsuwmw-IZx-Ex-Pz8p-V7-In-Vt-Tt4-Ayewct-A-s.jpg",
     video: "https://drive.google.com/file/d/10MMZSCFEYdi83s66osppAkfl3AYkBd9Y/preview",
     type: "premium",
     year: "2019",
@@ -1404,6 +1426,50 @@ const MOVIES = [
     country: "Korea",
     duration: "1h 10m",
     synopsis: "A gripping tale of power, revenge, and destiny."
+  },
+      {
+    id: "codesofapocalypse",
+    title: "CODES OF APOCALYPSE",
+    poster: "https://i.ibb.co/qLLX8WN8/images-q-tbn-ANd9-Gc-Ruad-d-Et-Sbbf-CJz9-Y5-Aco-Ho-H8-KL35-Qu-Wy-Ig-s.jpg",
+    video: "https://www.youtube.com/embed/vrKY5esCako?si=AgVgl8_2-WseIyDU",
+    type: "free",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "A terrorist named Jaffad Ben Zayidi steals four nuclear bombs from a sunken American submarine and hides them in four major cities around the world. The bombs are activated by an 11-digit code split among three guardians"
+  },
+       {
+    id: "codesof2apocalypse",
+    title: "CODES OF APOCALYPSE 2",
+    poster: "https://i.ibb.co/qLLX8WN8/images-q-tbn-ANd9-Gc-Ruad-d-Et-Sbbf-CJz9-Y5-Aco-Ho-H8-KL35-Qu-Wy-Ig-s.jpg",
+    video: "https://www.youtube.com/embed/jv6QwVFilTI?si=U-4Yn5VBEZq8mzOZ",
+    type: "free",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "A terrorist named Jaffad Ben Zayidi steals four nuclear bombs from a sunken American submarine and hides them in four major cities around the world. The bombs are activated by an 11-digit code split among three guardians"
+  },
+     {
+    id: "silent2night",
+    title: "SILENT NIGHT",
+    poster: "https://lp.p.pia.jp/shared/materials/6f56fe65-3f8f-44bf-8963-d0b25559fc73/origin.jpg",
+    video: "https://drive.google.com/file/d/19wSykC20SppOO12AA_50OvvToVCvURhv/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "A couple invite their closest friends to join their family for Christmas dinner at their idyllic home in the English countryside. As the group comes together, it feels like old times but behind all of the laughter and merriment, something isn't quite right. The world outside is facing impending doom, and no amount of gifts, games or wine can make mankind's imminent destruction go away. Surviving the holidays just got a lot more complicated"
+  },
+      {
+    id: "silent2night",
+    title: "SILENT NIGHT",
+    poster: "https://lp.p.pia.jp/shared/materials/6f56fe65-3f8f-44bf-8963-d0b25559fc73/origin.jpg",
+    video: "https://drive.google.com/file/d/1eBDe-OVnQ38nNvKRDjm0uZ8eKiuHR8sT/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "A couple invite their closest friends to join their family for Christmas dinner at their idyllic home in the English countryside. As the group comes together, it feels like old times but behind all of the laughter and merriment, something isn't quite right. The world outside is facing impending doom, and no amount of gifts, games or wine can make mankind's imminent destruction go away. Surviving the holidays just got a lot more complicated"
   },
    {
     id: "lubyong",
