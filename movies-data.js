@@ -233,8 +233,18 @@ const MOVIES = [
     duration: "1h 15m",
     synopsis: " Photographer Adam Stanheight and oncologist Lawrence Gordon regain consciousness while chained to pipes at either end of a filthy bathroom. As the two men realize they've been trapped by a sadistic serial killer nicknamed jigsaw and must complete his perverse puzzle to live, flashbacks relate the fates of his previous victims. Meanwhile, Dr. Gordon's wife and young daughter are forced to watch his torture via closed-circuit video"
   },
-  
-         {
+    {
+    id: "matilda",
+    title: "MATILDA",
+    poster: "https://media.vogue.mx/photos/63aa3de7a4dd10bbaf41871f/2:3/w_2560%2Cc_limit/matilda-alisha-weir-emma-thompsonjpg.jpg",
+    video: "https://drive.google.com/file/d/197qsKXqNY7fM_EgqbAX7LgFrdWg_rixF/preview",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 35m",
+    synopsis: " a gifted girl forced to put up with a crude, distant father and mother. Worse, Agatha Trunchbull, the evil principal at Matilda's school, is a terrifyingly strict bully. However, when Matilda realizes she has the power of telekinesis, she begins to defend her friends from Trunchbull's wrath and fight back against her unkind parents."
+  },
+   {
     id: "rwanda",
     title: "HOTEL RWANDA",
     poster: "https://m.media-amazon.com/images/I/61jbFFhqOvL.jpg",
