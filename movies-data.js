@@ -201,6 +201,17 @@ const MOVIES = [
     synopsis: " Accompanied by his valet Passepartout, they face adventures, dangers, and romantic entanglements while racing against time, often involving a chase by an inspector who suspects Fogg of theft. "
   },
       {
+    id: "theexibhit",
+    title: "EKIZIBITI",
+    poster: "https://i.ibb.co/cKPbBQcH/THE-EXHIBIT1.jpg",
+    video: "https://www.youtube.com/embed/xoyotR6F_3c",
+    type: "premium",
+    year: "2025",
+    country: "Uganda",
+    duration: "1h 15m",
+    synopsis: "It was a happy family, not until this unbelievable heartless woman got married to Semakula, a single father. She committed a crime. It was secret, yes, and no one saw her - that's what she thinks. But someone more smarter than her, has got the Exhibit and is ready to give it to the police, unless she accepts okusuna adungu"
+  },
+   {
     id: "prabbit",
     title: "PETER RABBIT",
     poster: "https://i.ibb.co/KzmTFdkG/images-q-tbn-ANd9-Gc-Sze-JAyey527scw-NLNc-Vqh-Dy-Nt-Sx-UMfjza-LJQ-s.jpg",
