@@ -128,6 +128,15 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
 </script>
+<script>
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  console.log("PWA install available");
+});
+</script>
 
 </body>
 </html>
