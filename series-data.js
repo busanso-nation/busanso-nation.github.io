@@ -2644,7 +2644,7 @@ const SERIES = [
     country: "Chine",
     year: "2025",
     synopsis: "The story follows fraternal twins, JC and Aris, who are separated in childhood to save the life of one brother Their mother gives up Aris for adoption to afford medical treatment for JC, who suffers from a congenital heart ailment",
-    cast: "Lee Jung Shin", "Goo Ha Ra", "Uee", "Im Soo Hyang", "Ha Jae Sook"],
+    cast:"Lee Jung Shin", "Goo Ha Ra", "Uee", "Im Soo Hyang", "Ha Jae Sook"],
     episodes: [
  { title: "Episode 1",  video: "https://www.youtube.com/embed/FJgeyJR9or8" },
   { title: "Episode 2",  video: "https://www.youtube.com/embed/zqHVDKS88XQ" },
