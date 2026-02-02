@@ -279,6 +279,17 @@ const MOVIES = [
     synopsis: "A great tale about a Moslem nation that could not allow their King mary a christian princess, yet  she was the only key to peace and unity among the nations."
   },
           {
+    id: "holynight",
+    title: "HOLY NIGHT",
+    poster: "https://images.justwatch.com/poster/330212273/s718/holy-night-demon-hunters.jpg",
+    video: "https://drive.google.com/file/d/1MhfwHBOX3wxhHq5s1r_XicNI-_791RVv/preview",
+    type: "premium",
+    year: "2025",
+    country: "Korea",
+    duration: "1h 15m",
+    synopsis: " is a South Korean supernatural action film where a specialized team—super-strong Ba Woo , exorcist Sharon, and researcher Kim Gun —combats a demonic cult, the Black Mass, that has unleashed chaos in Seoul. The team works to save a possessed girl"
+  },
+   {
     id: "chotebro",
     title: "CHOTE",
     poster: "https://img.indiaforums.com/movie/350x525/7/319-daaku-maharaaj.webp?c=2oO5F7",
