@@ -1,6 +1,22 @@
 const SERIES = [
   
   {
+     id: "snowmaster",
+    title: "SNOW MASTER",
+    poster: "https://i.ibb.co/tPLhLrsw/24LQwf.jpg",
+    genre: "Action",
+    added: 1,
+    type: "free",
+    country: "China",
+    year: "2026",
+    synopsis: "Akasanso akasufu okukamala, akagenda otuyisa mu valentine mood. kajjude action ne tagali",
+    cast: ["Zifeng Li", "Yang Rong", "Yang Xuwen"],
+    episodes: [
+      { title: "Episode 1", video: "https://www.youtube.com/embed/GL8BcRnZLeY" }
+
+]
+  },
+{
     id: "tianlan",
     title: "LEGEND OF TIANLAN",
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
