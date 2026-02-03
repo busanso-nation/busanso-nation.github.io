@@ -2809,6 +2809,26 @@ const SERIES = [
   { title: "Episode 2", video: "https://www.youtube.com/embed/0qx9SO3RTmo" },
   { title: "Episode 3", video: "https://www.youtube.com/embed/BcYTJGiRYlo" },
   { title: "Episode 4", video: "https://www.youtube.com/embed/QmjNwVfTGZQ" }
+      ]
+  },
+{
+    id: "whyme",
+    title: "WHY ME",
+   poster: "https://upload.wikimedia.org/wikipedia/en/9/99/Lovemenotposter2.jpg",
+    genre: "Action",
+    added: 72,
+    type: "premium",
+    country: "Taiwan",
+    year: "2023",
+    synopsis: "The film focuses on a social worker (Olivia Cheng) attempting to help him, highlighting social inequality and bureaucratic failures, often described as an emotional, harsh, yet award-winning drama.",
+    cast:["Kent Cheng", "Chow Yun-fat", "Olivia Cheng",  "Lisa Chiao Chiao"],
+    episodes: [
+   { title: "Episode 1", video: "https://www.youtube.com/embed/gEVK_tVDEuI" },
+  { title: "Episode 2", video: "https://www.youtube.com/embed/Xl95QPIDmmY" },
+  { title: "Episode 3", video: "https://www.youtube.com/embed/j4gdCh99HDo" },
+  { title: "Episode 4", video: "https://www.youtube.com/embed/97kjqMLDx4Q" },
+  { title: "Episode 5", video: "https://www.youtube.com/embed/XkyDWtQEeuo" },
+  { title: "Episode 6", video: "https://www.youtube.com/embed/G-3unpJt7Es" }
 
     ]
   }
