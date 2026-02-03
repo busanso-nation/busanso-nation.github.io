@@ -1,6 +1,17 @@
 const MOVIES = [
    
   {
+     id: "gadeechalan",
+    title: "GADEE CHALAN",
+    poster: "https://images.justwatch.com/poster/260259025/s718/paiyaa.jpg",
+    video: "https://www.youtube.com/embed/OqKnuRjOAgs",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "50m 03sec",
+    synopsis: "Shiva, an engineering graduate, is not serious about his job or future even when his friends advise him about life. He falls in love with a girl he saw at a bus stop and finally gets to ride with her in a car"
+  },
+     {
  id: "uprising11",
     title: "UPRISING",
     poster: "https://i.ibb.co/YTwjPXMw/images-q-tbn-ANd9-Gc-Qe1-7b9-OBPo-Cz2i3e-Zf-S1xk-W-By-OVSehes8-A-s.jpg",
