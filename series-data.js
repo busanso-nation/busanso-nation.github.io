@@ -2815,7 +2815,7 @@ const SERIES = [
     id: "whyme",
     title: "WHY ME",
    poster: "https://upload.wikimedia.org/wikipedia/en/9/99/Lovemenotposter2.jpg",
-    genre: "Action",
+    genre: "Drama",
     added: 72,
     type: "premium",
     country: "Taiwan",
@@ -2829,6 +2829,33 @@ const SERIES = [
   { title: "Episode 4", video: "https://www.youtube.com/embed/97kjqMLDx4Q" },
   { title: "Episode 5", video: "https://www.youtube.com/embed/XkyDWtQEeuo" },
   { title: "Episode 6", video: "https://www.youtube.com/embed/G-3unpJt7Es" }
+      ]
+  },
+{
+    id: "heartsofluoyang",
+    title: "HEARTS OF LUOYANG",
+   poster: "https://external-preview.redd.it/SRJK_IoyCBKt-laAHU12TjbR7GHknK-Yxx4dI31I2ws.jpg",
+    genre: "Action",
+    added: 73,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: "The 2021 Chinese costume mystery drama often referred to in relation to Hearts of Luoyang",
+    cast:["Song Yi", "Yong Mei", "Liu Duan Duan",  "Zhang Duo"],
+    episodes: [
+   { title: "Episode 1", video: "https://www.youtube.com/embed/sEL3y-h1e5I" },
+  { title: "Episode 2", video: "https://www.youtube.com/embed/HOgymSvB9JY" },
+  { title: "Episode 3", video: "https://www.youtube.com/embed/wsfrTd85LtE" },
+  { title: "Episode 4", video: "https://www.youtube.com/embed/tYT6T0gOQCY" },
+  { title: "Episode 5", video: "https://www.youtube.com/embed/2RYmFZZbIKY" },
+  { title: "Episode 6", video: "https://www.youtube.com/embed/EtFuxAaTzGc" },
+  { title: "Episode 7", video: "https://www.youtube.com/embed/rS1KkS3BYE8" },
+  { title: "Episode 8", video: "https://www.youtube.com/embed/eWxJJdESK1E" },
+  { title: "Episode 9", video: "https://www.youtube.com/embed/Q51FHkQJ6EY" },
+  { title: "Episode 10", video: "https://www.youtube.com/embed/-8EPgT8lg4A" },
+  { title: "Episode 11", video: "https://www.youtube.com/embed/qkylClk1BN4" },
+  { title: "Episode 12", video: "https://www.youtube.com/embed/IuVT-nBBMfc" },
+  { title: "Episode 13", video: "https://www.youtube.com/embed/kiBBvBrygS4" }
 
     ]
   }
