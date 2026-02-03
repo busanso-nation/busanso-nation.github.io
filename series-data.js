@@ -101,7 +101,8 @@ const SERIES = [
   { title: "Episode 21", video: "https://www.youtube.com/embed/zeJ95UcNdPI" },
  { title: "Episode 22", video: "https://www.youtube.com/embed/2QguCyge5IQ" },
  { title: "Episode 23", video: "https://www.youtube.com/embed/eMfqpEIsDLI" },
-  { title: "Episode 24", video: "https://www.youtube.com/embed/FwofmkxMmss" }
+  { title: "Episode 24", video: "https://www.youtube.com/embed/FwofmkxMmss" },
+ { title: "Episode 25", video: "https://www.youtube.com/embed/gH1NZknnZ9I" }
       ]
   },
 {
@@ -2834,7 +2835,7 @@ const SERIES = [
 {
     id: "heartsofluoyang",
     title: "HEARTS OF LUOYANG",
-   poster: "https://external-preview.redd.it/SRJK_IoyCBKt-laAHU12TjbR7GHknK-Yxx4dI31I2ws.jpg",
+   poster: "https://external-preview.redd.it/SRJK_IoyCBKt-laAHU12TjbR7GHknK-Yxx4dI31I2ws.jpg?auto=webp&s=cd8a1ce771d10419e4a939a87c22fc4909c6764d",
     genre: "Action",
     added: 73,
     type: "premium",
