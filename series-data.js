@@ -27,7 +27,8 @@ const SERIES = [
 { title: "Episode 13", video: "https://www.youtube.com/embed/zBJN4F6D924" },
 { title: "Episode 14", video: "https://www.youtube.com/embed/FwNLl8A8jI4" },
 { title: "Episode 15", video: "https://www.youtube.com/embed/pg48xut-gkU" },
- { title: "Episode 16", video: "https://www.youtube.com/embed/AD5wVrG0PEU" }
+ { title: "Episode 16", video: "https://www.youtube.com/embed/AD5wVrG0PEU" },
+{ title: "Episode 17", video: "https://www.youtube.com/embed/2X3gMiUZa0w" }
 ]
   },
 {
@@ -122,7 +123,8 @@ const SERIES = [
   { title: "Episode 5", video: "https://drive.google.com/file/d/1eVDBuaemkfDIe34V0vjIPvetrw9AUmgg/preview" },
   { title: "Episode 6", video: "https://drive.google.com/file/d/1eQo-qvWuD6OLeqdaVR7FdTBW9u_QMg6C/preview" },
   { title: "Episode 7", video: "https://drive.google.com/file/d/1MVDAjXAQ1IeG-cj--rXQE9ISDUQc-jxz/preview" },
-{ title: "Episode 8", video: "https://drive.google.com/file/d/1qwecoky8n6QLEeOE8SbTLg793hVLw3Td/preview" }
+{ title: "Episode 8", video: "https://drive.google.com/file/d/1qwecoky8n6QLEeOE8SbTLg793hVLw3Td/preview" },
+{ title: "Episode 9", video: "https://drive.google.com/file/d/1VElALBSiIwgDPrqnD8_gDoElET3GdBmk/preview" }
 ]
   },
 {
