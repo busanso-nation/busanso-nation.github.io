@@ -6,7 +6,7 @@ const SERIES = [
     poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
     genre: "fantasy",
     added: 1,
-    type: "premium",
+    type: "free",
     country: "China",
     year: "2026",
     synopsis: "A legendary journey of power and destiny between exorcists.",
