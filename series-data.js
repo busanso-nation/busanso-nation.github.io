@@ -44,7 +44,8 @@ const SERIES = [
 { title: "Episode 14", video: "https://www.youtube.com/embed/FwNLl8A8jI4" },
 { title: "Episode 15", video: "https://www.youtube.com/embed/pg48xut-gkU" },
  { title: "Episode 16", video: "https://www.youtube.com/embed/AD5wVrG0PEU" },
-{ title: "Episode 17", video: "https://www.youtube.com/embed/2X3gMiUZa0w" }
+{ title: "Episode 17", video: "https://www.youtube.com/embed/2X3gMiUZa0w" },
+ { title: "Episode 18", video: "https://www.youtube.com/embed/oaU3wosWJDA" }
 ]
   },
 {
@@ -118,7 +119,8 @@ const SERIES = [
  { title: "Episode 22", video: "https://www.youtube.com/embed/2QguCyge5IQ" },
  { title: "Episode 23", video: "https://www.youtube.com/embed/eMfqpEIsDLI" },
   { title: "Episode 24", video: "https://www.youtube.com/embed/FwofmkxMmss" },
- { title: "Episode 25", video: "https://www.youtube.com/embed/gH1NZknnZ9I" }
+ { title: "Episode 25", video: "https://www.youtube.com/embed/gH1NZknnZ9I" },
+  { title: "Episode 26", video: "https://www.youtube.com/embed/A81loDiNmKw" }
       ]
   },
 {
