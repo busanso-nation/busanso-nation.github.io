@@ -1,6 +1,17 @@
 const MOVIES = [
    
   {
+       id: "gareeb",
+    title: "GAREEB",
+    poster: "https://i.ibb.co/SDNDPsBj/images-4.jpg",
+    video: "https://www.youtube.com/embed/8fBVxadJWDk",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "50m 03sec",
+    synopsis: "Ill-treated since childhood by the wealthy people, Kayamkulam Kochunni decides to steal from the rich and feed the poor and the lower caste community, thus growing into a hero for the downtrodden"
+  },
+     {
      id: "gadeechalan",
     title: "GADEE CHALAN",
     poster: "https://images.justwatch.com/poster/260259025/s718/paiyaa.jpg",
