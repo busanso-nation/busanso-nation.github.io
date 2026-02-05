@@ -10,7 +10,18 @@ const MOVIES = [
     duration: "1hr 15m ",
     synopsis: "Mama is a film that revolves around a mother's blessing. "
   },
-             {
+  {
+                  id: "mama2",
+    title: "MAMA 2",
+    poster: "https://i.ibb.co/XZKMYq8S/sddefault.jpg",
+    video: "https://www.youtube.com/embed/BfgKYtOKbc8",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "Mama is a film that revolves around a mother's blessing. "
+  },
+  {
     id: "alexanderandthe",
     title: "ALEXANDER",
     poster: "https://m.media-amazon.com/images/M/MV5BOTgxMDMxMTY5OV5BMl5BanBnXkFtZTgwMjY1NzYzMjE@._V1_FMjpg_UX1000_.jpg",
