@@ -1,4 +1,15 @@
 const MOVIES = [
+  {
+              id: "mama",
+    title: "MAMA",
+    poster: "https://i.ibb.co/XZKMYq8S/sddefault.jpg",
+    video: "https://www.youtube.com/embed/Qmb4O8jkVXM",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "Mama is a film that revolves around a mother's blessing. "
+  },
              {
     id: "alexanderandthe",
     title: "ALEXANDER",
