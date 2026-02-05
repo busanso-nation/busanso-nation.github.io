@@ -5,10 +5,21 @@ const MOVIES = [
     title: "GAREEB",
     poster: "https://i.ibb.co/SDNDPsBj/images-4.jpg",
     video: "https://www.youtube.com/embed/8fBVxadJWDk",
-    type: "premium",
+    type: "free",
     year: "2026",
     country: "India",
     duration: "50m 03sec",
+    synopsis: "Ill-treated since childhood by the wealthy people, Kayamkulam Kochunni decides to steal from the rich and feed the poor and the lower caste community, thus growing into a hero for the downtrodden"
+  },
+     {
+              id: "gareeb2",
+    title: "GAREEB 2",
+    poster: "https://i.ibb.co/SDNDPsBj/images-4.jpg",
+    video: "https://www.youtube.com/embed/lgtMTsYZ990",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "48m ",
     synopsis: "Ill-treated since childhood by the wealthy people, Kayamkulam Kochunni decides to steal from the rich and feed the poor and the lower caste community, thus growing into a hero for the downtrodden"
   },
      {
