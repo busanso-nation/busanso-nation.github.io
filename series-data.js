@@ -128,7 +128,7 @@ const SERIES = [
       ]
   },
   {
-    id: "strangelove",
+    id: "strangefreelove",
     title: "Strange Love S1",
     poster: "https://img.india-forums.com/images/600x0/137436-still-image-of-arnav-and-khushi.jpg",
     genre: "Drama",
@@ -148,7 +148,7 @@ const SERIES = [
 { title: "Episode 7", video: "https://drive.google.com/file/d/19EaQnZS_miwXTelkjWSYAM-4bmtnRkD0/preview" },
 { title: "Episode 8", video: "https://drive.google.com/file/d/1KArFWGdTe0TAssxE1PwseGfWqmWD-uwb/preview" },
 { title: "Episode 9", video: "https://drive.google.com/file/d/1Vn5rE-szSPqiDOR_Hj7uWYU_bTB17m4G/preview" },
-{ title: "Episode 10", video: "https://drive.google.com/file/d/1wEkaI0SpcZJ8NxdWfZaunFC81gzgv50I/preview" }}
+{ title: "Episode 10", video: "https://drive.google.com/file/d/1wEkaI0SpcZJ8NxdWfZaunFC81gzgv50I/preview" }
 ]
   },
 {
