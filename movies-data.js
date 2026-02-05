@@ -54,6 +54,17 @@ const MOVIES = [
     duration: "1hr 15m ",
     synopsis: "a love story from India to malaysis"
   },
+   {
+     id: "dontstep",
+    title: "DONT STEP DOWN",
+    poster: "https://i.ibb.co/rKD3RtRT/p12020601-k-v10-aa.jpg",
+    video: "https://www.youtube.com/embed/V8MLC5mmRFo",
+    type: "premium",
+    year: "2026",
+    country: "USA",
+    duration: "1hr 30m",
+    synopsis: "After an all-night party, hung over revelers awaken to a beating sun and a carnivorous beach that devours anything with a heartbeat."
+  },
      {
      id: "gadeechalan",
     title: "GADEE CHALAN",
