@@ -16,40 +16,7 @@ const SERIES = [
 
 ]
   },
-{
-    id: "tianlan",
-    title: "LEGEND OF TIANLAN",
-    poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
-    genre: "fantasy",
-    added: 1,
-    type: "free",
-    country: "China",
-    year: "2026",
-    synopsis: "A legendary journey of power and destiny between exorcists.",
-    cast: ["Zifeng Li", "Yang Rong", "Yang Xuwen"],
-    episodes: [
-      { title: "Episode 1", video: "https://www.youtube.com/embed/RlNqNyrRm_k" },
-{ title: "Episode 2", video: "https://www.youtube.com/embed/egF1sy2FPYs" },
-{ title: "Episode 3", video: "https://www.youtube.com/embed/UPrxaom2THM" },
-{ title: "Episode 4", video: "https://www.youtube.com/embed/squJI3jzkV4" },
-{ title: "Episode 5", video: "https://www.youtube.com/embed/LBrZEOj0w5o" },
-{ title: "Episode 6", video: "https://www.youtube.com/embed/EjXi1_0BnzE" },
-{ title: "Episode 7", video: "https://www.youtube.com/embed/mQAUHdtDbms" },
-{ title: "Episode 8", video: "https://www.youtube.com/embed/KdKOBolUC_U" },
-{ title: "Episode 9", video: "https://www.youtube.com/embed/fWngGIZ8ZLk" },
-{ title: "Episode 10", video: "https://www.youtube.com/embed/D0Op9g37vJs" },
-{ title: "Episode 11", video: "https://www.youtube.com/embed/ZKyROMmbIkI" },
-{ title: "Episode 12", video: "https://www.youtube.com/embed/eeX5xIfwS18" },
-{ title: "Episode 13", video: "https://www.youtube.com/embed/zBJN4F6D924" },
-{ title: "Episode 14", video: "https://www.youtube.com/embed/FwNLl8A8jI4" },
-{ title: "Episode 15", video: "https://www.youtube.com/embed/pg48xut-gkU" },
- { title: "Episode 16", video: "https://www.youtube.com/embed/AD5wVrG0PEU" },
-{ title: "Episode 17", video: "https://www.youtube.com/embed/2X3gMiUZa0w" },
- { title: "Episode 18", video: "https://www.youtube.com/embed/oaU3wosWJDA" },
- { title: "Episode 19", video: "https://www.youtube.com/embed/Nj2ap3p6xSw" }
-]
-  },
-{
+  {
 
     id: "hotblooded",
     title: "HOT BLOODED",
@@ -85,6 +52,39 @@ const SERIES = [
 { title: "Episode 21", video: "https://drive.google.com/file/d/1E_Y5zq6I8Dr8QR8IWk4rs6d4T9yJb9B3/preview" },
 { title: "Episode 22", video: "https://drive.google.com/file/d/14bVKJ7XQz8QsQrwcBoM4RjPB2DfxMiGD/preview" }
       ]
+  },
+{
+    id: "tianlan",
+    title: "LEGEND OF TIANLAN",
+    poster: "https://horrornews.net/wp-content/uploads/2018/03/Legend-of-the-Naga-Pearls-2017-movie-Yang-Lei-6.jpg",
+    genre: "fantasy",
+    added: 1,
+    type: "free",
+    country: "China",
+    year: "2026",
+    synopsis: "A legendary journey of power and destiny between exorcists.",
+    cast: ["Zifeng Li", "Yang Rong", "Yang Xuwen"],
+    episodes: [
+      { title: "Episode 1", video: "https://www.youtube.com/embed/RlNqNyrRm_k" },
+{ title: "Episode 2", video: "https://www.youtube.com/embed/egF1sy2FPYs" },
+{ title: "Episode 3", video: "https://www.youtube.com/embed/UPrxaom2THM" },
+{ title: "Episode 4", video: "https://www.youtube.com/embed/squJI3jzkV4" },
+{ title: "Episode 5", video: "https://www.youtube.com/embed/LBrZEOj0w5o" },
+{ title: "Episode 6", video: "https://www.youtube.com/embed/EjXi1_0BnzE" },
+{ title: "Episode 7", video: "https://www.youtube.com/embed/mQAUHdtDbms" },
+{ title: "Episode 8", video: "https://www.youtube.com/embed/KdKOBolUC_U" },
+{ title: "Episode 9", video: "https://www.youtube.com/embed/fWngGIZ8ZLk" },
+{ title: "Episode 10", video: "https://www.youtube.com/embed/D0Op9g37vJs" },
+{ title: "Episode 11", video: "https://www.youtube.com/embed/ZKyROMmbIkI" },
+{ title: "Episode 12", video: "https://www.youtube.com/embed/eeX5xIfwS18" },
+{ title: "Episode 13", video: "https://www.youtube.com/embed/zBJN4F6D924" },
+{ title: "Episode 14", video: "https://www.youtube.com/embed/FwNLl8A8jI4" },
+{ title: "Episode 15", video: "https://www.youtube.com/embed/pg48xut-gkU" },
+ { title: "Episode 16", video: "https://www.youtube.com/embed/AD5wVrG0PEU" },
+{ title: "Episode 17", video: "https://www.youtube.com/embed/2X3gMiUZa0w" },
+ { title: "Episode 18", video: "https://www.youtube.com/embed/oaU3wosWJDA" },
+ { title: "Episode 19", video: "https://www.youtube.com/embed/Nj2ap3p6xSw" }
+]
   },
 {
     id: "marimar",
@@ -126,6 +126,30 @@ const SERIES = [
   { title: "Episode 26", video: "https://www.youtube.com/embed/A81loDiNmKw" },
   { title: "Episode 27", video: "https://www.youtube.com/embed/a5Biq1rOJvE" }
       ]
+  },
+  {
+    id: "strangelove",
+    title: "Strange Love S1",
+    poster: "https://img.india-forums.com/images/600x0/137436-still-image-of-arnav-and-khushi.jpg",
+    genre: "Drama",
+    added: 9,
+    type: "free",
+    country: "India",
+    year: "2025",
+    synopsis: "A ruthless, arrogant, and extremely wealthy business tycoon (known as ASR) who runs AR Designs. He is an atheist, does not believe in love or marriage, and is deeply protective of his sister, Anjali and A simple, spirited, and traditional girl from Lucknow. She is deeply rooted in her values, believes in God and love, and often finds herself in chaotic situations",
+    cast: ["Barun Sobti", "Sanaya Irani","Utkarsha Naik","Dalljiet Kaur", "Aabhaas Mehta"],
+    episodes: [
+  { title: "Episode 1", video: "https://drive.google.com/file/d/1uR00TmaloKKRHgu6ZA1eZIC-JOnjRsAS/preview" },
+{ title: "Episode 2", video: "https://drive.google.com/file/d/1H6XjpPT53texj8bsmRORcvMScXqQfUf-/preview" },
+{ title: "Episode 3", video: "https://drive.google.com/file/d/1edEoRhKn_g4x9Hu2xkWUNVMEnDtmFqkg/preview" },
+{ title: "Episode 4", video: "https://drive.google.com/file/d/1NzbCJuq5HWolFW1xAqNFVNEcvZV8D0oR/preview" },
+{ title: "Episode 5", video: "https://drive.google.com/file/d/1kBCUssAxgNGSO2l55EAiWauInv8N0zHi/preview" },
+{ title: "Episode 6", video: "https://drive.google.com/file/d/1eo3tKkHU4bBm7yTYwo_mRv5vARUwEDAV/preview" },
+{ title: "Episode 7", video: "https://drive.google.com/file/d/19EaQnZS_miwXTelkjWSYAM-4bmtnRkD0/preview" },
+{ title: "Episode 8", video: "https://drive.google.com/file/d/1KArFWGdTe0TAssxE1PwseGfWqmWD-uwb/preview" },
+{ title: "Episode 9", video: "https://drive.google.com/file/d/1Vn5rE-szSPqiDOR_Hj7uWYU_bTB17m4G/preview" },
+{ title: "Episode 10", video: "https://drive.google.com/file/d/1wEkaI0SpcZJ8NxdWfZaunFC81gzgv50I/preview" }}
+]
   },
 {
     id: "ashur",
