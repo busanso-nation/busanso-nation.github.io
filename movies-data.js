@@ -32,6 +32,28 @@ const MOVIES = [
     duration: "1hr 8m ",
     synopsis: "Ill-treated since childhood by the wealthy people, Kayamkulam Kochunni decides to steal from the rich and feed the poor and the lower caste community, thus growing into a hero for the downtrodden"
   },
+  {
+              id: "yojana",
+    title: "YOJANA",
+    poster: "https://i.ibb.co/spkVyXhX/images-q-tbn-ANd9-Gc-Rvt-WSGCH-FGD50n-PXDG8-AVyb2u-La-HIHFqz-Pg-s.jpg",
+    video: "https://drive.google.com/file/d/1lnccUwbDPUmsh8JJSoiXVRR0YtpMS4iG/preview",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "a love story from India to malaysis"
+  },
+   {
+     id: "2yojana2",
+    title: "YOJANA 2",
+    poster: "https://i.ibb.co/spkVyXhX/images-q-tbn-ANd9-Gc-Rvt-WSGCH-FGD50n-PXDG8-AVyb2u-La-HIHFqz-Pg-s.jpg",
+    video: "https://drive.google.com/file/d/18RgEQ9JZSov28IUhrfuvEJxDktPI1_27/view",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "a love story from India to malaysis"
+  },
      {
      id: "gadeechalan",
     title: "GADEE CHALAN",
