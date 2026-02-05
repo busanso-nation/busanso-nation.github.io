@@ -1,5 +1,15 @@
 const MOVIES = [
-   
+             {
+    id: "alexanderandthe",
+    title: "ALEXANDER",
+    poster: "https://m.media-amazon.com/images/M/MV5BOTgxMDMxMTY5OV5BMl5BanBnXkFtZTgwMjY1NzYzMjE@._V1_FMjpg_UX1000_.jpg",
+    video: "https://vimeo.com/756014657",
+    type: "premium",
+    year: "2019",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "about a boy named Alexander who experiences a series of relentless, minor misfortunes—from gum in his hair to lima beans for dinner—leading him to complain about his day and contemplate moving to Australia, while learning that everyone has bad days. "
+  },
   {
        id: "gareeb",
     title: "GAREEB",
@@ -8,7 +18,7 @@ const MOVIES = [
     type: "free",
     year: "2026",
     country: "India",
-    duration: "50m 03sec",
+    duration: "50m",
     synopsis: "Ill-treated since childhood by the wealthy people, Kayamkulam Kochunni decides to steal from the rich and feed the poor and the lower caste community, thus growing into a hero for the downtrodden"
   },
      {
@@ -19,7 +29,7 @@ const MOVIES = [
     type: "premium",
     year: "2026",
     country: "India",
-    duration: "48m ",
+    duration: "1hr 8m ",
     synopsis: "Ill-treated since childhood by the wealthy people, Kayamkulam Kochunni decides to steal from the rich and feed the poor and the lower caste community, thus growing into a hero for the downtrodden"
   },
      {
@@ -30,7 +40,7 @@ const MOVIES = [
     type: "free",
     year: "2026",
     country: "India",
-    duration: "50m 03sec",
+    duration: "50m",
     synopsis: "Shiva, an engineering graduate, is not serious about his job or future even when his friends advise him about life. He falls in love with a girl he saw at a bus stop and finally gets to ride with her in a car"
   },
      {
@@ -41,7 +51,7 @@ const MOVIES = [
     type: "free",
     year: "2026",
     country: "India",
-    duration: "50m 03sec",
+    duration: "1hr 10m",
     synopsis: "Shiva, an engineering graduate, is not serious about his job or future even when his friends advise him about life. He falls in love with a girl he saw at a bus stop and finally gets to ride with her in a car"
   },
      {
@@ -930,6 +940,28 @@ const MOVIES = [
     country: "USA",
     duration: "1h 10m",
     synopsis: "When Jason Stantham appears, what do you expect? Super action blockbuster movie"
+  },
+       {
+    id: "doradoel",
+    title: "EL DORADO",
+    poster: "https://i.ibb.co/DHTJcz03/images-q-tbn-ANd9-Gc-Qt4-T0-Rx-OL6-Ubqv-U4-H-mm1vnb-TZYz-Az-TP9-O3-Q-s.jpg",
+    video: "https://drive.google.com/file/d/1GmrHegKf0ctSZviQx76ssT_jCJhuAETx/preview",
+    type: "premium",
+    year: "2023",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "gunfighter Cole Thornton refuses a job to help a ruthless landowner force the McDonald family off their ranch, knowing his friend, Sheriff J.P. Harrah, is tasked with protecting them. Months later, Thornton learns Harrah has become an alcoholic, leaving the town vulnerable to the landowner's hired thugs"
+  },
+           {
+    id: "risen",
+    title: "RISEN",
+    poster: "https://i.ibb.co/WNM90L7t/p11952567-v-v10-aa.jpg",
+    video: "https://drive.google.com/file/d/1N724u2-1qdf3bMj7-ogbAyMtg1zAtDCU/preview",
+    type: "premium",
+    year: "2023",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "Roman military tribune Clavius remains set in his ways after serving 25 years in the army. He arrives at a crossroad when he's tasked to investigate the mystery of what happened to Jesus following the Crucifixion. Accompanied by trusted aide Lucius, his quest to disprove rumors of a risen Messiah makes him question his own beliefs and spirituality. As his journey takes him to places never dreamed of, Clavius discovers the truth that he's been seeking"
   },
              {
     id: "wwohelpmates",
