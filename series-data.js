@@ -83,7 +83,8 @@ const SERIES = [
  { title: "Episode 16", video: "https://www.youtube.com/embed/AD5wVrG0PEU" },
 { title: "Episode 17", video: "https://www.youtube.com/embed/2X3gMiUZa0w" },
  { title: "Episode 18", video: "https://www.youtube.com/embed/oaU3wosWJDA" },
- { title: "Episode 19", video: "https://www.youtube.com/embed/Nj2ap3p6xSw" }
+ { title: "Episode 19", video: "https://www.youtube.com/embed/Nj2ap3p6xSw" },
+ { title: "Episode 20", video: "https://www.youtube.com/embed/DpkJDK6a50s" }      
 ]
   },
 {
