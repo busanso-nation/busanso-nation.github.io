@@ -2977,6 +2977,32 @@ const SERIES = [
   { title: "Episode 9", video: "https://drive.google.com/file/d/1pkSll_-RsTYO5JqWS-H_U8M29UvlU8wz/preview" },
   { title: "Episode 10", video: "https://drive.google.com/file/d/1Wi3cDOQ2FS26gXpgEjsGnRGEkA66bq9O/preview" },
   { title: "Episode 11", video: "https://drive.google.com/file/d/1lcpUcWYSmeh2wuuBqpbrBCsfMcbiWP_c/preview" }
+       ]
+  },
+{
+    id: "kasuletheking",
+    title: "KASULE THE KING",
+   poster: "https://asianwiki.com/images/5/5d/Chilwu%2C_the_Mighty7.jpg",
+    genre: "Action",
+    added: 76,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: " is a 2012 Chinese historical drama depicting the fall of the Qin Dynasty and the subsequent power struggle between",
+    cast:["Chen Daoming", "Hewei Yu", "Peter Ho",  "Qing Huo"],
+    episodes: [
+  { title: "Episode 1", video: "https://www.youtube.com/embed/PBiV_hfEuiA" },
+  { title: "Episode 2", video: "https://www.youtube.com/embed/jLTULjMP3eU" },
+  { title: "Episode 3", video: "https://www.youtube.com/embed/ZIVJ-yO_pYo" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1IkybVKaWGzq1FUehNESrFCmNPy4sZNHl/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1GOriY3HmmWT4QDLKJXhZPA8R-jTFXo0j/preview" },
+  { title: "Episode 6", video: "https://www.youtube.com/embed/Tu1lKLP42hQ" },
+  { title: "Episode 7", video: "https://www.youtube.com/embed/3JTPWFuPNug" },
+  { title: "Episode 8", video: "https://www.youtube.com/embed/rtmhlRnyizU" },
+  { title: "Episode 9", video: "https://www.youtube.com/embed/06e72XEprZs" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/1wMtRUuWXnc9YZPzbjqWX57il_u-r98Rq/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/1qc7tv4Z4GKxuUkSvgODGoGbI2_bkxFeA/preview" },
+  { title: "Episode 12", video: "https://drive.google.com/file/d/1GmH6pqYEXqjfYOxl_EqeiuidBcpYBbuZ/preview" }
 
     ]
   }
