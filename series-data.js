@@ -6,7 +6,7 @@ const SERIES = [
     poster: "https://i.ibb.co/tPLhLrsw/24LQwf.jpg",
     genre: "Action",
     added: 1,
-    type: "free",
+    type: "premium",
     country: "China",
     year: "2026",
     synopsis: "Akasanso akasufu okukamala, akagenda otuyisa mu valentine mood. kajjude action ne tagali",
@@ -127,7 +127,8 @@ const SERIES = [
   { title: "Episode 26", video: "https://www.youtube.com/embed/A81loDiNmKw" },
   { title: "Episode 27", video: "https://www.youtube.com/embed/a5Biq1rOJvE" },
     { title: "Episode 28", video: "https://www.youtube.com/embed/G2HKumviEDQ" },
-      { title: "Episode 28", video: "https://www.youtube.com/embed/aH2i_vcCVoA" }
+ { title: "Episode 29", video: "https://www.youtube.com/embed/aH2i_vcCVoA" },
+ { title: "Episode 30", video: "https://www.youtube.com/embed/T2H6mCKlt4Y" }      
       ]
   },
   {
