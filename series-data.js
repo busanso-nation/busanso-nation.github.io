@@ -3032,7 +3032,30 @@ const SERIES = [
   { title: "Episode 13", video: "https://drive.google.com/file/d/1kCKEfwo1BO53M4r-Va-vMPHznwz-8g7m/preview" },
   { title: "Episode 14", video: "https://drive.google.com/file/d/1dtoFNXnjxxheSa-2qLWvxXM8YwsI7-3g/preview" },
   { title: "Episode 15", video: "https://drive.google.com/file/d/1JxvepZ_iEwTZkPZm6GtRgrzTzrGXX3mf/preview" }
-
+       ]
+  },
+{
+    id: "klahan",
+    title: "KLAHAN",
+   poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnlBirojE781fvjWuudBtrbBJX7wEWLbZmOg&s",
+    genre: "Drama",
+    added: 78,
+    type: "premium",
+    country: "thailand",
+    year: "2023",
+    synopsis: " a Thai drama centering on Kate, who seeks vengeance for her twin sister's death by infiltrating the powerful Akkarapaisansakul family as an heir to a rival company",
+    cast:["Jia Yiping", "Hu Jun", "Ding Yongdai",  "Ady An"],
+    episodes: [
+ { title: "Episode 1", video: "https://player.vimeo.com/video/745960480" },
+  { title: "Episode 2", video: "https://player.vimeo.com/video/745961733" },
+  { title: "Episode 3", video: "https://player.vimeo.com/video/745963120" },
+  { title: "Episode 4", video: "https://player.vimeo.com/video/750991082" },
+  { title: "Episode 5", video: "https://player.vimeo.com/video/751090759" },
+  { title: "Episode 6", video: "https://player.vimeo.com/video/751092677" },
+  { title: "Episode 7", video: "https://player.vimeo.com/video/753244959" },
+  { title: "Episode 8", video: "https://player.vimeo.com/video/753246021" },
+  { title: "Episode 9", video: "https://player.vimeo.com/video/756985273" },
+  { title: "Episode 10", video: "https://player.vimeo.com/video/757434593" }
     ]
   }
 ];
