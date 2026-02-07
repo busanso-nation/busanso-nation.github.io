@@ -1,5 +1,27 @@
 const MOVIES = [
  {
+      id: "kaampa",
+    title: "KAAMPANA",
+    poster: "https://static.toiimg.com/photo/112748464/112748464.jpg",
+    video: "https://www.youtube.com/embed/JATaCk17Bjk",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "These films feature larger-than-life protagonists, high-stakes fight choreography, and frequently, a mix of romance and emotional storylines.  "
+  },
+  {
+       id: "kaampana",
+    title: "KAAMPANA 2",
+    poster: "https://static.toiimg.com/photo/112748464/112748464.jpg",
+    video: "https://drive.google.com/file/d/10MzGiTgY-KnE07iGtXN6HSY1k1YJmk0q/preview",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "These films feature larger-than-life protagonists, high-stakes fight choreography, and,,, frequently, a mix of romance and emotional storylines. "
+  },
+  {
     id: "radhee",
     title: "RADHE",
     poster: "https://i.ibb.co/SDjNgMyH/Chat-GPT-Image-Feb-6-2026-01-26-06-PM.png",
