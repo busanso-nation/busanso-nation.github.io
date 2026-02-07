@@ -1,6 +1,23 @@
 const SERIES = [
   
   {
+     id: "seaman",
+    title: "REVENGE OF THE SEAMAN",
+    poster: "https://img-tv.20mn.fr/sites/default/files/image/cover/6/b/a/img-1100098230.jpg?t3y09a",
+    genre: "Action",
+    added: 1,
+    type: "free",
+    country: "Taiwan",
+    year: "2026",
+    synopsis: "a tale of love trailer of the revenge",
+    cast: ["Nana Patekar", "Avinash Tiwari", "Farida Jalal"],
+    episodes: [
+      { title: "Episode 1", video: "https://www.youtube.com/embed/QGhKYBKvLcc" }
+   
+
+]
+  },
+  {
      id: "snowmaster",
     title: "SNOW MASTER",
     poster: "https://i.ibb.co/tPLhLrsw/24LQwf.jpg",
