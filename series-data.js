@@ -2961,7 +2961,7 @@ const SERIES = [
     genre: "Action",
     added: 75,
     type: "premium",
-    country: "Chine",
+    country: "Korea",
     year: "2025",
     synopsis: " After his family is killed and his sister murdered, Chil-woo hunts down corrupt officials and criminals to avenge the innocent during King Injo's reign.",
     cast:["Eric Mun", "Koo Hye-sun", "Im Ha-ryong",  "Lee Eon"],
@@ -2982,7 +2982,7 @@ const SERIES = [
 {
     id: "kasuletheking",
     title: "KASULE THE KING",
-   poster: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzsQHuQNPqOhmsyX1lo09tRq4ryU8rrAAC6cZ4CRCBQIjFbQza6ShWORRK66ulGz0DgW8xwNZ-zTefW6qHX0k1LV1SGOk0KdAhVVL2Mo2hO45i9bd2K-HuWyAs1ZKoNpFNk62eFCQTmQw/s1600-rw/%E0%B9%80%E0%B8%8B%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%AD%E0%B8%A7%E0%B8%B5%E0%B9%88-Legend-of-Chu&Han-(%E6%A5%9A%E6%B1%89%E4%BC%A0%E5%A5%87,King's-War)2.jpg",
+   poster: "https://f.ptcdn.info/056/034/000/1438573427-206410-o.jpg",
     genre: "Action",
     added: 76,
     type: "premium",
@@ -3003,6 +3003,35 @@ const SERIES = [
   { title: "Episode 10", video: "https://drive.google.com/file/d/1wMtRUuWXnc9YZPzbjqWX57il_u-r98Rq/preview" },
   { title: "Episode 11", video: "https://drive.google.com/file/d/1qc7tv4Z4GKxuUkSvgODGoGbI2_bkxFeA/preview" },
   { title: "Episode 12", video: "https://drive.google.com/file/d/1GmH6pqYEXqjfYOxl_EqeiuidBcpYBbuZ/preview" }
+       ]
+  },
+{
+    id: "king'splan",
+    title: "KING'S PLAN",
+   poster: "https://media.themoviedb.org/t/p/w500/fyZuPjib7CXw63DUrfBKQRjrFar.jpg",
+    genre: "Action",
+    added: 77,
+    type: "premium",
+    country: "Chine",
+    year: "2024",
+    synopsis: " Telling the story of the Chinese Revolution and the events leading up to the creation of the Chinese Communist Party",
+    cast:["Jia Yiping", "Hu Jun", "Ding Yongdai",  "Ady An"],
+    episodes: [
+  { title: "Episode 1", video: "https://drive.google.com/file/d/1PC2IWCPBO8uiH_NrKWBp3vSWMXVPkp5o/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1B0ToDHK5nZ1RFeBVj583KkOsnpUsqaqK/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1OfGYXlAQOi3hSOqru-IBsseFjvNHVswM/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1W5sPJSxF4i_o0ePlM3U5H47ELNhtZ9b3/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1tSbDBUUQFqLfXZ8Bq2BanW-Fu53Omqjm/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1qkHs0Z5YIpHF2ZT042NscnBKwO47OoKT/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1yZc6guuJoTRYrvppoz0f_8MvgFJb3nME/preview" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/1UZ1wdS1l0eP4EHGMgEgkVEdmh7vtFy6x/preview" },
+  { title: "Episode 9", video: "https://drive.google.com/file/d/1UZ1wdS1l0eP4EHGMgEgkVEdmh7vtFy6x/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/1Xoj45OOtPIv1mbFqlkoRaGZHUps4-9_E/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/1N3QOdf2nLEqfi63cJFAglyqiRYiEwH6_/preview" },
+  { title: "Episode 12", video: "https://drive.google.com/file/d/1aZrRWq4ekJQOe8vEVaOO9uxTqz7YBpE5/preview" },
+  { title: "Episode 13", video: "https://drive.google.com/file/d/1kCKEfwo1BO53M4r-Va-vMPHznwz-8g7m/preview" },
+  { title: "Episode 14", video: "https://drive.google.com/file/d/1dtoFNXnjxxheSa-2qLWvxXM8YwsI7-3g/preview" },
+  { title: "Episode 15", video: "https://drive.google.com/file/d/1JxvepZ_iEwTZkPZm6GtRgrzTzrGXX3mf/preview" }
 
     ]
   }
