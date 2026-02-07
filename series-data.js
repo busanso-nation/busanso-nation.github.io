@@ -2982,7 +2982,7 @@ const SERIES = [
 {
     id: "kasuletheking",
     title: "KASULE THE KING",
-   poster: "https://asianwiki.com/images/5/5d/Chilwu%2C_the_Mighty7.jpg",
+   poster: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzsQHuQNPqOhmsyX1lo09tRq4ryU8rrAAC6cZ4CRCBQIjFbQza6ShWORRK66ulGz0DgW8xwNZ-zTefW6qHX0k1LV1SGOk0KdAhVVL2Mo2hO45i9bd2K-HuWyAs1ZKoNpFNk62eFCQTmQw/s1600-rw/%E0%B9%80%E0%B8%8B%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%AD%E0%B8%A7%E0%B8%B5%E0%B9%88-Legend-of-Chu&Han-(%E6%A5%9A%E6%B1%89%E4%BC%A0%E5%A5%87,King's-War)2.jpg",
     genre: "Action",
     added: 76,
     type: "premium",
