@@ -3056,6 +3056,44 @@ const SERIES = [
   { title: "Episode 8", video: "https://player.vimeo.com/video/753246021" },
   { title: "Episode 9", video: "https://player.vimeo.com/video/756985273" },
   { title: "Episode 10", video: "https://player.vimeo.com/video/757434593" }
+      ]
+  },
+{
+    id: "lobysty",
+    title: "LOBYSTY",
+   poster: "https://resizing.flixster.com/3ddeOITkE-rGaLwF_O5oXrNv4zg=/fit-in/705x460/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p14033585_k_v9_ab.jpg",
+    genre: "Drama",
+    added: 79,
+    type: "premium",
+    country: "Korea",
+    year: "2023",
+    synopsis: "If they fail, they are transformed into an animal of their choice and released into The Woods. David, the protagonist, escapes to join The Loners in the woods, where romance is forbidden.",
+    cast:["Rodrigo de la Serna", "Darío Grandinetti", "Leticia Brédice",  "Julieta Nair Calvo"],
+    episodes: [
+ { title: "Episode 1", video: "https://player.vimeo.com/video/811655932" },
+  { title: "Episode 2", video: "https://player.vimeo.com/video/811657029" },
+  { title: "Episode 3", video: "https://player.vimeo.com/video/811657218" },
+  { title: "Episode 4", video: "https://player.vimeo.com/video/811657383" },
+  { title: "Episode 5", video: "https://player.vimeo.com/video/811657620" },
+  { title: "Episode 6", video: "https://player.vimeo.com/video/811656559" },
+  { title: "Episode 7", video: "https://player.vimeo.com/video/812088671" },
+  { title: "Episode 8", video: "https://player.vimeo.com/video/813790020" },
+  { title: "Episode 9", video: "https://player.vimeo.com/video/814119012" },
+  { title: "Episode 10", video: "https://player.vimeo.com/video/814848495" },
+  { title: "Episode 11", video: "https://player.vimeo.com/video/814115048" },
+  { title: "Episode 12", video: "https://player.vimeo.com/video/822943876" },
+  { title: "Episode 13", video: "https://player.vimeo.com/video/822946983" },
+  { title: "Episode 14", video: "https://player.vimeo.com/video/824459638" },
+  { title: "Episode 15", video: "https://player.vimeo.com/video/824460084" },
+  { title: "Episode 16", video: "https://player.vimeo.com/video/811931622" },
+  { title: "Episode 22", video: "https://player.vimeo.com/video/811659647" },
+  { title: "Episode 23", video: "https://player.vimeo.com/video/811659839" },
+  { title: "Episode 24", video: "https://player.vimeo.com/video/814174668" },
+  { title: "Episode 25", video: "https://player.vimeo.com/video/815033260" },
+  { title: "Episode 26", video: "https://player.vimeo.com/video/818291191" },
+  { title: "Episode 27", video: "https://player.vimeo.com/video/818939137" },
+  { title: "Episode 28", video: "https://player.vimeo.com/video/818947710" },
+  { title: "Episode 29", video: "https://player.vimeo.com/video/819002306" }
     ]
   }
 ];
