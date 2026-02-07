@@ -3037,7 +3037,7 @@ const SERIES = [
 {
     id: "klahan",
     title: "KLAHAN",
-   poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnlBirojE781fvjWuudBtrbBJX7wEWLbZmOg&s",
+   poster: "https://i.mydramalist.com/B0Neqf.jpg",
     genre: "Drama",
     added: 78,
     type: "premium",
