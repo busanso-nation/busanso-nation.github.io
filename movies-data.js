@@ -1,5 +1,29 @@
 const MOVIES = [
  {
+  
+      id: "gussa",
+    title: "GUSSA",
+    poster: "https://e1.pxfuel.com/desktop-wallpaper/300/509/desktop-wallpaper-%D0%9F%D1%80%D0%B8%D0%BA%D1%80%D0%B5%D0%BF%D0%BB%D1%91%D0%BD%D0%BD%D0%BE%D0%B5-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-south-movie-poster-thumbnail.jpg",
+    video: "https://www.youtube.com/embed/hnvEKNEiaFI",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "Based on true events, this Bollywood film depicts the Indian Army's retaliatory strikes against militant launch pads in Pakistan-administered Kashmir following the 2016 Uri attack "
+  },
+  {
+   
+      id: "gussa2",
+    title: "GUSSA 2",
+    poster: "https://e1.pxfuel.com/desktop-wallpaper/300/509/desktop-wallpaper-%D0%9F%D1%80%D0%B8%D0%BA%D1%80%D0%B5%D0%BF%D0%BB%D1%91%D0%BD%D0%BD%D0%BE%D0%B5-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-south-movie-poster-thumbnail.jpg",
+    video: "https://www.youtube.com/embed/QgkEJ77X7K0",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "Based on true events, this Bollywood film depicts the Indian Army's retaliatory strikes against militant launch pads in Pakistan-administered Kashmir following the 2016 Uri attack "
+  },
+  {
       id: "kaampa",
     title: "KAAMPANA",
     poster: "https://static.toiimg.com/photo/112748464/112748464.jpg",
@@ -11,7 +35,7 @@ const MOVIES = [
     synopsis: "These films feature larger-than-life protagonists, high-stakes fight choreography, and frequently, a mix of romance and emotional storylines.  "
   },
   {
-       id: "kaampana",
+       id: "kaampana2",
     title: "KAAMPANA 2",
     poster: "https://static.toiimg.com/photo/112748464/112748464.jpg",
     video: "https://drive.google.com/file/d/10MzGiTgY-KnE07iGtXN6HSY1k1YJmk0q/preview",
