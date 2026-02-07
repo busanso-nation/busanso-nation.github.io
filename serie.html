@@ -35,9 +35,8 @@ body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padd
 .player-nav button:disabled { opacity:0.5; cursor:not-allowed; }
 .details { max-width:800px; margin:16px auto; padding:16px; background:#111; border-radius:12px; }
 .meta { color:#aaa; font-size:14px; margin-bottom:8px; }
-.actions button { width:100%; padding:16px; margin-top:12px; font-size:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
-.watch { background:#e50914; color:#fff; font-size:18px; }
-.secondary { background:#222; color:#fff; margin-top:8px; }
+.watch { background:#e50914; color:#fff; font-size:18px; width:100%; padding:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
+.secondary { background:#222; color:#fff; margin-top:8px; width:100%; padding:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
 .episodes { display:grid; gap:8px; margin-top:10px; }
 .episode { background:#181818; padding:12px; border-radius:8px; cursor:pointer; }
 .episode.active { background:#e50914; font-weight:bold; }
@@ -85,7 +84,30 @@ body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padd
 </div>
 
 <script>
-// ===== DOM REFERENCES =====
+// ================= ADSTERRA CONFIG =================
+const ADSTERRA_LINK = "https://www.effectivegatecpm.com/bur4x69piu?key=111989f663f7a1507cb9aee022725797";
+
+function isFreeUser() {
+  return localStorage.getItem("activePIN") !== "Orion196";
+}
+
+let lastAdTime = 0;
+function openAd() {
+  if (!isFreeUser()) return;
+  const now = Date.now();
+  if (now - lastAdTime < 60000) return; // 1 min cooldown
+  lastAdTime = now;
+  window.open(ADSTERRA_LINK, "_blank");
+}
+
+let adInterval = null;
+function startAdTimer() {
+  if (!isFreeUser()) return;
+  if (adInterval) clearInterval(adInterval);
+  adInterval = setInterval(openAd, 10 * 60 * 1000); // 10 minutes
+}
+
+// ================= DOM REFERENCES =================
 const title = document.getElementById("title");
 const meta = document.getElementById("meta");
 const synopsis = document.getElementById("synopsis");
@@ -97,7 +119,7 @@ const nextBtn = document.getElementById("nextBtn");
 const episodeList = document.getElementById("episodeList");
 const commentBtn = document.getElementById("commentBtn");
 
-// ===== SERIES DATA =====
+// ================= SERIES DATA =================
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
 if(!id) location.replace("series-list.html");
@@ -124,7 +146,7 @@ serie.episodes.forEach((ep,i) => {
   episodeList.appendChild(div);
 });
 
-// ===== VIDEO NORMALIZATION =====
+// ================= VIDEO NORMALIZATION =================
 function normalizeVideo(url){
   try {
     url = url.trim();
@@ -146,7 +168,7 @@ function normalizeVideo(url){
   }
 }
 
-// ===== EPISODE PLAYBACK =====
+// ================= EPISODE PLAYBACK =================
 let idx = 0;
 function playEpisode(i){
   const ep = serie.episodes[i];
@@ -157,17 +179,22 @@ function playEpisode(i){
   prevBtn.disabled = i===0;
   nextBtn.disabled = i===serie.episodes.length-1;
   window.scrollTo({ top:0, behavior:"smooth" });
+  startAdTimer();
 }
 
-watchBtn.onclick = () => playEpisode(0);
+watchBtn.onclick = () => {
+  openAd();
+  playEpisode(0);
+};
+
 prevBtn.onclick = () => idx>0 && playEpisode(idx-1);
 nextBtn.onclick = () => idx<serie.episodes.length-1 && playEpisode(idx+1);
 
-function toggleEpisodes(){ 
-  episodeList.style.display = episodeList.style.display==="none" ? "grid" : "none"; 
+function toggleEpisodes(){
+  episodeList.style.display = episodeList.style.display==="none" ? "grid" : "none";
 }
 
-// ===== COMMENTS LOGIC =====
+// ================= COMMENTS LOGIC (UNCHANGED) =================
 const commentsRef = firebase.database().ref("comments/series/"+serie.id);
 const usernameInput = document.getElementById("usernameInput");
 const commentInput = document.getElementById("commentInput");
