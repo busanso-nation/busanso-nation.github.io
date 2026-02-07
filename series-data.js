@@ -2952,6 +2952,31 @@ const SERIES = [
   { title: "Episode 31", video: "https://www.youtube.com/embed/9FeSFtPyyB0" },
   { title: "Episode 32", video: "https://www.youtube.com/embed/HeE0UMFEDF4" },
   { title: "Episode 33", video: "https://www.youtube.com/embed/42JY3SjeD2M" }
+   ]
+  },
+{
+    id: "destinyofkang",
+    title: "DESTINY OF KANG CHIL",
+   poster: "https://asianwiki.com/images/5/5d/Chilwu%2C_the_Mighty7.jpg",
+    genre: "Action",
+    added: 75,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: " After his family is killed and his sister murdered, Chil-woo hunts down corrupt officials and criminals to avenge the innocent during King Injo's reign.",
+    cast:["Eric Mun", "Koo Hye-sun", "Im Ha-ryong",  "Lee Eon"],
+    episodes: [
+ { title: "Episode 1", video: "https://drive.google.com/file/d/1ec4I8xi6T4n13axaeDOreigHPlwLGkwL/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1grP7PhWbIungGilEsyk6eKlGprIyJePG/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1rpo0zKrevfku_UmL4d8nQmqUGSEyqAkw/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/14_HsoJLzEFzHl41v0G-n5AtM2tzfJ4Q2/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1GwH13o2YEtQQ2FmMWATRlQaoW7azXiCn/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1InOlEeRqLGRxrwTsrwjZmuvtoFvSwpGC/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1bPmP--jPkaVaFN73BT8YyjHu0LDkCwfO/preview" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/1Z2GhiWxprmrF5VLWNH8mZIzzviztUHdm/preview" },
+  { title: "Episode 9", video: "https://drive.google.com/file/d/1pkSll_-RsTYO5JqWS-H_U8M29UvlU8wz/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/1Wi3cDOQ2FS26gXpgEjsGnRGEkA66bq9O/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/1lcpUcWYSmeh2wuuBqpbrBCsfMcbiWP_c/preview" }
 
     ]
   }
