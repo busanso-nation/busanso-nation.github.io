@@ -1,5 +1,71 @@
 const MOVIES = [
  {
+  id: "kolmil",
+    title: "Koi Mil Gaya",
+    poster: "https://i.ibb.co/wF5Qc8L9/images-q-tbn-ANd9-Gc-SZ3p-YZP-n-2g-Nt-Dw-Nhu-UOHn-XQHGTBk4jx-OQ-s.jpg",
+    video: "https://www.youtube.com/embed/Di23f7Nmua4",
+    type: "free",
+    year: "2024",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "Indian scientist Sanjay Mehra is convinced life exists beyond the earth and manages to send a message into space. When at last he receives an answer, no one believes there may be aliens out there but Sanjay and his pregnant wife, Sonia, see a UFO at first hand. Following a car accident, Sanjay dies and Sonia has their son, Rohit Mehra but as the boy grows physically, his mind remains that of a child "
+  }, 
+  {
+      id: "kolmi2",
+    title: "Koi Mil Gaya 2",
+    poster: "https://i.ibb.co/wF5Qc8L9/images-q-tbn-ANd9-Gc-SZ3p-YZP-n-2g-Nt-Dw-Nhu-UOHn-XQHGTBk4jx-OQ-s.jpg",
+    video: "https://www.youtube.com/embed/x979_b1CVM4",
+    type: "premium",
+    year: "2024",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "Indian scientist Sanjay Mehra is convinced life exists beyond the earth and manages to send a message into space. When at last he receives an answer, no one believes there may be aliens out there but Sanjay and his pregnant wife, Sonia, see a UFO at first hand. Following a car accident, Sanjay dies and Sonia has their son, Rohit Mehra but as the boy grows physically, his mind remains that of a child "
+  }, 
+  {
+  id: "koyla1",
+    title: "FIRE",
+    poster: "https://cdn.cinematerial.com/p/136x/ttnsrduu/koyla-key-art-sm.jpg?v=1572983976",
+    video: "https://drive.google.com/file/d/11kx2CItNZIkmSGSRVQEQg8_zXJA_hIDL/view",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "Silenced by a piece of smouldering coal in childhood, Shanker endures a life of slavery until love compels him to seek his voice, freedom, and long-overdue revenge "
+  }, 
+   {
+  id: "koy2la1",
+    title: "FIRE 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BMTkyODI2NzQzMl5BMl5BanBnXkFtZTcwNzYyNDE0MQ@@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1KPoozFkOrEthYrflfqT6cZFBCYocEIBS/view",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "Silenced by a piece of smouldering coal in childhood, Shanker endures a life of slavery until love compels him to seek his voice, freedom, and long-overdue revenge "
+  }, 
+    {
+  id: "kyandake",
+    title: "CHANDAKE",
+    poster: "https://bollyspice.com/wp-content/uploads/2013/10/R-1...Rajkumar-Still.jpg",
+    video: "https://www.youtube.com/embed/eqOgeaf8SFE",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1hr 10m ",
+    synopsis: "eno mbi hoooo tojiraba ngolina byokutte kuba bija kuyiika"
+  },
+     {
+  id: "cyandake",
+    title: "CHANDAKE 2",
+    poster: "https://bollyspice.com/wp-content/uploads/2013/10/R-1...Rajkumar-Still.jpg",
+    video: "https://www.youtube.com/embed/IG3jJsmz-Lc",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1hr 10m ",
+    synopsis: "eno mbi hoooo tojiraba ngolina byokutte kuba bija kuyiika"
+  },
+ {
   
       id: "gussa",
     title: "GUSSA",
@@ -17,7 +83,7 @@ const MOVIES = [
     title: "GUSSA 2",
     poster: "https://e1.pxfuel.com/desktop-wallpaper/300/509/desktop-wallpaper-%D0%9F%D1%80%D0%B8%D0%BA%D1%80%D0%B5%D0%BF%D0%BB%D1%91%D0%BD%D0%BD%D0%BE%D0%B5-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-south-movie-poster-thumbnail.jpg",
     video: "https://www.youtube.com/embed/QgkEJ77X7K0",
-    type: "free",
+    type: "premium",
     year: "2025",
     country: "India",
     duration: "1hr 05m ",
