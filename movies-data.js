@@ -1,26 +1,5 @@
 const MOVIES = [
- {
-  id: "kolmil",
-    title: "Koi Mil Gaya",
-    poster: "https://i.ibb.co/wF5Qc8L9/images-q-tbn-ANd9-Gc-SZ3p-YZP-n-2g-Nt-Dw-Nhu-UOHn-XQHGTBk4jx-OQ-s.jpg",
-    video: "https://www.youtube.com/embed/Di23f7Nmua4",
-    type: "free",
-    year: "2024",
-    country: "India",
-    duration: "1hr 15m ",
-    synopsis: "Indian scientist Sanjay Mehra is convinced life exists beyond the earth and manages to send a message into space. When at last he receives an answer, no one believes there may be aliens out there but Sanjay and his pregnant wife, Sonia, see a UFO at first hand. Following a car accident, Sanjay dies and Sonia has their son, Rohit Mehra but as the boy grows physically, his mind remains that of a child "
-  }, 
-  {
-      id: "kolmi2",
-    title: "Koi Mil Gaya 2",
-    poster: "https://i.ibb.co/wF5Qc8L9/images-q-tbn-ANd9-Gc-SZ3p-YZP-n-2g-Nt-Dw-Nhu-UOHn-XQHGTBk4jx-OQ-s.jpg",
-    video: "https://www.youtube.com/embed/x979_b1CVM4",
-    type: "premium",
-    year: "2024",
-    country: "India",
-    duration: "1hr 15m ",
-    synopsis: "Indian scientist Sanjay Mehra is convinced life exists beyond the earth and manages to send a message into space. When at last he receives an answer, no one believes there may be aliens out there but Sanjay and his pregnant wife, Sonia, see a UFO at first hand. Following a car accident, Sanjay dies and Sonia has their son, Rohit Mehra but as the boy grows physically, his mind remains that of a child "
-  }, 
+
   {
   id: "koyla1",
     title: "FIRE",
