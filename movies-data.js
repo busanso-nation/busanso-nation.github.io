@@ -59,7 +59,7 @@ const MOVIES = [
     title: "CHANDAKE 2",
     poster: "https://bollyspice.com/wp-content/uploads/2013/10/R-1...Rajkumar-Still.jpg",
     video: "https://www.youtube.com/embed/IG3jJsmz-Lc",
-    type: "free",
+    type: "premium",
     year: "2026",
     country: "India",
     duration: "1hr 10m ",
