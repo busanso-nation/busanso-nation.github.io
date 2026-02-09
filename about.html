@@ -3,127 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Busanso Nation</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Busanso – introduction Video</title>
 
 <style>
-:root {
-  --orange:#ff8a00;
-  --teal:#00c9a7;
-  --dark:#0f172a;
-  --glass:rgba(255,255,255,.14);
-}
-
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',system-ui,sans-serif; }
-
 body {
-  min-height:100vh;
-  background:linear-gradient(135deg,#ffecd2,#fcb69f);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px;
-  color:#1f2933;
+  margin:0;
+  background:#000;
+  color:#fff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
 }
 
-.card {
+.logo {
+  text-align:center;
+  margin-bottom:12px;
+}
+
+.logo img {
+  max-height:50px;
+}
+
+.player {
   width:100%;
-  max-width:600px;
-  background:rgba(255,255,255,.9);
-  border-radius:25px;
-  padding:30px 25px;
-  box-shadow:0 20px 50px rgba(0,0,0,.3);
+  max-width:800px;
+  margin: 16px 0;
 }
 
-.header {
-  text-align:center;
-  margin-bottom:20px;
+.player iframe {
+  width:100%;
+  height:56vw;
+  max-height:500px;
+  border:none;
+  border-radius:10px;
 }
 
-.header h1 {
-  font-size:2.5rem;
-  font-weight:900;
-  color:#ff8a00;
+.buttons {
+  display:flex;
+  gap:12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 16px;
 }
 
-.header small {
-  display:block;
-  font-size:1rem;
-  margin-top:4px;
-  opacity:.8;
+.buttons button {
+  padding:14px 20px;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:16px;
+  flex:1;
+  max-width:180px;
+  background:#e50914;
+  color:#fff;
+  transition: background .3s;
 }
 
+.buttons button:hover {
+  background:#ff7a18;
+}
+
+/* Sections below buttons */
 .section {
-  margin-bottom:20px;
+  max-width:800px;
+  margin:16px auto;
+  padding:16px;
+  background:#111;
+  border-radius:12px;
 }
 
-.section h2 {
-  font-size:1.5rem;
-  color:#00c9a7;
-  margin-bottom:10px;
+.section h1, .section h2 {
+  margin-top:0;
+  margin-bottom:8px;
 }
 
-.section p {
-  font-size:1rem;
-  line-height:1.6;
-  opacity:.85;
+.section p, .section small {
+  color:#ccc;
+  line-height:1.5;
+  margin-bottom:8px;
 }
-
-.footer {
-  text-align:center;
-  font-size:0.85rem;
-  margin-top:15px;
-  opacity:0.7;
-  color:#1f2933;
-}
-  .ad-box{
-  margin:20px auto;
-  text-align:center;
-  max-width:100%;
-}
-
 </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="header">
-    <h1>About Busanso Nation</h1>
-    <small>Giving you a stress-free ride</small>
-  </div>
-
-  <div class="section">
-    <h2>Our Mission</h2>
-    <p>Busanso Nation aims to bring the best Luganda-translated movies, series, and exclusive VJ content directly to your screens. We celebrate local culture, storytelling, and entertainment, making it accessible to everyone, everywhere.</p>
-  </div>
-
-  <div class="section">
-    <h2>What We Offer</h2>
-    <p>Enjoy a wide range of movies, series, and VJ-exclusive shows with flexible subscription packages, you can watch anytime, anywhere, on any device.</p>
-  </div>
-<!-- MONETAG BANNER AD -->
-<div class="ad-box">
-  <script>
-    (function(s){
-      s.dataset.zone='10536867',
-      s.src='https://nap5k.com/tag.min.js'
-    })([document.documentElement, document.body]
-      .filter(Boolean)
-      .pop()
-      .appendChild(document.createElement('script')))
-  </script>
+<div class="logo">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Busanso Logo">
 </div>
 
+<div class="player">
+  <!-- Google Drive Video Embed -->
+  <iframe id="drivePlayer" 
+          src="https://drive.google.com/file/d/DRIVE_FILE_ID/preview" 
+          allowfullscreen 
+          allow="autoplay">
+  </iframe>
+</div>
 
-  <div class="section">
-    <h2>Join the Community</h2>
-    <p>By subscribing to Busanso Nation, you become part of a growing community that values local entertainment and culture. Extend your subscription, explore new shows, and share the experience with friends and family.</p>
-  </div>
+<div class="buttons">
+  <button onclick="location.href='packages.html'">💳 Pay to Watch</button>
+  <button onclick="location.href='login.html'">🔐 Login</button>
+  <button onclick="location.href='home.htm'">⬅ Back</button>
+</div>
 
-  <div class="footer">
-    © 2026 Busanso Nation
-  </div>
+<!-- Info Sections -->
+<div class="section">
+  <h1>About Busanso Nation</h1>
+  <small>Giving you a stress-free ride</small>
+</div>
+
+<div class="section">
+  <h2>Our Mission</h2>
+  <p>Busanso Nation aims to bring the best Luganda-translated movies, series, and exclusive VJ content directly to your screens. We celebrate local culture, storytelling, and entertainment, making it accessible to everyone, everywhere.</p>
+</div>
+
+<div class="section">
+  <h2>What We Offer</h2>
+  <p>Enjoy a wide range of movies, series, and VJ-exclusive shows with flexible subscription packages. You can watch anytime, anywhere, on any device.</p>
 </div>
 
 </body>
 </html>
+
