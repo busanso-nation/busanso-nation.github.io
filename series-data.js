@@ -12,8 +12,8 @@ const SERIES = [
     synopsis: "a tale of love trailer of the revenge",
     cast: ["Nana Patekar", "Avinash Tiwari", "Farida Jalal"],
     episodes: [
-      { title: "Episode 1", video: "https://www.youtube.com/embed/QGhKYBKvLcc" }
-   
+      { title: "Episode 1", video: "https://www.youtube.com/embed/QGhKYBKvLcc" },
+     { title: "Episode 2", video: "https://www.youtube.com/embed/t_KxZpshyDk" }
 
 ]
   },
@@ -31,7 +31,8 @@ const SERIES = [
     episodes: [
       { title: "Episode 1", video: "https://www.youtube.com/embed/nwQD_BVTI5o" },
      { title: "Episode 2", video: "https://www.youtube.com/embed/7NQ4bP38PIw" },
-    { title: "Episode 3", video: "https://www.youtube.com/embed/avd2LwsDcUo" }
+    { title: "Episode 3", video: "https://www.youtube.com/embed/avd2LwsDcUo" },
+     { title: "Episode 4", video: "https://www.youtube.com/embed/vPUP84kkzqQ" }
 
 ]
   },
@@ -193,7 +194,8 @@ const SERIES = [
   { title: "Episode 6", video: "https://drive.google.com/file/d/1eQo-qvWuD6OLeqdaVR7FdTBW9u_QMg6C/preview" },
   { title: "Episode 7", video: "https://drive.google.com/file/d/1MVDAjXAQ1IeG-cj--rXQE9ISDUQc-jxz/preview" },
 { title: "Episode 8", video: "https://drive.google.com/file/d/1qwecoky8n6QLEeOE8SbTLg793hVLw3Td/preview" },
-{ title: "Episode 9", video: "https://drive.google.com/file/d/1VElALBSiIwgDPrqnD8_gDoElET3GdBmk/preview" }
+{ title: "Episode 9", video: "https://drive.google.com/file/d/1VElALBSiIwgDPrqnD8_gDoElET3GdBmk/preview" },
+{ title: "Episode 10", video: "https://drive.google.com/file/d/1NeOEoU1CrRjP-PngujChoPf0SKS2V23s/preview" }
 ]
   },
 {
