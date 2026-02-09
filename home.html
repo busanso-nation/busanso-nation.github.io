@@ -25,7 +25,6 @@ body{
   text-align:center;
 }
 .header img{ height:55px; }
-.header h1{ margin:8px 0; }
 
 /* BUTTONS */
 .top-actions{
@@ -70,47 +69,51 @@ body{
 .section{ padding:15px; }
 .slider{
   display:flex;
-  gap:14px;
+  gap:12px;
   overflow-x:auto;
+  scroll-behavior:smooth;
 }
 .slider::-webkit-scrollbar{ display:none; }
 
-/* CARD */
+/* CARD - responsive */
 .card{
-  min-width:160px;
+  min-width:140px;
+  max-width:160px;
   text-align:center;
   position:relative;
+  flex-shrink:0;
 }
 .card img{
   width:100%;
-  border-radius:10px;
+  border-radius:8px;
 }
 .card-title{
-  margin-top:6px;
-  font-size:14px;
+  margin-top:4px;
+  font-size:13px;
   font-weight:600;
 }
 
 /* WATCH BUTTON */
 .watch-btn{
-  margin-top:6px;
+  margin-top:4px;
   width:100%;
-  padding:8px;
+  padding:6px;
   border:none;
-  border-radius:8px;
+  border-radius:6px;
   font-weight:bold;
   cursor:pointer;
   background:#e50914;
   color:#fff;
+  font-size:12px;
 }
 
 /* BADGES */
 .badge{
   position:absolute;
-  top:8px;
-  left:8px;
-  font-size:11px;
-  padding:3px 8px;
+  top:6px;
+  left:6px;
+  font-size:10px;
+  padding:2px 6px;
   border-radius:6px;
   background:#22c55e;
 }
@@ -123,30 +126,28 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:14px;
+  font-size:12px;
   font-weight:bold;
   background:rgba(0,0,0,0.6);
 }
 
-/* FLOATING INSTALL / OPEN APP BUTTON */
+/* FLOATING INSTALL / OPEN APP BUTTONS */
 #installBtn, #openAppBtn{
   position:fixed;
-  bottom:20px;
-  right:20px;
   z-index:9999;
-  padding:14px 20px;
+  border:none;
+  padding:14px 18px;
   border-radius:50px;
   font-size:16px;
   font-weight:bold;
   cursor:pointer;
   box-shadow:0 4px 12px rgba(0,0,0,.6);
   display:none;
-  border:none;
 }
-#installBtn{ background:#ff7a18; color:#fff; }
+#installBtn{ bottom:20px; right:20px; background:#ff7a18; color:#fff; }
 #installBtn:hover{ background:#ffb400; }
-#openAppBtn{ background:#22c55e; color:#fff; }
-#openAppBtn:hover{ background:#16a34a; }
+#openAppBtn{ bottom:80px; right:20px; background:#16a34a; color:#fff; }
+#openAppBtn:hover{ background:#22c55e; }
 
 #iosHint{
   position:fixed;
@@ -161,6 +162,18 @@ body{
   text-align:center;
   z-index:9999;
 }
+
+/* RESPONSIVE CARD SIZE */
+@media(min-width:768px){
+  .card{ min-width:160px; max-width:180px; }
+  .card-title{ font-size:14px; }
+  .watch-btn{ font-size:13px; padding:7px; }
+}
+@media(min-width:1200px){
+  .card{ min-width:180px; max-width:200px; }
+  .card-title{ font-size:15px; }
+  .watch-btn{ font-size:14px; padding:8px; }
+}
 </style>
 </head>
 
@@ -168,8 +181,6 @@ body{
 
 <div class="header">
   <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
-  <h1>Busanso Nation</h1>
-  <small>welcome to Busanso Movies & Series. if you hate ads, pay to Watch</small>
 </div>
 
 <div class="top-actions">
@@ -187,6 +198,7 @@ body{
   <div class="slider" id="moviesBox"></div>
 </div>
 
+<!-- Adsterra banner between Movies and Series -->
 <div class="ad-banner" style="text-align:center; margin:20px 0;">
   <script>
     atOptions = {
@@ -205,7 +217,7 @@ body{
   <div class="slider" id="seriesBox"></div>
 </div>
 
-<!-- FLOATING APP INSTALL / OPEN APP -->
+<!-- FLOATING APP INSTALL / OPEN APP BUTTON -->
 <button id="installBtn">Install App</button>
 <button id="openAppBtn">OPEN APP</button>
 <div id="iosHint">Tap <strong>Share → Add to Home Screen</strong> to install this app</div>
@@ -241,15 +253,20 @@ function createCard(item, type){
 
   card.innerHTML = html;
 
-  if(!isPremium){
+  if(isPremium){
+    card.querySelector(".watch-btn").onclick = function(){
+      location.href = "packages.html";
+    };
+  } else {
     card.querySelector(".watch-btn").onclick = function(){
       if(type === "movie"){
         location.href = "movie.html?id=" + item.id;
-      }else{
+      } else {
         location.href = "serie.html?id=" + item.id;
       }
     };
   }
+
   return card;
 }
 
@@ -268,26 +285,25 @@ for(var j=0;j<SERIES.length;j++){
 /* ===== APP INSTALL / OPEN APP LOGIC ===== */
 let deferredPrompt;
 const installBtn = document.getElementById('installBtn');
-const openBtn = document.getElementById('openAppBtn');
+const openAppBtn = document.getElementById('openAppBtn');
 const iosHint = document.getElementById('iosHint');
 
 function isInStandaloneMode() {
-  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  return (window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone;
 }
 function isiOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent); }
 function isAndroid() { return /android/i.test(navigator.userAgent); }
 
-// Detect if running in your installed WebView app
-// For example, your app sets a custom user agent or query param like "?webview=true"
-function isInWebviewApp(){
-  return navigator.userAgent.includes("BusansoWebView") || location.search.includes("webview=true");
+// Detect if running inside the installed webview app
+function isInWebviewApp() {
+  return navigator.userAgent.includes("BusansoWebviewApp"); // replace with your webview UA
 }
 
 if(!isInStandaloneMode() && !isInWebviewApp()){
-  // Android PWA install
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
+
     if(isAndroid()){
       installBtn.style.display = 'block';
       installBtn.addEventListener('click', async () => {
@@ -299,24 +315,20 @@ if(!isInStandaloneMode() && !isInWebviewApp()){
     }
   });
 
-  // iOS hint
   if(isiOS()){
     iosHint.style.display = 'block';
   }
 
-  // Open app button for external browser only
-  openBtn.style.display = 'block';
-  openBtn.addEventListener('click', () => {
-    // Navigate to app URL (custom scheme or main PWA page)
-    window.location.href = "index.html?webview=true";
+  openAppBtn.style.display = 'block';
+  openAppBtn.addEventListener('click', ()=>{
+    location.href = "busansoapp://open"; // your app custom scheme
   });
 }
 
-// Hide all buttons if app is installed
 window.addEventListener('appinstalled', () => {
   installBtn.style.display = 'none';
-  openBtn.style.display = 'none';
   iosHint.style.display = 'none';
+  openAppBtn.style.display = 'none';
 });
 </script>
 
