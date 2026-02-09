@@ -70,15 +70,24 @@ body{
 }
 .search input::placeholder{color:#9fc6d9}
 
-/* GRID */
+/* SERIES GRID */
 .series{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-  padding:18px;
+  grid-template-columns:repeat(3,1fr); /* mobile default: 3 cards per row */
+  gap:12px;
+  padding:16px;
 }
-@media(min-width:600px){
-  .series{grid-template-columns:repeat(4,1fr)}
+@media(min-width:768px){
+  .series{
+    grid-template-columns:repeat(4,1fr); /* tablets */
+    gap:16px;
+  }
+}
+@media(min-width:1200px){
+  .series{
+    grid-template-columns:repeat(5,1fr); /* PC/TV large screens */
+    gap:18px;
+  }
 }
 
 /* CARD */
@@ -104,27 +113,27 @@ body{
 }
 
 /* INFO */
-.info{padding:14px}
+.info{padding:12px}
 .title{
   font-weight:bold;
-  font-size:15px;
+  font-size:14px;
 }
 .meta{
-  font-size:12px;
+  font-size:11px;
   color:#9fc6d9;
-  margin:6px 0 14px;
+  margin:6px 0 12px;
 }
 
 /* WATCH BUTTON */
 .watch{
   width:100%;
-  padding:16px;
+  padding:12px;
   border:none;
   border-radius:20px;
   background:linear-gradient(135deg,#ff7a18,#ffb347);
   color:#2a0d00;
   font-weight:bold;
-  font-size:15px;
+  font-size:13px;
   cursor:pointer;
   transition:.25s;
 }
@@ -175,15 +184,15 @@ function render(data){
         <div class="meta">${s.country} • ${s.genre} • ${s.year}</div>
         <button class="watch">▶ Watch Series</button>
       </div>`;
-    c.querySelector("button").onclick=()=>{
-      location.href=`serie.html?id=${s.id}`;
-    };
+    c.querySelector("button").onclick=()=>location.href=`serie.html?id=${s.id}`;
     box.appendChild(c);
   });
 }
 
+// Initial render
 render(SERIES);
 
+// SEARCH FILTER
 search.oninput=()=>{
   const q=search.value.toLowerCase();
   render(SERIES.filter(s=>s.title.toLowerCase().includes(q)));
