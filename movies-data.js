@@ -1,6 +1,17 @@
 const MOVIES = [
 
   {
+    id: "poly",
+    title: "POLY",
+    poster: "https://m.media-amazon.com/images/M/MV5BODEzZWNlODMtZDc0MC00N2M1LThkYWYtNGRkZDk2NWM5MjhkXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/Nvt3o4863fQ",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "Highly anticipated titles include Alpha (female agent action), a Siddharth Malhotra-led folk thriller "
+  }, 
+   {
   id: "koyla1",
     title: "FIRE",
     poster: "https://cdn.cinematerial.com/p/136x/ttnsrduu/koyla-key-art-sm.jpg?v=1572983976",
