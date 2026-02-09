@@ -6,12 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="monetag" content="6d418a15bef62e99f15abae082c777e0">
 
-<!-- PWA REQUIRED -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<!-- END PWA -->
-
 <style>
 *{
   margin:0;
@@ -91,7 +85,6 @@ body{
 </style>
 </head>
 
-
 <body>
 
 <div class="splash">
@@ -106,9 +99,6 @@ body{
   <div class="message">
     Welcome to the source of unique and quality Movies and Series
   </div>
-<button id="installBtn" style="display:none; padding:12px 20px; font-size:16px; cursor:pointer;">
-  Install App
-</button>
 
   <div class="loader"></div>
 </div>
@@ -117,60 +107,19 @@ body{
 const pin = localStorage.getItem("activePIN");
 const exp = localStorage.getItem("pinExpiry");
 
-let allowRedirect = true;
-
-/* If install is available, pause redirect */
-window.addEventListener("beforeinstallprompt", () => {
-  allowRedirect = false;
-});
-
-/* Redirect */
 setTimeout(() => {
-  if (!allowRedirect) return;
-
   if(pin && exp && Date.now() < Number(exp)){
     location.replace("watch.html");
   } else {
     location.replace("home.html");
   }
 }, 5500);
-</script>
-
-<script>
-let deferredPrompt;
-const installBtn = document.getElementById("installBtn");
 
 /* Register service worker */
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
 }
-
-/* Detect install availability */
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.style.display = "inline-block";
-});
-
-/* Handle install button click */
-installBtn.addEventListener("click", async () => {
-  installBtn.style.display = "none";
-  deferredPrompt.prompt();
-  const choiceResult = await deferredPrompt.userChoice;
-  deferredPrompt = null;
-});
-
-/* Hide button if already installed */
-window.addEventListener("appinstalled", () => {
-  installBtn.style.display = "none";
-});
-
-/* Extra check: hide if running as app */
-if (window.matchMedia('(display-mode: standalone)').matches) {
-  installBtn.style.display = "none";
-}
 </script>
-
 
 </body>
 </html>
