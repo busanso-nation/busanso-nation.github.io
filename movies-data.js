@@ -9,8 +9,20 @@ const MOVIES = [
     year: "2026",
     country: "India",
     duration: "1hr 15m ",
-    synopsis: "Highly anticipated titles include Alpha (female agent action), a Siddharth Malhotra-led folk thriller "
-  }, 
+    synopsis: "He is simple and polite. but he is that kind of person who can't tolerate nosense"
+  },
+  
+  {
+    id: "p2oly",
+    title: "POLY 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BODEzZWNlODMtZDc0MC00N2M1LThkYWYtNGRkZDk2NWM5MjhkXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1jDPu38RH0of9Kg6949x2rLcDccvMpSkT/preview",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "He is simple and polite. but he is that kind of person who can't tolerate nosense "
+  },
    {
   id: "koyla1",
     title: "FIRE",
