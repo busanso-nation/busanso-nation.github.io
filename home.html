@@ -128,24 +128,25 @@ body{
   background:rgba(0,0,0,0.6);
 }
 
-/* FLOATING INSTALL BUTTON */
-#installBtn{
+/* FLOATING INSTALL / OPEN APP BUTTON */
+#installBtn, #openAppBtn{
   position:fixed;
   bottom:20px;
   right:20px;
   z-index:9999;
-  background:#ff7a18;
-  color:#fff;
-  border:none;
-  padding:14px 18px;
+  padding:14px 20px;
   border-radius:50px;
   font-size:16px;
   font-weight:bold;
   cursor:pointer;
   box-shadow:0 4px 12px rgba(0,0,0,.6);
   display:none;
+  border:none;
 }
+#installBtn{ background:#ff7a18; color:#fff; }
 #installBtn:hover{ background:#ffb400; }
+#openAppBtn{ background:#22c55e; color:#fff; }
+#openAppBtn:hover{ background:#16a34a; }
 
 #iosHint{
   position:fixed;
@@ -204,8 +205,9 @@ body{
   <div class="slider" id="seriesBox"></div>
 </div>
 
-<!-- FLOATING APP INSTALL BUTTON -->
+<!-- FLOATING APP INSTALL / OPEN APP -->
 <button id="installBtn">Install App</button>
+<button id="openAppBtn">OPEN APP</button>
 <div id="iosHint">Tap <strong>Share → Add to Home Screen</strong> to install this app</div>
 
 <script>
@@ -263,22 +265,29 @@ for(var j=0;j<SERIES.length;j++){
   seriesBox.appendChild(createCard(SERIES[j],"series"));
 }
 
-/* ===== APP INSTALL LOGIC ===== */
+/* ===== APP INSTALL / OPEN APP LOGIC ===== */
 let deferredPrompt;
 const installBtn = document.getElementById('installBtn');
+const openBtn = document.getElementById('openAppBtn');
 const iosHint = document.getElementById('iosHint');
 
 function isInStandaloneMode() {
-  return (window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone;
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 }
 function isiOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent); }
 function isAndroid() { return /android/i.test(navigator.userAgent); }
 
-if(!isInStandaloneMode()){
+// Detect if running in your installed WebView app
+// For example, your app sets a custom user agent or query param like "?webview=true"
+function isInWebviewApp(){
+  return navigator.userAgent.includes("BusansoWebView") || location.search.includes("webview=true");
+}
+
+if(!isInStandaloneMode() && !isInWebviewApp()){
+  // Android PWA install
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-
     if(isAndroid()){
       installBtn.style.display = 'block';
       installBtn.addEventListener('click', async () => {
@@ -290,13 +299,23 @@ if(!isInStandaloneMode()){
     }
   });
 
+  // iOS hint
   if(isiOS()){
     iosHint.style.display = 'block';
   }
+
+  // Open app button for external browser only
+  openBtn.style.display = 'block';
+  openBtn.addEventListener('click', () => {
+    // Navigate to app URL (custom scheme or main PWA page)
+    window.location.href = "index.html?webview=true";
+  });
 }
 
+// Hide all buttons if app is installed
 window.addEventListener('appinstalled', () => {
   installBtn.style.display = 'none';
+  openBtn.style.display = 'none';
   iosHint.style.display = 'none';
 });
 </script>
