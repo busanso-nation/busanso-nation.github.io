@@ -3115,6 +3115,42 @@ const SERIES = [
   { title: "Episode 27", video: "https://player.vimeo.com/video/818939137" },
   { title: "Episode 28", video: "https://player.vimeo.com/video/818947710" },
   { title: "Episode 29", video: "https://player.vimeo.com/video/819002306" }
+      ]
+  },
+{
+    id: "shenlegacy",
+    title: "SHEN LEGACY",
+   poster: "https://i.mydramalist.com/EqB05_4c.jpg",
+    genre: "Drama",
+    added: 80,
+    type: "premium",
+    country: "Chine",
+    year: "2024",
+    synopsis: "The series is notable for reuniting lead actors Zhao Liying and Lin Gengxin, who previously starred together in Princess Agents.",
+    cast:["Zhao Liying", "Lin Gengxin", "Xin Yunlai",  "He Yu"],
+    episodes: [
+  { title: "Episode 1", video: "https://drive.google.com/file/d/1cFjlgSdxNEUDRC8Uam3fHU8vKkz5nok3/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1Oq_ji5EX7hTBLbUzUaKNv1nCq9SMKl4N/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1bXoQaO5W7wpwHV9sm30EEvgMZaEHXAQG/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1LSdBRyNTppTSSv8PWWWVOGrFZGOgWL5O/preview" },
+  { title: "Episode 5", video: "https://www.youtube.com/embed/m1_z3CAEoeM" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1R7KTRmU0LZtD6qtCKGKruGyEKkIrQHDv/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1DJVD524hhKcuM7Hgrx6lp3iNwSSBknyn/preview" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/17X_bXdkTP9SueqfLTLyd9EcYzJ4CCgGT/preview" },
+  { title: "Episode 9", video: "https://drive.google.com/file/d/1G45NVLn5J8X2NuRLnG1PamcBsxrdKNcY/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/1IY2StT_r7bqVkFD4yuaH2dBy_Bs_2XJe/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/12dtJesEBosTuhKHrLBT5vA2Wk2sqG626/preview" },
+  { title: "Episode 12", video: "https://drive.google.com/file/d/1k-HoHxmLrk86F4PwTXlvfUWjslh8CUKD/preview" },
+  { title: "Episode 14", video: "https://drive.google.com/file/d/1Uhy82kwIXnJCRIrs4e1UpZEYjka5tzqo/preview" },
+  { title: "Episode 15", video: "https://drive.google.com/file/d/1GyadsxgDZ8HlQlFqGdrAgZmasEl5VrXS/preview" },
+  { title: "Episode 16", video: "https://drive.google.com/file/d/16OUuhQUvWZp95yk5zjtrt7uzluzTMg1a/preview" },
+  { title: "Episode 17", video: "https://drive.google.com/file/d/1vbV7cSkcb3tXhvSrbI-ZtzA2ggP-awcz/preview" },
+  { title: "Episode 18", video: "https://drive.google.com/file/d/1IjKq2JnplNfExPcipi9jbiz6E2FmoeYM/preview" },
+  { title: "Episode 19", video: "https://drive.google.com/file/d/1dxN6lvbfmqnCw3AhhGheGWS8qLM9bR06/preview" },
+  { title: "Episode 20", video: "https://drive.google.com/file/d/1If-p_iB6xojys1Vccfrk_Su2BswGPwne/preview" },
+  { title: "Episode 21", video: "https://drive.google.com/file/d/13XoqGLK1p54pUlE7FGgJ-QPMjAtBD0Ld/preview" },
+  { title: "Episode 22", video: "https://drive.google.com/file/d/1Iw-0vJrVK65fwek6sTVDZwbDgkuTJ8yw/preview" },
+  { title: "Episode 23", video: "https://drive.google.com/file/d/1uR6rHa3mluFM-maN4HHwhDzyIxhzLl4Z/preview" }
     ]
   }
 ];
