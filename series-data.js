@@ -3120,7 +3120,7 @@ const SERIES = [
 {
     id: "shenlegacy",
     title: "SHEN LEGACY",
-   poster: "https://i.mydramalist.com/EqB05_4c.jpg",
+   poster: "https://i.pinimg.com/236x/78/dc/31/78dc31a0abe67f13b139bdd9ccf02174.jpg",
     genre: "Drama",
     added: 80,
     type: "premium",
