@@ -65,25 +65,32 @@ body{
   color:#dcdcdc;
 }
 
-/* CINEMATIC BOUNCING DOT LOADER */
+/* BUSANSO LETTER LOADER */
 .loader {
   display: flex;
   justify-content: center;
   margin: 35px auto 0;
 }
 .loader span {
-  width: 12px;
-  height: 12px;
-  margin: 0 6px;
-  background: #f1c40f;
-  border-radius: 50%;
+  font-size: 1.8rem;
+  color: #f1c40f;
+  font-weight: bold;
+  margin: 0 4px;
+  display: inline-block;
   animation: bounce 0.6s infinite alternate;
 }
-.loader span:nth-child(2) { animation-delay: 0.2s; }
-.loader span:nth-child(3) { animation-delay: 0.4s; }
+.loader span:nth-child(1){ animation-delay: 0s; }
+.loader span:nth-child(2){ animation-delay: 0.1s; }
+.loader span:nth-child(3){ animation-delay: 0.2s; }
+.loader span:nth-child(4){ animation-delay: 0.3s; }
+.loader span:nth-child(5){ animation-delay: 0.4s; }
+.loader span:nth-child(6){ animation-delay: 0.5s; }
+.loader span:nth-child(7){ animation-delay: 0.6s; }
 
 @keyframes bounce {
-  to { transform: translateY(-18px); opacity: 0.6; }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+  100% { transform: translateY(0); }
 }
 
 /* ANIMATIONS */
@@ -115,10 +122,15 @@ body{
     Welcome to the source of unique and quality Movies and Series
   </div>
 
+  <!-- BUSANSO LOGO LOADER -->
   <div class="loader">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span>K</span>
+    <span>I</span>
+    <span>N</span>
+    <span>G</span>
+    <span> </span>
+    <span>V</span>
+    <span>J</span>
   </div>
 </div>
 
