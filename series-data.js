@@ -30,7 +30,7 @@ const SERIES = [
     cast: ["Zifeng Li", "Yang Rong", "Yang Xuwen"],
     episodes: [
       { title: "Episode 1", video: "https://www.youtube.com/embed/nwQD_BVTI5o" },
-     { title: "Episode 2", video: "https://www.youtube.com/embed/7NQ4bP38PIw" },
+     { title: "Episode 2", video: "https://drive.google.com/file/d/1CVoAfyJ4llObz8pqu3QnoKYUdtRXJX8q/preview" },
     { title: "Episode 3", video: "https://www.youtube.com/embed/avd2LwsDcUo" },
      { title: "Episode 4", video: "https://www.youtube.com/embed/vPUP84kkzqQ" }
 
