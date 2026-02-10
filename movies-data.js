@@ -1363,15 +1363,213 @@ const MOVIES = [
     duration: "1h 30m",
     synopsis: "Libby McClean, a teenager who works as a salesgirl, must stop a pair of demonic jeans from killing the staff of a clothing store."
   },
-  {
-    id: "koyla1",
-    title: "FIRE",
-    poster: "https://cdn.cinematerial.com/p/136x/ttnsrduu/koyla-key-art-sm.jpg?v=1572983976",
-    video: "https://drive.google.com/file/d/11kx2CItNZIkmSGSRVQEQg8_zXJA_hIDL/view",
+   {
+    id: "kpopdh",
+    title: "KPOP Demon Hunters",
+    poster: "https://i.ibb.co/chjNSDcM/KPop-Demon-Hunters.jpg",
+    video: "https://drive.google.com/file/d/18vHBEBMZaRAwLuE1ScDzMufOHXD-0fa1/preview",
+    type: "premium",
+    year: "2025",
+    country: "Korea",
+    duration: "1h 30m",
+    synopsis: "When K-pop superstars Rumi, Mira and Zoey aren't selling out stadiums or topping the Billboard charts, they're moonlighting as demon hunters to protect their fans from ever-present supernatural danger.."
+  },
+   {
+    id: "fride",
+    title: "FRIDAY",
+    poster: "https://cdn.displate.com/artwork/857x1200/2020-12-20/ec224f724feb219872318818a60c6cf5_85d90ac479f5086a1c6d5b4c2d3e8864.jpg",
+    video: "https://drive.google.com/file/d/1GmrHegKf0ctSZviQx76ssT_jCJhuAETx/preview",
     type: "premium",
     year: "2026",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "It's Friday and Craig Jones has just gotten fired for stealing cardboard boxes. To make matters worse, rent is due, he hates his overbearing girlfriend, Joi, and his best friend, Smokey, owes the local drug dealer money -- and that's all before lunch. As the hours drag on, Jones and Smokey experience the gamut of urban life, complete with crackheads, shoot-outs and overly sexual pastors, concentrated into one single, unbelievable Friday."
+  },
+   {
+    id: "vvivarium",
+    title: "Vivarium",
+    poster: "https://i.ibb.co/DH09z844/Vivarium-film-theatrical-poster.jpg",
+    video: "https://drive.google.com/file/d/1E4AJcMcDi2031tdjEtoOMRfmFV_qjT3Q/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "sci-fi horror film where a young couple, Gemma and Tom, become trapped in a surreal, suburban labyrinth called Yonder. Forced to raise a rapidly growing, mysterious child in exchange for survival, they endure immense psychological torment as they attempt to escape the identical, inescapable houses. ."
+  },
+   {
+    id: "appo",
+    title: "APOCALYPTO",
+    poster: "https://i.ibb.co/xKjbFNdX/images-7.jpg",
+    video: "https://drive.google.com/file/d/19kEnvObyU5YRvAQkN8IDk6CuTlvNeoJ3/preview",
+    type: "premium",
+    year: "2020",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "Set in the waning days of the Maya civilization, Apocalypto follows Jaguar Paw, a peaceful tribesman whose village is brutally raided by Mayan warriors seeking slaves and sacrifices. After hiding his pregnant wife and son in a pit, he is captured and must escape his captors and return to his family before a predicted downfall. ."
+  },
+      {
+    id: "appocalyp",
+    title: "APOCALYPTO 2",
+    poster: "https://i.ibb.co/xKjbFNdX/images-7.jpg",
+    video: "https://drive.google.com/file/d/1-X1lrFB_hsYWW-_Wvn8WW5on_jxnsWoX/preview",
+    type: "premium",
+    year: "2020",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "Set in the waning days of the Maya civilization, Apocalypto follows Jaguar Paw, a peaceful tribesman whose village is brutally raided by Mayan warriors seeking slaves and sacrifices. After hiding his pregnant wife and son in a pit, he is captured and must escape his captors and return to his family before a predicted downfall. ."
+  },
+ {
+    id: "closerange",
+    title: "CLOSE RANGE",
+    poster: "https://upload.wikimedia.org/wikipedia/en/2/2a/CloseRange.Adkins.png",
+    video: "https://drive.google.com/file/d/1UnXD5uFvtFkwT8zwRTEduuGxr9Ih5jVd/preview",
+    type: "premium",
+    year: "2020",
+    country: "USA",
+    duration: "1h 40m",
+    synopsis: "action thriller starring Scott Adkins as Colton MacReady, a rogue soldier who rescues his niece from a Mexican drug cartel. After stealing a flash drive during the rescue, Colton and his family are besieged at their remote ranch by the cartel and a corrupt sheriff. The film focuses on intense, non-stop, close-quarters combat.  ."
+  },
+    {
+    id: "blackadam",
+    title: "BLACK ADAM",
+    poster: "https://m.media-amazon.com/images/M/MV5BYmM3OTM4NDktMmI2NS00OWU0LTg4OTQtNjZhMmFkYjhmOGY1XkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1DXAkM4zNmq-7ZuaC8c5zq7oeEf-y6wFH/preview",
+    type: "premium",
+    year: "2021",
+    country: "USA",
+    duration: "1h 40m",
+    synopsis: "In ancient Kahndaq, Teth Adam was bestowed the almighty powers of the gods. After using these powers for vengeance, he was imprisoned, becoming Black Adam. Nearly 5,000 years have passed, and Black Adam has gone from man to myth to legend. Now free, his unique form of justice, born out of rage, is challenged by modern-day heroes who form the Justice Society: Hawkman, Dr. Fate, Atom Smasher and Cyclone"
+  },
+    {
+    id: "legendhuo",
+    title: "FIST OF LEGENDARY HUO",
+    poster: "https://i.ibb.co/Z6QWxHkj/images-8.jpg",
+    video: "https://www.youtube.com/embed/0yPM8KCMmqA",
+    type: "premium",
+    year: "2020",
+    country: "China",
+    duration: "1h 20m",
+    synopsis: "A martial artist goes on a completly impossible task of revenge."
+  },
+ {
+    id: "dylanmovie",
+    title: "DYLAN",
+    poster: "https://i.ibb.co/1GWpZYkh/Untitled-1.jpg",
+    video: "https://www.youtube.com/embed/PAjBGKM7zxg",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 20m",
+    synopsis: "They all think he is a psycho"
+  },
+   {
+    id: "road1",
+    title: "ROAD",
+    poster: "https://m.media-amazon.com/images/M/MV5BY2MyNzI2MmUtNGFlYy00NmNkLWE2ZmMtOWQyYjgzODg0ZjgxXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1lrRN8Yo4NpwuGGQiQlwivGuE_y3U2rUl/preview",
+    type: "premium",
+    year: "2025",
     country: "India",
-    duration: "1hr 15m",
-    synopsis: "Silenced by a piece of smouldering coal in childhood, Shanker endures a life of slavery until love compels him to seek his voice, freedom, and long-overdue revenge."
+    duration: "1h 10m",
+    synopsis: "Arvind and Lakshmi decide to give a lift to a hitchhiker, Babu. However, things take a turn for the worse when Babu kidnaps Lakshmi"
+  },
+      {
+    id: "road2",
+    title: "ROAD 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BY2MyNzI2MmUtNGFlYy00NmNkLWE2ZmMtOWQyYjgzODg0ZjgxXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1P5XUse7iZCc5xQptgXfndliYkCAypsgf/view",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Arvind and Lakshmi decide to give a lift to a hitchhiker, Babu. However, things take a turn for the worse when Babu kidnaps Lakshmi"
+  },
+    {
+    id: "driveangry",
+    title: "DRIVE ANGRY",
+    poster: "https://i.ibb.co/prrMk8JK/images-q-tbn-ANd9-Gc-Rko-Vs-K4-Ictkg-HGto-B-1-KCKm-Nvw-Aat-hy-SA-s.jpg",
+    video: "https://drive.google.com/file/d/1VabUNOHw8JLmhgtkmE-ibSmWfqfEcDxq/view",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 40m",
+    synopsis: "Thrown into hell for his crimes, brutal felon John Milton escapes from the fiery pit after cultists murder his daughter and take her baby. Intent on rescuing the child, Milton joins forces with a waitress, who gives him her ex-lover's fire-red muscle car. In it, the two pursue the cult leader, who plans to sacrifice the infant and unleash hell on Earth. However, the hunters become the hunted when Satan sends his merciless henchman to drag Milton back"
+  },
+   {
+    id: "wenifell",
+    title: "When I Fell",
+    poster: "https://i.ibb.co/cKvZZNT7/DGH.jpg",
+    video: "https://www.youtube.com/embed/dmekuoSzha8",
+    type: "premium",
+    year: "2026",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "A gripping Story of powerful love."
+  },
+          {
+    id: "wvenomlad",
+    title: "VENOM LADY",
+    poster: "https://i.ibb.co/cXgjmw9h/images-q-tbn-ANd9-Gc-RZkmgwsuwmw-IZx-Ex-Pz8p-V7-In-Vt-Tt4-Ayewct-A-s.jpg",
+    video: "https://drive.google.com/file/d/10MMZSCFEYdi83s66osppAkfl3AYkBd9Y/preview",
+    type: "premium",
+    year: "2019",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "A woman who treats her daughter in law like shit."
+  },
+   {
+    id: "lovefromsta",
+    title: "LOVE FROM THE STAR",
+    poster: "https://images.justwatch.com/poster/307718971/s332/season-1",
+    video: "https://drive.google.com/file/d/1ZvJewP1LQxzjuxfcjbZ1zzO2V8Imthb-/preview",
+    type: "premium",
+    year: "2026",
+    country: "Korea",
+    duration: "1h 10m",
+    synopsis: "A gripping tale of power, revenge, and destiny."
+  },
+      {
+    id: "codesofapocalypse",
+    title: "CODES OF APOCALYPSE",
+    poster: "https://i.ibb.co/qLLX8WN8/images-q-tbn-ANd9-Gc-Ruad-d-Et-Sbbf-CJz9-Y5-Aco-Ho-H8-KL35-Qu-Wy-Ig-s.jpg",
+    video: "https://www.youtube.com/embed/vrKY5esCako?si=AgVgl8_2-WseIyDU",
+    type: "free",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "A terrorist named Jaffad Ben Zayidi steals four nuclear bombs from a sunken American submarine and hides them in four major cities around the world. The bombs are activated by an 11-digit code split among three guardians"
+  },
+       {
+    id: "codesof2apocalypse",
+    title: "CODES OF APOCALYPSE 2",
+    poster: "https://i.ibb.co/qLLX8WN8/images-q-tbn-ANd9-Gc-Ruad-d-Et-Sbbf-CJz9-Y5-Aco-Ho-H8-KL35-Qu-Wy-Ig-s.jpg",
+    video: "https://www.youtube.com/embed/jv6QwVFilTI?si=U-4Yn5VBEZq8mzOZ",
+    type: "free",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "A terrorist named Jaffad Ben Zayidi steals four nuclear bombs from a sunken American submarine and hides them in four major cities around the world. The bombs are activated by an 11-digit code split among three guardians"
+  },
+     {
+    id: "silent2night",
+    title: "SILENT NIGHT",
+    poster: "https://lp.p.pia.jp/shared/materials/6f56fe65-3f8f-44bf-8963-d0b25559fc73/origin.jpg",
+    video: "https://drive.google.com/file/d/19wSykC20SppOO12AA_50OvvToVCvURhv/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "A couple invite their closest friends to join their family for Christmas dinner at their idyllic home in the English countryside. As the group comes together, it feels like old times but behind all of the laughter and merriment, something isn't quite right. The world outside is facing impending doom, and no amount of gifts, games or wine can make mankind's imminent destruction go away. Surviving the holidays just got a lot more complicated"
+  },
+      {
+    id: "silent2night",
+    title: "SILENT NIGHT",
+    poster: "https://lp.p.pia.jp/shared/materials/6f56fe65-3f8f-44bf-8963-d0b25559fc73/origin.jpg",
+    video: "https://drive.google.com/file/d/1eBDe-OVnQ38nNvKRDjm0uZ8eKiuHR8sT/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 10m",
+    synopsis: "A couple invite their closest friends to join their family for Christmas dinner at their idyllic home in the English countryside. As the group comes together, it feels like old times but behind all of the laughter and merriment, something isn't quite right. The world outside is facing impending doom, and no amount of gifts, games or wine can make mankind's imminent destruction go away. Surviving the holidays just got a lot more complicated"
   }
 ];
