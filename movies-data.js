@@ -878,6 +878,117 @@ const MOVIES = [
     duration: "1h 20m",
     synopsis: "A handsome Prince from the Qin dynasty travels into the future, and meets a bossy girl. the two madly fall in love"
   },  
+       {
+    id: "400",
+    title: "400 BULLETS",
+    poster: "https://a.ltrbxd.com/resized/film-poster/7/0/6/9/7/8/706978-400-bullets-0-230-0-345-crop.jpg?v=26211e223b",
+    video: "https://www.youtube.com/embed/JCh54UGPqFA",
+    type: "free",
+    year: "2026",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "Two soldiers in Afghanistan face off against a group of rogue special ops and a cell of heavily armed Taliban"
+  },  
+ 
+              {
+    id: "cabin",
+    title: "CABIN IN THE WOODS",
+    poster: "https://posterspy.com/wp-content/uploads/2022/11/cabin-posterspy-Ygris.jpg",
+    video: "https://drive.google.com/file/d/1n-Er3F4oPUmt0lWh8d4on--rltB45K3m/preview",
+    type: "premium",
+    year: "2022",
+    country: "USA",
+    duration: "1h 40m",
+    synopsis: "When five college friends (Kristen Connolly, Chris Hemsworth, Anna Hutchison, Fran Kranz, Jesse Williams) arrive at a remote forest cabin for a little vacation, little do they expect the horrors that await them. One by one, the youths fall victim to backwoods zombies, but there is another factor at play. Two scientists (Richard Jenkins, Bradley Whitford) are manipulating the ghoulish goings-on, but even as the body count rises, there is yet more at work than meets the eye."
+  },
+    {
+    id: "chautal1",
+    title: "CHAUTALA",
+    poster: "https://st1.bollywoodlife.com/wp-content/uploads/2024/07/1-37.png?impolicy=Medium_Widthonly&w=400&h=711",
+    video: "https://www.youtube.com/embed/9OK326dtdMA",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 10m",
+    synopsis: "Hindi thriller following four friends—Dev, Devi, Gaurav, and Aditya—whose carefree lives are ruined when they encounter a corrupt, ruthless police officer, SHO Chautala. After an incident involving a local shopkeeper, the friends are blackmailed and framed, forcing them to fight against the system. ."
+  },
+      {
+    id: "chautal2",
+    title: "CHAUTALA",
+    poster: "https://st1.bollywoodlife.com/wp-content/uploads/2024/07/1-37.png?impolicy=Medium_Widthonly&w=400&h=711",
+    video: "https://www.youtube.com/embed/v7bnBboesXM",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 35m",
+    synopsis: "Hindi thriller following four friends—Dev, Devi, Gaurav, and Aditya—whose carefree lives are ruined when they encounter a corrupt, ruthless police officer, SHO Chautala. After an incident involving a local shopkeeper, the friends are blackmailed and framed, forcing them to fight against the system. ."
+  },
+    {
+    id: "chattan11",
+    title: "CHATTAN",
+    poster: "https://bollyspice.com/wp-content/uploads/2018/07/Satyameva-Jayate.jpeg",
+    video: "https://drive.google.com/file/d/1AdYRASlD0LJQEAF-Wy1-5CZ692cVcWsP/view",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "Kabir Ahlawat, a quiet, reclusive pawn shop owner in Goa with a dark past as an undercover agent. When his young, neglected neighbor, Naomi, is kidnapped by a drug-and-organ-trafficking mafia, Kabir unleashes a violent, one-man army revenge spree to save her."
+  },
+      {
+    id: "chattan1221",
+    title: "CHATTAN 2",
+    poster: "https://bollyspice.com/wp-content/uploads/2018/07/Satyameva-Jayate.jpeg",
+    video: "https://drive.google.com/file/d/1P0ci6zuE9pwJUOgEkGkcDmKVSR8lGhMb/view",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "Kabir Ahlawat, a quiet, reclusive pawn shop owner in Goa with a dark past as an undercover agent. When his young, neglected neighbor, Naomi, is kidnapped by a drug-and-organ-trafficking mafia, Kabir unleashes a violent, one-man army revenge spree to save her."
+  },
+      {
+    id: "deadocea",
+    title: "DEADLY OCEAN",
+    poster: "https://i.ibb.co/V05qK36q/Untitled-1.jpg",
+    video: "https://drive.google.com/file/d/1-gZeHxzUV4T0dcHVDTbyw4HalyVi5aWR/preview",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "A plane full of VIP travellers is stuck with deadly creatures of the past "
+  },  
+   {
+    id: "dirty12",
+    title: "DIRTY DOZEN",
+    poster: "https://i.ibb.co/zkk7HZp/Untitled-1.jpg",
+    video: "https://drive.google.com/file/d/1pleS1NBtZuZZJwk1gAnWUKsGu2PHiKSi/view",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "As D-Day approaches, Colonel Breed hands the roguish Major Reisman an important assignment: He must train a team of soldiers to parachute across enemy lines and assassinate German personnel at a French château. The soldiers, recruited from murderers, rapists and criminals on death row, are promised commuted sentences. In spite of their history, the 12 men prove a spirited and courageous unit. Led by Major Reisman, they will exact revenge "
+  },   
+    {
+    id: "horizonend",
+    title: "HORIZON END",
+    poster: "https://i.ibb.co/wHvHXyW/IMG-20250912-WA0007.jpg",
+    video: "https://drive.google.com/file/d/1x7p-CP7sXYp-x1hrVFa6EPAGQMt52NIh/preview",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 30m",
+    synopsis: "Crusoe, a 19th-century Virginia slave trader is shipwrecked on a remote island while en route to Africa. Alone except for a dog, he learns to survive, but his isolation leads to a profound psychological journey and a reassessment of his pro-slavery views after encountering native islanders and befriending a man he saves. "
+  },   
+   {
+    id: "unstoppable",
+    title: "UNSTOPABLE ROBOT",
+    poster: "https://m.media-amazon.com/images/M/MV5BNDdhMWExMTItOTNiNy00MDgxLWIyMDktNjYxNWU3ZGFjM2IyXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/3TXDJLd6w2Q",
+    type: "free",
+    year: "2019",
+    country: "China",
+    duration: "1h 30m",
+    synopsis: "When robots take over the city of Hong Kong, one ultmate Robot with a sense of understanding must come forward to fight the battle"
+  },  
   {
     id: "koyla1",
     title: "FIRE",
