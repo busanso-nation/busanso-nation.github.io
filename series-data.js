@@ -3207,6 +3207,30 @@ const SERIES = [
   { title: "Episode 40", video: "https://www.youtube.com/embed/-3Ki1yA6AWM" },
   { title: "Episode 41", video: "https://www.youtube.com/embed/D1aW9e_8eMo" },
   { title: "Episode 42", video: "https://www.youtube.com/embed/edKmWIfvcX8" }
+      ]
+  },
+{
+    id: "lefttodie",
+    title: "LEFT TO DIE",
+   poster: "https://i.ibb.co/8LstYFRd/Untitled-1.jpg",
+    genre: "Action",
+    added: 82,
+    type: "premium",
+    country: "USA",
+    year: "2025",
+    synopsis: "Surviving through ingenuity, farming, and salvaging, he rescues a native named Friday from cannibals, ultimately returning to England with a fortune.",
+    cast:["Sean Bean", "Philip Winchester", "Tongayi Chirisa",  "Mía Maestro"],
+    episodes: [
+  { title: "Episode 1", video: "https://www.youtube.com/embed/SQvPZoEYGy4" },
+  { title: "Episode 2", video: "https://www.youtube.com/embed/ujoRVDwDB_k" },
+  { title: "Episode 3", video: "https://www.youtube.com/embed/v1lSL-2P4J4" },
+  { title: "Episode 4", video: "https://www.youtube.com/embed/fohwXlAV8tk" },
+  { title: "Episode 5", video: "https://www.youtube.com/embed/HwqBhoBYriI" },
+  { title: "Episode 6", video: "https://www.youtube.com/embed/bjhuYLQJSuQ" },
+  { title: "Episode 7", video: "https://www.youtube.com/embed/ES6zWBbYtLU" },
+  { title: "Episode 8", video: "https://www.youtube.com/embed/8m39o-DwOVQ" },
+  { title: "Episode 9", video: "https://www.youtube.com/embed/vbZOdVGSIZ8" },
+  { title: "Episode 10", video: "https://www.youtube.com/embed/_5quBrV7hwg" }
     ]
   }
 ];
