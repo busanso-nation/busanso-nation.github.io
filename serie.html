@@ -3,179 +3,114 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Watch Series</title>
-
-<!-- OpenGraph -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="BUSANSO NATION">
-<meta property="og:title" content="">
-<meta property="og:description" content="">
-<meta property="og:image" content="">
-<meta property="og:url" content="https://bit.ly/busanso">
-
-<!-- Plyr CSS -->
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
-
+<title>Series Player</title>
 <style>
-body {margin:0; background:#000; color:#fff; font-family:Arial,sans-serif;}
-.container{max-width:1100px; margin:auto; padding:12px;}
-.player-wrapper{position:relative; width:100%; aspect-ratio:16/9; background:#000;}
-#plyrPlayer, #drivePlayer{width:100%; height:100%; border:0;}
-.hidden{display:none;}
-button{padding:12px 18px; font-size:15px; border:none; border-radius:6px; margin:6px 6px 6px 0; cursor:pointer;}
-.primary{background:#e50914;color:#fff;}
-.secondary{background:#333;color:#fff;}
-.nav{background:#1db954;color:#fff;}
-#episodes button{width:100%;margin:4px 0;}
-.comment-box textarea{width:100%;height:70px;background:#111;color:#fff;border:1px solid #333;border-radius:4px;padding:6px;}
+    body { margin:0; font-family: Arial,sans-serif; background:#121212; color:#fff; }
+    .player-container { max-width:1000px; margin:20px auto; padding:0 10px; }
+    h1, p { margin:0 0 10px 0; }
+    .video-wrapper { position:relative; width:100%; padding-top:56.25%; background:#000; margin-bottom:20px; }
+    iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+    .episode-list { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
+    .episode-list button { flex:1 1 calc(33.333% - 10px); padding:10px; background:#1f1f1f; border:none; color:#fff; cursor:pointer; border-radius:6px; transition:0.3s; }
+    .episode-list button.active, .episode-list button:hover { background:#ff3b3b; }
+    .controls { display:flex; justify-content:space-between; margin-bottom:20px; }
+    .controls button { padding:8px 12px; background:#ff3b3b; border:none; color:#fff; border-radius:5px; cursor:pointer; }
+    .ad-banner { width:100%; height:100px; background:#333; display:flex; justify-content:center; align-items:center; font-weight:bold; margin-bottom:20px; }
+    @media(max-width:768px){ .episode-list button{ flex:1 1 calc(50% - 10px); } }
+    @media(max-width:480px){ .episode-list button{ flex:1 1 100%; } }
 </style>
 </head>
-
 <body>
-<div class="container">
 
-<div class="player-wrapper">
-  <!-- Plyr for YouTube / Vimeo -->
-  <div id="plyrContainer">
-    <div id="plyrPlayer"></div>
-  </div>
+<div class="player-container">
+    <h1 id="series-title"></h1>
+    <p id="series-desc"></p>
 
-  <!-- Google Drive iframe fallback -->
-  <iframe id="drivePlayer" allow="autoplay; fullscreen" class="hidden"></iframe>
-</div>
+    <div class="video-wrapper">
+        <iframe id="video-player" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+    </div>
 
-<div>
-  <button id="prevEpisodeBtn" class="nav">⏮ Previous</button>
-  <button id="nextEpisodeBtn" class="nav">⏭ Next</button>
-</div>
+    <div class="controls">
+        <button id="prev-episode">Prev Episode</button>
+        <button id="next-episode">Next Episode</button>
+    </div>
 
-<h2 id="seriesTitle"></h2>
-<p id="seriesMeta"></p>
-<p id="seriesSynopsis"></p>
+    <div class="episode-list" id="episode-list"></div>
 
-<button id="watchNowBtn" class="primary">▶ Watch Now</button>
-<button id="toggleEpisodesBtn" class="secondary">Show / Hide Episodes</button>
-<button id="shareBtn" class="secondary">📤 Share</button>
-
-<div id="episodes"></div>
-
-<div class="comment-box">
-  <textarea id="commentInput" placeholder="Add a comment..."></textarea>
-  <button id="submitComment" class="primary">Submit</button>
-  <div id="commentList"></div>
-</div>
-
+    <div class="ad-banner">Your Banner Ad Here</div>
 </div>
 
 <script src="series-data.js"></script>
-<script src="auth.js"></script>
-<script src="pins.js"></script>
-<script src="ads.js"></script>
-
-<!-- Plyr JS -->
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-
 <script>
-/* ================= SERIES LOAD ================= */
-const params = new URLSearchParams(location.search);
-const seriesId = params.get("id");
-const serie = SERIES.find(s => s.id === seriesId);
-if(!serie) location.replace("series.html");
+    const player = document.getElementById("video-player");
+    const episodeList = document.getElementById("episode-list");
+    const seriesTitle = document.getElementById("series-title");
+    const seriesDesc = document.getElementById("series-desc");
+    let currentEpisode = 0;
 
-seriesTitle.textContent = serie.title;
-seriesMeta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
-seriesSynopsis.textContent = serie.synopsis || "";
+    // Load series info
+    seriesTitle.textContent = seriesData.title;
+    seriesDesc.textContent = seriesData.description;
 
-document.querySelector('meta[property="og:title"]').content = serie.title;
-document.querySelector('meta[property="og:description"]').content = serie.synopsis || "";
-document.querySelector('meta[property="og:image"]').content = serie.poster;
+    function loadEpisode(index) {
+        if(index < 0) index = seriesData.episodes.length - 1;
+        if(index >= seriesData.episodes.length) index = 0;
+        currentEpisode = index;
+        player.src = seriesData.episodes[index].url;
+        updateActiveButton();
+        localStorage.setItem(seriesData.title + '_currentEpisode', currentEpisode);
+    }
 
-/* ================= PLAYERS ================= */
-const plyrContainer = document.getElementById("plyrContainer");
-const drivePlayer = document.getElementById("drivePlayer");
-let plyrInstance = null;
-let currentEpisode = 0;
+    function updateActiveButton() {
+        episodeList.querySelectorAll("button").forEach((btn,i)=>{
+            btn.classList.toggle("active", i===currentEpisode);
+        });
+    }
 
-function hideAllPlayers(){
-  plyrContainer.classList.add("hidden");
-  drivePlayer.classList.add("hidden");
-  if(plyrInstance) plyrInstance.destroy();
-}
-
-function detectType(url){
-  if(!url) return "unknown";
-  if(/youtu\.?be/.test(url)) return "youtube";
-  if(url.includes("vimeo.com")) return "vimeo";
-  if(url.includes("drive.google.com")) return "drive";
-  return "unknown";
-}
-
-function getYouTubeID(url){ return (url.match(/v=([^&]+)/) || url.match(/youtu\.be\/([^?]+)/))?.[1]; }
-function getVimeoID(url){ return url.match(/vimeo\.com\/(\d+)/)?.[1]; }
-function getDriveID(url){ return (url.match(/\/d\/([^/]+)/) || url.match(/id=([^&]+)/))?.[1]; }
-
-/* ================= LOAD EPISODE ================= */
-function loadEpisode(index, userAction=false){
-  const ep = serie.episodes[index];
-  currentEpisode = index;
-  hideAllPlayers();
-
-  const type = detectType(ep.video);
-
-  if(type === "youtube" || type === "vimeo"){
-    plyrContainer.classList.remove("hidden");
-
-    let source = {};
-    if(type==="youtube") source = {src:getYouTubeID(ep.video), provider:"youtube"};
-    else source = {src:getVimeoID(ep.video), provider:"vimeo"};
-
-    plyrInstance = new Plyr('#plyrPlayer', {autoplay:true, controls:['play','progress','current-time','mute','volume','fullscreen'], clickToPlay:true});
-    plyrInstance.source = {type:"video", sources:[source]};
-
-    plyrInstance.on('ended', ()=>{
-      if(serie.episodes[currentEpisode+1]) loadEpisode(currentEpisode+1);
+    // Populate episode buttons
+    seriesData.episodes.forEach((ep,index)=>{
+        const btn = document.createElement("button");
+        btn.textContent = ep.title;
+        btn.addEventListener("click",()=>loadEpisode(index));
+        episodeList.appendChild(btn);
     });
 
-  } else if(type === "drive"){
-    const id = getDriveID(ep.video);
-    drivePlayer.src = `https://drive.google.com/file/d/${id}/preview`;
-    drivePlayer.classList.remove("hidden");
-  }
+    // Prev/Next buttons
+    document.getElementById("prev-episode").addEventListener("click",()=>loadEpisode(currentEpisode-1));
+    document.getElementById("next-episode").addEventListener("click",()=>loadEpisode(currentEpisode+1));
 
-  // Fullscreen if PIN
-  if(userAction && userHasActivePIN()){
-    const el = !plyrContainer.classList.contains("hidden") ? plyrContainer : drivePlayer;
-    el.requestFullscreen?.();
-  }
-}
+    // Auto resume last episode
+    const savedEpisode = localStorage.getItem(seriesData.title + '_currentEpisode');
+    loadEpisode(savedEpisode ? parseInt(savedEpisode) : 0);
 
-/* ================= UI CONTROLS ================= */
-serie.episodes.forEach((ep,i)=>{
-  const b = document.createElement("button");
-  b.textContent = ep.title;
-  b.onclick = ()=>loadEpisode(i,true);
-  episodes.appendChild(b);
-});
-
-watchNowBtn.onclick = ()=>loadEpisode(0, true);
-nextEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode+1] && loadEpisode(currentEpisode+1,true);
-prevEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode-1] && loadEpisode(currentEpisode-1,true);
-toggleEpisodesBtn.onclick = ()=>episodes.style.display = episodes.style.display==="none"?"block":"none";
-shareBtn.onclick = ()=>{
-  const t = encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
-  window.open(`https://api.whatsapp.com/send?text=${t}`);
-};
-
-function userHasActivePIN(){ return window.ACTIVE_PIN === true; }
-
-/* ================= COMMENTS ================= */
-submitComment.onclick=()=>{
-  if(!commentInput.value.trim()) return;
-  const d = document.createElement("div");
-  d.textContent = commentInput.value;
-  commentList.appendChild(d);
-  commentInput.value="";
-};
+    // Optional: Auto-next for YouTube and Vimeo using their APIs
+    function setupAutoNext(){
+        if(player.src.includes("youtube.com")){
+            const tag=document.createElement('script');
+            tag.src="https://www.youtube.com/iframe_api";
+            document.body.appendChild(tag);
+            window.onYouTubeIframeAPIReady=()=>{
+                new YT.Player('video-player',{
+                    events:{
+                        'onStateChange':(e)=>{
+                            if(e.data===YT.PlayerState.ENDED) loadEpisode(currentEpisode+1);
+                        }
+                    }
+                });
+            }
+        }
+        if(player.src.includes("vimeo.com")){
+            const script=document.createElement('script');
+            script.src="https://player.vimeo.com/api/player.js";
+            document.body.appendChild(script);
+            script.onload=()=>{
+                const vimeoPlayer = new Vimeo.Player(player);
+                vimeoPlayer.on('ended',()=>loadEpisode(currentEpisode+1));
+            }
+        }
+    }
+    setupAutoNext();
 </script>
+
 </body>
 </html>
