@@ -3231,6 +3231,28 @@ const SERIES = [
   { title: "Episode 8", video: "https://www.youtube.com/embed/8m39o-DwOVQ" },
   { title: "Episode 9", video: "https://www.youtube.com/embed/vbZOdVGSIZ8" },
   { title: "Episode 10", video: "https://www.youtube.com/embed/_5quBrV7hwg" }
+      ]
+  },
+{
+    id: "keepers",
+    title: "STAR KEEPERS",
+   poster: "https://mlpnk72yciwc.i.optimole.com/cqhiHLc.IIZS~2ef73/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2025/01/The-Legend-of-the-Condor-Heroes-The-Great-Hero-Movie-Photo-2.jpg",
+    genre: "Action",
+    added: 83,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: "The story follows Jin Xiao Yu, a young girl suffering from a strange disease, whose life takes a dramatic turn after a bizarre car accident brings her into the life of Jiang Bai Ju, a mysterious designer",
+    cast:["Ian Yi", "Evan Ma", "Xue Wen Hua",  "Sun Lu Lu Han Qian Luo"],
+    episodes: [
+ { title: "Episode 1", video: "https://www.youtube.com/embed/vwpgcWmmWws" },
+  { title: "Episode 2", video: "https://www.youtube.com/embed/9pM-RFFXUXY" },
+  { title: "Episode 3", video: "https://www.youtube.com/embed/lGD1ng50wR4" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1qW0n7bxRKkSNEvYoNL9AEU1wI_5rSp18/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1d64_UbNCzeM4Wmc3axSKPPscuaQUN1aA/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1u1-L2zLmM4LSoI8c4Of6wz5lDyIDRJnh/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1hxx1PyQDTDALJ2Cn3p1zQPpCMJnb3xC0/preview" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/1dhR3-9rwPFNkbX-jDQgQeq2gZ1u-w2yI/preview" }
     ]
   }
 ];
