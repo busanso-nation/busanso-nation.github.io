@@ -67,7 +67,6 @@ button{padding:12px 18px; font-size:15px; border:none; border-radius:6px; margin
 
 </div>
 
-<!-- DATA & LOGIC FILES -->
 <script src="series-data.js"></script>
 <script src="auth.js"></script>
 <script src="pins.js"></script>
@@ -96,7 +95,6 @@ const plyrContainer = document.getElementById("plyrContainer");
 const drivePlayer = document.getElementById("drivePlayer");
 let plyrInstance = null;
 let currentEpisode = 0;
-const storageKey = `resume_${seriesId}`;
 
 function hideAllPlayers(){
   plyrContainer.classList.add("hidden");
@@ -104,7 +102,6 @@ function hideAllPlayers(){
   if(plyrInstance) plyrInstance.destroy();
 }
 
-/* ================= HELPERS ================= */
 function detectType(url){
   if(!url) return "unknown";
   if(/youtu\.?be/.test(url)) return "youtube";
@@ -113,17 +110,9 @@ function detectType(url){
   return "unknown";
 }
 
-function getYouTubeID(url){
-  return (url.match(/v=([^&]+)/) || url.match(/youtu\.be\/([^?]+)/))?.[1];
-}
-
-function getVimeoID(url){
-  return url.match(/vimeo\.com\/(\d+)/)?.[1];
-}
-
-function getDriveID(url){
-  return (url.match(/\/d\/([^/]+)/) || url.match(/id=([^&]+)/))?.[1];
-}
+function getYouTubeID(url){ return (url.match(/v=([^&]+)/) || url.match(/youtu\.be\/([^?]+)/))?.[1]; }
+function getVimeoID(url){ return url.match(/vimeo\.com\/(\d+)/)?.[1]; }
+function getDriveID(url){ return (url.match(/\/d\/([^/]+)/) || url.match(/id=([^&]+)/))?.[1]; }
 
 /* ================= LOAD EPISODE ================= */
 function loadEpisode(index, userAction=false){
@@ -132,8 +121,6 @@ function loadEpisode(index, userAction=false){
   hideAllPlayers();
 
   const type = detectType(ep.video);
-  const savedData = JSON.parse(localStorage.getItem(storageKey)) || {};
-  let resumeTime = savedData.time || 0;
 
   if(type === "youtube" || type === "vimeo"){
     plyrContainer.classList.remove("hidden");
@@ -145,21 +132,6 @@ function loadEpisode(index, userAction=false){
     plyrInstance = new Plyr('#plyrPlayer', {autoplay:true, controls:['play','progress','current-time','mute','volume','fullscreen'], clickToPlay:true});
     plyrInstance.source = {type:"video", sources:[source]};
 
-    // Resume after ready
-    plyrInstance.on('ready', ()=>{
-      if(resumeTime>0) plyrInstance.currentTime = resumeTime;
-      plyrInstance.play().catch(()=>{});
-    });
-
-    // Track time for resume
-    plyrInstance.on('timeupdate', ()=>{
-      const data = JSON.parse(localStorage.getItem(storageKey)) || {};
-      data.time = plyrInstance.currentTime;
-      data.episode = currentEpisode;
-      localStorage.setItem(storageKey, JSON.stringify(data));
-    });
-
-    // Auto-next
     plyrInstance.on('ended', ()=>{
       if(serie.episodes[currentEpisode+1]) loadEpisode(currentEpisode+1);
     });
@@ -170,9 +142,6 @@ function loadEpisode(index, userAction=false){
     drivePlayer.classList.remove("hidden");
   }
 
-  // Save episode index
-  localStorage.setItem(storageKey, JSON.stringify({episode:index, time:resumeTime}));
-
   // Fullscreen if PIN
   if(userAction && userHasActivePIN()){
     const el = !plyrContainer.classList.contains("hidden") ? plyrContainer : drivePlayer;
@@ -181,7 +150,6 @@ function loadEpisode(index, userAction=false){
 }
 
 /* ================= UI CONTROLS ================= */
-const saved = JSON.parse(localStorage.getItem(storageKey));
 serie.episodes.forEach((ep,i)=>{
   const b = document.createElement("button");
   b.textContent = ep.title;
@@ -189,7 +157,7 @@ serie.episodes.forEach((ep,i)=>{
   episodes.appendChild(b);
 });
 
-watchNowBtn.onclick = ()=>loadEpisode(saved?.episode || 0, true);
+watchNowBtn.onclick = ()=>loadEpisode(0, true);
 nextEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode+1] && loadEpisode(currentEpisode+1,true);
 prevEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode-1] && loadEpisode(currentEpisode-1,true);
 toggleEpisodesBtn.onclick = ()=>episodes.style.display = episodes.style.display==="none"?"block":"none";
