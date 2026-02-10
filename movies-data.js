@@ -1,6 +1,49 @@
 // movies-data.js
 const MOVIES = [
+       {
+    id: "kuwambaa",
+    title: "KIDNAP",
+    poster: "https://m.media-amazon.com/images/M/MV5BNzY4MTE5Njc1MV5BMl5BanBnXkFtZTgwNjA1MTgzNzE@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1A8KN6SzMLC_tdlAhIyzqdBb2G_onHIXV/preview",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1hr 20m",
+    synopsis: "A wealthy man is told that his daughter has been kidnapped. The kidnapper, however, does not want money, he wants the man to perform a series of tasks for him.."
+  },
+          {
+    id: "kuwambaza",
+    title: "KIDNAP Part 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BNzY4MTE5Njc1MV5BMl5BanBnXkFtZTgwNjA1MTgzNzE@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1zyembBex4I-GAKvU9jagmjxOM7PNzWv5/view",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 20m",
+    synopsis: "A wealthy man is told that his daughter has been kidnapped. The kidnapper, however, does not want money, he wants the man to perform a series of tasks for him.."
+  },
    {
+    id: "kaithin",
+    title: "KATHIN ANAATH",
+    poster: "https://i.ibb.co/zWG0nD8J/Untitled-1.jpg",
+    video: "https://drive.google.com/file/d/1ZYvDBQWiGT1VD0JPMnfxr083_BfZhXWt/prview",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1hr 10m",
+    synopsis: "Indian movies juuuu."
+  },
+       {
+    id: "kaithin21",
+    title: "KATHIN ANAATH 2",
+    poster: "https://i.ibb.co/zWG0nD8J/Untitled-1.jpg",
+    video: "https://drive.google.com/file/d/1K1lH1Z9KXmt2a5u2X9MYGR8C3WZtY9Rr/preview",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 10m",
+    synopsis: "Indian movies juuuu."
+  },{
     id: "raksahshak",
     title: "RAKSHA KARANA",
     poster: "https://m.media-amazon.com/images/M/MV5BODEzZWNlODMtZDc0MC00N2M1LThkYWYtNGRkZDk2NWM5MjhkXkEyXkFqcGc@._V1_.jpg",
