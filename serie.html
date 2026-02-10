@@ -36,7 +36,9 @@ button{padding:12px 18px; font-size:15px; border:none; border-radius:6px; margin
 
 <div class="player-wrapper">
   <!-- Plyr iframe for YouTube & Vimeo -->
-  <iframe id="plyrPlayer" allow="autoplay; fullscreen" class=""></iframe>
+  <div id="plyrContainer">
+    <div id="plyrPlayer"></div>
+  </div>
 
   <!-- Google Drive iframe fallback -->
   <iframe id="drivePlayer" allow="autoplay; fullscreen" class="hidden"></iframe>
@@ -90,15 +92,16 @@ document.querySelector('meta[property="og:description"]').content = serie.synops
 document.querySelector('meta[property="og:image"]').content = serie.poster;
 
 /* ================= PLAYERS ================= */
-const plyrPlayer = document.getElementById("plyrPlayer");
+const plyrContainer = document.getElementById("plyrContainer");
 const drivePlayer = document.getElementById("drivePlayer");
-let player = null;
+let plyrInstance = null;
 let currentEpisode = 0;
 const storageKey = `resume_${seriesId}`;
 
 function hideAllPlayers(){
-  plyrPlayer.classList.add("hidden");
+  plyrContainer.classList.add("hidden");
   drivePlayer.classList.add("hidden");
+  if(plyrInstance) plyrInstance.destroy();
 }
 
 /* ================= HELPERS ================= */
@@ -112,17 +115,16 @@ function detectType(url){
 
 function normalizeYouTube(url){
   const id = (url.match(/v=([^&]+)/) || url.match(/youtu\.be\/([^?]+)/))?.[1];
-  return `https://www.youtube.com/embed/${id}?autoplay=1`;
+  return id ? `https://www.youtube.com/watch?v=${id}` : url;
 }
 
 function normalizeVimeo(url){
-  const id = url.match(/vimeo\.com\/(\d+)/)?.[1];
-  return `https://player.vimeo.com/video/${id}?autoplay=1`;
+  return url;
 }
 
 function normalizeDrive(url){
   const id = (url.match(/\/d\/([^/]+)/) || url.match(/id=([^&]+)/))?.[1];
-  return `https://drive.google.com/file/d/${id}/preview`;
+  return id ? `https://drive.google.com/file/d/${id}/preview` : url;
 }
 
 /* ================= LOAD EPISODE ================= */
@@ -132,51 +134,75 @@ function loadEpisode(index, userAction=false){
   hideAllPlayers();
 
   const type = detectType(ep.video);
+  const savedData = JSON.parse(localStorage.getItem(storageKey)) || {};
+  let resumeTime = savedData.time || 0;
 
-  if(type === "youtube"){
-    plyrPlayer.src = normalizeYouTube(ep.video);
-    plyrPlayer.classList.remove("hidden");
-  }
-  else if(type === "vimeo"){
-    plyrPlayer.src = normalizeVimeo(ep.video);
-    plyrPlayer.classList.remove("hidden");
-  }
-  else if(type === "drive"){
+  if(type === "youtube" || type === "vimeo"){
+    plyrContainer.classList.remove("hidden");
+
+    // Initialize Plyr
+    plyrInstance = new Plyr(plyrContainer, {
+      type: type,
+      sources: [{
+        src: type==="youtube" ? normalizeYouTube(ep.video) : normalizeVimeo(ep.video),
+        provider: type
+      }],
+      autoplay: true
+    });
+
+    // Resume timestamp after ready
+    plyrInstance.on('ready', ()=>{
+      if(resumeTime>0) plyrInstance.currentTime = resumeTime;
+    });
+
+    // Track time for resume
+    plyrInstance.on('timeupdate', ()=>{
+      const data = JSON.parse(localStorage.getItem(storageKey)) || {};
+      data.time = plyrInstance.currentTime;
+      data.episode = currentEpisode;
+      localStorage.setItem(storageKey, JSON.stringify(data));
+    });
+
+    // Auto-next
+    plyrInstance.on('ended', ()=>{
+      if(serie.episodes[currentEpisode+1]) loadEpisode(currentEpisode+1);
+    });
+
+  } else if(type === "drive"){
     drivePlayer.src = normalizeDrive(ep.video);
     drivePlayer.classList.remove("hidden");
-  } else {
-    // fallback: show Drive iframe if unknown
-    drivePlayer.src = ep.video;
-    drivePlayer.classList.remove("hidden");
+
+    // Save resume time for Drive (best effort)
+    drivePlayer.onload = ()=>{
+      const driveKey = `drive_resume_${seriesId}_${index}`;
+      const lastTime = localStorage.getItem(driveKey) || 0;
+      // Try to postMessage to Drive iframe
+      drivePlayer.contentWindow?.postMessage({func:"seekTo", time:lastTime}, "*");
+    };
   }
 
-  // Save for resume
-  localStorage.setItem(storageKey, JSON.stringify({episode:index, time:0}));
+  // Save episode index for resume
+  localStorage.setItem(storageKey, JSON.stringify({episode:index, time:resumeTime}));
 
   // Fullscreen if user has PIN
   if(userAction && userHasActivePIN()){
-    const el = !plyrPlayer.classList.contains("hidden") ? plyrPlayer : drivePlayer;
+    const el = !plyrContainer.classList.contains("hidden") ? plyrContainer : drivePlayer;
     el.requestFullscreen?.();
   }
 }
 
-/* ================= RESUME ================= */
+/* ================= UI CONTROLS ================= */
 const saved = JSON.parse(localStorage.getItem(storageKey));
-if(saved && serie.episodes[saved.episode]){
-  loadEpisode(saved.episode);
-}
-
-serie.episodes.forEach((ep, i)=>{
+serie.episodes.forEach((ep,i)=>{
   const b = document.createElement("button");
   b.textContent = ep.title;
-  b.onclick = ()=>loadEpisode(i, true);
+  b.onclick = ()=>loadEpisode(i,true);
   episodes.appendChild(b);
 });
 
-/* ================= UI CONTROLS ================= */
 watchNowBtn.onclick = ()=>loadEpisode(saved?.episode || 0, true);
-nextEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode+1] && loadEpisode(currentEpisode+1, true);
-prevEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode-1] && loadEpisode(currentEpisode-1, true);
+nextEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode+1] && loadEpisode(currentEpisode+1,true);
+prevEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode-1] && loadEpisode(currentEpisode-1,true);
 toggleEpisodesBtn.onclick = ()=>episodes.style.display = episodes.style.display==="none"?"block":"none";
 shareBtn.onclick = ()=>{
   const t = encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
@@ -186,12 +212,12 @@ shareBtn.onclick = ()=>{
 function userHasActivePIN(){ return window.ACTIVE_PIN === true; }
 
 /* ================= COMMENTS ================= */
-submitComment.onclick = ()=>{
+submitComment.onclick=()=>{
   if(!commentInput.value.trim()) return;
   const d = document.createElement("div");
   d.textContent = commentInput.value;
   commentList.appendChild(d);
-  commentInput.value = "";
+  commentInput.value="";
 };
 </script>
 </body>
