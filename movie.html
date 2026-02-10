@@ -7,57 +7,85 @@
 <script src="movies-data.js"></script>
 
 <style>
-body { margin:0; background:#111; color:#fff; font-family:Arial,sans-serif; text-align:center; }
-.banner { 
-  position: relative; 
-  width: 100%; 
-  max-height: 400px; 
-  overflow: hidden; 
-  background: #222; 
-  display: flex; 
-  align-items: center; 
+body {
+  margin:0;
+  background:#111;
+  color:#fff;
+  font-family: Arial,sans-serif;
+}
+.banner {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  max-height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
   justify-content: center;
 }
-.banner img { 
-  width: auto; 
-  height: 100%; 
-  object-fit: cover; 
-  object-position: center; 
-  filter: brightness(0.5);
+.banner img {
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.5s ease;
 }
-.banner:hover img { transform: scale(1.05); }
-.banner .buttons { 
-  position: absolute; 
-  bottom: 20px; 
-  display: flex; 
-  gap: 12px; 
-  justify-content: center; 
-  width: 100%;
+.banner:hover img {
+  transform: scale(1.05);
 }
-button { 
-  padding: 12px 24px; 
-  font-size: 18px; 
-  border:none; 
-  border-radius:8px; 
-  cursor:pointer; 
+/* Gradient overlay instead of ugly fade */
+.banner::after {
+  content:"";
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 20%, transparent 80%);
+  pointer-events:none;
+}
+.banner .buttons {
+  position: absolute;
+  bottom:20px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  width:100%;
+}
+button {
+  padding:12px 24px;
+  font-size:16px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
   font-weight:bold;
 }
 button#watchBtn { background:#e50914; color:#fff; }
-button#shareBtn { background:#555; color:#fff; }
+button#shareBtn { background:#25D366; color:#fff; }
 
-.details { max-width:800px; margin:20px auto; text-align:left; padding:0 16px; }
+.details {
+  max-width:800px;
+  margin:20px auto;
+  text-align:left;
+  padding:0 16px;
+}
 .details h1 { margin-bottom:10px; font-size:2em; }
 .details p { line-height:1.5; }
 
-.player { 
-  margin:20px auto; 
-  width:90%; 
-  max-width:900px; 
-  height:500px; 
-  display:none; 
-  border:none; 
-  border-radius:12px; 
+.player {
+  margin:20px auto;
+  width:90%;
+  max-width:1200px;
+  aspect-ratio:16/9;
+  display:none;
+  border:none;
+  border-radius:12px;
+}
+
+@media (max-width:768px){
+  .banner { height: 35vh; }
+  .banner img { height: 100%; }
+  .player { width:95%; height:auto; }
+  button { font-size:14px; padding:10px 20px; }
 }
 </style>
 </head>
@@ -110,10 +138,11 @@ function getVideoUrl(url){
   return url;
 }
 
-// ===== PLAY MOVIE =====
+// ===== FULLSCREEN PLAY =====
 const watchBtn = document.getElementById("watchBtn");
 const posterImg = document.getElementById("posterImg");
 const player = document.getElementById("player");
+const shareBtn = document.getElementById("shareBtn");
 
 function playMovie(){
   player.src = getVideoUrl(movie.video);
@@ -121,23 +150,21 @@ function playMovie(){
   posterImg.style.display = "none";
   watchBtn.style.display = "none";
   shareBtn.style.display = "none";
+
+  // Request full screen
+  if(player.requestFullscreen){ player.requestFullscreen(); }
+  else if(player.webkitRequestFullscreen){ player.webkitRequestFullscreen(); }
+  else if(player.msRequestFullscreen){ player.msRequestFullscreen(); }
 }
 
 watchBtn.addEventListener("click", playMovie);
 posterImg.addEventListener("click", playMovie);
 
-// ===== SHARE BUTTON =====
-const shareBtn = document.getElementById("shareBtn");
+// ===== WHATSAPP SHARE =====
 shareBtn.addEventListener("click", ()=>{
-  const shareData = {
-    title: movie.title,
-    text: movie.synopsis,
-    url: location.href
-  };
-  if(navigator.share){ navigator.share(shareData).catch(console.error); }
-  else { 
-    prompt("Copy this link to share:", location.href);
-  }
+  const text = `🎬 ${movie.title}\n${movie.synopsis}\nWatch now: https://bit.ly/busanso`;
+  const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  window.open(url, "_blank");
 });
 </script>
 
