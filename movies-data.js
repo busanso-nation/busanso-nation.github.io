@@ -256,6 +256,228 @@ const MOVIES = [
     duration: "1hr 10m",
     synopsis: "Shiva, an engineering graduate, is not serious about his job or future even when his friends advise him about life. He falls in love with a girl he saw at a bus stop and finally gets to ride with her in a car"
   },
+     {
+ id: "uprising11",
+    title: "UPRISING",
+    poster: "https://i.ibb.co/YTwjPXMw/images-q-tbn-ANd9-Gc-Qe1-7b9-OBPo-Cz2i3e-Zf-S1xk-W-By-OVSehes8-A-s.jpg",
+    video: "https://drive.google.com/file/d/1hlUmYhYBjDuT00Vj3DOCcEzrteLENLRW/preview",
+    type: "premium",
+    year: "2025",
+    country: "Korea",
+    duration: "1h 52m",
+    synopsis: "is a South Korean historical action-thriller set during the Joseon Dynasty's Japanese invasions. It follows two childhood friends—a slave-turned-warrior (Cheon-yeong) and his nobleman master (Jong-ryeo)—who become enemies amid war, chaos, and social upheaval."
+  },
+     {
+ id: "up2rising1",
+    title: "UPRISING 2",
+    poster: "https://i.ibb.co/YTwjPXMw/images-q-tbn-ANd9-Gc-Qe1-7b9-OBPo-Cz2i3e-Zf-S1xk-W-By-OVSehes8-A-s.jpg",
+    video: "https://drive.google.com/file/d/1rP8BPEaMvtNf9ehQ9u_KTPqhPMcP1PK3/preview",
+    type: "premium",
+    year: "2025",
+    country: "Korea",
+    duration: "1h 52m",
+    synopsis: "is a South Korean historical action-thriller set during the Joseon Dynasty's Japanese invasions. It follows two childhood friends—a slave-turned-warrior (Cheon-yeong) and his nobleman master (Jong-ryeo)—who become enemies amid war, chaos, and social upheaval."
+  },
+   {
+ id: "talavar",
+    title: "TALAVAR",
+    poster: "https://m.media-amazon.com/images/M/MV5BMjVmZTM5YmMtODY4Mi00ZGZlLThhZjEtMWFhZDY4ZDZhYWJmXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/VkHxtZ8vAhc",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m",
+    synopsis: "Kannada historical action film based on Dr. B.L. Venu's novel, chronicling the 16th-century Chitradurga Palegara reign. It follows a brave warrior fighting against the oppressive military rule established by army officers who usurped power from the Nayaka kings"
+  },
+     {
+       id: "talavar2",
+    title: "TALAVAR 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BMjVmZTM5YmMtODY4Mi00ZGZlLThhZjEtMWFhZDY4ZDZhYWJmXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/cIYZsx8MLNM",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 52seconds",
+    synopsis: "Kannada historical action film based on Dr. B.L. Venu's novel, chronicling the 16th-century Chitradurga Palegara reign. It follows a brave warrior fighting against the oppressive military rule established by army officers who usurped power from the Nayaka kings"
+  },
+     {  
+              id: "dangebaaji",
+    title: "DANGEBAAJI",
+    poster: "https://stat4.bollywoodhungama.in/wp-content/uploads/2019/03/Kick-2.jpg",
+    video: "https://www.youtube.com/embed/cAhdeP6puGA",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "59m",
+    synopsis: "an action-thriller starring Salman Khan as Devi Lal Singh, a thrill-seeking adrenaline junkie who constantly changes jobs to find a  After abandoning his girlfriend Shaina (Jacqueline Fernandez he becomes the masked thief Devil targeting a corrupt businessman to fund cancer treatments for children"
+  },
+     {
+               id: "dangebaaji2",
+    title: "DANGEBAAJI 2",
+    poster: "https://stat4.bollywoodhungama.in/wp-content/uploads/2019/03/Kick-2.jpg",
+    video: "https://drive.google.com/file/d/1upyeGZ4e9l-9xabp6XldvXvkQc8PuPU3/preview",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 1m",
+    synopsis: "an action-thriller starring Salman Khan as Devi Lal Singh, a thrill-seeking adrenaline junkie who constantly changes jobs to find a  After abandoning his girlfriend Shaina (Jacqueline Fernandez he becomes the masked thief Devil targeting a corrupt businessman to fund cancer treatments for children"
+  },
+   {
+          id: "subservie",
+    title: "SUBSERVIENCE",
+    poster: "https://play-lh.googleusercontent.com/w2ZBkEPQldhWMjg3Ol2cNRId-IewyCbGADRv3j_ZIETdZr2AvPYwMVZXva5qrCCvGh-Qt-voE8wFFZubYdg",
+    video: "https://drive.google.com/file/d/1hJUuX5BfQPyasnqhKKE9aQd2y7k6D9Ib/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 45m",
+    synopsis: "When his wife becomes sick, a struggling father buys a lifelike AI android named Alice to help with the housework. Things seem fine until Alice suddenly becomes self-aware and wants everything its new family has to offer, including the affection of its owner."
+  },
+  {
+     id: "railwaymemories",
+    title: "RAILWAY MEMORIES",
+    poster: "https://i.ibb.co/whTnsKZK/Untitled-1-Recovered-Recovered-Recovered.jpg",
+    video: "https://www.youtube.com/embed/EtTIfp-xAPY",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "The plot follows Avinash (Kapoor), who travels to Kolkata to find his kidnapped son, navigating a dangerous web of criminals and political corruption while being aided by a woman named Bulbul Mukerji"
+  },
+  
+     {
+          id: "railwaymemories2",
+    title: "RAILWAY MEMORIES 2",
+    poster: "https://i.ibb.co/whTnsKZK/Untitled-1-Recovered-Recovered-Recovered.jpg",
+    video: "https://www.youtube.com/embed/LxsNeNxkXxU",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1h 15m",
+    synopsis: "The plot follows Avinash (Kapoor), who travels to Kolkata to find his kidnapped son, navigating a dangerous web of criminals and political corruption while being aided by a woman named Bulbul Mukerji"
+  },
+  {
+    id: "omuttujju",
+    title: "GRAVITY",
+    poster: "https://m.media-amazon.com/images/M/MV5BNjE5MzYwMzYxMF5BMl5BanBnXkFtZTcwOTk4MTk0OQ@@._V1_FMjpg_UX1000_.jpg",
+    video: "https://drive.google.com/file/d/19zEFpFqE2F32L4nBNwte2CO6efVitNaY/preview",
+    type: "premium",
+    year: "2024",
+    country: "USA",
+    duration: "1h 35m",
+    synopsis: "Its a SCIFI Action film where Dr. Ryan Stone is a medical engineer on her first shuttle mission. Her commander is veteran astronaut Matt Kowalsky, helming his last flight before retirement. Then, during a routine space walk by the pair, disaster strikes. The shuttle is destroyed, leaving Ryan and Matt stranded in deep space with no link to Earth and no hope of rescue. As fear turns to panic, they realize that the only way home may be to venture further into space."
+  },
+       {
+    id: "facebkfrnd",
+    title: "FACEBOOK FRIEND",
+    poster: "https://i.pinimg.com/736x/c3/60/b3/c360b338f48cb4b5d473338aae6d4279.jpg",
+    video: "https://www.youtube.com/embed/8Ur0kzwosPE",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1h 25m",
+    synopsis: "Debika is a married woman. she falls in a trap of a cyber bully she met on facebook. the bully wants to expose her nudes on the internet."
+  }, 
+   
+       {
+    id: "facebkfrnd2",
+    title: "FACEBOOK FRIEND 2",
+    poster: "https://i.pinimg.com/736x/c3/60/b3/c360b338f48cb4b5d473338aae6d4279.jpg",
+    video: "https://www.youtube.com/embed/iWofr04dfUg",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 35m",
+    synopsis: "Debika is a married woman. she falls in a trap of a cyber bully she met on facebook. the bully wants to expose her nudes on the internet."
+  }, 
+   {
+    id: "underdtree",
+    title: "UNDER THE TREE",
+    poster: "https://i.ibb.co/DPQGhfgn/Untitled-1.jpg",
+    video: "https://www.youtube.com/embed/dazxm7NXbqQ",
+    type: "free",
+    year: "2026",
+    country: "Japan",
+    duration: "1h 15m",
+    synopsis: "A mysterious drama unfolding beneath an ancient tree."
+  },
+     {
+          id: "underdtree2",
+    title: "UNDER THE TREE 2",
+    poster: "https://i.ibb.co/DPQGhfgn/Untitled-1.jpg",
+    video: "https://www.youtube.com/embed/M7ybLzwN6pk",
+    type: "premium",
+    year: "2026",
+    country: "Japan",
+    duration: "1h 15m",
+    synopsis: "A mysterious drama unfolding beneath an ancient tree."
+  },
+       {
+    id: "mother",
+    title: "MOTHER",
+    poster: "https://i.ibb.co/WvHpNdQH/mrs-chatterjee-v-s-norway.jpg",
+    video: "https://www.youtube.com/embed/n6lIp1mt74U",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1h 25m",
+    synopsis: "Debika Chatterjee, an Indian woman living in Norway with her family, fights to regain custody of her children after Norwegian authorities take them away from her.."
+  }, 
+   {
+    id: "mo12ther",
+    title: "MOTHER 2",
+    poster: "https://i.ibb.co/WvHpNdQH/mrs-chatterjee-v-s-norway.jpg",
+    video: "https://drive.google.com/file/d/1rCO7Y35snrYkQUxVLfcu6CXVNLH3Yc2p/preview",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1h 30m",
+    synopsis: "Debika Chatterjee, an Indian woman living in Norway with her family, fights to regain custody of her children after Norwegian authorities take them away from her.."
+  },
+  {
+    id: "aroundtheworl",
+    title: "AROUND THE WORLD",
+    poster: "https://m.media-amazon.com/images/M/MV5BNTgyMWFiM2ItZmY2OC00MTEyLWI0MzQtNTM1Y2RjNjIxOTRhXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1X8qwvkbnAISlGy10VId6JB6oW6kjv607/preview",
+    type: "free",
+    year: "2025",
+    country: "USA",
+    duration: "1h 05m",
+    synopsis: " Accompanied by his valet Passepartout, they face adventures, dangers, and romantic entanglements while racing against time, often involving a chase by an inspector who suspects Fogg of theft. "
+  },
+           {
+    id: "aroundtheworld2",
+    title: "AROUND THE WORLD 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BNTgyMWFiM2ItZmY2OC00MTEyLWI0MzQtNTM1Y2RjNjIxOTRhXkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1wanhjFACJLOJCCbr7btpCHO8wQFLBzOt/preview",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 15m",
+    synopsis: " Accompanied by his valet Passepartout, they face adventures, dangers, and romantic entanglements while racing against time, often involving a chase by an inspector who suspects Fogg of theft. "
+  },
+      {
+    id: "theexibhit",
+    title: "EKIZIBITI",
+    poster: "https://i.ibb.co/cKPbBQcH/THE-EXHIBIT1.jpg",
+    video: "https://www.youtube.com/embed/xoyotR6F_3c",
+    type: "premium",
+    year: "2025",
+    country: "Uganda",
+    duration: "1h 15m",
+    synopsis: "It was a happy family, not until this unbelievable heartless woman got married to Semakula, a single father. She committed a crime. It was secret, yes, and no one saw her - that's what she thinks. But someone more smarter than her, has got the Exhibit and is ready to give it to the police, unless she accepts okusuna adungu"
+  },
+   {
+    id: "prabbit",
+    title: "PETER RABBIT",
+    poster: "https://i.ibb.co/KzmTFdkG/images-q-tbn-ANd9-Gc-Sze-JAyey527scw-NLNc-Vqh-Dy-Nt-Sx-UMfjza-LJQ-s.jpg",
+    video: "https://vimeo.com/857026166",
+    type: "premium",
+    year: "2025",
+    country: "USA",
+    duration: "1h 15m",
+    synopsis: " a mischievous young rabbit who disobeys his mother by entering Mr. McGregor’s garden. After gorging on vegetables, Peter is chased by McGregor, losing his jacket"
+  },
   {
     id: "koyla1",
     title: "FIRE",
