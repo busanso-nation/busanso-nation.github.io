@@ -11,65 +11,6 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-<!-- Plyr CSS -->
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-
-<style>
-body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:16px}
-.player{max-width:900px;margin:0 auto;position:relative;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;}
-.details{max-width:900px;margin:16px auto;background:#111;padding:16px;border-radius:14px}
-.meta{color:#aaa;font-size:14px;margin-bottom:8px}
-.watch{background:#e50914;color:#fff;font-size:20px;padding:16px;width:100%;border:none;border-radius:14px;font-weight:bold;cursor:pointer;margin-bottom:10px}
-.share{background:#222;color:#fff;font-size:16px;padding:14px;width:100%;border:none;border-radius:14px;cursor:pointer}
-.share-options{display:none;margin-top:10px;gap:10px;flex-wrap:wrap;display:flex}
-.share-options button{flex:1;padding:12px;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
-.whatsapp{background:#25D366;color:#000}
-.imo{background:#00b2ff;color:#000}
-.tiktok{background:#000;color:#fff;border:1px solid #333}
-#commentsSection{max-width:900px;margin:20px auto;background:#111;padding:16px;border-radius:14px}
-#commentsList div{background:#222;padding:8px 10px;border-radius:8px;margin-bottom:6px;position:relative}
-#usernameInput,#commentInput{width:100%;padding:8px;border-radius:6px;background:#111;color:#fff;border:none;margin-bottom:6px}
-#commentBtn{padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold;cursor:pointer}
-</style>
-</head>
-
-<body>
-
-<!-- Plyr Player -->
-<div class="player">
-  <video id="player" controls crossorigin></video>
-</div>
-
-<div class="details">
-  <h1 id="title"></h1>
-  <div class="meta" id="meta"></div>
-
-  <button class="watch" id="watchBtn">▶ Watch Movie</button>
-  <button class="share" id="shareBtn">🔗 Share Movie</button>
-
-  <div class="share-options" id="shareOptions">
-    <button class="whatsapp" id="shareWhatsapp">WhatsApp</button>
-    <button class="imo" id="shareImo">IMO</button>
-    <button class="tiktok" id="shareTiktok">TikTok</button>
-  </div>
-
-  <!-- AD SLOT (FREE CONTENT ONLY) -->
-  <div id="adBox" class="ad-box" style="display:none;"></div>
-
-  <p id="synopsis"></p>
-</div>
-
-<div id="commentsSection">
-  <h3>Comments</h3>
-  <input id="usernameInput" placeholder="Your nickname">
-  <div id="commentsList"></div>
-  <textarea id="commentInput" placeholder="Write your comment"></textarea>
-  <button id="commentBtn">Post Comment</button>
-</div>
-
-<!-- Plyr JS -->
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
@@ -83,151 +24,159 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 </script>
 
+<style>
+body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padding:16px; }
+.logo { text-align:center; margin-bottom:12px; }
+.logo img { max-height:50px; }
+.player { width:100%; max-width:800px; margin:0 auto; }
+.player iframe { width:100%; height:56vw; max-height:500px; border:none; }
+.details { max-width:800px; margin:16px auto; padding:16px; background:#111; border-radius:12px; }
+.meta { color:#aaa; font-size:14px; margin-bottom:8px; }
+.actions button { width:100%; padding:16px; margin-top:12px; font-size:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
+.watch { background:#e50914; color:#fff; font-size:18px; }
+.secondary { background:#222; color:#fff; margin-top:8px; }
+.cast span { background:#181818; padding:6px 10px; border-radius:20px; font-size:12px; margin:4px; display:inline-block; }
+
+/* COMMENTS */
+#commentsSection { max-width:800px; margin:20px auto; background:#111; padding:16px; border-radius:12px; }
+#commentsList div { margin-bottom:6px; padding:8px 10px; background:#222; border-radius:8px; position:relative; word-wrap:break-word; }
+#usernameInput, #commentInput { width:100%; padding:10px; border-radius:6px; background:#111; color:#fff; border:none; margin-top:6px; }
+#commentBtn { margin-top:8px; padding:10px 18px; border:none; border-radius:8px; background:#e50914; color:#fff; font-weight:bold; cursor:pointer; font-size:15px; }
+#commentMsg { margin-top:6px; font-size:14px; }
+</style>
+</head>
+
+<body>
+
+<div class="logo">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
+</div>
+
+<div class="player" id="player"></div>
+
+<div class="details">
+  <h1 id="title"></h1>
+  <div class="meta" id="meta"></div>
+  <button class="watch" id="watchBtn">? Watch Now</button>
+  <p id="synopsis"></p>
+  <div class="cast" id="cast"></div>
+</div>
+
+<div id="commentsSection">
+  <h3>Comments</h3>
+  <input id="usernameInput" placeholder="Enter your name">
+  <textarea id="commentInput" placeholder="Write your comment"></textarea>
+  <button id="commentBtn">Post Comment</button>
+  <div id="commentMsg"></div>
+  <div id="commentsList"></div>
+</div>
+
 <script>
-// ===== LOAD MOVIE =====
-var params = new URLSearchParams(location.search);
-var id = params.get("id");
-var movie = MOVIES.find(m => m.id === id);
-if(!movie) location.replace("movies.html");
+// ===== DOM References =====
+const title = document.getElementById("title");
+const meta = document.getElementById("meta");
+const synopsis = document.getElementById("synopsis");
+const cast = document.getElementById("cast");
+const player = document.getElementById("player");
+const watchBtn = document.getElementById("watchBtn");
 
-// ===== ADS: FREE CONTENT ONLY =====
-var AD_INTERVAL = 10*60*1000; // 10 minutes
-var adTimer = null;
+// ===== MOVIE DATA =====
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+if(!id) location.replace("movies-list.html");
 
-function hasValidPIN(){
-  var pin = localStorage.getItem("activePIN");
-  var exp = Number(localStorage.getItem("pinExpiry"));
-  return pin && exp && Date.now() < exp;
-}
+const movie = MOVIES.find(m => m.id === id);
+if(!movie) location.replace("movies-list.html");
 
-function showAd(){
-  if(movie.type !== "free") return;
-  if(hasValidPIN()) return;
-  var adBox = document.getElementById("adBox");
-  if(!adBox) return;
-  adBox.style.display = "block";
-  adBox.innerHTML = "";
-  var s = document.createElement("script");
-  s.dataset.zone="10536867";
-  s.src="https://nap5k.com/tag.min.js";
-  s.async=true;
-  adBox.appendChild(s);
-}
-
-// ===== POPULATE INFO =====
+// Populate info
 title.textContent = movie.title;
-meta.textContent = movie.country + " • " + movie.year;
+meta.textContent = `${movie.genre} • ${movie.country} • ${movie.year}`;
 synopsis.textContent = movie.synopsis || "";
-
-// ===== STORAGE KEY =====
-const storageKey = "resume_movie_" + movie.id;
-
-// ===== INITIALIZE PLYR =====
-const player = new Plyr('#player',{ autoplay:true, controls:['play','progress','current-time','mute','volume','fullscreen'] });
-
-// ===== VIDEO NORMALIZATION (YouTube/Vimeo/Drive) =====
-function normalizeVideo(url){
-  url = url.trim();
-  // YouTube
-  if(url.includes("youtube.com") || url.includes("youtu.be")){
-    let videoId = "";
-    if(url.includes("youtu.be")) videoId=url.split("youtu.be/")[1].split(/[?&]/)[0];
-    else if(url.includes("/embed/")) videoId=url.split("/embed/")[1].split(/[?&]/)[0];
-    else if(url.includes("/shorts/")) videoId=url.split("/shorts/")[1].split(/[?&]/)[0];
-    else videoId=new URL(url).searchParams.get("v");
-    if(videoId) return {type:'youtube', source:videoId};
-  }
-  // Vimeo
-  if(url.includes("vimeo.com")) return {type:'vimeo', source:url.split("/").pop()};
-  // Google Drive
-  if(url.includes("drive.google.com")){
-    let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-    if(match) return {type:'mp4', source:`https://drive.google.com/uc?export=media&id=${match[1]}`};
-  }
-  // default
-  return {type:'mp4', source:url};
-}
-
-// ===== LOAD MOVIE FUNCTION =====
-function loadMovie(userAction=false){
-  const v = normalizeVideo(movie.video);
-  let source;
-  if(v.type==='youtube') source={type:'youtube',sources:[{src:v.source,provider:'youtube'}]};
-  else if(v.type==='vimeo') source={type:'vimeo',sources:[{src:v.source,provider:'vimeo'}]};
-  else source={type:'video',sources:[{src:v.source,type:'video/mp4'}]};
-
-  player.source = source;
-
-  // Auto-resume
-  const saved = JSON.parse(localStorage.getItem(storageKey));
-  if(saved && saved.time) player.currentTime = saved.time;
-
-  // Auto-fullscreen if valid PIN and user clicked watch
-  if(userAction && hasValidPIN()) player.fullscreen.enter();
-
-  player.play();
-
-  showAd();
-  if(adTimer) clearInterval(adTimer);
-  adTimer = setInterval(function(){
-    if(hasValidPIN()){ clearInterval(adTimer); return; }
-    showAd();
-  }, AD_INTERVAL);
-}
-
-// ===== AUTO-LOAD MOVIE ON PAGE LOAD =====
-window.addEventListener('load',()=>{ loadMovie(); });
-
-// ===== SAVE TIME PERIODICALLY =====
-player.on('timeupdate',()=>{ 
-  localStorage.setItem(storageKey, JSON.stringify({time:player.currentTime}));
+movie.cast?.forEach(c => {
+  const span = document.createElement("span");
+  span.textContent = c;
+  cast.appendChild(span);
 });
 
-// ===== WATCH BUTTON =====
-watchBtn.onclick = ()=>{ loadMovie(true); };
+// ===== VIDEO NORMALIZATION =====
+function normalizeVideo(url){
+  try {
+    url = url.trim();
+    if(url.includes("youtube.com") || url.includes("youtu.be")) {
+      const ytId = url.includes("v=") ? new URL(url).searchParams.get("v") : url.split("/").pop();
+      return `https://www.youtube.com/embed/${ytId}`;
+    }
+    if(url.includes("vimeo.com")) {
+      const vimeoId = url.split("/").pop();
+      return `https://player.vimeo.com/video/${vimeoId}`;
+    }
+    if(url.includes("/d/")) {
+      const driveId = url.split("/d/")[1].split("/")[0];
+      return `https://drive.google.com/file/d/${driveId}/preview`;
+    }
+    return url;
+  } catch {
+    return url;
+  }
+}
 
-// ===== SHARE LOGIC =====
-var SHARE_URL = "https://busanso-nation.github.io/home.html";
-var shareText = movie.title + "\n" + movie.country + " • " + movie.year + "\n\n" +
-                movie.synopsis + "\n\nWatch on BUSANSO:\n" + SHARE_URL;
+// ===== PLAYBACK =====
+function playMovie() {
+  if (isFreeUser()) openAd(); // show ad for free users
+  player.innerHTML = `<iframe src="${normalizeVideo(movie.video)}" allowfullscreen></iframe>`;
+  window.scrollTo({ top:0, behavior:"smooth" });
+}
 
-shareBtn.onclick = ()=>{ shareOptions.style.display = shareOptions.style.display==='flex'?'none':'flex'; };
-shareWhatsapp.onclick = ()=>{ window.open("https://wa.me/?text="+encodeURIComponent(shareText)); };
-shareImo.onclick = ()=>{ window.open("imo://chat?text="+encodeURIComponent(shareText)); };
-shareTiktok.onclick = ()=>{ navigator.clipboard.writeText(shareText); alert("Copied! Paste it on TikTok"); };
+watchBtn.onclick = playMovie;
 
-// ===== COMMENTS =====
-var commentsRef = firebase.database().ref("comments/movies/" + movie.id);
-var savedName = localStorage.getItem("username");
+// ===== COMMENTS LOGIC =====
+const commentsRef = firebase.database().ref("comments/movie/"+movie.id);
+const usernameInput = document.getElementById("usernameInput");
+const commentInput = document.getElementById("commentInput");
+const commentMsg = document.getElementById("commentMsg");
+const commentsList = document.getElementById("commentsList");
+
+const savedName = localStorage.getItem("username");
 if(savedName) usernameInput.value = savedName;
 
-commentBtn.onclick = function(){
-  var user=usernameInput.value.trim().slice(0,20);
-  var text=commentInput.value.trim().slice(0,300);
-  if(!user||!text) return;
-  localStorage.setItem("username",user);
-  commentsRef.push({user:user,text:text,timestamp:firebase.database.ServerValue.TIMESTAMP});
+commentBtn.onclick = () => {
+  const name = usernameInput.value.trim();
+  const text = commentInput.value.trim();
+  if(name.length < 2 || name.length > 20){
+    commentMsg.style.color="#ffb400";
+    commentMsg.textContent="Nickname must be 2–20 characters";
+    return;
+  }
+  if(text.length < 2 || text.length > 300){
+    commentMsg.style.color="#ffb400";
+    commentMsg.textContent="Comment must be 2–300 characters";
+    return;
+  }
+  localStorage.setItem("username", name);
+  commentsRef.push({ user:name, text, timestamp:Date.now() });
   commentInput.value="";
+  commentMsg.style.color="#00ff66";
+  commentMsg.textContent="Comment posted";
 };
 
-commentsRef.limitToLast(100).on("value", function(snap){
-  commentsList.innerHTML = "";
-  var arr = [];
-  snap.forEach(c=>arr.push({data:c.val(), ref:c.ref}));
-  arr.sort((a,b)=>b.data.timestamp-b.data.timestamp);
-  arr.forEach(c=>{
-    var div = document.createElement("div");
-    div.innerHTML="<strong>"+c.data.user+"</strong>: "+c.data.text;
+commentsRef.on("value", snap => {
+  commentsList.innerHTML="";
+  const commentsArray = [];
+  snap.forEach(c => commentsArray.push({...c.val(), ref:c.ref}));
+  commentsArray.sort((a,b) => b.timestamp - a.timestamp);
+  commentsArray.forEach(c => {
+    const div = document.createElement("div");
+    div.innerHTML=`<strong>${c.user}</strong>: ${c.text}`;
     if(localStorage.getItem("activePIN")==="Orion196"){
-      var b=document.createElement("button");
-      b.textContent="🗑"; b.style.position="absolute"; b.style.right="6px"; b.style.top="6px";
-      b.onclick=function(){ c.ref.remove(); };
+      const b = document.createElement("button");
+      b.textContent="??";
+      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none",borderRadius:"6px",padding:"2px 6px",cursor:"pointer"});
+      b.onclick = () => c.ref.remove();
       div.appendChild(b);
     }
     commentsList.appendChild(div);
   });
 });
 </script>
-
 </body>
 </html>
