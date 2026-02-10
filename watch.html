@@ -6,35 +6,127 @@
 <title>User Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--orange:#ff8a00;--teal:#00c9a7;--dark:#0f172a;--glass:rgba(255,255,255,.14);}
+:root{
+  --primary-gradient: linear-gradient(135deg,#ff9f1c,#ff6f61);
+  --secondary-gradient: linear-gradient(135deg,#00c9a7,#2ec4b6);
+  --accent-gradient: linear-gradient(135deg,#4361ee,#4895ef);
+  --bg-light:#f8fafc;
+  --dark-bg:#0f172a;
+  --glass:rgba(255,255,255,.14);
+  --btn-radius:16px;
+}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',system-ui,sans-serif;}
-body{min-height:100vh;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;align-items:center;justify-content:center;padding:10px;color:#1f2933;}
-.card{width:100%;max-width:500px;background:rgba(255,255,255,.9);border-radius:25px;padding:25px 20px;box-shadow:0 20px 50px rgba(0,0,0,.3);}
-.header{text-align:center;margin-bottom:15px;}
-.header h1{font-size:2.2rem;font-weight:900;color:#ff8a00;}
-.header small{display:block;font-size:1rem;margin-top:4px;opacity:.8;}
-.info-box{background:#f8fafc;border-radius:16px;padding:15px 16px;margin-bottom:15px;}
-.info-row{display:flex;justify-content:space-between;padding:10px 0;font-size:1.05rem;border-bottom:1px dashed #e5e7eb;}
-.info-row:last-child{border-bottom:none}
-.label{opacity:.8;font-size:1rem;}
-.value{font-weight:800;font-size:1rem;}
-.countdown{text-align:center;font-weight:800;margin-top:15px;font-size:1.3rem;color:#ff3d00;}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px;}
-.btn{padding:14px 10px;border-radius:16px;font-size:1rem;font-weight:800;text-align:center;text-decoration:none;color:#fff;display:block;}
-.movies{background:linear-gradient(135deg,#ff9f1c,#ffbf69);}
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#f5f7fa,#c3cfe2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+  color:#1f2933;
+}
+
+.card{
+  width:100%;
+  max-width:520px;
+  background:rgba(255,255,255,.95);
+  border-radius:25px;
+  padding:30px 25px;
+  box-shadow:0 25px 60px rgba(0,0,0,.2);
+  transition: transform 0.3s;
+}
+.card:hover{ transform: translateY(-5px); }
+
+.header{
+  text-align:center;
+  margin-bottom:20px;
+}
+.header h1{
+  font-size:2.8rem;
+  font-weight:900;
+  background: linear-gradient(90deg,#ff512f,#f09819);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.header small{
+  display:block;
+  font-size:1.2rem;
+  margin-top:6px;
+  color:#333;
+  font-weight:600;
+}
+
+.info-box{
+  background:var(--bg-light);
+  border-radius:20px;
+  padding:18px 20px;
+  margin-bottom:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+.info-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  font-size:1.05rem;
+  border-bottom:1px dashed #e5e7eb;
+}
+.info-row:last-child{ border-bottom:none; }
+.label{ opacity:.75; font-size:1rem; }
+.value{ font-weight:700; font-size:1rem; color:#111; }
+
+.countdown{
+  text-align:center;
+  font-weight:800;
+  margin-top:15px;
+  font-size:1.4rem;
+  color:#ff3d00;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:20px;
+}
+.btn{
+  padding:15px 12px;
+  border-radius:var(--btn-radius);
+  font-size:1rem;
+  font-weight:700;
+  text-align:center;
+  text-decoration:none;
+  color:#fff;
+  display:block;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover{
+  transform: translateY(-3px);
+  box-shadow:0 6px 18px rgba(0,0,0,.2);
+}
+
+/* Button gradients */
+.movies{background:linear-gradient(135deg,#ff9f1c,#ff6f61);}
 .series{background:linear-gradient(135deg,#00c9a7,#2ec4b6);}
 .renew{background:linear-gradient(135deg,#4361ee,#4895ef);}
 .join{background:linear-gradient(135deg,#ef476f,#f72585);}
 .donate{background:linear-gradient(135deg,#fcbf49,#ff006e);}
 .live{background:linear-gradient(135deg,#9b5de5,#f15bb5);}
-footer{text-align:center;font-size:.85rem;margin-top:15px;opacity:.7;}
+
+footer{
+  text-align:center;
+  font-size:.85rem;
+  margin-top:18px;
+  opacity:.75;
+  color:#333;
+}
 </style>
 </head>
 <body>
 
 <div class="card">
   <div class="header">
-    <h1>🎉 OMUSANSO</h1>
+    <!-- Package Nickname will appear here -->
+    <h1 id="planNickname">Loading...</h1>
     <small id="planLabel">Loading...</small>
   </div>
 
@@ -50,12 +142,12 @@ footer{text-align:center;font-size:.85rem;margin-top:15px;opacity:.7;}
   </div>
 
   <div class="actions">
-    <a href="movi.html" class="btn movies">🎬 Movies</a>
+    <a href="movies.html" class="btn movies">🎬 Movies</a>
     <a href="series.html" class="btn series">📺 Series</a>
     <a href="packages.html" class="btn renew">⏳ Extend Subscription</a>
     <a href="busansocity.html" class="btn join">💖 Join Busanso City</a>
     <a href="donate.html" class="btn donate">💖 Donate to Orphans</a>
-    <a href="live.html" class="btn live">📡 Live TV</a>
+    <a href="live.html" class="btn live">📡 Live</a>
   </div>
 
   <div class="countdown" id="countdownDisplay"></div>
@@ -95,7 +187,6 @@ if(!pin){
     const data = snapshot.val();
     const now = Date.now();
 
-    // Expired
     if(now > data.expiry){
       alert("Your subscription has expired.");
       localStorage.removeItem("activePIN");
@@ -103,21 +194,25 @@ if(!pin){
       return;
     }
 
-    // Ensure PIN stays bound to device without showing fake "other device"
     if(!data.activeDevice){
       db.ref("pins/"+pin+"/activeDevice").set(deviceId);
     }
 
     localStorage.setItem("activePackage", JSON.stringify(data));
-  const planNicknames = {
-  "Weekly": "Weekly",
-  "Monthly": "Kabeja",
-  "Half-Year": "Kabeje",
-  "Annual": "Kabejest"
-};
 
-document.getElementById("planLabel").textContent =
-  planNicknames[data.type] || data.type;
+    const planNicknames = {
+      "Weekly": "Weekly",
+      "Monthly": "Kabeja",
+      "Half-Year": "Kabeje",
+      "Annual": "Kabejest"
+    };
+
+    // Display nickname prominently
+    document.getElementById("planNickname").textContent =
+      planNicknames[data.type] || data.type;
+
+    document.getElementById("planLabel").textContent =
+      `Package: ${data.type}`;
 
     // Countdown timer
     const timeLeftEl = document.getElementById("timeLeft");
