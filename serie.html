@@ -3,234 +3,283 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Watch Series – BUSANSO</title>
+<title>Watch Series</title>
+
+<!-- OpenGraph (WhatsApp preview) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BUSANSO NATION">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:url" content="https://bit.ly/busanso">
+
+<!-- Plyr CSS -->
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
 <style>
-body { margin:0; font-family:Arial,sans-serif; background:#000; color:#fff; }
-.container { max-width:1400px; margin:0 auto; padding:12px; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 12px;
+}
+.player-area {
+  width: 100%;
+}
+#player {
+  width: 100%;
+  height: 560px;
+  background: #000;
+}
 
-/* Player Fullwidth Modern */
-.player-area { position:relative; width:100%; padding-top:56.25%; background:#000; border-radius:0; overflow:hidden; }
-#player { position:absolute; top:0; left:0; width:100%; height:100%; }
+/* Buttons styling */
+button {
+  padding: 14px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin: 6px 6px 6px 0;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+button:hover {
+  opacity: 0.85;
+}
+button.primary {
+  background: #e50914;
+  color: #fff;
+}
+button.secondary {
+  background: #333;
+  color: #fff;
+}
+button.nav {
+  background: #1db954;
+  color: #fff;
+}
 
-/* Big watch button overlay */
-#overlayPlay { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  font-size:60px;color:#fff;background:rgba(0,0,0,0.5);padding:30px 40px;border-radius:50%;cursor:pointer;transition:0.3s; }
-#overlayPlay:hover{background:rgba(0,0,0,0.7);}
+/* Episode buttons */
+#episodes button {
+  display: block;
+  width: 100%;
+  margin: 4px 0;
+}
 
-/* Episode buttons at bottom of player */
-#episodeOverlay{position:absolute;bottom:0;left:0;width:100%;background:rgba(0,0,0,0.6);display:flex;overflow-x:auto;padding:5px;gap:5px;}
-#episodeOverlay button{flex:0 0 auto;background:#e50914;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;}
-#episodeOverlay button.active{background:#1db954;}
+/* Comment box */
+.comment-box {
+  margin-top: 16px;
+}
+.comment-box textarea {
+  width: 100%;
+  height: 70px;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.comment-box button {
+  margin-top: 6px;
+}
 
-/* Buttons below */
-button { padding:12px 18px; font-size:16px; border:none; cursor:pointer; margin:6px 6px 6px 0; border-radius:6px; transition:0.2s; }
-button:hover { opacity:0.85; }
-button.primary { background:#e50914; color:#fff; }
-button.secondary { background:#333; color:#fff; }
-button.nav { background:#1db954; color:#fff; }
-
-/* Comments */
-.comment-box { margin-top:20px; }
-.comment-box input, .comment-box textarea { font-size:14px; border-radius:5px; border:1px solid #333; background:#111; color:#fff; padding:6px; margin-bottom:6px; width:100%; }
-.comment-box button.primary { font-size:16px; padding:10px 18px; border-radius:6px; }
-.comment { padding:8px 6px; border-bottom:1px solid #333; position:relative; }
-.comment strong { color:#1db954; }
-.comment span { color:#888; font-size:12px; margin-left:6px; }
+/* Next/Previous container */
+.nav-episodes {
+  margin-top: 12px;
+}
 </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- PLAYER -->
+  <!-- PLAYER AREA -->
   <div class="player-area">
-    <div id="player"></div>
-    <div id="overlayPlay">▶</div>
-    <div id="episodeOverlay"></div>
+    <video id="player" controls crossorigin></video>
   </div>
 
-  <!-- Series Info -->
+  <!-- Next / Previous episode buttons -->
+  <div class="nav-episodes">
+    <button id="prevEpisodeBtn" class="nav">⏮ Previous Episode</button>
+    <button id="nextEpisodeBtn" class="nav">⏭ Next Episode</button>
+  </div>
+
+  <!-- SERIES INFO & CONTROLS BELOW -->
   <h2 id="seriesTitle"></h2>
   <p id="seriesMeta"></p>
   <p id="seriesSynopsis"></p>
 
-  <!-- Buttons -->
   <button id="watchNowBtn" class="primary">▶ Watch Now</button>
   <button id="toggleEpisodesBtn" class="secondary">Show/Hide Episodes</button>
   <button id="shareBtn" class="secondary">📤 Share WhatsApp</button>
 
-  <!-- Comments -->
+  <div id="episodes"></div>
+
+  <!-- Comment Section -->
   <div class="comment-box">
-    <input id="usernameInput" placeholder="Your nickname">
     <textarea id="commentInput" placeholder="Add a comment..."></textarea>
-    <button id="commentBtn" class="primary">Submit Comment</button>
-    <div id="commentsList"></div>
+    <button id="submitComment" class="primary">Submit Comment</button>
+    <div id="commentList"></div>
   </div>
 
 </div>
 
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- SERIES DATA -->
 <script src="series-data.js"></script>
 
+<!-- Ads and PIN logic -->
+<script src="auth.js"></script>
+<script src="pins.js"></script>
+<script src="ads.js"></script>
+
+<!-- Plyr JS -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
 <script>
-// Firebase
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  databaseURL: "YOUR_DB_URL",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_BUCKET",
-  messagingSenderId: "YOUR_MSG_ID",
-  appId: "YOUR_APP_ID"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+/* ===============================
+   SERIES & PLAYER LOGIC
+================================ */
+const params = new URLSearchParams(location.search);
+const seriesId = params.get("id");
+const serie = SERIES.find(s => s.id === seriesId);
+if (!serie) location.replace("series.html");
 
-// Plyr
-const player = new Plyr('#player',{autoplay:true,controls:['play','progress','current-time','mute','volume','fullscreen']});
-const overlayPlay=document.getElementById("overlayPlay");
-const episodeOverlay=document.getElementById("episodeOverlay");
+// Populate text
+seriesTitle.textContent = serie.title;
+seriesMeta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
+seriesSynopsis.textContent = serie.synopsis || "";
 
-// Series
-const params=new URLSearchParams(location.search);
-const seriesId=params.get("id");
-const serie=SERIES.find(s=>s.id===seriesId);
-if(!serie) location.replace("series.html");
-seriesTitle.textContent=serie.title;
-seriesMeta.textContent=`${serie.genre} • ${serie.country} • ${serie.year}`;
-seriesSynopsis.textContent=serie.synopsis||"";
+// OG tags for WhatsApp
+document.querySelector('meta[property="og:title"]').content = serie.title;
+document.querySelector('meta[property="og:description"]').content = serie.synopsis || "";
+document.querySelector('meta[property="og:image"]').content = serie.poster;
 
-let currentEpisode=0;
-const storageKey=`resume_${seriesId}`;
+/* ===============================
+   PLYR PLAYER SETUP
+================================ */
+const player = new Plyr('#player', {
+  autoplay: false,
+  controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen']
+});
 
-// Normalize Video
-function normalizeVideo(url){
-  url=url.trim();
-  // YouTube
-  if(url.includes("youtube.com")||url.includes("youtu.be")){
-    let id="";
-    try{
-      if(url.includes("youtu.be")) id=url.split("youtu.be/")[1].split(/[?&]/)[0];
-      else if(url.includes("/shorts/")) id=url.split("/shorts/")[1].split(/[?&]/)[0];
-      else if(url.includes("/embed/")) id=url.split("/embed/")[1].split(/[?&]/)[0];
-      else id=new URL(url).searchParams.get("v");
-    }catch(e){}
-    if(id) return {type:'youtube',source:id};
+const storageKey = `resume_${seriesId}`;
+let currentEpisode = 0;
+
+// Build episode buttons
+const episodesContainer = document.getElementById('episodes');
+serie.episodes.forEach((ep, index) => {
+  const btn = document.createElement("button");
+  btn.textContent = ep.title;
+  btn.onclick = () => loadEpisode(index, true);
+  episodesContainer.appendChild(btn);
+});
+
+// Load episode
+function loadEpisode(index, userAction = false) {
+  const ep = serie.episodes[index];
+  currentEpisode = index;
+
+  if (ep.video.includes("youtube") || ep.video.includes("youtu.be")) {
+    player.source = {
+      type: 'video',
+      sources: [{ src: ep.video, provider: 'youtube' }]
+    };
+  } else if (ep.video.includes("vimeo")) {
+    player.source = {
+      type: 'video',
+      sources: [{ src: ep.video, provider: 'vimeo' }]
+    };
+  } else {
+    player.source = {
+      type: 'video',
+      sources: [{ src: ep.video, type: 'video/mp4' }]
+    };
   }
-  // Vimeo
-  if(url.includes("vimeo.com")){
-    const id=url.split("/").filter(Boolean).pop();
-    return {type:'vimeo',source:id};
+
+  localStorage.setItem(storageKey, JSON.stringify({
+    episode: index,
+    time: 0
+  }));
+
+  if (userAction && userHasActivePIN()) {
+    player.fullscreen.enter();
   }
-  // Google Drive
-  if(url.includes("drive.google.com")){
-    const match=url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-    if(match&&match[1]) return {type:'mp4',source:`https://drive.google.com/uc?export=media&id=${match[1]}`};
-  }
-  return {type:'mp4',source:url};
-}
-
-// Load Episode
-function loadEpisode(index,userAction=false){
-  const ep=serie.episodes[index];
-  currentEpisode=index;
-  const v=normalizeVideo(ep.video);
-  let source;
-  if(v.type==='youtube') source={type:'youtube',sources:[{src:v.source,provider:'youtube'}]};
-  else if(v.type==='vimeo') source={type:'vimeo',sources:[{src:v.source,provider:'vimeo'}]};
-  else source={type:'video',sources:[{src:v.source,type:'video/mp4'}]};
-  player.source=source;
-
-  // Auto-resume
-  const saved=JSON.parse(localStorage.getItem(storageKey))||{};
-  if(saved.episode===index && saved.time) player.currentTime=saved.time;
-
-  // Auto-fullscreen
-  if(userAction && userHasActivePIN()) player.fullscreen.enter();
 
   player.play();
-  localStorage.setItem(storageKey,JSON.stringify({episode:index,time:player.currentTime}));
-
-  updateEpisodeOverlay();
 }
-
-// Overlay play button
-overlayPlay.onclick=()=>{ loadEpisode(currentEpisode,true); overlayPlay.style.display='none'; };
 
 // Auto-resume
-const saved=JSON.parse(localStorage.getItem(storageKey));
-if(saved && serie.episodes[saved.episode]!==undefined) loadEpisode(saved.episode);
-else overlayPlay.style.display='block';
-
-// Auto-next
-player.on('ended',()=>{ const next=currentEpisode+1;if(serie.episodes[next]) loadEpisode(next,true); });
-
-// Save time
-player.on('timeupdate',()=>{ const c=JSON.parse(localStorage.getItem(storageKey))||{}; c.episode=currentEpisode; c.time=player.currentTime; localStorage.setItem(storageKey,JSON.stringify(c)); });
-
-// Episode overlay
-function updateEpisodeOverlay(){
-  episodeOverlay.innerHTML="";
-  serie.episodes.forEach((ep,i)=>{
-    const btn=document.createElement("button");
-    btn.textContent=ep.title;
-    if(i===currentEpisode) btn.classList.add("active");
-    btn.onclick=()=>{ loadEpisode(i,true); };
-    episodeOverlay.appendChild(btn);
-  });
+const saved = JSON.parse(localStorage.getItem(storageKey));
+if (saved && serie.episodes[saved.episode]) {
+  loadEpisode(saved.episode);
+  player.currentTime = saved.time || 0;
 }
 
-// Buttons below
-watchNowBtn.onclick=()=>{ loadEpisode(saved?.episode||0,true); overlayPlay.style.display='none'; };
-let episodesVisible=true;
-toggleEpisodesBtn.onclick=()=>{ episodesVisible=!episodesVisible; episodeOverlay.style.display=episodesVisible?'flex':'none'; };
-shareBtn.onclick=()=>{
-  const text=encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
-  window.open(`https://api.whatsapp.com/send?text=${text}`,'_blank');
-};
-
-// Dummy PIN
-function userHasActivePIN(){ return window.ACTIVE_PIN===true; }
-
-// Comments
-const usernameInput=document.getElementById("usernameInput");
-const commentInput=document.getElementById("commentInput");
-const commentBtnEl=document.getElementById("commentBtn");
-const commentsList=document.getElementById("commentsList");
-const savedUsername=localStorage.getItem("username");
-if(savedUsername) usernameInput.value=savedUsername;
-const commentsRef=db.ref("comments/"+seriesId);
-commentBtnEl.onclick=function(){
-  const user=usernameInput.value.trim().slice(0,20);
-  const text=commentInput.value.trim().slice(0,300);
-  if(!user||!text) return;
-  localStorage.setItem("username",user);
-  commentsRef.push({user:user,text:text,timestamp:firebase.database.ServerValue.TIMESTAMP});
-  commentInput.value="";
-};
-commentsRef.limitToLast(100).on("value",snap=>{
-  commentsList.innerHTML="";
-  let arr=[];
-  snap.forEach(c=>{ arr.push({data:c.val(),ref:c.ref}); });
-  arr.sort((a,b)=>b.data.timestamp-b.data.timestamp);
-  arr.forEach(c=>{
-    const div=document.createElement("div");
-    div.className="comment"; div.style.position="relative";
-    div.innerHTML=`<strong>${c.data.user}</strong>: ${c.data.text} <span style="float:right; color:#888; font-size:12px;">${new Date(c.data.timestamp).toLocaleString()}</span>`;
-    if(localStorage.getItem("activePIN")==="Orion196"){
-      const b=document.createElement("button");
-      b.textContent="🗑"; b.style.position="absolute"; b.style.right="6px"; b.style.top="6px";
-      b.style.background="#e50914"; b.style.color="#fff"; b.style.border="none"; b.style.borderRadius="3px"; b.style.padding="2px 6px"; b.style.cursor="pointer";
-      b.onclick=function(){ c.ref.remove(); };
-      div.appendChild(b);
-    }
-    commentsList.appendChild(div);
-  });
+// Save playback time
+player.on('timeupdate', () => {
+  const current = JSON.parse(localStorage.getItem(storageKey)) || {};
+  current.time = player.currentTime;
+  localStorage.setItem(storageKey, JSON.stringify(current));
 });
-</script>
 
+// Auto-next
+player.on('ended', () => {
+  const next = currentEpisode + 1;
+  if (serie.episodes[next]) loadEpisode(next);
+});
+
+// Watch Now button
+watchNowBtn.onclick = () => {
+  const startEp = saved?.episode || 0;
+  loadEpisode(startEp, true);
+};
+
+// Next / Previous buttons
+nextEpisodeBtn.onclick = () => {
+  const next = currentEpisode + 1;
+  if (serie.episodes[next]) loadEpisode(next, true);
+};
+prevEpisodeBtn.onclick = () => {
+  const prev = currentEpisode - 1;
+  if (serie.episodes[prev]) loadEpisode(prev, true);
+};
+
+// Toggle episodes
+let episodesVisible = true;
+toggleEpisodesBtn.onclick = () => {
+  episodesVisible = !episodesVisible;
+  episodesContainer.style.display = episodesVisible ? "block" : "none";
+};
+
+// Share WhatsApp
+shareBtn.onclick = () => {
+  const text = encodeURIComponent(
+    `${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`
+  );
+  window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+};
+
+// Dummy auth checker (like original)
+function userHasActivePIN() {
+  return window.ACTIVE_PIN === true;
+}
+
+/* ===============================
+   COMMENTS
+================================ */
+submitComment.onclick = () => {
+  const val = commentInput.value.trim();
+  if (!val) return;
+  const div = document.createElement("div");
+  div.textContent = val;
+  commentList.appendChild(div);
+  commentInput.value = "";
+};
+</script>
 </body>
 </html>
