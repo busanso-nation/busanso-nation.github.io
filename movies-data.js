@@ -12,8 +12,8 @@ const MOVIES = [
   },
    {
     id: "raks2ahshak",
-    title: "RAKSHA KARANA",
-    poster: "https://m.media-amazon.com/images/M/MV5BODEzZWNlODMtZDc0MC00N2M1LThkYWYtNGRkZDk2NWM5MjhkXkEyXkFqcGc@._V1_.jpg",
+    title: "RAKSHA KARANA 2",
+    poster: "https://stat4.bollywoodhungama.in/wp-content/uploads/2019/03/Kick-2.jpg",
     video: "https://www.youtube.com/embed/w1Aczw0YWsk",
     type: "premium",
     year: "2026",
