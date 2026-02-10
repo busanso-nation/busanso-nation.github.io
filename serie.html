@@ -17,53 +17,28 @@
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #000;
-  color: #fff;
-}
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 12px;
-}
-.player-area { width: 100%; }
-#player { width: 100%; height: 560px; background: #000; }
+body { margin:0; font-family:Arial,sans-serif; background:#000; color:#fff; }
+.container { max-width:1000px; margin:0 auto; padding:12px; }
+.player-area { width:100%; }
+#player { width:100%; height:560px; background:#000; border-radius:10px; }
 
 /* Buttons styling */
-button {
-  padding: 14px 20px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  margin: 6px 6px 6px 0;
-  border-radius: 6px;
-  transition: 0.2s;
-}
-button:hover { opacity: 0.85; }
-button.primary { background: #e50914; color: #fff; }
-button.secondary { background: #333; color: #fff; }
-button.nav { background: #1db954; color: #fff; }
+button { padding:14px 20px; font-size:16px; border:none; cursor:pointer; margin:6px 6px 6px 0; border-radius:6px; transition:0.2s; }
+button:hover { opacity:0.85; }
+button.primary { background:#e50914; color:#fff; }
+button.secondary { background:#333; color:#fff; }
+button.nav { background:#1db954; color:#fff; }
 
 /* Episode buttons */
-#episodes button { display: block; width: 100%; margin: 4px 0; }
+#episodes button { display:block; width:100%; margin:4px 0; }
 
 /* Comment box */
-.comment-box { margin-top: 20px; }
-.comment-box input, .comment-box textarea {
-  font-size: 14px;
-  border-radius: 5px;
-  border: 1px solid #333;
-  background:#111;
-  color:#fff;
-  padding: 6px;
-  margin-bottom: 6px;
-}
-.comment-box button.primary { font-size: 16px; padding: 10px 18px; border-radius: 6px; }
-.comment { padding: 8px 6px; border-bottom: 1px solid #333; position: relative; }
+.comment-box { margin-top:20px; }
+.comment-box input, .comment-box textarea { font-size:14px; border-radius:5px; border:1px solid #333; background:#111; color:#fff; padding:6px; margin-bottom:6px; width:100%; }
+.comment-box button.primary { font-size:16px; padding:10px 18px; border-radius:6px; }
+.comment { padding:8px 6px; border-bottom:1px solid #333; position:relative; }
 .comment strong { color:#1db954; }
-.comment span { color:#888; font-size:12px; margin-left: 6px; }
+.comment span { color:#888; font-size:12px; margin-left:6px; }
 </style>
 </head>
 <body>
@@ -117,7 +92,6 @@ button.nav { background: #1db954; color: #fff; }
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-/* Firebase config */
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_AUTH_DOMAIN",
@@ -132,9 +106,6 @@ const db = firebase.database();
 </script>
 
 <script>
-/* ===============================
-   SERIES & PLAYER LOGIC
-================================ */
 const params = new URLSearchParams(location.search);
 const seriesId = params.get("id");
 const serie = SERIES.find(s => s.id === seriesId);
@@ -150,8 +121,8 @@ document.querySelector('meta[property="og:title"]').content = serie.title;
 document.querySelector('meta[property="og:description"]').content = serie.synopsis || "";
 document.querySelector('meta[property="og:image"]').content = serie.poster;
 
-/* Plyr player setup */
-const player = new Plyr('#player', { autoplay:false, controls:['play','progress','current-time','mute','volume','fullscreen'] });
+// Plyr setup
+const player = new Plyr('#player',{ autoplay:true, controls:['play','progress','current-time','mute','volume','fullscreen'] });
 const storageKey = `resume_${seriesId}`;
 let currentEpisode = 0;
 
@@ -167,29 +138,53 @@ serie.episodes.forEach((ep,index)=>{
 // Scroll to player
 function scrollToPlayer(){ document.getElementById('playerContainer').scrollIntoView({behavior:'smooth',block:'start'}); }
 
+// Normalize video URLs for Plyr
+function normalizeVideo(url){
+  url = url.trim();
+  if(url.includes("youtu.be") || url.includes("youtube.com")){
+    let id = "";
+    if(url.includes("youtu.be")) id = url.split("youtu.be/")[1].split(/[?&]/)[0];
+    else if(url.includes("/shorts/")) id = url.split("/shorts/")[1].split(/[?&]/)[0];
+    else id = new URL(url).searchParams.get("v");
+    return { type:'youtube', source:id };
+  }
+  if(url.includes("vimeo.com")) return { type:'vimeo', source:url.split("/").pop() };
+  if(url.includes("drive.google.com")){
+    let fileId = url.split("/d/")[1]?.split("/")[0];
+    if(fileId) return { type:'mp4', source:`https://drive.google.com/uc?export=download&id=${fileId}` };
+  }
+  return { type:'mp4', source:url };
+}
+
 // Load episode
 function loadEpisode(index,userAction=false){
-  const ep = serie.episodes[index]; currentEpisode=index;
-  if(ep.video.includes("youtube")||ep.video.includes("youtu.be")){
-    player.source={type:'video',sources:[{src:ep.video,provider:'youtube'}]};
-  } else if(ep.video.includes("vimeo")){
-    player.source={type:'video',sources:[{src:ep.video,provider:'vimeo'}]};
-  } else {
-    player.source={type:'video',sources:[{src:ep.video,type:'video/mp4'}]};
-  }
-  localStorage.setItem(storageKey,JSON.stringify({episode:index,time:0}));
+  const ep = serie.episodes[index];
+  currentEpisode=index;
+  const v = normalizeVideo(ep.video);
+  let source;
+  if(v.type==='youtube') source={type:'video',sources:[{src:v.source,provider:'youtube'}]};
+  else if(v.type==='vimeo') source={type:'video',sources:[{src:v.source,provider:'vimeo'}]};
+  else source={type:'video',sources:[{src:v.source,type:'video/mp4'}]};
+  
+  player.source = source;
+
+  const saved = JSON.parse(localStorage.getItem(storageKey))||{};
+  if(saved.episode===index && saved.time) player.currentTime=saved.time;
+
   if(userAction && userHasActivePIN()) player.fullscreen.enter();
   player.play();
+  localStorage.setItem(storageKey,JSON.stringify({episode:index,time:player.currentTime}));
 }
 
 // Auto-resume
 const saved = JSON.parse(localStorage.getItem(storageKey));
-if(saved && serie.episodes[saved.episode]){ loadEpisode(saved.episode); player.currentTime=saved.time||0; }
+if(saved && serie.episodes[saved.episode]) loadEpisode(saved.episode);
 
 // Save playback time
 player.on('timeupdate',()=>{ 
-  const current=JSON.parse(localStorage.getItem(storageKey))||{}; 
-  current.time=player.currentTime; 
+  const current=JSON.parse(localStorage.getItem(storageKey))||{};
+  current.episode=currentEpisode;
+  current.time=player.currentTime;
   localStorage.setItem(storageKey,JSON.stringify(current));
 });
 
@@ -214,22 +209,15 @@ window.open(`https://api.whatsapp.com/send?text=${text}`,'_blank'); };
 // Dummy auth
 function userHasActivePIN(){ return window.ACTIVE_PIN===true; }
 
-/* ===============================
-   COMMENT LOGIC (Firebase)
-================================ */
+// Comments (Firebase)
 const usernameInput=document.getElementById("usernameInput");
 const commentInput=document.getElementById("commentInput");
 const commentBtnEl=document.getElementById("commentBtn");
 const commentsList=document.getElementById("commentsList");
-
-// Load saved username
 const savedUsername=localStorage.getItem("username");
 if(savedUsername) usernameInput.value=savedUsername;
-
-// Firebase ref per series
 const commentsRef=db.ref("comments/"+seriesId);
 
-// Submit comment
 commentBtnEl.onclick=function(){
   var user=usernameInput.value.trim().slice(0,20);
   var text=commentInput.value.trim().slice(0,300);
@@ -239,7 +227,6 @@ commentBtnEl.onclick=function(){
   commentInput.value="";
 };
 
-// Load last 100 comments, newest first
 commentsRef.limitToLast(100).on("value",function(snap){
   commentsList.innerHTML="";
   var arr=[];
