@@ -5,25 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Watch Series</title>
 
-<!-- OpenGraph -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="BUSANSO NATION">
-<meta property="og:title" content="">
-<meta property="og:description" content="">
-<meta property="og:image" content="">
-<meta property="og:url" content="https://bit.ly/busanso">
-
 <!-- Plyr CSS -->
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
 <style>
 body { margin:0; font-family:Arial,sans-serif; background:#000; color:#fff; }
-.container { max-width:1000px; margin:0 auto; padding:12px; }
-.player-area { width:100%; }
-#player { width:100%; height:560px; background:#000; border-radius:10px; }
+.container { max-width:1200px; margin:0 auto; padding:12px; }
+.player-area { width:100%; position:relative; padding-top:56.25%; } /* 16:9 aspect */
+#player { position:absolute; top:0; left:0; width:100%; height:100%; }
 
-/* Buttons styling */
-button { padding:14px 20px; font-size:16px; border:none; cursor:pointer; margin:6px 6px 6px 0; border-radius:6px; transition:0.2s; }
+/* Buttons */
+button { padding:12px 18px; font-size:16px; border:none; cursor:pointer; margin:6px 6px 6px 0; border-radius:6px; transition:0.2s; }
 button:hover { opacity:0.85; }
 button.primary { background:#e50914; color:#fff; }
 button.secondary { background:#333; color:#fff; }
@@ -32,7 +24,7 @@ button.nav { background:#1db954; color:#fff; }
 /* Episode buttons */
 #episodes button { display:block; width:100%; margin:4px 0; }
 
-/* Comment box */
+/* Comments */
 .comment-box { margin-top:20px; }
 .comment-box input, .comment-box textarea { font-size:14px; border-radius:5px; border:1px solid #333; background:#111; color:#fff; padding:6px; margin-bottom:6px; width:100%; }
 .comment-box button.primary { font-size:16px; padding:10px 18px; border-radius:6px; }
@@ -45,18 +37,18 @@ button.nav { background:#1db954; color:#fff; }
 
 <div class="container">
 
-  <!-- PLAYER AREA -->
-  <div class="player-area" id="playerContainer">
-    <video id="player" controls crossorigin></video>
+  <!-- PLAYER -->
+  <div class="player-area">
+    <div id="player"></div>
   </div>
 
-  <!-- Next / Previous episode buttons -->
+  <!-- Navigation -->
   <div class="nav-episodes">
     <button id="prevEpisodeBtn" class="nav">⏮ Previous Episode</button>
     <button id="nextEpisodeBtn" class="nav">⏭ Next Episode</button>
   </div>
 
-  <!-- SERIES INFO & CONTROLS BELOW -->
+  <!-- Info & Controls -->
   <h2 id="seriesTitle"></h2>
   <p id="seriesMeta"></p>
   <p id="seriesSynopsis"></p>
@@ -64,10 +56,9 @@ button.nav { background:#1db954; color:#fff; }
   <button id="watchNowBtn" class="primary">▶ Watch Now</button>
   <button id="toggleEpisodesBtn" class="secondary">Show/Hide Episodes</button>
   <button id="shareBtn" class="secondary">📤 Share WhatsApp</button>
-
   <div id="episodes"></div>
 
-  <!-- Comment Section -->
+  <!-- Comments -->
   <div class="comment-box">
     <input id="usernameInput" placeholder="Your nickname">
     <textarea id="commentInput" placeholder="Add a comment..."></textarea>
@@ -77,22 +68,18 @@ button.nav { background:#1db954; color:#fff; }
 
 </div>
 
-<!-- Series Data -->
-<script src="series-data.js"></script>
-
-<!-- Ads & Auth / PIN Logic -->
-<script src="auth.js"></script>
-<script src="pins.js"></script>
-<script src="ads.js"></script>
-
-<!-- Plyr -->
+<!-- Plyr JS -->
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
+<!-- Series Data -->
+<script src="series-data.js"></script>
+
 <script>
+// ==== Firebase Config ====
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_AUTH_DOMAIN",
@@ -104,31 +91,27 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-</script>
 
-<script>
+// ==== Plyr Initialization ====
+const player = new Plyr('#player', {
+  autoplay:true,
+  controls:['play','progress','current-time','mute','volume','fullscreen'],
+  fullscreen:{enabled:true, fallback:true}
+});
+
+// ==== Series Setup ====
 const params = new URLSearchParams(location.search);
 const seriesId = params.get("id");
 const serie = SERIES.find(s => s.id === seriesId);
-if (!serie) location.replace("series.html");
+if(!serie) location.replace("series.html");
 
-// Populate text
 seriesTitle.textContent = serie.title;
 seriesMeta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
 seriesSynopsis.textContent = serie.synopsis || "";
 
-// OG tags
-document.querySelector('meta[property="og:title"]').content = serie.title;
-document.querySelector('meta[property="og:description"]').content = serie.synopsis || "";
-document.querySelector('meta[property="og:image"]').content = serie.poster;
-
-// Plyr setup
-const player = new Plyr('#player',{ autoplay:true, controls:['play','progress','current-time','mute','volume','fullscreen'] });
-const storageKey = `resume_${seriesId}`;
-let currentEpisode = 0;
-
-// Episode buttons
+// Episodes
 const episodesContainer = document.getElementById('episodes');
+let currentEpisode = 0;
 serie.episodes.forEach((ep,index)=>{
   const btn = document.createElement("button");
   btn.textContent = ep.title;
@@ -136,15 +119,15 @@ serie.episodes.forEach((ep,index)=>{
   episodesContainer.appendChild(btn);
 });
 
-// Scroll to player
-function scrollToPlayer(){ document.getElementById('playerContainer').scrollIntoView({behavior:'smooth',block:'start'}); }
+// Scroll
+function scrollToPlayer(){ document.querySelector('.player-area').scrollIntoView({behavior:'smooth',block:'start'}); }
 
-// Normalize video URLs (YouTube, Vimeo, Google Drive)
+// ==== Video URL Normalizer ====
 function normalizeVideo(url){
   url = url.trim();
 
-  // YouTube variations
-  if(url.includes("youtu.be") || url.includes("youtube.com")){
+  // YouTube
+  if(url.includes("youtube.com") || url.includes("youtu.be")){
     let id="";
     try{
       if(url.includes("youtu.be")) id = url.split("youtu.be/")[1].split(/[?&]/)[0];
@@ -152,50 +135,52 @@ function normalizeVideo(url){
       else if(url.includes("/embed/")) id = url.split("/embed/")[1].split(/[?&]/)[0];
       else id = new URL(url).searchParams.get("v");
     } catch(e){}
-    if(id) return { type:'youtube', source:id };
+    if(id) return {type:'youtube', source:id};
   }
 
   // Vimeo
   if(url.includes("vimeo.com")){
-    const vid = url.split("/").filter(Boolean).pop();
-    if(vid) return { type:'vimeo', source:vid };
+    const id = url.split("/").filter(Boolean).pop();
+    if(id) return {type:'vimeo', source:id};
   }
 
-  // Google Drive variations
+  // Google Drive
   if(url.includes("drive.google.com")){
     const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
     if(match && match[1]){
-      return { type:'mp4', source:`https://drive.google.com/uc?export=media&id=${match[1]}` };
+      return {type:'mp4', source:`https://drive.google.com/uc?export=media&id=${match[1]}`};
     }
   }
 
-  // Default MP4
-  return { type:'mp4', source:url };
+  // Default
+  return {type:'mp4', source:url};
 }
 
-// Load episode
+// ==== Load Episode ====
+const storageKey = `resume_${seriesId}`;
+
 function loadEpisode(index,userAction=false){
   const ep = serie.episodes[index];
   currentEpisode=index;
-  const v = normalizeVideo(ep.video);
 
+  const v = normalizeVideo(ep.video);
   let source;
-  if(v.type==='youtube') source={type:'video',sources:[{src:v.source,provider:'youtube'}]};
-  else if(v.type==='vimeo') source={type:'video',sources:[{src:v.source,provider:'vimeo'}]};
+  if(v.type==='youtube') source={type:'youtube',sources:[{src:v.source,provider:'youtube'}]};
+  else if(v.type==='vimeo') source={type:'vimeo',sources:[{src:v.source,provider:'vimeo'}]};
   else source={type:'video',sources:[{src:v.source,type:'video/mp4'}]};
 
   player.source = source;
 
   const saved = JSON.parse(localStorage.getItem(storageKey))||{};
-  if(saved.episode===index && saved.time) player.currentTime=saved.time;
+  if(saved.episode===index && saved.time) player.currentTime = saved.time;
 
   if(userAction && userHasActivePIN()) player.fullscreen.enter();
   player.play();
 
-  localStorage.setItem(storageKey,JSON.stringify({episode:index,time:player.currentTime}));
+  localStorage.setItem(storageKey, JSON.stringify({episode:index,time:player.currentTime}));
 }
 
-// Auto-resume last episode + timestamp
+// ==== Auto-resume ====
 const saved = JSON.parse(localStorage.getItem(storageKey));
 if(saved && serie.episodes[saved.episode] !== undefined){
   loadEpisode(saved.episode);
@@ -203,38 +188,32 @@ if(saved && serie.episodes[saved.episode] !== undefined){
   loadEpisode(0);
 }
 
-// Save playback time
-player.on('timeupdate',()=>{ 
-  const current=JSON.parse(localStorage.getItem(storageKey))||{};
-  current.episode=currentEpisode;
-  current.time=player.currentTime;
-  localStorage.setItem(storageKey,JSON.stringify(current));
+// ==== Save Time ====
+player.on('timeupdate',()=>{
+  const current = JSON.parse(localStorage.getItem(storageKey))||{};
+  current.episode = currentEpisode;
+  current.time = player.currentTime;
+  localStorage.setItem(storageKey, JSON.stringify(current));
 });
 
-// Auto-next
+// ==== Auto-next ====
 player.on('ended',()=>{ const next=currentEpisode+1; if(serie.episodes[next]) loadEpisode(next); });
 
-// Watch Now
-watchNowBtn.onclick=()=>{ const startEp=saved?.episode||0; loadEpisode(startEp,true); scrollToPlayer(); };
-
-// Next/Previous
-nextEpisodeBtn.onclick=()=>{ const next=currentEpisode+1; if(serie.episodes[next]){ loadEpisode(next,true); scrollToPlayer(); } };
-prevEpisodeBtn.onclick=()=>{ const prev=currentEpisode-1; if(serie.episodes[prev]){ loadEpisode(prev,true); scrollToPlayer(); } };
-
-// Toggle episodes
+// ==== Controls ====
+watchNowBtn.onclick=()=>{ loadEpisode(saved?.episode||0,true); scrollToPlayer(); };
+nextEpisodeBtn.onclick=()=>{ const next=currentEpisode+1; if(serie.episodes[next]) loadEpisode(next,true); scrollToPlayer(); };
+prevEpisodeBtn.onclick=()=>{ const prev=currentEpisode-1; if(serie.episodes[prev]) loadEpisode(prev,true); scrollToPlayer(); };
 let episodesVisible=true;
 toggleEpisodesBtn.onclick=()=>{ episodesVisible=!episodesVisible; episodesContainer.style.display=episodesVisible?'block':'none'; };
-
-// Share WhatsApp
 shareBtn.onclick=()=>{
   const text=encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
   window.open(`https://api.whatsapp.com/send?text=${text}`,'_blank');
 };
 
-// Dummy auth
+// ==== Dummy Auth ====
 function userHasActivePIN(){ return window.ACTIVE_PIN===true; }
 
-// Comments (Firebase)
+// ==== Comments ====
 const usernameInput=document.getElementById("usernameInput");
 const commentInput=document.getElementById("commentInput");
 const commentBtnEl=document.getElementById("commentBtn");
