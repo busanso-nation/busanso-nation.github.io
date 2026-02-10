@@ -1,4 +1,26 @@
 const MOVIES = [
+    {
+    id: "raksahshak",
+    title: "RAKSHA KARANA",
+    poster: "https://m.media-amazon.com/images/M/MV5BODEzZWNlODMtZDc0MC00N2M1LThkYWYtNGRkZDk2NWM5MjhkXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/7XernuMVSIg",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m",
+    synopsis: "He is simple and polite, but he is the kind of person who can't tolerate nonsense."
+  },
+   {
+    id: "raks2ahshak",
+    title: "RAKSHA KARANA",
+    poster: "https://m.media-amazon.com/images/M/MV5BODEzZWNlODMtZDc0MC00N2M1LThkYWYtNGRkZDk2NWM5MjhkXkEyXkFqcGc@._V1_.jpg",
+    video: "https://www.youtube.com/embed/w1Aczw0YWsk",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m",
+    synopsis: "He is simple and polite, but he is the kind of person who can't tolerate nonsense."
+  },
   {
     id: "poly",
     title: "POLY",
