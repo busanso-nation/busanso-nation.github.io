@@ -13,8 +13,8 @@
 <meta property="og:image" content="">
 <meta property="og:url" content="https://bit.ly/busanso">
 
-<!-- Plyr -->
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
+<!-- Video.js -->
+<link href="https://vjs.zencdn.net/8.11.2/video-js.css" rel="stylesheet">
 
 <style>
 body {
@@ -38,7 +38,7 @@ body {
   background: #000;
 }
 
-#player {
+.video-js {
   width: 100%;
   height: 100%;
 }
@@ -81,7 +81,13 @@ button {
 
   <!-- PLAYER -->
   <div class="player-wrapper">
-    <video id="player" playsinline controls></video>
+    <video
+      id="player"
+      class="video-js vjs-big-play-centered"
+      controls
+      playsinline
+      preload="auto">
+    </video>
   </div>
 
   <!-- NAV -->
@@ -114,8 +120,9 @@ button {
 <script src="pins.js"></script>
 <script src="ads.js"></script>
 
-<!-- Plyr -->
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<!-- Video.js -->
+<script src="https://vjs.zencdn.net/8.11.2/video.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/videojs-youtube/dist/videojs-youtube.min.js"></script>
 
 <script>
 /* ===============================
@@ -135,14 +142,13 @@ document.querySelector('meta[property="og:description"]').content = serie.synops
 document.querySelector('meta[property="og:image"]').content = serie.poster;
 
 /* ===============================
-   PLYR INIT
+   VIDEO.JS INIT
 ================================ */
-const player = new Plyr('#player', {
+const player = videojs("player", {
+  techOrder: ["html5", "youtube"],
   autoplay: false,
-  fullscreen: { enabled: true },
-  controls: [
-    'play','progress','current-time','mute','volume','fullscreen'
-  ]
+  controls: true,
+  fluid: true
 });
 
 /* ===============================
@@ -151,28 +157,25 @@ const player = new Plyr('#player', {
 function normalizeVideo(url) {
   if (!url) return null;
 
-  // YouTube
-  if (url.includes("youtube.com") || url.includes("youtu.be")) {
-    return { provider: 'youtube', src: url };
+  // YouTube (watch / embed / youtu.be)
+  if (/youtu\.?be/.test(url)) {
+    return { src: url, type: "video/youtube" };
   }
 
-  // Vimeo
-  if (url.includes("vimeo.com")) {
-    return { provider: 'vimeo', src: url };
-  }
-
-  // Google Drive
+  // Google Drive (view / preview / open / uc)
   if (url.includes("drive.google.com")) {
-    const match = url.match(/\/d\/([^/]+)/) || url.match(/id=([^&]+)/);
-    if (!match) return null;
+    const id =
+      (url.match(/\/d\/([^/]+)/) || url.match(/id=([^&]+)/))?.[1];
+    if (!id) return null;
+
     return {
-      provider: 'html5',
-      src: `https://drive.google.com/file/d/${match[1]}/preview`
+      src: `https://drive.google.com/uc?export=download&id=${id}`,
+      type: "video/mp4"
     };
   }
 
   // Direct MP4
-  return { provider: 'html5', src: url };
+  return { src: url, type: "video/mp4" };
 }
 
 /* ===============================
@@ -196,13 +199,8 @@ function loadEpisode(index, userAction=false) {
 
   currentEpisode = index;
 
-  player.source = {
-    type: 'video',
-    sources: [{
-      src: video.src,
-      provider: video.provider
-    }]
-  };
+  player.src(video);
+  player.load();
 
   localStorage.setItem(storageKey, JSON.stringify({
     episode: index,
@@ -210,7 +208,7 @@ function loadEpisode(index, userAction=false) {
   }));
 
   if (userAction && userHasActivePIN()) {
-    player.fullscreen.enter();
+    player.requestFullscreen();
   }
 
   player.play().catch(()=>{});
@@ -222,18 +220,18 @@ function loadEpisode(index, userAction=false) {
 const saved = JSON.parse(localStorage.getItem(storageKey));
 if (saved && serie.episodes[saved.episode]) {
   loadEpisode(saved.episode);
-  player.once('loadedmetadata', () => {
-    player.currentTime = saved.time || 0;
+  player.one("loadedmetadata", () => {
+    player.currentTime(saved.time || 0);
   });
 }
 
-player.on('timeupdate', () => {
+player.on("timeupdate", () => {
   const data = JSON.parse(localStorage.getItem(storageKey)) || {};
-  data.time = player.currentTime;
+  data.time = player.currentTime();
   localStorage.setItem(storageKey, JSON.stringify(data));
 });
 
-player.on('ended', () => {
+player.on("ended", () => {
   const next = currentEpisode + 1;
   if (serie.episodes[next]) loadEpisode(next);
 });
@@ -242,8 +240,10 @@ player.on('ended', () => {
    CONTROLS
 ================================ */
 watchNowBtn.onclick = () => loadEpisode(saved?.episode || 0, true);
-nextEpisodeBtn.onclick = () => serie.episodes[currentEpisode+1] && loadEpisode(currentEpisode+1,true);
-prevEpisodeBtn.onclick = () => serie.episodes[currentEpisode-1] && loadEpisode(currentEpisode-1,true);
+nextEpisodeBtn.onclick = () =>
+  serie.episodes[currentEpisode+1] && loadEpisode(currentEpisode+1,true);
+prevEpisodeBtn.onclick = () =>
+  serie.episodes[currentEpisode-1] && loadEpisode(currentEpisode-1,true);
 
 toggleEpisodesBtn.onclick = () => {
   episodesDiv.style.display =
