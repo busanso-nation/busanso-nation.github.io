@@ -1,183 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>BUSANSO – Movie Player</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOVIE PLAYER</title>
 
-<script src="movies-data.js"></script>
+  <!-- Plyr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@latest/dist/plyr.css" />
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f4f4f4;
+      text-align: center;
+    }
 
-<!-- Plyr CSS -->
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    .player-wrapper {
+      max-width: 800px;
+      margin: 0 auto 20px auto;
+    }
 
-<style>
-body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;padding:0}
-.player-container{width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;background:#000}
-.player{width:95vw;height:95vh;border-radius:10px;overflow:hidden}
-.details{max-width:900px;margin:16px auto;background:#111;padding:16px;border-radius:14px}
-.meta{color:#aaa;font-size:14px;margin-bottom:8px}
-.watch{background:#e50914;color:#fff;font-size:20px;padding:16px;width:100%;border:none;border-radius:14px;font-weight:bold;cursor:pointer;margin-bottom:10px}
-.share{background:#222;color:#fff;font-size:16px;padding:14px;width:100%;border:none;border-radius:14px;cursor:pointer}
-.share-options{display:none;margin-top:10px;gap:10px;flex-wrap:wrap;display:flex}
-.share-options button{flex:1;padding:12px;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
-.whatsapp{background:#25D366;color:#000}
-.imo{background:#00b2ff;color:#000}
-.tiktok{background:#000;color:#fff;border:1px solid #333}
-#commentsSection{max-width:900px;margin:20px auto;background:#111;padding:16px;border-radius:14px}
-#commentsList div{background:#222;padding:8px 10px;border-radius:8px;margin-bottom:6px;position:relative}
-#usernameInput,#commentInput{width:100%;padding:8px;border-radius:6px;background:#111;color:#fff;border:none;margin-bottom:6px}
-#commentBtn{padding:8px 16px;border:none;border-radius:8px;background:#e50914;color:#fff;font-weight:bold;cursor:pointer}
-</style>
+    .movie-info {
+      margin-bottom: 20px;
+    }
+
+    .movie-info p {
+      margin: 5px 0;
+    }
+
+    #movie-poster {
+      max-width: 200px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+    }
+
+    /* Fullscreen icon styling */
+    .plyr__control--fullscreen svg {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 2;
+      width: 24px;
+      height: 24px;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- Fullscreen Player -->
-<div class="player-container">
-  <video id="player" controls crossorigin></video>
-</div>
-
-<div class="details">
-  <h1 id="title"></h1>
-  <div class="meta" id="meta"></div>
-  <button class="watch" id="watchBtn">▶ Watch Movie</button>
-  <button class="share" id="shareBtn">🔗 Share Movie</button>
-  <div class="share-options" id="shareOptions">
-    <button class="whatsapp" id="shareWhatsapp">WhatsApp</button>
-    <button class="imo" id="shareImo">IMO</button>
-    <button class="tiktok" id="shareTiktok">TikTok</button>
+  <div class="movie-info">
+    <img id="movie-poster" src="" alt="Movie Poster" />
+    <h1 id="movie-title">Title</h1>
+    <p id="movie-synopsis">Synopsis</p>
+    <p><strong>Year:</strong> <span id="movie-year"></span></p>
+    <p><strong>Country:</strong> <span id="movie-country"></span></p>
+    <p><strong>Duration:</strong> <span id="movie-duration"></span></p>
   </div>
-  <p id="synopsis"></p>
-</div>
 
-<div id="commentsSection">
-  <h3>Comments</h3>
-  <input id="usernameInput" placeholder="Your nickname">
-  <div id="commentsList"></div>
-  <textarea id="commentInput" placeholder="Write your comment"></textarea>
-  <button id="commentBtn">Post Comment</button>
-</div>
+  <div class="player-wrapper">
+    <div id="player-container"></div>
+  </div>
 
-<!-- Plyr JS -->
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <!-- Plyr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/plyr@latest/dist/plyr.polyfilled.js"></script>
 
-<script>
-/* ===== FIREBASE ===== */
-const firebaseConfig = {
-  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
-  authDomain: "busanso-pins.firebaseapp.com",
-  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
-  projectId: "busanso-pins",
-  storageBucket: "busanso-pins.firebasestorage.app",
-  messagingSenderId: "137040014808",
-  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-};
-firebase.initializeApp(firebaseConfig);
+  <!-- Movies Data -->
+  <script src="movies-data.js"></script>
 
-/* ===== LOAD MOVIE ===== */
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-const movie = MOVIES.find(m => m.id === id);
-if(!movie) location.replace("movies.html");
+  <script>
+    // Pick the first movie for demo; you can change the index or make dynamic later
+    const movie = movies[0];
 
-/* ===== POPULATE INFO ===== */
-document.getElementById("title").textContent = movie.title;
-document.getElementById("meta").textContent = movie.country + " • " + movie.year;
-document.getElementById("synopsis").textContent = movie.synopsis || "";
+    // Update movie info
+    document.getElementById('movie-title').textContent = movie.title;
+    document.getElementById('movie-synopsis').textContent = movie.synopsis;
+    document.getElementById('movie-year').textContent = movie.year;
+    document.getElementById('movie-country').textContent = movie.country;
+    document.getElementById('movie-duration').textContent = movie.duration;
+    document.getElementById('movie-poster').src = movie.poster;
 
-/* ===== STORAGE KEY ===== */
-const storageKey = "resume_movie_" + movie.id;
+    // Inject YouTube iframe for Plyr
+    const playerContainer = document.getElementById('player-container');
+    playerContainer.innerHTML = `
+      <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="${extractYoutubeId(movie.video)}"></div>
+    `;
 
-/* ===== INITIALIZE PLYR ===== */
-const player = new Plyr('#player', { 
-  autoplay:true, 
-  controls:['play','progress','current-time','mute','volume','fullscreen'] 
-});
+    // Initialize Plyr
+    const player = new Plyr('#player', {
+      controls: [
+        'play-large',
+        'play',
+        'progress',
+        'current-time',
+        'mute',
+        'volume',
+        'fullscreen'
+      ]
+    });
 
-/* ===== VIDEO NORMALIZATION ===== */
-function normalizeVideo(url){
-  url = url.trim();
-  if(url.includes("youtu")) {
-    let id = url.split("v=")[1] || url.split("youtu.be/")[1] || url.split("/embed/")[1];
-    if(id) id = id.split("&")[0];
-    return {type:'youtube', source:id};
-  }
-  if(url.includes("vimeo")) return {type:'vimeo', source:url.split("/").pop()};
-  if(url.includes("drive.google.com")) {
-    let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-    if(match) return {type:'mp4', source:`https://drive.google.com/uc?export=media&id=${match[1]}`};
-  }
-  return {type:'mp4', source:url};
-}
-
-/* ===== LOAD MOVIE ===== */
-function loadMovie(userAction=false){
-  const v = normalizeVideo(movie.video);
-  if(v.type==='youtube') player.source = {type:'youtube', sources:[{src:v.source, provider:'youtube'}]};
-  else if(v.type==='vimeo') player.source = {type:'vimeo', sources:[{src:v.source, provider:'vimeo'}]};
-  else player.source = {type:'video', sources:[{src:v.source,type:'video/mp4'}]};
-
-  const saved = JSON.parse(localStorage.getItem(storageKey));
-  if(saved && saved.time) player.currentTime = saved.time;
-  if(userAction) player.fullscreen.enter();
-  player.play();
-}
-window.addEventListener('load',()=>loadMovie());
-
-/* ===== SAVE PROGRESS ===== */
-player.on('timeupdate',()=>localStorage.setItem(storageKey, JSON.stringify({time:player.currentTime})));
-
-/* ===== WATCH BUTTON ===== */
-document.getElementById("watchBtn").onclick = ()=>loadMovie(true);
-
-/* ===== SHARE ===== */
-const SHARE_URL = "https://busanso-nation.github.io/home.html";
-const shareText = `${movie.title}\n${movie.country} • ${movie.year}\n\n${movie.synopsis}\n\nWatch on BUSANSO:\n${SHARE_URL}`;
-document.getElementById("shareBtn").onclick = ()=>{ 
-  const so = document.getElementById("shareOptions");
-  so.style.display = so.style.display==='flex'?'none':'flex'; 
-};
-document.getElementById("shareWhatsapp").onclick = ()=>window.open("https://wa.me/?text="+encodeURIComponent(shareText));
-document.getElementById("shareImo").onclick = ()=>window.open("imo://chat?text="+encodeURIComponent(shareText));
-document.getElementById("shareTiktok").onclick = ()=>{ navigator.clipboard.writeText(shareText); alert("Copied! Paste it on TikTok"); };
-
-/* ===== COMMENTS ===== */
-const commentsRef = firebase.database().ref("comments/movies/" + movie.id);
-const savedName = localStorage.getItem("username");
-if(savedName) document.getElementById("usernameInput").value = savedName;
-
-document.getElementById("commentBtn").onclick = ()=>{
-  const user = document.getElementById("usernameInput").value.trim().slice(0,20);
-  const text = document.getElementById("commentInput").value.trim().slice(0,300);
-  if(!user||!text) return;
-  localStorage.setItem("username",user);
-  commentsRef.push({user,text,timestamp:firebase.database.ServerValue.TIMESTAMP});
-  document.getElementById("commentInput").value = "";
-};
-
-commentsRef.limitToLast(100).on("value", snap=>{
-  const list = document.getElementById("commentsList");
-  list.innerHTML = "";
-  const arr = [];
-  snap.forEach(c=>arr.push({data:c.val(), ref:c.ref}));
-  arr.sort((a,b)=>b.data.timestamp-b.data.timestamp);
-  arr.forEach(c=>{
-    const div = document.createElement("div");
-    div.innerHTML = `<strong>${c.data.user}</strong>: ${c.data.text}`;
-    if(localStorage.getItem("activePIN")==="Orion196"){
-      const b = document.createElement("button");
-      b.textContent="🗑"; b.style.position="absolute"; b.style.right="6px"; b.style.top="6px";
-      b.onclick = ()=>c.ref.remove();
-      div.appendChild(b);
+    // Replace fullscreen icon with a box
+    const fullscreenButton = document.querySelector('.plyr__control--fullscreen svg');
+    if (fullscreenButton) {
+      fullscreenButton.innerHTML = `<rect x="3" y="3" width="18" height="18" rx="0" ry="0" />`;
     }
-    list.appendChild(div);
-  });
-});
-</script>
+
+    // Helper: extract YouTube ID from embed URL
+    function extractYoutubeId(url) {
+      const parts = url.split('/');
+      return parts[parts.length - 1];
+    }
+  </script>
 
 </body>
 </html>
