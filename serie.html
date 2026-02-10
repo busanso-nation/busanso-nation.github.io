@@ -2,164 +2,227 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Series Player</title>
-<style>
-body { font-family: Arial,sans-serif; margin:0; background:#111; color:#fff; }
-#seriesInfo { max-width:900px; margin:20px auto; padding:10px; }
-#seriesTitle { font-size:24px; margin-bottom:5px; }
-#seriesDesc { font-size:16px; color:#ccc; margin-bottom:15px; }
-#playerContainer { display:none; background:#000; padding:15px; max-width:900px; margin:0 auto 20px; border-radius:8px; }
-#videoPlayer { width:100%; height:500px; border:none; border-radius:8px; }
-.controls { text-align:center; margin-top:10px; }
-.controls button { padding:8px 12px; margin:0 5px; background:#ff4444; border:none; border-radius:6px; cursor:pointer; color:#fff; }
-#episodeList { max-width:900px; margin:0 auto 20px; display:flex; flex-wrap:wrap; gap:10px; }
-#episodeList button { flex:1 1 30%; padding:8px; background:#222; border:none; border-radius:6px; color:#fff; cursor:pointer; }
-#episodeList button.active, #episodeList button:hover { background:#ff3b3b; }
-#seriesSelector { max-width:900px; margin:20px auto; display:flex; flex-wrap:wrap; gap:10px; }
-#seriesSelector button { flex:1 1 30%; padding:8px; background:#222; border:none; border-radius:6px; color:#fff; cursor:pointer; }
-#seriesSelector button:hover { background:#ff3b3b; }
-</style>
-</head>
-<body>
-
-<div id="seriesSelector"></div>
-
-<div id="seriesInfo">
-  <div id="seriesTitle"></div>
-  <div id="seriesDesc"></div>
-</div>
-
-<div id="playerContainer">
-  <iframe id="videoPlayer" allowfullscreen allow="autoplay; encrypted-media"></iframe>
-  <div class="controls">
-    <button id="prevBtn" style="display:none;">Previous Episode</button>
-    <button id="nextBtn" style="display:none;">Next Episode</button>
-  </div>
-</div>
-
-<div id="episodeList"></div>
+<title>BUSANSO – Series Player</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="series-data.js"></script>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
-let currentSeries = null;
-let currentEpisodeIndex = 0;
-let saveInterval;
+const firebaseConfig = {
+  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
+  authDomain: "busanso-pins.firebaseapp.com",
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
+  projectId: "busanso-pins",
+  storageBucket: "busanso-pins.firebasestorage.app",
+  messagingSenderId: "137040014808",
+  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
+};
+firebase.initializeApp(firebaseConfig);
+</script>
 
-// Populate series selector
-function initSeriesSelector() {
-  const selector = document.getElementById('seriesSelector');
-  seriesData.forEach((series, idx) => {
-    const btn = document.createElement('button');
-    btn.textContent = series.title;
-    btn.addEventListener('click', () => loadSeries(idx));
-    selector.appendChild(btn);
-  });
-}
+<style>
+body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; padding:16px; }
+.logo { text-align:center; margin-bottom:12px; }
+.logo img { max-height:50px; }
+.player { width:100%; max-width:800px; margin:0 auto; }
+.player iframe { width:100%; height:56vw; max-height:500px; border:none; }
+.player-nav { max-width:800px; margin:10px auto; display:flex; gap:10px; }
+.player-nav button { flex:1; padding:14px; font-size:16px; border:none; border-radius:10px; font-weight:bold; background:#222; color:#fff; cursor:pointer; }
+.player-nav button:disabled { opacity:0.5; cursor:not-allowed; }
+.details { max-width:800px; margin:16px auto; padding:16px; background:#111; border-radius:12px; }
+.meta { color:#aaa; font-size:14px; margin-bottom:8px; }
+.actions button { width:100%; padding:16px; margin-top:12px; font-size:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
+.watch { background:#e50914; color:#fff; font-size:18px; }
+.secondary { background:#222; color:#fff; margin-top:8px; }
+.episodes { display:grid; gap:8px; margin-top:10px; }
+.episode { background:#181818; padding:12px; border-radius:8px; cursor:pointer; }
+.episode.active { background:#e50914; font-weight:bold; }
+.cast span { background:#181818; padding:6px 10px; border-radius:20px; font-size:12px; margin:4px; display:inline-block; }
 
-// Load a series
-function loadSeries(index) {
-  currentSeries = seriesData[index];
-  currentEpisodeIndex = 0;
-  document.getElementById('seriesTitle').textContent = currentSeries.title;
-  document.getElementById('seriesDesc').textContent = currentSeries.description;
+/* COMMENTS */
+#commentsSection { max-width:800px; margin:20px auto; background:#111; padding:16px; border-radius:12px; }
+#commentsList div { margin-bottom:6px; padding:8px 10px; background:#222; border-radius:8px; position:relative; word-wrap:break-word; }
+#usernameInput, #commentInput { width:100%; padding:10px; border-radius:6px; background:#111; color:#fff; border:none; margin-top:6px; }
+#commentBtn { margin-top:8px; padding:10px 18px; border:none; border-radius:8px; background:#e50914; color:#fff; font-weight:bold; cursor:pointer; font-size:15px; }
+#commentMsg { margin-top:6px; font-size:14px; }
+</style>
+</head>
 
-  populateEpisodeList();
-  loadSavedEpisode();
-  toggleNavButtons();
-}
+<body>
 
-// Populate episode buttons
-function populateEpisodeList() {
-  const list = document.getElementById('episodeList');
-  list.innerHTML = '';
-  currentSeries.episodes.forEach((url, idx) => {
-    const btn = document.createElement('button');
-    btn.textContent = "Episode " + (idx+1);
-    btn.addEventListener('click', () => {
-      currentEpisodeIndex = idx;
-      playEpisode(url);
-      toggleNavButtons();
-    });
-    list.appendChild(btn);
-  });
-}
+<div class="logo">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
+</div>
 
-// Play episode
-function playEpisode(url, startTime=0) {
-  const player = document.getElementById('videoPlayer');
-  const container = document.getElementById('playerContainer');
+<div class="player" id="player"></div>
 
-  if(url.includes("youtube.com")) {
-    let videoId = url.includes("embed") ? url.split("/embed/")[1] : new URL(url).searchParams.get("v");
-    player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1&start=${startTime}`;
-  } else if(url.includes("vimeo.com")) {
-    let parts = url.split("/");
-    let videoId = parts.pop() || parts.pop();
-    player.src = `https://player.vimeo.com/video/${videoId}#t=${startTime}s`;
-  } else if(url.includes("drive.google.com")) {
-    player.src = url; // Only /preview links
-  } else {
-    player.src = url;
-  }
+<div class="player-nav">
+  <button id="prevBtn">? Previous</button>
+  <button id="nextBtn">Next ?</button>
+</div>
 
-  container.style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+<div class="details">
+  <h1 id="title"></h1>
+  <div class="meta" id="meta"></div>
+  <button class="watch" id="watchBtn">? Watch Now</button>
+  <button class="secondary" onclick="toggleEpisodes()">?? Episodes</button>
+  <p id="synopsis"></p>
+  <div class="cast" id="cast"></div>
+  <div class="episodes" id="episodeList" style="display:none"></div>
+</div>
 
-  updateActiveEpisode();
-  if(saveInterval) clearInterval(saveInterval);
-  saveInterval = setInterval(() => {
-    localStorage.setItem(currentSeries.title, JSON.stringify({
-      index: currentEpisodeIndex,
-      time: startTime
-    }));
-  }, 5000);
-}
+<div id="commentsSection">
+  <h3>Comments</h3>
+  <input id="usernameInput" placeholder="Enter your name">
+  <textarea id="commentInput" placeholder="Write your comment"></textarea>
+  <button id="commentBtn">Post Comment</button>
+  <div id="commentMsg"></div>
+  <div id="commentsList"></div>
+</div>
 
-// Load saved episode
-function loadSavedEpisode() {
-  const saved = JSON.parse(localStorage.getItem(currentSeries.title));
-  if(saved && saved.index < currentSeries.episodes.length){
-    currentEpisodeIndex = saved.index;
-    playEpisode(currentSeries.episodes[currentEpisodeIndex], saved.time);
-  } else {
-    playEpisode(currentSeries.episodes[currentEpisodeIndex]);
-  }
-}
+<script>
+// ===== DOM REFERENCES =====
+const title = document.getElementById("title");
+const meta = document.getElementById("meta");
+const synopsis = document.getElementById("synopsis");
+const cast = document.getElementById("cast");
+const player = document.getElementById("player");
+const watchBtn = document.getElementById("watchBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const episodeList = document.getElementById("episodeList");
+const commentBtn = document.getElementById("commentBtn");
 
-// Next/Prev buttons
-document.getElementById('nextBtn').addEventListener('click', () => {
-  if(currentEpisodeIndex < currentSeries.episodes.length -1){
-    currentEpisodeIndex++;
-    playEpisode(currentSeries.episodes[currentEpisodeIndex]);
-    toggleNavButtons();
-  }
+// ===== SERIES DATA =====
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+if(!id) location.replace("series-list.html");
+
+const serie = SERIES.find(s => s.id === id);
+if(!serie) location.replace("series-list.html");
+
+// Populate info
+title.textContent = serie.title;
+meta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
+synopsis.textContent = serie.synopsis || "";
+serie.cast?.forEach(c => {
+  const span = document.createElement("span");
+  span.textContent = c;
+  cast.appendChild(span);
 });
-document.getElementById('prevBtn').addEventListener('click', () => {
-  if(currentEpisodeIndex > 0){
-    currentEpisodeIndex--;
-    playEpisode(currentSeries.episodes[currentEpisodeIndex]);
-    toggleNavButtons();
-  }
+
+// Populate episodes
+serie.episodes.forEach((ep,i) => {
+  const div = document.createElement("div");
+  div.className = "episode";
+  div.textContent = `Episode ${i+1} • ${ep.title||""}`;
+  div.onclick = () => playEpisode(i);
+  episodeList.appendChild(div);
 });
 
-function toggleNavButtons() {
-  document.getElementById('nextBtn').style.display = currentEpisodeIndex < currentSeries.episodes.length -1 ? 'inline-block' : 'none';
-  document.getElementById('prevBtn').style.display = currentEpisodeIndex > 0 ? 'inline-block' : 'none';
-}
-
-function updateActiveEpisode() {
-  document.querySelectorAll('#episodeList button').forEach((btn, idx) => {
-    btn.classList.toggle('active', idx === currentEpisodeIndex);
-  });
-}
-
-// Initialize everything after page load
-window.addEventListener('DOMContentLoaded', () => {
-  initSeriesSelector();
-  if(seriesData.length > 0){
-    loadSeries(0); // Load first series automatically
+// ===== VIDEO NORMALIZATION =====
+function normalizeVideo(url){
+  try {
+    url = url.trim();
+    if(url.includes("youtube.com") || url.includes("youtu.be")) {
+      const ytId = url.includes("v=") ? new URL(url).searchParams.get("v") : url.split("/").pop();
+      return `https://www.youtube.com/embed/${ytId}`;
+    }
+    if(url.includes("vimeo.com")) {
+      const vimeoId = url.split("/").pop();
+      return `https://player.vimeo.com/video/${vimeoId}`;
+    }
+    if(url.includes("/d/")) {
+      const driveId = url.split("/d/")[1].split("/")[0];
+      return `https://drive.google.com/file/d/${driveId}/preview`;
+    }
+    return url;
+  } catch {
+    return url;
   }
+}
+
+// ===== EPISODE PLAYBACK =====
+let idx = 0;
+function playEpisode(i){
+  const ep = serie.episodes[i];
+  if(!ep) return;
+  player.innerHTML = `<iframe src="${normalizeVideo(ep.video)}" allowfullscreen></iframe>`;
+  idx = i;
+  document.querySelectorAll(".episode").forEach((el,j)=>el.classList.toggle("active", i===j));
+  prevBtn.disabled = i===0;
+  nextBtn.disabled = i===serie.episodes.length-1;
+  window.scrollTo({ top:0, behavior:"smooth" });
+}
+
+watchBtn.onclick = () => {
+  if (isFreeUser()) {
+    openAd();
+  }
+  playEpisode(0);
+  startAdTimer();
+};
+
+prevBtn.onclick = () => idx>0 && playEpisode(idx-1);
+nextBtn.onclick = () => idx<serie.episodes.length-1 && playEpisode(idx+1);
+
+function toggleEpisodes(){ 
+  episodeList.style.display = episodeList.style.display==="none" ? "grid" : "none"; 
+}
+
+// ===== COMMENTS LOGIC =====
+const commentsRef = firebase.database().ref("comments/series/"+serie.id);
+const usernameInput = document.getElementById("usernameInput");
+const commentInput = document.getElementById("commentInput");
+const commentMsg = document.getElementById("commentMsg");
+const commentsList = document.getElementById("commentsList");
+
+const savedName = localStorage.getItem("username");
+if(savedName) usernameInput.value = savedName;
+
+commentBtn.onclick = () => {
+  const name = usernameInput.value.trim();
+  const text = commentInput.value.trim();
+  if(name.length < 2 || name.length > 20){
+    commentMsg.style.color="#ffb400";
+    commentMsg.textContent="Nickname must be 2–20 characters";
+    return;
+  }
+  if(text.length < 2 || text.length > 300){
+    commentMsg.style.color="#ffb400";
+    commentMsg.textContent="Comment must be 2–300 characters";
+    return;
+  }
+  localStorage.setItem("username", name);
+  commentsRef.push({ user:name, text, timestamp:Date.now() });
+  commentInput.value="";
+  commentMsg.style.color="#00ff66";
+  commentMsg.textContent="Comment posted";
+};
+
+commentsRef.on("value", snap => {
+  commentsList.innerHTML="";
+  const commentsArray = [];
+  snap.forEach(c => commentsArray.push({...c.val(), ref:c.ref}));
+  commentsArray.sort((a,b) => b.timestamp - a.timestamp);
+  commentsArray.forEach(c => {
+    const div = document.createElement("div");
+    div.innerHTML=`<strong>${c.user}</strong>: ${c.text}`;
+    if(localStorage.getItem("activePIN")==="Orion196"){
+      const b = document.createElement("button");
+      b.textContent="??";
+      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none",borderRadius:"6px",padding:"2px 6px",cursor:"pointer"});
+      b.onclick = () => c.ref.remove();
+      div.appendChild(b);
+    }
+    commentsList.appendChild(div);
+  });
 });
 </script>
+
 </body>
 </html>
