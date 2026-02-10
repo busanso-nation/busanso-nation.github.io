@@ -215,15 +215,17 @@ body{
 
 <!-- STICKY FOOTER CATEGORIES -->
 <div class="footer-categories">
-  <button onclick="filterCountry('India')">India</button>
-  <button onclick="filterCountry('USA')">USA</button>
-    <button onclick="filterCountry('China')">China</button>
-  <button onclick="filterCountry('Korea')">Korea</button>
+  <button onclick="filterCountry('ALL', this)">ALL</button>
+  <button onclick="filterCountry('INDIA', this)">INDIA</button>
+  <button onclick="filterCountry('USA', this)">USA</button>
+  <button onclick="filterCountry('CHINA', this)">CHINA</button>
+  <button onclick="filterCountry('KOREA', this)">KOREA</button>
 </div>
 
 <script>
 const box=document.getElementById("list");
 const search=document.getElementById("search");
+let activeCountry = null;
 
 /* RENDER MOVIES */
 function render(data){
@@ -235,8 +237,7 @@ function render(data){
 
     const badge = m.type ? `<div class="badge ${m.type.toLowerCase()}">${m.type}</div>` : "";
 
-    c.innerHTML=`
-      ${badge}
+    c.innerHTML=`${badge}
       <img src="${m.poster}" alt="${m.title}">
       <div class="info">
         <div class="title">${m.title}</div>
@@ -259,12 +260,34 @@ if(typeof MOVIES!=="undefined"){
 /* SEARCH FILTER */
 search.oninput=()=>{
   const q=search.value.toLowerCase();
-  render(MOVIES.filter(m=>m.title.toLowerCase().includes(q)));
+  let filtered = MOVIES;
+  if(activeCountry){
+    filtered = filtered.filter(m=>m.country && m.country.toUpperCase()===activeCountry);
+  }
+  if(q) filtered = filtered.filter(m=>m.title.toLowerCase().includes(q));
+  render(filtered);
 };
 
 /* COUNTRY FILTER */
-function filterCountry(country){
-  render(MOVIES.filter(m => m.country && m.country.toUpperCase() === country));
+function filterCountry(country, btn){
+  if(country==='ALL'){
+    activeCountry = null;
+  } else {
+    activeCountry = country.toUpperCase();
+  }
+  highlightActive(btn);
+  let filtered = MOVIES;
+  if(activeCountry) filtered = MOVIES.filter(m=>m.country && m.country.toUpperCase()===activeCountry);
+  const q = search.value.toLowerCase();
+  if(q) filtered = filtered.filter(m=>m.title.toLowerCase().includes(q));
+  render(filtered);
+}
+
+/* HIGHLIGHT ACTIVE BUTTON */
+function highlightActive(btn){
+  const buttons = document.querySelectorAll(".footer-categories button");
+  buttons.forEach(b=>b.style.background="linear-gradient(45deg,#282828,#383838)");
+  btn.style.background="linear-gradient(45deg,#e50914,#ff416c)";
 }
 </script>
 
