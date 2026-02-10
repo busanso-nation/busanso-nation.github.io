@@ -1,120 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Movie Player</title>
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@latest/dist/plyr.css"/>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-      text-align: center;
-    }
-
-    #movie-poster {
-      max-width: 220px;
-      border-radius: 6px;
-      margin-bottom: 15px;
-    }
-
-    #watch-btn {
-      padding: 12px 26px;
-      font-size: 16px;
-      background: #e50914;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .player-wrapper {
-      max-width: 800px;
-      margin: 20px auto;
-      display: none;
-    }
-
-    .plyr__control--fullscreen svg {
-      fill: none;
-      stroke: #fff;
-      stroke-width: 2;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Details</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#f9f9f9; margin:0; padding:0;}
+  .container { max-width: 900px; margin: 20px auto; padding: 0 15px;}
+  .header { margin-bottom: 15px;}
+  .header h1 { font-size:28px; margin:5px 0;}
+  .header p { color:#555; font-size:14px; margin:2px 0;}
+  .flex { display:flex; flex-wrap:wrap; gap:20px;}
+  .poster { width:250px; flex-shrink:0; border-radius:10px; overflow:hidden; position:relative; cursor:pointer;}
+  .poster img { width:100%; border-radius:10px; object-fit:cover; transition: transform 0.3s; }
+  .poster:hover img { transform: scale(1.05); }
+  .play-overlay { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); 
+                  background: rgba(0,0,0,0.6); color:#fff; font-size:36px; padding:15px 25px; border-radius:50%; cursor:pointer; }
+  .details { flex:1; min-width:300px;}
+  .buttons { display:flex; gap:10px; margin:15px 0;}
+  .btn { flex:1; padding:12px 0; border:none; color:#fff; font-weight:bold; cursor:pointer; border-radius:5px; font-size:16px;}
+  .share-btn { background:#25d366; }
+  .share-btn:hover { background:#1da851; }
+  .player-container { width:100%; height:500px; border-radius:10px; background:#000; position:relative; margin-top:20px; opacity:0; transition: opacity 0.5s; }
+  iframe, video { width:100%; height:100%; border:none; border-radius:10px; }
+  .synopsis { color:#333; line-height:1.5; margin-top:10px;}
+</style>
 </head>
 <body>
 
-  <div id="movie-info">
-    <img id="movie-poster" />
-    <h1 id="movie-title"></h1>
-    <p id="movie-synopsis"></p>
-    <p><strong>Year:</strong> <span id="movie-year"></span></p>
-    <p><strong>Country:</strong> <span id="movie-country"></span></p>
-    <p><strong>Duration:</strong> <span id="movie-duration"></span></p>
+<div class="container">
 
-    <button id="watch-btn">▶ Watch Movie</button>
+  <div class="header">
+    <h1 id="movie-title">Movie Title</h1>
+    <p id="movie-meta">2023 • Action • India • 1h 05m</p>
   </div>
 
-  <div class="player-wrapper" id="player-wrapper">
-    <div id="player-container"></div>
+  <div class="flex">
+    <!-- Poster with overlay play button -->
+    <div class="poster" id="poster-container">
+      <img id="poster-img" src="" alt="Poster">
+      <div class="play-overlay" id="poster-play">▶</div>
+    </div>
+
+    <!-- Details -->
+    <div class="details">
+      <p class="synopsis" id="movie-synopsis"></p>
+
+      <div class="buttons">
+        <button class="btn share-btn" id="share-btn">Share</button>
+      </div>
+    </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/plyr@latest/dist/plyr.polyfilled.js"></script>
-  <script src="movies-data.js"></script>
+  <!-- Player appears here -->
+  <div class="player-container" id="player-container"></div>
 
-  <script>
-    if (typeof movies === "undefined") {
-      alert("movies-data.js not loaded or movies array missing!");
+</div>
+
+<!-- Load movie data -->
+<script src="movies-data.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const movieId = params.get('id');
+  const movie = movies.find(m => m.id === movieId) || movies[0];
+
+  // Populate page
+  document.getElementById('movie-title').textContent = movie.title;
+  document.getElementById('movie-meta').textContent = `${movie.year} • ${movie.type} • ${movie.country} • ${movie.duration}`;
+  document.getElementById('poster-img').src = movie.poster;
+  document.getElementById('movie-synopsis').textContent = movie.synopsis;
+
+  const posterContainer = document.getElementById('poster-container');
+  const playerContainer = document.getElementById('player-container');
+  const posterPlay = document.getElementById('poster-play');
+  const shareBtn = document.getElementById('share-btn');
+
+  // Convert Google Drive link to preview
+  function normalizeVideoUrl(url) {
+    if (url.includes("drive.google.com")) {
+      const match = url.match(/\/d\/(.*?)\//);
+      if (match) return `https://drive.google.com/file/d/${match[1]}/preview`;
     }
+    return url;
+  }
 
-    const params = new URLSearchParams(window.location.search);
-    const movieId = params.get("id");
+  // Create player iframe/video
+  function loadPlayer(url) {
+    url = normalizeVideoUrl(url);
+    let player;
+    if (url.includes('youtube.com')) {
+      player = document.createElement('iframe');
+      player.src = url + "?autoplay=1&controls=1&modestbranding=1&rel=0&showinfo=0";
+      player.allow = "autoplay; encrypted-media";
+    } else if (url.includes('vimeo.com')) {
+      player = document.createElement('iframe');
+      player.src = url + "?autoplay=1&title=0&byline=0&portrait=0";
+      player.allow = "autoplay; fullscreen";
+    } else {
+      player = document.createElement('iframe'); // Google Drive preview
+      player.src = url;
+      player.allow = "autoplay; fullscreen";
+    }
+    player.width = "100%";
+    player.height = "100%";
+    return player;
+  }
 
-    const movie = movies.find(m => m.id === movieId) || movies[0];
+  // Play movie on click
+  function playMovie() {
+    posterContainer.style.display = 'none';
+    playerContainer.style.display = 'block';
+    const player = loadPlayer(movie.video);
+    playerContainer.appendChild(player);
+    setTimeout(() => playerContainer.style.opacity = 1, 50); // fade-in
+  }
 
-    // Fill UI
-    document.getElementById("movie-title").textContent = movie.title;
-    document.getElementById("movie-synopsis").textContent = movie.synopsis;
-    document.getElementById("movie-year").textContent = movie.year;
-    document.getElementById("movie-country").textContent = movie.country;
-    document.getElementById("movie-duration").textContent = movie.duration;
-    document.getElementById("movie-poster").src = movie.poster;
+  posterPlay.addEventListener('click', playMovie);
+  posterContainer.addEventListener('click', playMovie);
 
-    document.getElementById("watch-btn").onclick = () => {
-      document.getElementById("movie-info").style.display = "none";
-      document.getElementById("player-wrapper").style.display = "block";
-
-      const videoId = movie.video.split("/").pop();
-
-      document.getElementById("player-container").innerHTML = `
-        <div id="player"
-          data-plyr-provider="youtube"
-          data-plyr-embed-id="${videoId}">
-        </div>
-      `;
-
-      const player = new Plyr("#player", {
-        controls: [
-          "play-large",
-          "play",
-          "progress",
-          "current-time",
-          "mute",
-          "volume",
-          "fullscreen"
-        ]
-      });
-
-      setTimeout(() => {
-        const icon = document.querySelector(".plyr__control--fullscreen svg");
-        if (icon) {
-          icon.innerHTML = '<rect x="3" y="3" width="18" height="18"/>';
-        }
-      }, 300);
-    };
-  </script>
+  shareBtn.addEventListener('click', () => {
+    const text = encodeURIComponent(`${movie.title}\n\n${movie.synopsis}\n\nWatch here: ${window.location.href}`);
+    window.open(`https://wa.me/?text=${text}`, "_blank");
+  });
+</script>
 
 </body>
 </html>
