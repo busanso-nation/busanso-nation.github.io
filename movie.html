@@ -29,7 +29,6 @@
 <body>
 
 <div class="container">
-
   <div class="header">
     <h1 id="movie-title">Movie Title</h1>
     <p id="movie-meta">2023 • Action • India • 1h 05m</p>
@@ -45,7 +44,6 @@
     <!-- Details -->
     <div class="details">
       <p class="synopsis" id="movie-synopsis"></p>
-
       <div class="buttons">
         <button class="btn share-btn" id="share-btn">Share</button>
       </div>
@@ -54,17 +52,18 @@
 
   <!-- Player appears here -->
   <div class="player-container" id="player-container"></div>
-
 </div>
 
-<!-- Load movie data -->
+<!-- 1️⃣ Load movies-data.js first -->
 <script src="movies-data.js"></script>
+
+<!-- 2️⃣ Main script -->
 <script>
+window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const movieId = params.get('id');
   const movie = movies.find(m => m.id === movieId) || movies[0];
 
-  // Populate page
   document.getElementById('movie-title').textContent = movie.title;
   document.getElementById('movie-meta').textContent = `${movie.year} • ${movie.type} • ${movie.country} • ${movie.duration}`;
   document.getElementById('poster-img').src = movie.poster;
@@ -75,7 +74,6 @@
   const posterPlay = document.getElementById('poster-play');
   const shareBtn = document.getElementById('share-btn');
 
-  // Convert Google Drive link to preview
   function normalizeVideoUrl(url) {
     if (url.includes("drive.google.com")) {
       const match = url.match(/\/d\/(.*?)\//);
@@ -84,7 +82,6 @@
     return url;
   }
 
-  // Create player iframe/video
   function loadPlayer(url) {
     url = normalizeVideoUrl(url);
     let player;
@@ -106,13 +103,12 @@
     return player;
   }
 
-  // Play movie on click
   function playMovie() {
     posterContainer.style.display = 'none';
     playerContainer.style.display = 'block';
     const player = loadPlayer(movie.video);
     playerContainer.appendChild(player);
-    setTimeout(() => playerContainer.style.opacity = 1, 50); // fade-in
+    setTimeout(() => playerContainer.style.opacity = 1, 50);
   }
 
   posterPlay.addEventListener('click', playMovie);
@@ -122,6 +118,7 @@
     const text = encodeURIComponent(`${movie.title}\n\n${movie.synopsis}\n\nWatch here: ${window.location.href}`);
     window.open(`https://wa.me/?text=${text}`, "_blank");
   });
+});
 </script>
 
 </body>
