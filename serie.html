@@ -3,23 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Watch Series</title>
+<title>Watch Series – BUSANSO</title>
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 <style>
 body { margin:0; font-family:Arial,sans-serif; background:#000; color:#fff; }
-.container { max-width:1200px; margin:0 auto; padding:12px; }
-.player-area { width:100%; position:relative; padding-top:56.25%; }
+.container { max-width:1400px; margin:0 auto; padding:12px; }
+
+/* Player Fullwidth Modern */
+.player-area { position:relative; width:100%; padding-top:56.25%; background:#000; border-radius:0; overflow:hidden; }
 #player { position:absolute; top:0; left:0; width:100%; height:100%; }
 
-/* Buttons */
+/* Big watch button overlay */
+#overlayPlay { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:60px;color:#fff;background:rgba(0,0,0,0.5);padding:30px 40px;border-radius:50%;cursor:pointer;transition:0.3s; }
+#overlayPlay:hover{background:rgba(0,0,0,0.7);}
+
+/* Episode buttons at bottom of player */
+#episodeOverlay{position:absolute;bottom:0;left:0;width:100%;background:rgba(0,0,0,0.6);display:flex;overflow-x:auto;padding:5px;gap:5px;}
+#episodeOverlay button{flex:0 0 auto;background:#e50914;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;}
+#episodeOverlay button.active{background:#1db954;}
+
+/* Buttons below */
 button { padding:12px 18px; font-size:16px; border:none; cursor:pointer; margin:6px 6px 6px 0; border-radius:6px; transition:0.2s; }
 button:hover { opacity:0.85; }
 button.primary { background:#e50914; color:#fff; }
 button.secondary { background:#333; color:#fff; }
 button.nav { background:#1db954; color:#fff; }
-
-/* Episode buttons */
-#episodes button { display:block; width:100%; margin:4px 0; }
 
 /* Comments */
 .comment-box { margin-top:20px; }
@@ -37,23 +46,19 @@ button.nav { background:#1db954; color:#fff; }
   <!-- PLAYER -->
   <div class="player-area">
     <div id="player"></div>
+    <div id="overlayPlay">▶</div>
+    <div id="episodeOverlay"></div>
   </div>
 
-  <!-- Navigation -->
-  <div class="nav-episodes">
-    <button id="prevEpisodeBtn" class="nav">⏮ Previous Episode</button>
-    <button id="nextEpisodeBtn" class="nav">⏭ Next Episode</button>
-  </div>
-
-  <!-- Info & Controls -->
+  <!-- Series Info -->
   <h2 id="seriesTitle"></h2>
   <p id="seriesMeta"></p>
   <p id="seriesSynopsis"></p>
 
+  <!-- Buttons -->
   <button id="watchNowBtn" class="primary">▶ Watch Now</button>
   <button id="toggleEpisodesBtn" class="secondary">Show/Hide Episodes</button>
   <button id="shareBtn" class="secondary">📤 Share WhatsApp</button>
-  <div id="episodes"></div>
 
   <!-- Comments -->
   <div class="comment-box">
@@ -86,31 +91,22 @@ const db = firebase.database();
 
 // Plyr
 const player = new Plyr('#player',{autoplay:true,controls:['play','progress','current-time','mute','volume','fullscreen']});
+const overlayPlay=document.getElementById("overlayPlay");
+const episodeOverlay=document.getElementById("episodeOverlay");
 
 // Series
-const params = new URLSearchParams(location.search);
-const seriesId = params.get("id");
-const serie = SERIES.find(s=>s.id===seriesId);
+const params=new URLSearchParams(location.search);
+const seriesId=params.get("id");
+const serie=SERIES.find(s=>s.id===seriesId);
 if(!serie) location.replace("series.html");
+seriesTitle.textContent=serie.title;
+seriesMeta.textContent=`${serie.genre} • ${serie.country} • ${serie.year}`;
+seriesSynopsis.textContent=serie.synopsis||"";
 
-seriesTitle.textContent = serie.title;
-seriesMeta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
-seriesSynopsis.textContent = serie.synopsis||"";
-
-// Episodes
-const episodesContainer=document.getElementById('episodes');
 let currentEpisode=0;
-serie.episodes.forEach((ep,index)=>{
-  const btn=document.createElement("button");
-  btn.textContent=ep.title;
-  btn.onclick=()=>{ loadEpisode(index,true); scrollToPlayer(); };
-  episodesContainer.appendChild(btn);
-});
+const storageKey=`resume_${seriesId}`;
 
-// Scroll
-function scrollToPlayer(){ document.querySelector('.player-area').scrollIntoView({behavior:'smooth',block:'start'}); }
-
-// Normalize URLs
+// Normalize Video
 function normalizeVideo(url){
   url=url.trim();
   // YouTube
@@ -121,7 +117,7 @@ function normalizeVideo(url){
       else if(url.includes("/shorts/")) id=url.split("/shorts/")[1].split(/[?&]/)[0];
       else if(url.includes("/embed/")) id=url.split("/embed/")[1].split(/[?&]/)[0];
       else id=new URL(url).searchParams.get("v");
-    } catch(e){}
+    }catch(e){}
     if(id) return {type:'youtube',source:id};
   }
   // Vimeo
@@ -137,8 +133,7 @@ function normalizeVideo(url){
   return {type:'mp4',source:url};
 }
 
-// Load episode
-const storageKey=`resume_${seriesId}`;
+// Load Episode
 function loadEpisode(index,userAction=false){
   const ep=serie.episodes[index];
   currentEpisode=index;
@@ -149,37 +144,49 @@ function loadEpisode(index,userAction=false){
   else source={type:'video',sources:[{src:v.source,type:'video/mp4'}]};
   player.source=source;
 
+  // Auto-resume
   const saved=JSON.parse(localStorage.getItem(storageKey))||{};
-  if(saved.episode===index&&saved.time) player.currentTime=saved.time;
+  if(saved.episode===index && saved.time) player.currentTime=saved.time;
 
+  // Auto-fullscreen
   if(userAction && userHasActivePIN()) player.fullscreen.enter();
-  player.play();
 
+  player.play();
   localStorage.setItem(storageKey,JSON.stringify({episode:index,time:player.currentTime}));
+
+  updateEpisodeOverlay();
 }
+
+// Overlay play button
+overlayPlay.onclick=()=>{ loadEpisode(currentEpisode,true); overlayPlay.style.display='none'; };
 
 // Auto-resume
 const saved=JSON.parse(localStorage.getItem(storageKey));
-if(saved&&serie.episodes[saved.episode]!==undefined) loadEpisode(saved.episode);
-else loadEpisode(0);
-
-// Save time
-player.on('timeupdate',()=>{
-  const current=JSON.parse(localStorage.getItem(storageKey))||{};
-  current.episode=currentEpisode;
-  current.time=player.currentTime;
-  localStorage.setItem(storageKey,JSON.stringify(current));
-});
+if(saved && serie.episodes[saved.episode]!==undefined) loadEpisode(saved.episode);
+else overlayPlay.style.display='block';
 
 // Auto-next
-player.on('ended',()=>{ const next=currentEpisode+1;if(serie.episodes[next]) loadEpisode(next); });
+player.on('ended',()=>{ const next=currentEpisode+1;if(serie.episodes[next]) loadEpisode(next,true); });
 
-// Controls
-watchNowBtn.onclick=()=>{ loadEpisode(saved?.episode||0,true); scrollToPlayer(); };
-nextEpisodeBtn.onclick=()=>{ const next=currentEpisode+1;if(serie.episodes[next]) loadEpisode(next,true); scrollToPlayer(); };
-prevEpisodeBtn.onclick=()=>{ const prev=currentEpisode-1;if(serie.episodes[prev]) loadEpisode(prev,true); scrollToPlayer(); };
+// Save time
+player.on('timeupdate',()=>{ const c=JSON.parse(localStorage.getItem(storageKey))||{}; c.episode=currentEpisode; c.time=player.currentTime; localStorage.setItem(storageKey,JSON.stringify(c)); });
+
+// Episode overlay
+function updateEpisodeOverlay(){
+  episodeOverlay.innerHTML="";
+  serie.episodes.forEach((ep,i)=>{
+    const btn=document.createElement("button");
+    btn.textContent=ep.title;
+    if(i===currentEpisode) btn.classList.add("active");
+    btn.onclick=()=>{ loadEpisode(i,true); };
+    episodeOverlay.appendChild(btn);
+  });
+}
+
+// Buttons below
+watchNowBtn.onclick=()=>{ loadEpisode(saved?.episode||0,true); overlayPlay.style.display='none'; };
 let episodesVisible=true;
-toggleEpisodesBtn.onclick=()=>{ episodesVisible=!episodesVisible; episodesContainer.style.display=episodesVisible?'block':'none'; };
+toggleEpisodesBtn.onclick=()=>{ episodesVisible=!episodesVisible; episodeOverlay.style.display=episodesVisible?'flex':'none'; };
 shareBtn.onclick=()=>{
   const text=encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
   window.open(`https://api.whatsapp.com/send?text=${text}`,'_blank');
@@ -196,19 +203,17 @@ const commentsList=document.getElementById("commentsList");
 const savedUsername=localStorage.getItem("username");
 if(savedUsername) usernameInput.value=savedUsername;
 const commentsRef=db.ref("comments/"+seriesId);
-
 commentBtnEl.onclick=function(){
-  var user=usernameInput.value.trim().slice(0,20);
-  var text=commentInput.value.trim().slice(0,300);
+  const user=usernameInput.value.trim().slice(0,20);
+  const text=commentInput.value.trim().slice(0,300);
   if(!user||!text) return;
   localStorage.setItem("username",user);
   commentsRef.push({user:user,text:text,timestamp:firebase.database.ServerValue.TIMESTAMP});
   commentInput.value="";
 };
-
 commentsRef.limitToLast(100).on("value",snap=>{
   commentsList.innerHTML="";
-  var arr=[];
+  let arr=[];
   snap.forEach(c=>{ arr.push({data:c.val(),ref:c.ref}); });
   arr.sort((a,b)=>b.data.timestamp-b.data.timestamp);
   arr.forEach(c=>{
