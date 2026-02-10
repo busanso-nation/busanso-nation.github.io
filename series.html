@@ -73,21 +73,16 @@ body{
 /* SERIES GRID */
 .series{
   display:grid;
-  grid-template-columns:repeat(3,1fr); /* mobile default: 3 cards per row */
+  grid-template-columns:repeat(3,1fr);
   gap:12px;
   padding:16px;
+  margin-bottom:80px; /* space for sticky footer */
 }
 @media(min-width:768px){
-  .series{
-    grid-template-columns:repeat(4,1fr); /* tablets */
-    gap:16px;
-  }
+  .series{grid-template-columns:repeat(4,1fr); gap:16px;}
 }
 @media(min-width:1200px){
-  .series{
-    grid-template-columns:repeat(5,1fr); /* PC/TV large screens */
-    gap:18px;
-  }
+  .series{grid-template-columns:repeat(5,1fr); gap:18px;}
 }
 
 /* CARD */
@@ -101,9 +96,7 @@ body{
   animation:fade .4s forwards;
   transition:.25s;
 }
-.card:hover{
-  transform:translateY(-6px);
-}
+.card:hover{transform:translateY(-6px);}
 @keyframes fade{to{opacity:1;transform:none}}
 
 .card img{
@@ -141,6 +134,37 @@ body{
   transform:scale(1.03);
   filter:brightness(1.1);
 }
+
+/* STICKY FOOTER GENRES */
+.footer-genres{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  gap:10px;
+  padding:10px 12px;
+  background:#07141c;
+  z-index:20;
+  box-shadow:0 -4px 12px rgba(0,0,0,.6);
+}
+.footer-genres button{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(45deg,#102a38,#1f3f54);
+  color:#eaf6ff;
+  font-weight:bold;
+  font-size:13px;
+  cursor:pointer;
+  transition:.25s;
+}
+.footer-genres button:hover{
+  background:linear-gradient(45deg,#ff7a18,#ffb347);
+  transform:translateY(-2px);
+}
 </style>
 </head>
 
@@ -167,10 +191,21 @@ body{
 <!-- SERIES GRID -->
 <div class="series" id="list"></div>
 
+<!-- STICKY FOOTER GENRES -->
+<div class="footer-genres">
+  <button onclick="filterGenre('ALL', this)">All Series</button>
+  <button onclick="filterGenre('Action', this)">Action</button>
+  <button onclick="filterGenre('Adventure', this)">Adventure</button>
+  <button onclick="filterGenre('Drama', this)">Drama</button>
+  <button onclick="filterGenre('Comedy', this)">Comedy</button>
+</div>
+
 <script>
 const box=document.getElementById("list");
 const search=document.getElementById("search");
+let activeGenre = null; // currently selected genre
 
+/* RENDER SERIES */
 function render(data){
   box.innerHTML="";
   data.forEach((s,i)=>{
@@ -189,13 +224,40 @@ function render(data){
   });
 }
 
-// Initial render
+/* FILTER SERIES BY GENRE */
+function filterGenre(genre, btn){
+  activeGenre = genre === 'ALL' ? null : genre;
+  highlightActiveGenre(btn);
+  let filtered = SERIES;
+  if(activeGenre){
+    filtered = SERIES.filter(s=>s.genre && s.genre.toUpperCase()===activeGenre);
+  }
+  const q = search.value.toLowerCase();
+  if(q) filtered = filtered.filter(s=>s.title.toLowerCase().includes(q));
+  render(filtered);
+}
+
+/* HIGHLIGHT SELECTED GENRE BUTTON */
+function highlightActiveGenre(btn){
+  const buttons = document.querySelectorAll(".footer-genres button");
+  buttons.forEach(b=>{
+    b.style.background = "linear-gradient(45deg,#102a38,#1f3f54)";
+  });
+  btn.style.background = "linear-gradient(45deg,#ff7a18,#ffb347)";
+}
+
+/* INITIAL LOAD */
 render(SERIES);
 
-// SEARCH FILTER
+/* SEARCH FILTER - respects active genre */
 search.oninput=()=>{
-  const q=search.value.toLowerCase();
-  render(SERIES.filter(s=>s.title.toLowerCase().includes(q)));
+  const q = search.value.toLowerCase();
+  let filtered = SERIES;
+  if(activeGenre){
+    filtered = SERIES.filter(s=>s.genre && s.genre.toUpperCase()===activeGenre);
+  }
+  if(q) filtered = filtered.filter(s=>s.title.toLowerCase().includes(q));
+  render(filtered);
 };
 </script>
 
