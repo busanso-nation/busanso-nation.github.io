@@ -13,17 +13,14 @@
 <meta property="og:image" content="">
 <meta property="og:url" content="https://bit.ly/busanso">
 
-<!-- Video.js -->
-<link href="https://vjs.zencdn.net/8.11.2/video-js.css" rel="stylesheet">
-
-<!-- Plyr -->
+<!-- Plyr CSS -->
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
 
 <style>
 body {margin:0; background:#000; color:#fff; font-family:Arial,sans-serif;}
 .container{max-width:1100px; margin:auto; padding:12px;}
 .player-wrapper{position:relative; width:100%; aspect-ratio:16/9; background:#000;}
-video, iframe{width:100%; height:100%; border:0;}
+iframe{width:100%; height:100%; border:0;}
 .hidden{display:none;}
 button{padding:12px 18px; font-size:15px; border:none; border-radius:6px; margin:6px 6px 6px 0; cursor:pointer;}
 .primary{background:#e50914;color:#fff;}
@@ -38,14 +35,11 @@ button{padding:12px 18px; font-size:15px; border:none; border-radius:6px; margin
 <div class="container">
 
 <div class="player-wrapper">
-  <!-- Video.js for MP4/HLS -->
-  <video id="vjsPlayer" class="video-js vjs-big-play-centered" controls playsinline></video>
-
-  <!-- Iframe for YouTube/Vimeo (via Plyr) -->
-  <iframe id="iframePlayer" class="hidden" allow="autoplay; fullscreen"></iframe>
+  <!-- Plyr iframe for YouTube & Vimeo -->
+  <iframe id="plyrPlayer" allow="autoplay; fullscreen" class=""></iframe>
 
   <!-- Google Drive iframe fallback -->
-  <iframe id="drivePlayer" class="hidden" allow="autoplay; fullscreen"></iframe>
+  <iframe id="drivePlayer" allow="autoplay; fullscreen" class="hidden"></iframe>
 </div>
 
 <div>
@@ -71,24 +65,20 @@ button{padding:12px 18px; font-size:15px; border:none; border-radius:6px; margin
 
 </div>
 
-<!-- Data & logic files -->
+<!-- DATA & LOGIC FILES -->
 <script src="series-data.js"></script>
 <script src="auth.js"></script>
 <script src="pins.js"></script>
 <script src="ads.js"></script>
 
-<!-- Video.js + YouTube plugin -->
-<script src="https://vjs.zencdn.net/8.11.2/video.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/videojs-youtube@2.6.1/dist/Youtube.min.js"></script>
-
-<!-- Plyr -->
+<!-- Plyr JS -->
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
 <script>
 /* ================= SERIES LOAD ================= */
 const params = new URLSearchParams(location.search);
 const seriesId = params.get("id");
-const serie = SERIES.find(s=>s.id===seriesId);
+const serie = SERIES.find(s => s.id === seriesId);
 if(!serie) location.replace("series.html");
 
 seriesTitle.textContent = serie.title;
@@ -100,26 +90,24 @@ document.querySelector('meta[property="og:description"]').content = serie.synops
 document.querySelector('meta[property="og:image"]').content = serie.poster;
 
 /* ================= PLAYERS ================= */
-const vjs = videojs("vjsPlayer",{autoplay:false, controls:true, fluid:true, techOrder:['youtube','html5']});
-const plyrFrame = document.getElementById("iframePlayer");
-const driveFrame = document.getElementById("drivePlayer");
+const plyrPlayer = document.getElementById("plyrPlayer");
+const drivePlayer = document.getElementById("drivePlayer");
+let player = null;
 let currentEpisode = 0;
 const storageKey = `resume_${seriesId}`;
 
 function hideAllPlayers(){
-  vjs.pause();
-  vjs.el().classList.add("hidden");
-  plyrFrame.classList.add("hidden");
-  driveFrame.classList.add("hidden");
+  plyrPlayer.classList.add("hidden");
+  drivePlayer.classList.add("hidden");
 }
 
 /* ================= HELPERS ================= */
 function detectType(url){
-  if(!url) return "mp4";
+  if(!url) return "unknown";
   if(/youtu\.?be/.test(url)) return "youtube";
   if(url.includes("vimeo.com")) return "vimeo";
   if(url.includes("drive.google.com")) return "drive";
-  return "mp4";
+  return "unknown";
 }
 
 function normalizeYouTube(url){
@@ -146,32 +134,28 @@ function loadEpisode(index, userAction=false){
   const type = detectType(ep.video);
 
   if(type === "youtube"){
-    plyrFrame.src = normalizeYouTube(ep.video);
-    plyrFrame.classList.remove("hidden");
+    plyrPlayer.src = normalizeYouTube(ep.video);
+    plyrPlayer.classList.remove("hidden");
   }
   else if(type === "vimeo"){
-    plyrFrame.src = normalizeVimeo(ep.video);
-    plyrFrame.classList.remove("hidden");
+    plyrPlayer.src = normalizeVimeo(ep.video);
+    plyrPlayer.classList.remove("hidden");
   }
   else if(type === "drive"){
-    driveFrame.src = normalizeDrive(ep.video);
-    driveFrame.classList.remove("hidden");
-  }
-  else{
-    vjs.el().classList.remove("hidden");
-    vjs.src({src: ep.video, type: "video/mp4"});
-    vjs.play().catch(()=>{
-      // fallback silently to iframe player if Video.js fails
-      if(ep.video.includes("youtu")) plyrFrame.src = normalizeYouTube(ep.video), plyrFrame.classList.remove("hidden");
-      else if(ep.video.includes("drive.google.com")) driveFrame.src = normalizeDrive(ep.video), driveFrame.classList.remove("hidden");
-    });
+    drivePlayer.src = normalizeDrive(ep.video);
+    drivePlayer.classList.remove("hidden");
+  } else {
+    // fallback: show Drive iframe if unknown
+    drivePlayer.src = ep.video;
+    drivePlayer.classList.remove("hidden");
   }
 
+  // Save for resume
   localStorage.setItem(storageKey, JSON.stringify({episode:index, time:0}));
 
+  // Fullscreen if user has PIN
   if(userAction && userHasActivePIN()){
-    const el = !vjs.el().classList.contains("hidden")?vjs.el():
-               !plyrFrame.classList.contains("hidden")?plyrFrame:driveFrame;
+    const el = !plyrPlayer.classList.contains("hidden") ? plyrPlayer : drivePlayer;
     el.requestFullscreen?.();
   }
 }
@@ -180,44 +164,34 @@ function loadEpisode(index, userAction=false){
 const saved = JSON.parse(localStorage.getItem(storageKey));
 if(saved && serie.episodes[saved.episode]){
   loadEpisode(saved.episode);
-  vjs.one("loadedmetadata",()=>vjs.currentTime(saved.time||0));
 }
 
-vjs.on("timeupdate", ()=>{
-  const data = JSON.parse(localStorage.getItem(storageKey))||{};
-  data.time = vjs.currentTime();
-  localStorage.setItem(storageKey, JSON.stringify(data));
-});
-
-vjs.on("ended", ()=>{
-  if(serie.episodes[currentEpisode+1]) loadEpisode(currentEpisode+1);
-});
-
-/* ================= UI ================= */
-serie.episodes.forEach((ep,i)=>{
+serie.episodes.forEach((ep, i)=>{
   const b = document.createElement("button");
   b.textContent = ep.title;
-  b.onclick = ()=>loadEpisode(i,true);
+  b.onclick = ()=>loadEpisode(i, true);
   episodes.appendChild(b);
 });
 
-watchNowBtn.onclick = ()=>loadEpisode(saved?.episode||0,true);
-nextEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode+1]&&loadEpisode(currentEpisode+1,true);
-prevEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode-1]&&loadEpisode(currentEpisode-1,true);
+/* ================= UI CONTROLS ================= */
+watchNowBtn.onclick = ()=>loadEpisode(saved?.episode || 0, true);
+nextEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode+1] && loadEpisode(currentEpisode+1, true);
+prevEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode-1] && loadEpisode(currentEpisode-1, true);
 toggleEpisodesBtn.onclick = ()=>episodes.style.display = episodes.style.display==="none"?"block":"none";
 shareBtn.onclick = ()=>{
-  const t=encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
+  const t = encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
   window.open(`https://api.whatsapp.com/send?text=${t}`);
 };
 
-function userHasActivePIN(){return window.ACTIVE_PIN===true;}
+function userHasActivePIN(){ return window.ACTIVE_PIN === true; }
 
-submitComment.onclick=()=>{
+/* ================= COMMENTS ================= */
+submitComment.onclick = ()=>{
   if(!commentInput.value.trim()) return;
-  const d=document.createElement("div");
+  const d = document.createElement("div");
   d.textContent = commentInput.value;
   commentList.appendChild(d);
-  commentInput.value="";
+  commentInput.value = "";
 };
 </script>
 </body>
