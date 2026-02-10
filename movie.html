@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MOVIE PLAYER</title>
 
   <!-- Plyr CSS -->
@@ -17,23 +17,30 @@
       text-align: center;
     }
 
-    .player-wrapper {
-      max-width: 800px;
-      margin: 0 auto 20px auto;
-    }
-
     .movie-info {
       margin-bottom: 20px;
     }
 
-    .movie-info p {
-      margin: 5px 0;
+    #movie-poster {
+      max-width: 220px;
+      border-radius: 6px;
+      margin-bottom: 15px;
     }
 
-    #movie-poster {
-      max-width: 200px;
-      margin-bottom: 15px;
-      border-radius: 6px;
+    #watch-btn {
+      padding: 12px 26px;
+      font-size: 16px;
+      background: #e50914;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .player-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
     }
 
     /* Fullscreen icon styling */
@@ -48,16 +55,18 @@
 </head>
 <body>
 
-  <div class="movie-info">
-    <img id="movie-poster" src="" alt="Movie Poster" />
-    <h1 id="movie-title">Title</h1>
-    <p id="movie-synopsis">Synopsis</p>
+  <div class="movie-info" id="movie-info">
+    <img id="movie-poster" alt="Movie Poster" />
+    <h1 id="movie-title"></h1>
+    <p id="movie-synopsis"></p>
     <p><strong>Year:</strong> <span id="movie-year"></span></p>
     <p><strong>Country:</strong> <span id="movie-country"></span></p>
     <p><strong>Duration:</strong> <span id="movie-duration"></span></p>
+
+    <button id="watch-btn">▶ Watch Movie</button>
   </div>
 
-  <div class="player-wrapper">
+  <div class="player-wrapper" id="player-wrapper">
     <div id="player-container"></div>
   </div>
 
@@ -68,46 +77,60 @@
   <script src="movies-data.js"></script>
 
   <script>
-    // Pick the first movie for demo; you can change the index or make dynamic later
-    const movie = movies[0];
+    // Get movie by ?id= or fallback
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get("id");
+    const movie = movies.find(m => m.id === movieId) || movies[0];
 
-    // Update movie info
-    document.getElementById('movie-title').textContent = movie.title;
-    document.getElementById('movie-synopsis').textContent = movie.synopsis;
-    document.getElementById('movie-year').textContent = movie.year;
-    document.getElementById('movie-country').textContent = movie.country;
-    document.getElementById('movie-duration').textContent = movie.duration;
-    document.getElementById('movie-poster').src = movie.poster;
+    // Fill movie info
+    document.getElementById("movie-title").textContent = movie.title;
+    document.getElementById("movie-synopsis").textContent = movie.synopsis;
+    document.getElementById("movie-year").textContent = movie.year;
+    document.getElementById("movie-country").textContent = movie.country;
+    document.getElementById("movie-duration").textContent = movie.duration;
+    document.getElementById("movie-poster").src = movie.poster;
 
-    // Inject YouTube iframe for Plyr
-    const playerContainer = document.getElementById('player-container');
-    playerContainer.innerHTML = `
-      <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="${extractYoutubeId(movie.video)}"></div>
-    `;
+    // Watch button click
+    document.getElementById("watch-btn").addEventListener("click", () => {
+      // Hide poster & info
+      document.getElementById("movie-info").style.display = "none";
 
-    // Initialize Plyr
-    const player = new Plyr('#player', {
-      controls: [
-        'play-large',
-        'play',
-        'progress',
-        'current-time',
-        'mute',
-        'volume',
-        'fullscreen'
-      ]
+      // Show player
+      const wrapper = document.getElementById("player-wrapper");
+      wrapper.style.display = "block";
+
+      const videoId = extractYoutubeId(movie.video);
+
+      document.getElementById("player-container").innerHTML = `
+        <div id="player"
+          data-plyr-provider="youtube"
+          data-plyr-embed-id="${videoId}">
+        </div>
+      `;
+
+      const player = new Plyr("#player", {
+        controls: [
+          "play-large",
+          "play",
+          "progress",
+          "current-time",
+          "mute",
+          "volume",
+          "fullscreen"
+        ]
+      });
+
+      // Replace fullscreen icon
+      setTimeout(() => {
+        const icon = document.querySelector(".plyr__control--fullscreen svg");
+        if (icon) {
+          icon.innerHTML = '<rect x="3" y="3" width="18" height="18" />';
+        }
+      }, 300);
     });
 
-    // Replace fullscreen icon with a box
-    const fullscreenButton = document.querySelector('.plyr__control--fullscreen svg');
-    if (fullscreenButton) {
-      fullscreenButton.innerHTML = `<rect x="3" y="3" width="18" height="18" rx="0" ry="0" />`;
-    }
-
-    // Helper: extract YouTube ID from embed URL
     function extractYoutubeId(url) {
-      const parts = url.split('/');
-      return parts[parts.length - 1];
+      return url.split("/").pop();
     }
   </script>
 
