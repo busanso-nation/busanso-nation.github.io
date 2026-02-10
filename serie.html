@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Watch Series</title>
 
 <!-- OpenGraph (WhatsApp preview) -->
@@ -14,6 +13,9 @@
 <meta property="og:image" content="">
 <meta property="og:url" content="https://bit.ly/busanso">
 
+<!-- Plyr CSS -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
 <style>
 body {
   margin: 0;
@@ -21,73 +23,108 @@ body {
   background: #000;
   color: #fff;
 }
-
 .container {
-  display: flex;
-  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
   padding: 12px;
 }
-
 .player-area {
-  flex: 2;
-}
-
-.sidebar {
-  flex: 1;
-  max-width: 320px;
-}
-
-/* WIDESCREEN MODE (paid users only) */
-body.wide-player .container {
-  flex-direction: column;
-}
-
-body.wide-player .sidebar {
-  display: none;
-}
-
-iframe {
   width: 100%;
-  height: 420px;
-  border: none;
+}
+#player {
+  width: 100%;
+  height: 560px;
+  background: #000;
 }
 
+/* Buttons styling */
 button {
-  padding: 10px 14px;
-  background: #e50914;
+  padding: 14px 20px;
+  font-size: 16px;
   border: none;
-  color: #fff;
   cursor: pointer;
+  margin: 6px 6px 6px 0;
+  border-radius: 6px;
+  transition: 0.2s;
 }
-
+button:hover {
+  opacity: 0.85;
+}
+button.primary {
+  background: #e50914;
+  color: #fff;
+}
 button.secondary {
   background: #333;
+  color: #fff;
+}
+button.nav {
+  background: #1db954;
+  color: #fff;
+}
+
+/* Episode buttons */
+#episodes button {
+  display: block;
+  width: 100%;
+  margin: 4px 0;
+}
+
+/* Comment box */
+.comment-box {
+  margin-top: 16px;
+}
+.comment-box textarea {
+  width: 100%;
+  height: 70px;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.comment-box button {
+  margin-top: 6px;
+}
+
+/* Next/Previous container */
+.nav-episodes {
+  margin-top: 12px;
 }
 </style>
 </head>
-
 <body>
 
 <div class="container">
 
-  <!-- PLAYER -->
+  <!-- PLAYER AREA -->
   <div class="player-area">
-    <iframe id="videoPlayer" allowfullscreen allow="autoplay"></iframe>
+    <video id="player" controls crossorigin></video>
   </div>
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <h2 id="seriesTitle"></h2>
-    <p id="seriesMeta"></p>
-    <p id="seriesSynopsis"></p>
+  <!-- Next / Previous episode buttons -->
+  <div class="nav-episodes">
+    <button id="prevEpisodeBtn" class="nav">⏮ Previous Episode</button>
+    <button id="nextEpisodeBtn" class="nav">⏭ Next Episode</button>
+  </div>
 
-    <button id="watchNowBtn">▶ Watch Now</button>
-    <button id="shareBtn" class="secondary">📤 Share WhatsApp</button>
+  <!-- SERIES INFO & CONTROLS BELOW -->
+  <h2 id="seriesTitle"></h2>
+  <p id="seriesMeta"></p>
+  <p id="seriesSynopsis"></p>
 
-    <div id="episodes"></div>
+  <button id="watchNowBtn" class="primary">▶ Watch Now</button>
+  <button id="toggleEpisodesBtn" class="secondary">Show/Hide Episodes</button>
+  <button id="shareBtn" class="secondary">📤 Share WhatsApp</button>
 
-    <!-- YOUR ADS BLOCK (UNCHANGED) -->
-    <!-- keep your ad container + logic here -->
+  <div id="episodes"></div>
+
+  <!-- Comment Section -->
+  <div class="comment-box">
+    <textarea id="commentInput" placeholder="Add a comment..."></textarea>
+    <button id="submitComment" class="primary">Submit Comment</button>
+    <div id="commentList"></div>
   </div>
 
 </div>
@@ -95,23 +132,20 @@ button.secondary {
 <!-- SERIES DATA -->
 <script src="series-data.js"></script>
 
-<!-- ===============================
-     🔒 YOUR EXISTING LOGIC SCRIPTS
-     DO NOT MODIFY THEM
-================================ -->
+<!-- Ads and PIN logic -->
 <script src="auth.js"></script>
 <script src="pins.js"></script>
 <script src="ads.js"></script>
-<!-- =============================== -->
+
+<!-- Plyr JS -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
 <script>
 /* ===============================
-   SAFE ADD-ONS (NO LOGIC TOUCHED)
+   SERIES & PLAYER LOGIC
 ================================ */
-
 const params = new URLSearchParams(location.search);
 const seriesId = params.get("id");
-
 const serie = SERIES.find(s => s.id === seriesId);
 if (!serie) location.replace("series.html");
 
@@ -125,21 +159,47 @@ document.querySelector('meta[property="og:title"]').content = serie.title;
 document.querySelector('meta[property="og:description"]').content = serie.synopsis || "";
 document.querySelector('meta[property="og:image"]').content = serie.poster;
 
-// Build episodes
+/* ===============================
+   PLYR PLAYER SETUP
+================================ */
+const player = new Plyr('#player', {
+  autoplay: false,
+  controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen']
+});
+
+const storageKey = `resume_${seriesId}`;
+let currentEpisode = 0;
+
+// Build episode buttons
+const episodesContainer = document.getElementById('episodes');
 serie.episodes.forEach((ep, index) => {
   const btn = document.createElement("button");
   btn.textContent = ep.title;
   btn.onclick = () => loadEpisode(index, true);
-  episodes.appendChild(btn);
+  episodesContainer.appendChild(btn);
 });
-
-// STORAGE KEYS
-const storageKey = `resume_${seriesId}`;
 
 // Load episode
 function loadEpisode(index, userAction = false) {
   const ep = serie.episodes[index];
-  videoPlayer.src = ep.video;
+  currentEpisode = index;
+
+  if (ep.video.includes("youtube") || ep.video.includes("youtu.be")) {
+    player.source = {
+      type: 'video',
+      sources: [{ src: ep.video, provider: 'youtube' }]
+    };
+  } else if (ep.video.includes("vimeo")) {
+    player.source = {
+      type: 'video',
+      sources: [{ src: ep.video, provider: 'vimeo' }]
+    };
+  } else {
+    player.source = {
+      type: 'video',
+      sources: [{ src: ep.video, type: 'video/mp4' }]
+    };
+  }
 
   localStorage.setItem(storageKey, JSON.stringify({
     episode: index,
@@ -147,20 +207,53 @@ function loadEpisode(index, userAction = false) {
   }));
 
   if (userAction && userHasActivePIN()) {
-    document.body.classList.add("wide-player");
+    player.fullscreen.enter();
   }
+
+  player.play();
 }
 
 // Auto-resume
 const saved = JSON.parse(localStorage.getItem(storageKey));
 if (saved && serie.episodes[saved.episode]) {
   loadEpisode(saved.episode);
+  player.currentTime = saved.time || 0;
 }
+
+// Save playback time
+player.on('timeupdate', () => {
+  const current = JSON.parse(localStorage.getItem(storageKey)) || {};
+  current.time = player.currentTime;
+  localStorage.setItem(storageKey, JSON.stringify(current));
+});
+
+// Auto-next
+player.on('ended', () => {
+  const next = currentEpisode + 1;
+  if (serie.episodes[next]) loadEpisode(next);
+});
 
 // Watch Now button
 watchNowBtn.onclick = () => {
   const startEp = saved?.episode || 0;
   loadEpisode(startEp, true);
+};
+
+// Next / Previous buttons
+nextEpisodeBtn.onclick = () => {
+  const next = currentEpisode + 1;
+  if (serie.episodes[next]) loadEpisode(next, true);
+};
+prevEpisodeBtn.onclick = () => {
+  const prev = currentEpisode - 1;
+  if (serie.episodes[prev]) loadEpisode(prev, true);
+};
+
+// Toggle episodes
+let episodesVisible = true;
+toggleEpisodesBtn.onclick = () => {
+  episodesVisible = !episodesVisible;
+  episodesContainer.style.display = episodesVisible ? "block" : "none";
 };
 
 // Share WhatsApp
@@ -171,50 +264,22 @@ shareBtn.onclick = () => {
   window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
 };
 
-/* ===============================
-   PLAYER PROVIDER HANDLING
-================================ */
-
-// YouTube API
-let ytPlayer;
-function onYouTubeIframeAPIReady() {
-  ytPlayer = new YT.Player("videoPlayer", {
-    events: {
-      onStateChange: e => {
-        if (e.data === YT.PlayerState.ENDED) autoNext();
-        if (e.data === YT.PlayerState.PLAYING) saveYTTime();
-      }
-    }
-  });
-}
-
-function saveYTTime() {
-  if (!ytPlayer) return;
-  const data = JSON.parse(localStorage.getItem(storageKey));
-  if (!data) return;
-  data.time = ytPlayer.getCurrentTime();
-  localStorage.setItem(storageKey, JSON.stringify(data));
-}
-
-function autoNext() {
-  const data = JSON.parse(localStorage.getItem(storageKey));
-  if (!data) return;
-  const next = data.episode + 1;
-  if (serie.episodes[next]) loadEpisode(next);
-}
-
-// Load YT API only if needed
-if (serie.episodes.some(e => e.video.includes("youtube"))) {
-  const tag = document.createElement("script");
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.body.appendChild(tag);
-}
-
-// Dummy checker (uses your existing auth logic)
+// Dummy auth checker (like original)
 function userHasActivePIN() {
   return window.ACTIVE_PIN === true;
 }
-</script>
 
+/* ===============================
+   COMMENTS
+================================ */
+submitComment.onclick = () => {
+  const val = commentInput.value.trim();
+  if (!val) return;
+  const div = document.createElement("div");
+  div.textContent = val;
+  commentList.appendChild(div);
+  commentInput.value = "";
+};
+</script>
 </body>
 </html>
