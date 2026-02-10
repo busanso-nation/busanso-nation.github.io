@@ -16,264 +16,226 @@
 <!-- Video.js -->
 <link href="https://vjs.zencdn.net/8.11.2/video-js.css" rel="stylesheet">
 
+<!-- Plyr -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
+
 <style>
 body {
-  margin: 0;
-  background: #000;
-  color: #fff;
-  font-family: Arial, sans-serif;
+  margin:0;
+  background:#000;
+  color:#fff;
+  font-family:Arial,sans-serif;
 }
-
 .container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 12px;
+  max-width:1100px;
+  margin:auto;
+  padding:12px;
 }
-
-/* TRUE WIDESCREEN PLAYER */
 .player-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000;
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#000;
 }
-
-.video-js {
-  width: 100%;
-  height: 100%;
+video, iframe {
+  width:100%;
+  height:100%;
+  border:0;
 }
-
-/* Buttons */
+.hidden { display:none; }
 button {
-  padding: 12px 18px;
-  font-size: 15px;
-  border: none;
-  border-radius: 6px;
-  margin: 6px 6px 6px 0;
-  cursor: pointer;
+  padding:12px 18px;
+  font-size:15px;
+  border:none;
+  border-radius:6px;
+  margin:6px 6px 6px 0;
+  cursor:pointer;
 }
-
-.primary { background:#e50914; color:#fff; }
-.secondary { background:#333; color:#fff; }
-.nav { background:#1db954; color:#fff; }
-
-#episodes button {
-  width: 100%;
-  margin: 4px 0;
-}
-
-/* Comments */
-.comment-box textarea {
-  width: 100%;
-  height: 70px;
-  background: #111;
-  color: #fff;
-  border: 1px solid #333;
-  border-radius: 4px;
-  padding: 6px;
+.primary{background:#e50914;color:#fff;}
+.secondary{background:#333;color:#fff;}
+.nav{background:#1db954;color:#fff;}
+#episodes button{width:100%;margin:4px 0;}
+.comment-box textarea{
+  width:100%;
+  height:70px;
+  background:#111;
+  color:#fff;
+  border:1px solid #333;
+  border-radius:4px;
+  padding:6px;
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
-  <!-- PLAYER -->
-  <div class="player-wrapper">
-    <video
-      id="player"
-      class="video-js vjs-big-play-centered"
-      controls
-      playsinline
-      preload="auto">
-    </video>
-  </div>
+<div class="player-wrapper">
 
-  <!-- NAV -->
-  <div>
-    <button id="prevEpisodeBtn" class="nav">⏮ Previous</button>
-    <button id="nextEpisodeBtn" class="nav">⏭ Next</button>
-  </div>
+  <!-- VIDEO.JS -->
+  <video id="vjsPlayer" class="video-js vjs-big-play-centered" controls playsinline></video>
 
-  <h2 id="seriesTitle"></h2>
-  <p id="seriesMeta"></p>
-  <p id="seriesSynopsis"></p>
+  <!-- PLYR (YT / VIMEO) -->
+  <iframe id="plyrFrame" class="hidden" allow="autoplay; fullscreen"></iframe>
 
-  <button id="watchNowBtn" class="primary">▶ Watch Now</button>
-  <button id="toggleEpisodesBtn" class="secondary">Show / Hide Episodes</button>
-  <button id="shareBtn" class="secondary">📤 Share</button>
-
-  <div id="episodes"></div>
-
-  <div class="comment-box">
-    <textarea id="commentInput" placeholder="Add a comment..."></textarea>
-    <button id="submitComment" class="primary">Submit</button>
-    <div id="commentList"></div>
-  </div>
+  <!-- GOOGLE DRIVE -->
+  <iframe id="driveFrame" class="hidden" allow="autoplay; fullscreen"></iframe>
 
 </div>
 
-<!-- DATA & LOGIC (UNCHANGED) -->
+<div>
+  <button id="prevEpisodeBtn" class="nav">⏮ Previous</button>
+  <button id="nextEpisodeBtn" class="nav">⏭ Next</button>
+</div>
+
+<h2 id="seriesTitle"></h2>
+<p id="seriesMeta"></p>
+<p id="seriesSynopsis"></p>
+
+<button id="watchNowBtn" class="primary">▶ Watch Now</button>
+<button id="toggleEpisodesBtn" class="secondary">Show / Hide Episodes</button>
+<button id="shareBtn" class="secondary">📤 Share</button>
+
+<div id="episodes"></div>
+
+<div class="comment-box">
+  <textarea id="commentInput" placeholder="Add a comment..."></textarea>
+  <button id="submitComment" class="primary">Submit</button>
+  <div id="commentList"></div>
+</div>
+
+</div>
+
+<!-- LOGIC FILES -->
 <script src="series-data.js"></script>
 <script src="auth.js"></script>
 <script src="pins.js"></script>
 <script src="ads.js"></script>
 
-<!-- Video.js -->
+<!-- LIBS -->
 <script src="https://vjs.zencdn.net/8.11.2/video.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/videojs-youtube/dist/videojs-youtube.min.js"></script>
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
 <script>
-/* ===============================
-   SERIES LOAD
-================================ */
-const params = new URLSearchParams(location.search);
-const seriesId = params.get("id");
-const serie = SERIES.find(s => s.id === seriesId);
-if (!serie) location.replace("series.html");
+/* ================= SERIES LOAD ================= */
+const params=new URLSearchParams(location.search);
+const seriesId=params.get("id");
+const serie=SERIES.find(s=>s.id===seriesId);
+if(!serie)location.replace("series.html");
 
-seriesTitle.textContent = serie.title;
-seriesMeta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
-seriesSynopsis.textContent = serie.synopsis || "";
+seriesTitle.textContent=serie.title;
+seriesMeta.textContent=`${serie.genre} • ${serie.country} • ${serie.year}`;
+seriesSynopsis.textContent=serie.synopsis||"";
 
-document.querySelector('meta[property="og:title"]').content = serie.title;
-document.querySelector('meta[property="og:description"]').content = serie.synopsis || "";
-document.querySelector('meta[property="og:image"]').content = serie.poster;
+/* ================= PLAYERS ================= */
+const vjs=videojs("vjsPlayer",{autoplay:false,controls:true,fluid:true});
+const plyr=new Plyr(plyrFrame,{autoplay:false});
 
-/* ===============================
-   VIDEO.JS INIT
-================================ */
-const player = videojs("player", {
-  techOrder: ["html5", "youtube"],
-  autoplay: false,
-  controls: true,
-  fluid: true
-});
+/* ================= HELPERS ================= */
+const vjsEl=vjs.el();
+const storageKey=`resume_${seriesId}`;
+let currentEpisode=0;
 
-/* ===============================
-   VIDEO URL NORMALIZER
-================================ */
-function normalizeVideo(url) {
-  if (!url) return null;
-
-  // YouTube (watch / embed / youtu.be)
-  if (/youtu\.?be/.test(url)) {
-    return { src: url, type: "video/youtube" };
-  }
-
-  // Google Drive (view / preview / open / uc)
-  if (url.includes("drive.google.com")) {
-    const id =
-      (url.match(/\/d\/([^/]+)/) || url.match(/id=([^&]+)/))?.[1];
-    if (!id) return null;
-
-    return {
-      src: `https://drive.google.com/uc?export=download&id=${id}`,
-      type: "video/mp4"
-    };
-  }
-
-  // Direct MP4
-  return { src: url, type: "video/mp4" };
+function hideAll(){
+  vjs.pause();
+  vjsEl.classList.add("hidden");
+  plyrFrame.classList.add("hidden");
+  driveFrame.classList.add("hidden");
 }
 
-/* ===============================
-   EPISODES
-================================ */
-let currentEpisode = 0;
-const storageKey = `resume_${seriesId}`;
-const episodesDiv = document.getElementById("episodes");
-
-serie.episodes.forEach((ep, i) => {
-  const b = document.createElement("button");
-  b.textContent = ep.title;
-  b.onclick = () => loadEpisode(i, true);
-  episodesDiv.appendChild(b);
-});
-
-function loadEpisode(index, userAction=false) {
-  const ep = serie.episodes[index];
-  const video = normalizeVideo(ep.video);
-  if (!video) return;
-
-  currentEpisode = index;
-
-  player.src(video);
-  player.load();
-
-  localStorage.setItem(storageKey, JSON.stringify({
-    episode: index,
-    time: 0
-  }));
-
-  if (userAction && userHasActivePIN()) {
-    player.requestFullscreen();
-  }
-
-  player.play().catch(()=>{});
+function ytEmbed(url){
+  const id=(url.match(/v=([^&]+)/)||url.match(/youtu\.be\/([^?]+)/))?.[1];
+  return `https://www.youtube.com/embed/${id}?autoplay=1`;
 }
 
-/* ===============================
-   RESUME
-================================ */
-const saved = JSON.parse(localStorage.getItem(storageKey));
-if (saved && serie.episodes[saved.episode]) {
+function driveEmbed(url){
+  const id=(url.match(/\/d\/([^/]+)/)||url.match(/id=([^&]+)/))?.[1];
+  return `https://drive.google.com/file/d/${id}/preview`;
+}
+
+/* ================= LOAD EPISODE ================= */
+function loadEpisode(index,userAction=false){
+  const ep=serie.episodes[index];
+  currentEpisode=index;
+  hideAll();
+
+  let tried=[];
+
+  function tryVideoJS(){
+    tried.push("vjs");
+    vjsEl.classList.remove("hidden");
+    vjs.src({src:ep.video,type:"video/mp4"});
+    vjs.play().catch(()=>tryPlyr());
+  }
+
+  function tryPlyr(){
+    if(tried.includes("plyr"))return tryDrive();
+    tried.push("plyr");
+    plyrFrame.src=ytEmbed(ep.video);
+    plyrFrame.classList.remove("hidden");
+    setTimeout(()=>{ if(!plyr.playing) tryDrive(); },1500);
+  }
+
+  function tryDrive(){
+    driveFrame.src=driveEmbed(ep.video);
+    driveFrame.classList.remove("hidden");
+  }
+
+  if(/youtu|vimeo/.test(ep.video)) tryPlyr();
+  else if(ep.video.includes("drive.google.com")) tryDrive();
+  else tryVideoJS();
+
+  localStorage.setItem(storageKey,JSON.stringify({episode:index,time:0}));
+
+  if(userAction && userHasActivePIN()){
+    const el=!vjsEl.classList.contains("hidden")?vjsEl:
+             !plyrFrame.classList.contains("hidden")?plyrFrame:driveFrame;
+    el.requestFullscreen?.();
+  }
+}
+
+/* ================= RESUME ================= */
+const saved=JSON.parse(localStorage.getItem(storageKey));
+if(saved&&serie.episodes[saved.episode]){
   loadEpisode(saved.episode);
-  player.one("loadedmetadata", () => {
-    player.currentTime(saved.time || 0);
-  });
+  vjs.one("loadedmetadata",()=>vjs.currentTime(saved.time||0));
 }
 
-player.on("timeupdate", () => {
-  const data = JSON.parse(localStorage.getItem(storageKey)) || {};
-  data.time = player.currentTime();
-  localStorage.setItem(storageKey, JSON.stringify(data));
+vjs.on("timeupdate",()=>{
+  const d=JSON.parse(localStorage.getItem(storageKey))||{};
+  d.time=vjs.currentTime();
+  localStorage.setItem(storageKey,JSON.stringify(d));
 });
 
-player.on("ended", () => {
-  const next = currentEpisode + 1;
-  if (serie.episodes[next]) loadEpisode(next);
+vjs.on("ended",()=>{
+  if(serie.episodes[currentEpisode+1]) loadEpisode(currentEpisode+1);
 });
 
-/* ===============================
-   CONTROLS
-================================ */
-watchNowBtn.onclick = () => loadEpisode(saved?.episode || 0, true);
-nextEpisodeBtn.onclick = () =>
-  serie.episodes[currentEpisode+1] && loadEpisode(currentEpisode+1,true);
-prevEpisodeBtn.onclick = () =>
-  serie.episodes[currentEpisode-1] && loadEpisode(currentEpisode-1,true);
+/* ================= UI ================= */
+serie.episodes.forEach((ep,i)=>{
+  const b=document.createElement("button");
+  b.textContent=ep.title;
+  b.onclick=()=>loadEpisode(i,true);
+  episodes.appendChild(b);
+});
 
-toggleEpisodesBtn.onclick = () => {
-  episodesDiv.style.display =
-    episodesDiv.style.display === "none" ? "block" : "none";
+watchNowBtn.onclick=()=>loadEpisode(saved?.episode||0,true);
+nextEpisodeBtn.onclick=()=>serie.episodes[currentEpisode+1]&&loadEpisode(currentEpisode+1,true);
+prevEpisodeBtn.onclick=()=>serie.episodes[currentEpisode-1]&&loadEpisode(currentEpisode-1,true);
+toggleEpisodesBtn.onclick=()=>episodes.style.display=episodes.style.display==="none"?"block":"none";
+shareBtn.onclick=()=>{
+  const t=encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
+  window.open(`https://api.whatsapp.com/send?text=${t}`);
 };
 
-shareBtn.onclick = () => {
-  const text = encodeURIComponent(
-    `${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`
-  );
-  window.open(`https://api.whatsapp.com/send?text=${text}`);
-};
+function userHasActivePIN(){return window.ACTIVE_PIN===true;}
 
-/* ===============================
-   PIN CHECK (UNCHANGED)
-================================ */
-function userHasActivePIN() {
-  return window.ACTIVE_PIN === true;
-}
-
-/* ===============================
-   COMMENTS
-================================ */
-submitComment.onclick = () => {
-  const v = commentInput.value.trim();
-  if (!v) return;
-  const d = document.createElement("div");
-  d.textContent = v;
+submitComment.onclick=()=>{
+  if(!commentInput.value.trim())return;
+  const d=document.createElement("div");
+  d.textContent=commentInput.value;
   commentList.appendChild(d);
-  commentInput.value = "";
+  commentInput.value="";
 };
 </script>
 </body>
