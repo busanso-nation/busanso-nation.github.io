@@ -124,28 +124,19 @@ function normalizeVideo(url){
     // YouTube
     if(url.includes("youtube.com") || url.includes("youtu.be")){
       let videoId = "";
-      if(url.includes("youtu.be")){
-        videoId = url.split("youtu.be/")[1].split(/[?&]/)[0];
-      } else if(url.includes("/embed/")){
-        videoId = url.split("/embed/")[1].split(/[?&]/)[0];
-      } else if(url.includes("/shorts/")){
-        videoId = url.split("/shorts/")[1].split(/[?&]/)[0];
-      } else {
-        let u = new URL(url);
-        videoId = u.searchParams.get("v");
-      }
+      if(url.includes("youtu.be")) videoId = url.split("youtu.be/")[1].split(/[?&]/)[0];
+      else if(url.includes("/embed/")) videoId = url.split("/embed/")[1].split(/[?&]/)[0];
+      else if(url.includes("/shorts/")) videoId = url.split("/shorts/")[1].split(/[?&]/)[0];
+      else videoId = new URL(url).searchParams.get("v");
       if(videoId) return {type:'youtube', source:videoId};
     }
     // Vimeo
-    if(url.includes("vimeo.com")){
-      return {type:'vimeo', source:url.split("/").pop()};
-    }
+    if(url.includes("vimeo.com")) return {type:'vimeo', source:url.split("/").pop()};
     // Google Drive
     if(url.includes("/d/")){
       var driveId = url.split("/d/")[1].split("/")[0];
-      return {type:'mp4', source:"https://drive.google.com/uc?export=media&id="+driveId};
+      return {type:'mp4', source:"https://drive.google.com/uc?export=download&id="+driveId};
     }
-    // Default MP4
     return {type:'mp4', source:url};
   }catch(e){ return {type:'mp4', source:url}; }
 }
@@ -155,18 +146,17 @@ const storageKey = "resume_movie_" + movie.id;
 
 // ===== INITIALIZE PLYR =====
 const player = new Plyr('#player',{
-  autoplay:false,
+  autoplay:true,
   controls:['play','progress','current-time','mute','volume','fullscreen']
 });
 
-// ===== WATCH BUTTON =====
-watchBtn.onclick = function(){
+// ===== AUTO-LOAD VIDEO ON PAGE LOAD =====
+(function autoLoadMovie(){
   const v = normalizeVideo(movie.video);
   let source;
   if(v.type==='youtube') source={type:'youtube',sources:[{src:v.source,provider:'youtube'}]};
   else if(v.type==='vimeo') source={type:'vimeo',sources:[{src:v.source,provider:'vimeo'}]};
   else source={type:'video',sources:[{src:v.source,type:'video/mp4'}]};
-  
   player.source = source;
 
   // AUTO-RESUME
@@ -175,6 +165,32 @@ watchBtn.onclick = function(){
 
   player.play();
 
+  // START AD TIMER
+  showAd();
+  if(adTimer) clearInterval(adTimer);
+  adTimer = setInterval(function(){
+    if(hasValidPIN()){ clearInterval(adTimer); return; }
+    showAd();
+  }, AD_INTERVAL);
+})();
+
+// ===== WATCH BUTTON (FULLSCREEN FOR ACTIVE PIN HOLDERS) =====
+watchBtn.onclick = function(){
+  const v = normalizeVideo(movie.video);
+  let source;
+  if(v.type==='youtube') source={type:'youtube',sources:[{src:v.source,provider:'youtube'}]};
+  else if(v.type==='vimeo') source={type:'vimeo',sources:[{src:v.source,provider:'vimeo'}]};
+  else source={type:'video',sources:[{src:v.source,type:'video/mp4'}]};
+  player.source = source;
+
+  // AUTO-RESUME
+  const saved = JSON.parse(localStorage.getItem(storageKey));
+  if(saved && saved.time) player.currentTime = saved.time;
+
+  if(hasValidPIN()) player.fullscreen.enter();
+  player.play();
+
+  // START AD TIMER
   showAd();
   if(adTimer) clearInterval(adTimer);
   adTimer = setInterval(function(){
@@ -196,16 +212,9 @@ var shareText = movie.title + "\n" + movie.country + " • " + movie.year + "\n\
 shareBtn.onclick = function(){
   shareOptions.style.display = shareOptions.style.display === "flex" ? "none" : "flex";
 };
-shareWhatsapp.onclick = function(){
-  window.open("https://wa.me/?text=" + encodeURIComponent(shareText));
-};
-shareImo.onclick = function(){
-  window.open("imo://chat?text=" + encodeURIComponent(shareText));
-};
-shareTiktok.onclick = function(){
-  navigator.clipboard.writeText(shareText);
-  alert("Copied! Paste it on TikTok");
-};
+shareWhatsapp.onclick = function(){ window.open("https://wa.me/?text=" + encodeURIComponent(shareText)); };
+shareImo.onclick = function(){ window.open("imo://chat?text=" + encodeURIComponent(shareText)); };
+shareTiktok.onclick = function(){ navigator.clipboard.writeText(shareText); alert("Copied! Paste it on TikTok"); };
 
 // ===== COMMENTS =====
 var commentsRef = firebase.database().ref("comments/movies/" + movie.id);
@@ -217,20 +226,14 @@ commentBtn.onclick = function(){
   var text = commentInput.value.trim().slice(0,300);
   if(!user || !text) return;
   localStorage.setItem("username", user);
-  commentsRef.push({
-    user:user,
-    text:text,
-    timestamp: firebase.database.ServerValue.TIMESTAMP
-  });
+  commentsRef.push({user:user, text:text, timestamp: firebase.database.ServerValue.TIMESTAMP});
   commentInput.value = "";
 };
 
 commentsRef.limitToLast(100).on("value", function(snap){
   commentsList.innerHTML = "";
   var arr = [];
-  snap.forEach(function(c){
-    arr.push({data:c.val(), ref:c.ref});
-  });
+  snap.forEach(function(c){ arr.push({data:c.val(), ref:c.ref}); });
   arr.sort((a,b)=>b.data.timestamp - a.data.timestamp);
   arr.forEach(function(c){
     var div = document.createElement("div");
