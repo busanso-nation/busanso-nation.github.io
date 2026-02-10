@@ -2,230 +2,91 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Movie Player</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Load movies data first -->
+<script src="movies-data.js"></script>
+
 <style>
-  body { font-family: Arial, sans-serif; background:#111; color:#fff; margin:0; padding:16px; }
-  .container { max-width: 900px; margin:0 auto; }
-  .logo { text-align:center; margin-bottom:12px; }
-  .logo img { max-height:50px; }
-
-  .player-container { width:100%; height:0; padding-bottom:56.25%; position:relative; display:none; margin-bottom:20px; }
-  .player-container iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; border-radius:10px; }
-
-  .poster { position:relative; cursor:pointer; margin-bottom:20px; border-radius:10px; overflow:hidden; max-width:400px; }
-  .poster img { width:100%; border-radius:10px; display:block; }
-  .play-overlay { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                  background:rgba(0,0,0,0.6); color:#fff; font-size:48px; padding:20px 28px; border-radius:50%; }
-
-  h1 { margin:0 0 10px 0; }
-  .meta { color:#aaa; font-size:14px; margin-bottom:10px; }
-  .synopsis { line-height:1.5; margin-bottom:12px; }
-  .cast span { background:#222; padding:6px 10px; border-radius:20px; font-size:12px; margin:4px; display:inline-block; }
-
-  .buttons { display:flex; gap:10px; margin-bottom:20px; }
-  .btn { flex:1; padding:12px 0; border:none; font-weight:bold; cursor:pointer; border-radius:5px; font-size:16px; }
-  .watch-btn { background:#e50914; color:#fff; }
-  .watch-btn:hover { background:#b80610; }
-  .share-btn { background:#25d366; color:#fff; }
-  .share-btn:hover { background:#1da851; }
-
-  /* COMMENTS */
-  #commentsSection { background:#222; padding:16px; border-radius:12px; margin-bottom:20px; }
-  #commentsSection h3 { margin-top:0; }
-  #commentsList div { margin-bottom:6px; padding:8px 10px; background:#111; border-radius:8px; position:relative; word-wrap:break-word; }
-  #usernameInput, #commentInput { width:100%; padding:10px; border-radius:6px; background:#111; color:#fff; border:none; margin-top:6px; }
-  #commentBtn { margin-top:8px; padding:10px 18px; border:none; border-radius:8px; background:#e50914; color:#fff; font-weight:bold; cursor:pointer; font-size:15px; }
-  #commentMsg { margin-top:6px; font-size:14px; }
+body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; text-align:center; padding:16px; }
+.poster-container { position:relative; display:inline-block; max-width:400px; width:100%; cursor:pointer; }
+.poster-container img { width:100%; border-radius:12px; display:block; }
+.play-overlay { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:64px; color:#fff; opacity:0.8; pointer-events:none; }
+.details { max-width:600px; margin:16px auto; }
+button.watch-btn { padding:12px 24px; font-size:18px; border:none; border-radius:8px; background:#e50914; color:#fff; cursor:pointer; margin-top:12px; }
+.player { margin-top:20px; width:100%; max-width:800px; height:450px; display:none; border:none; border-radius:12px; }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="logo">
-    <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
-  </div>
+<h1 id="title">Loading...</h1>
 
-  <!-- Poster with play overlay -->
-  <div class="poster" id="poster-container">
-    <img id="poster-img" src="" alt="Movie Poster">
-    <div class="play-overlay" id="poster-play">▶</div>
-  </div>
-
-  <!-- Player iframe -->
-  <div class="player-container" id="player-container"></div>
-
-  <!-- Movie details -->
-  <h1 id="title"></h1>
-  <div class="meta" id="meta"></div>
-  <p class="synopsis" id="synopsis"></p>
-  <div class="cast" id="cast"></div>
-
-  <div class="buttons">
-    <button class="btn watch-btn" id="watch-btn">▶ Watch</button>
-    <button class="btn share-btn" id="share-btn">Share</button>
-  </div>
-
-  <!-- Comments -->
-  <div id="commentsSection">
-    <h3>Comments</h3>
-    <input id="usernameInput" placeholder="Enter your name">
-    <textarea id="commentInput" placeholder="Write your comment"></textarea>
-    <button id="commentBtn">Post Comment</button>
-    <div id="commentMsg"></div>
-    <div id="commentsList"></div>
-  </div>
+<div class="poster-container" id="posterContainer">
+  <img id="posterImg" src="" alt="Movie Poster">
+  <div class="play-overlay">▶</div>
 </div>
 
-<!-- Load movies-data.js first -->
-<script src="movies-data.js"></script>
+<div class="details">
+  <p id="synopsis"></p>
+  <p id="meta"></p>
+  <button class="watch-btn" id="watchBtn">Watch Now</button>
+</div>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
-  authDomain: "busanso-pins.firebaseapp.com",
-  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
-  projectId: "busanso-pins",
-  storageBucket: "busanso-pins.firebasestorage.app",
-  messagingSenderId: "137040014808",
-  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-};
-firebase.initializeApp(firebaseConfig);
-</script>
+<iframe id="player" class="player" allowfullscreen></iframe>
 
 <script>
-window.addEventListener('DOMContentLoaded', () => {
-  // DOM refs
-  const title = document.getElementById("title");
-  const meta = document.getElementById("meta");
-  const synopsis = document.getElementById("synopsis");
-  const cast = document.getElementById("cast");
-  const posterImg = document.getElementById("poster-img");
-  const posterPlay = document.getElementById("poster-play");
-  const posterContainer = document.getElementById("poster-container");
-  const playerContainer = document.getElementById("player-container");
-  const watchBtn = document.getElementById("watch-btn");
-  const shareBtn = document.getElementById("share-btn");
+// ===== GET MOVIE ID =====
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+if(!id) {
+  alert("No movie selected!");
+  location.href = "movies-list.html";
+}
 
-  // Get movie from URL
-  const params = new URLSearchParams(location.search);
-  const id = params.get("id");
-  if(!id) location.replace("movies-list.html");
+// ===== FETCH MOVIE =====
+const movie = MOVIES.find(m => m.id === id);
+if(!movie) {
+  alert("Movie not found!");
+  location.href = "movies-list.html";
+}
 
-  const movie = movies.find(m=>m.id===id);
-  if(!movie) location.replace("movies-list.html");
+// ===== POPULATE INFO =====
+document.getElementById("title").textContent = movie.title;
+document.getElementById("posterImg").src = movie.poster;
+document.getElementById("synopsis").textContent = movie.synopsis || "";
+document.getElementById("meta").textContent = `${movie.year} • ${movie.duration || ""} • ${movie.type || ""}`;
 
-  // Populate page
-  title.textContent = movie.title;
-  meta.textContent = `${movie.year} • ${movie.type} • ${movie.country} • ${movie.duration}`;
-  synopsis.textContent = movie.synopsis || "";
-  posterImg.src = movie.poster || "";
-  movie.cast?.forEach(c => {
-    const span = document.createElement("span");
-    span.textContent = c;
-    cast.appendChild(span);
-  });
-
-  // Normalize video URLs
-  function normalizeVideo(url){
-    try{
-      url = url.trim();
-      if(url.includes("youtube.com") || url.includes("youtu.be")){
-        const ytId = url.includes("v=") ? new URL(url).searchParams.get("v") : url.split("/").pop();
-        return `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=1&modestbranding=1&rel=0&showinfo=0`;
-      }
-      if(url.includes("vimeo.com")){
-        const vimeoId = url.split("/").pop();
-        return `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0`;
-      }
-      if(url.includes("/d/")){ // Google Drive
-        const driveId = url.split("/d/")[1].split("/")[0];
-        return `https://drive.google.com/file/d/${driveId}/preview`;
-      }
-      return url;
-    }catch{
-      return url;
-    }
+// ===== VIDEO NORMALIZATION =====
+function getVideoUrl(url){
+  if(!url) return "";
+  url = url.trim();
+  if(url.includes("youtube.com") || url.includes("youtu.be")){
+    const ytId = url.includes("v=") ? new URL(url).searchParams.get("v") : url.split("/").pop();
+    return `https://www.youtube.com/embed/${ytId}?autoplay=1`;
   }
-
-  // Play movie
-  function playMovie(){
-    posterContainer.style.display = 'none';
-    playerContainer.style.display = 'block';
-    playerContainer.innerHTML = `<iframe src="${normalizeVideo(movie.video)}" allowfullscreen></iframe>`;
-    window.scrollTo({ top:0, behavior:"smooth" });
+  if(url.includes("/d/")) { // Google Drive
+    const driveId = url.split("/d/")[1].split("/")[0];
+    return `https://drive.google.com/file/d/${driveId}/preview`;
   }
+  return url; // fallback
+}
 
-  posterPlay.addEventListener('click', playMovie);
-  posterContainer.addEventListener('click', playMovie);
-  watchBtn.addEventListener('click', playMovie);
+// ===== WATCH BUTTON =====
+const watchBtn = document.getElementById("watchBtn");
+const posterContainer = document.getElementById("posterContainer");
+const player = document.getElementById("player");
 
-  // Share to WhatsApp
-  shareBtn.addEventListener('click', ()=>{
-    const text = encodeURIComponent(`${movie.title}\n\n${movie.synopsis}\n\nWatch here: ${window.location.href}`);
-    window.open(`https://wa.me/?text=${text}`, "_blank");
-  });
+function playMovie(){
+  player.src = getVideoUrl(movie.video);
+  player.style.display = "block";
+  posterContainer.style.display = "none";
+  watchBtn.style.display = "none";
+}
 
-  // ===== COMMENTS LOGIC =====
-  const commentsRef = firebase.database().ref("comments/movies/"+movie.id);
-  const usernameInput = document.getElementById("usernameInput");
-  const commentInput = document.getElementById("commentInput");
-  const commentMsg = document.getElementById("commentMsg");
-  const commentsList = document.getElementById("commentsList");
-
-  const savedName = localStorage.getItem("username");
-  if(savedName) usernameInput.value = savedName;
-
-  document.getElementById("commentBtn").onclick = () => {
-    const name = usernameInput.value.trim();
-    const text = commentInput.value.trim();
-    if(name.length < 2 || name.length > 20){
-      commentMsg.style.color="#ffb400";
-      commentMsg.textContent="Nickname must be 2–20 characters";
-      return;
-    }
-    if(text.length < 2 || text.length > 300){
-      commentMsg.style.color="#ffb400";
-      commentMsg.textContent="Comment must be 2–300 characters";
-      return;
-    }
-    localStorage.setItem("username", name);
-    commentsRef.push({ user:name, text, timestamp:Date.now() });
-    commentInput.value="";
-    commentMsg.style.color="#00ff66";
-    commentMsg.textContent="Comment posted";
-  };
-
-  commentsRef.on("value", snap=>{
-    commentsList.innerHTML="";
-    const commentsArray = [];
-    snap.forEach(c => commentsArray.push({...c.val(), ref:c.ref}));
-    commentsArray.sort((a,b)=>b.timestamp - a.timestamp);
-    commentsArray.forEach(c=>{
-      const div = document.createElement("div");
-      div.innerHTML=`<strong>${c.user}</strong>: ${c.text}`;
-      
-      // Admin delete button
-      if(localStorage.getItem("activePIN")==="Orion196"){
-        const b = document.createElement("button");
-        b.textContent="🗑";
-        Object.assign(b.style,{
-          position:"absolute", right:"6px", top:"6px", background:"#e50914", color:"#fff", border:"none",
-          borderRadius:"6px", padding:"2px 6px", cursor:"pointer"
-        });
-        b.onclick = ()=>c.ref.remove();
-        div.appendChild(b);
-      }
-
-      commentsList.appendChild(div);
-    });
-  });
-
-});
+watchBtn.addEventListener("click", playMovie);
+posterContainer.addEventListener("click", playMovie);
 </script>
+
 </body>
 </html>
