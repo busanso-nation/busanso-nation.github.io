@@ -5,10 +5,9 @@
 <title>BUSANSO – Movie Player</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Movies data -->
 <script src="movies-data.js"></script>
 
-<!-- Firebase SDKs -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -17,60 +16,76 @@
 
 <style>
 *{box-sizing:border-box}
-body{
+html,body{
   margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
   background:#000;
   color:#fff;
   font-family:Arial,sans-serif;
 }
 
-/* ===== PLAYER (BIG & CINEMATIC) ===== */
-.player{
+/* ===== GIANT PLAYER ===== */
+.player-wrapper{
+  position:relative;
   width:100%;
-  height:56.25vw; /* 16:9 */
-  max-height:85vh;
+  height:85vh;          /* THIS is the key */
   background:#000;
 }
 
-.player video,
-.player iframe{
+.player-wrapper video,
+.player-wrapper iframe{
   width:100%;
   height:100%;
 }
 
+/* Remove Plyr size limits */
+.plyr{
+  width:100% !important;
+  height:100% !important;
+}
+.plyr__video-wrapper{
+  height:100% !important;
+}
+
 /* ===== DETAILS ===== */
 .details{
-  padding:16px;
-  max-width:1100px;
+  max-width:1200px;
   margin:0 auto;
-}
-.meta{color:#aaa;font-size:14px;margin-bottom:10px}
-.watch{
-  background:#e50914;
-  color:#fff;
-  font-size:20px;
   padding:16px;
+}
+.meta{
+  color:#aaa;
+  font-size:14px;
+  margin-bottom:8px;
+}
+.watch{
   width:100%;
+  padding:16px;
+  font-size:20px;
+  font-weight:bold;
   border:none;
   border-radius:12px;
-  font-weight:bold;
+  background:#e50914;
+  color:#fff;
   cursor:pointer;
   margin-bottom:10px;
 }
 .share{
-  background:#222;
-  color:#fff;
-  font-size:16px;
-  padding:14px;
   width:100%;
+  padding:14px;
+  font-size:16px;
   border:none;
   border-radius:12px;
+  background:#222;
+  color:#fff;
   cursor:pointer;
 }
 .share-options{
   display:none;
-  margin-top:10px;
   gap:10px;
+  margin-top:10px;
 }
 .share-options button{
   flex:1;
@@ -86,7 +101,7 @@ body{
 
 /* ===== COMMENTS ===== */
 #commentsSection{
-  max-width:1100px;
+  max-width:1200px;
   margin:20px auto;
   background:#111;
   padding:16px;
@@ -94,7 +109,7 @@ body{
 }
 #commentsList div{
   background:#222;
-  padding:8px 10px;
+  padding:8px;
   border-radius:8px;
   margin-bottom:6px;
   position:relative;
@@ -102,10 +117,10 @@ body{
 #usernameInput,#commentInput{
   width:100%;
   padding:10px;
+  border:none;
   border-radius:6px;
   background:#111;
   color:#fff;
-  border:none;
   margin-bottom:8px;
 }
 #commentBtn{
@@ -123,8 +138,8 @@ body{
 <body>
 
 <!-- PLAYER -->
-<div class="player">
-  <video id="player" controls crossorigin playsinline></video>
+<div class="player-wrapper">
+  <video id="player" playsinline controls crossorigin></video>
 </div>
 
 <!-- DETAILS -->
@@ -155,7 +170,6 @@ body{
   <button id="commentBtn">Post Comment</button>
 </div>
 
-<!-- Plyr -->
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
 <script>
@@ -168,48 +182,44 @@ firebase.initializeApp({
   messagingSenderId: "137040014808",
   appId: "1:137040014808:web:b0684e17b6b0328da596ad"
 });
-</script>
 
-<script>
-/* ===== LOAD MOVIE ===== */
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-const movie = MOVIES.find(m => m.id === id);
+/* ===== MOVIE ===== */
+const params=new URLSearchParams(location.search);
+const id=params.get("id");
+const movie=MOVIES.find(m=>m.id===id);
 if(!movie) location.replace("movies.html");
 
-/* ===== INFO ===== */
-title.textContent = movie.title;
-meta.textContent = movie.country + " • " + movie.year;
-synopsis.textContent = movie.synopsis || "";
+title.textContent=movie.title;
+meta.textContent=movie.country+" • "+movie.year;
+synopsis.textContent=movie.synopsis||"";
 
 /* ===== PLAYER ===== */
-const player = new Plyr('#player',{autoplay:true});
+const player=new Plyr('#player',{autoplay:true});
 
-/* ===== VIDEO NORMALIZATION ===== */
-function normalizeVideo(url){
-  if(url.includes("youtube")) return {type:"youtube",src:new URL(url).searchParams.get("v")};
-  if(url.includes("youtu.be")) return {type:"youtube",src:url.split("/").pop()};
-  if(url.includes("vimeo")) return {type:"vimeo",src:url.split("/").pop()};
-  const m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if(m) return {type:"video",src:`https://drive.google.com/uc?export=media&id=${m[1]}`};
-  return {type:"video",src:url};
+function normalize(url){
+  if(url.includes("youtube")) return {t:"youtube",v:new URL(url).searchParams.get("v")};
+  if(url.includes("youtu.be")) return {t:"youtube",v:url.split("/").pop()};
+  if(url.includes("vimeo")) return {t:"vimeo",v:url.split("/").pop()};
+  const m=url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if(m) return {t:"video",v:`https://drive.google.com/uc?export=media&id=${m[1]}`};
+  return {t:"video",v:url};
 }
 
-function loadMovie(fullscreen=false){
-  const v = normalizeVideo(movie.video);
-  if(v.type==="youtube") player.source={type:"youtube",sources:[{src:v.src,provider:"youtube"}]};
-  else if(v.type==="vimeo") player.source={type:"vimeo",sources:[{src:v.src,provider:"vimeo"}]};
-  else player.source={type:"video",sources:[{src:v.src,type:"video/mp4"}]};
+function loadMovie(full=false){
+  const v=normalize(movie.video);
+  if(v.t==="youtube") player.source={type:"youtube",sources:[{src:v.v,provider:"youtube"}]};
+  else if(v.t==="vimeo") player.source={type:"vimeo",sources:[{src:v.v,provider:"vimeo"}]};
+  else player.source={type:"video",sources:[{src:v.v,type:"video/mp4"}]};
   player.play();
-  if(fullscreen) player.fullscreen.enter();
+  if(full) player.fullscreen.enter();
 }
 
 window.addEventListener("load",()=>loadMovie());
 watchBtn.onclick=()=>loadMovie(true);
 
-/* ===== SHARE ===== */
-shareBtn.onclick=()=>shareOptions.style.display=
-  shareOptions.style.display==="flex"?"none":"flex";
+shareBtn.onclick=()=>{
+  shareOptions.style.display=shareOptions.style.display==="flex"?"none":"flex";
+};
 </script>
 
 </body>
