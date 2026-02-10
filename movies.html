@@ -75,6 +75,7 @@ body{
   grid-template-columns:repeat(3,1fr);
   gap:16px;
   padding:16px;
+  margin-bottom:80px; /* space for sticky footer */
 }
 @media(min-width:600px){
   .movies{grid-template-columns:repeat(4,1fr);}
@@ -151,6 +152,37 @@ body{
   background:linear-gradient(45deg,#ff416c,#e50914);
   transform:scale(1.03);
 }
+
+/* STICKY FOOTER CATEGORIES */
+.footer-categories{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  gap:10px;
+  padding:10px 12px;
+  background:#111;
+  z-index:20;
+  box-shadow:0 -4px 12px rgba(0,0,0,.6);
+}
+.footer-categories button{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(45deg,#282828,#383838);
+  color:#fff;
+  font-weight:bold;
+  font-size:14px;
+  cursor:pointer;
+  transition:.25s;
+}
+.footer-categories button:hover{
+  background:linear-gradient(45deg,#e50914,#ff416c);
+  transform:translateY(-2px);
+}
 </style>
 </head>
 
@@ -176,6 +208,15 @@ body{
 
 <!-- MOVIES GRID -->
 <div class="movies" id="list"></div>
+
+<!-- STICKY FOOTER CATEGORIES -->
+<div class="footer-categories">
+  <button onclick="filterCategory('ACTION')">ACTION</button>
+  <button onclick="filterCategory('DRAMA')">DRAMA</button>
+  <button onclick="filterCategory('KASANSO')">KASANSO</button>
+  <button onclick="filterCategory('SCIFI')">SCIFI</button>
+  <button onclick="filterCategory('HORROR')">HORROR</button>
+</div>
 
 <script>
 const box=document.getElementById("list");
@@ -217,6 +258,11 @@ search.oninput=()=>{
   const q=search.value.toLowerCase();
   render(MOVIES.filter(m=>m.title.toLowerCase().includes(q)));
 };
+
+/* CATEGORY FILTER */
+function filterCategory(cat){
+  render(MOVIES.filter(m => m.genre && m.genre.toUpperCase() === cat));
+}
 </script>
 
 </body>
