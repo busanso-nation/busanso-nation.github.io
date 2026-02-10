@@ -19,9 +19,17 @@ body{
   font-family:'Poppins',sans-serif;
 }
 
-/* HEADER */
+/* STICKY HEADER + TOP BUTTONS */
+.sticky-header{
+  position:sticky;
+  top:0;
+  background:#0b0b0b;
+  z-index:999;
+  padding-bottom:5px;
+  box-shadow:0 2px 8px rgba(0,0,0,.6);
+}
 .header{
-  padding:18px 10px;
+  padding:10px;
   text-align:center;
 }
 .header h1{
@@ -40,9 +48,9 @@ body{
   justify-content:center;
   flex-wrap:wrap;
   gap:10px;
-  padding:0 10px 15px;
+  padding:8px 10px 10px;
+  background:#0b0b0b;
 }
-
 .btn{
   padding:10px 18px;
   border-radius:999px;
@@ -53,14 +61,17 @@ body{
   box-shadow:0 5px 14px rgba(0,0,0,.4);
   border:1px solid rgba(255,255,255,.08);
 }
-
 .subscribe{ background:#e50914; }
 .login{ background:#2563eb; }
-.live{ background:#16a34a; }
 .about{ background:#111; color:#ddd; }
-.agents{ background:#9333ea; }
 .library{ background:#facc15; color:#000; }
 .kibanda{ background:#14b8a6; color:#002; }
+
+/* MAIN CONTENT */
+.main-content{
+  padding:12px 0 70px; /* bottom padding for sticky footer */
+  overflow:auto;
+}
 
 /* SECTIONS */
 .section{ padding:12px; }
@@ -87,8 +98,6 @@ body{
   margin-top:4px;
   font-weight:600;
 }
-
-/* WATCH BUTTON */
 .watch-btn{
   width:100%;
   margin-top:4px;
@@ -128,7 +137,6 @@ body{
 @media(min-width:768px){
   .card{ width:160px; max-width:160px; }
 }
-
 /* SMART TV / LARGE */
 @media(min-width:1200px){
   .card{ width:190px; max-width:190px; }
@@ -150,7 +158,6 @@ body{
   display:none;
   z-index:9999;
 }
-
 #iosHint{
   position:fixed;
   bottom:20px;
@@ -164,62 +171,91 @@ body{
   display:none;
   z-index:9999;
 }
+
+/* FOOTER BUTTONS */
+.footer-actions{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  background:#111;
+  padding:8px 0;
+  box-shadow:0 -2px 10px rgba(0,0,0,.6);
+  z-index:999;
+}
+.footer-actions .btn{
+  padding:10px 15px;
+  font-size:12px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <h1>Busanso Nation</h1>
-  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
+<!-- STICKY HEADER + TOP BUTTONS -->
+<div class="sticky-header">
+  <div class="header">
+    <h1>Busanso Nation</h1>
+    <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
+  </div>
+  <div class="top-actions">
+    <a href="packages.html" class="btn subscribe">Pay to Watch</a>
+    <a href="login.html" class="btn login">Login</a>
+    <a href="about.html" class="btn about">Are You New?</a>
+    <a href="library-login.html" class="btn library">Library</a>
+    <a href="kibanda-login.html" class="btn kibanda">Kibanda</a>
+  </div>
 </div>
 
-<div class="top-actions">
-  <a href="packages.html" class="btn subscribe">Pay to Watch</a>
-  <a href="login.html" class="btn login">Login</a>
-  <a href="live.html" class="btn live">Live</a>
-  <a href="about.html" class="btn about">Are You New?</a>
-  <a href="agents.html" class="btn agents">Our Agents</a>
-  <a href="library-login.html" class="btn library">Library</a>
-  <a href="kibanda-login.html" class="btn kibanda">Kibanda</a>
+<!-- SCROLLABLE CONTENT -->
+<div class="main-content">
+  <div class="section">
+    <h3>Latest Movies</h3>
+    <div class="slider" id="moviesBox"></div>
+  </div>
+
+  <div class="section">
+    <h3>Latest Series</h3>
+    <div class="slider" id="seriesBox"></div>
+  </div>
+
+  <!-- BOTTOM BANNER AD -->
+  <div class="ad-banner" style="text-align:center; margin:25px 0;">
+    <script>
+      atOptions = {
+        'key' : '1c9ccdb756a82c4d663014a338917bd7',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js"></script>
+  </div>
+
+  <div class="section">
+    <h3>Free Movies</h3>
+    <div class="slider" id="freeMoviesBox"></div>
+  </div>
+
+  <div class="section">
+    <h3>Free Series</h3>
+    <div class="slider" id="freeSeriesBox"></div>
+  </div>
 </div>
 
-<div class="section">
-  <h3>Latest Movies</h3>
-  <div class="slider" id="moviesBox"></div>
-</div>
-
-<div class="section">
-  <h3>Latest Series</h3>
-  <div class="slider" id="seriesBox"></div>
-</div>
-
-<!-- BOTTOM BANNER AD -->
-<div class="ad-banner" style="text-align:center; margin:25px 0;">
-  <script>
-    atOptions = {
-      'key' : '1c9ccdb756a82c4d663014a338917bd7',
-      'format' : 'iframe',
-      'height' : 250,
-      'width' : 300,
-      'params' : {}
-    };
-  </script>
-  <script src="https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js"></script>
-</div>
-
-<div class="section">
-  <h3>Free Movies</h3>
-  <div class="slider" id="freeMoviesBox"></div>
-</div>
-
-<div class="section">
-  <h3>Free Series</h3>
-  <div class="slider" id="freeSeriesBox"></div>
-</div>
-
+<!-- INSTALL APP -->
 <button id="installBtn">Install App</button>
 <div id="iosHint">Tap <strong>Share → Add to Home Screen</strong></div>
+
+<!-- FOOTER STICKY BUTTONS -->
+<div class="footer-actions">
+  <a href="live.html" class="btn live">Live</a>
+  <a href="agents.html" class="btn agents">Our Agents</a>
+  <a href="home.html" class="btn home">Home</a>
+</div>
 
 <script>
 /* ===== PIN REDIRECT (UNCHANGED) ===== */
