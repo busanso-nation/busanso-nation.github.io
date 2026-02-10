@@ -20,50 +20,17 @@
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
 
 <style>
-body {
-  margin:0;
-  background:#000;
-  color:#fff;
-  font-family:Arial,sans-serif;
-}
-.container {
-  max-width:1100px;
-  margin:auto;
-  padding:12px;
-}
-.player-wrapper {
-  position:relative;
-  width:100%;
-  aspect-ratio:16/9;
-  background:#000;
-}
-video, iframe {
-  width:100%;
-  height:100%;
-  border:0;
-}
-.hidden { display:none; }
-button {
-  padding:12px 18px;
-  font-size:15px;
-  border:none;
-  border-radius:6px;
-  margin:6px 6px 6px 0;
-  cursor:pointer;
-}
+body {margin:0; background:#000; color:#fff; font-family:Arial,sans-serif;}
+.container{max-width:1100px; margin:auto; padding:12px;}
+.player-wrapper{position:relative; width:100%; aspect-ratio:16/9; background:#000;}
+video, iframe{width:100%; height:100%; border:0;}
+.hidden{display:none;}
+button{padding:12px 18px; font-size:15px; border:none; border-radius:6px; margin:6px 6px 6px 0; cursor:pointer;}
 .primary{background:#e50914;color:#fff;}
 .secondary{background:#333;color:#fff;}
 .nav{background:#1db954;color:#fff;}
 #episodes button{width:100%;margin:4px 0;}
-.comment-box textarea{
-  width:100%;
-  height:70px;
-  background:#111;
-  color:#fff;
-  border:1px solid #333;
-  border-radius:4px;
-  padding:6px;
-}
+.comment-box textarea{width:100%;height:70px;background:#111;color:#fff;border:1px solid #333;border-radius:4px;padding:6px;}
 </style>
 </head>
 
@@ -71,16 +38,14 @@ button {
 <div class="container">
 
 <div class="player-wrapper">
-
-  <!-- VIDEO.JS -->
+  <!-- Video.js for MP4/HLS -->
   <video id="vjsPlayer" class="video-js vjs-big-play-centered" controls playsinline></video>
 
-  <!-- PLYR (YT / VIMEO) -->
-  <iframe id="plyrFrame" class="hidden" allow="autoplay; fullscreen"></iframe>
+  <!-- Iframe for YouTube/Vimeo (via Plyr) -->
+  <iframe id="iframePlayer" class="hidden" allow="autoplay; fullscreen"></iframe>
 
-  <!-- GOOGLE DRIVE -->
-  <iframe id="driveFrame" class="hidden" allow="autoplay; fullscreen"></iframe>
-
+  <!-- Google Drive iframe fallback -->
+  <iframe id="drivePlayer" class="hidden" allow="autoplay; fullscreen"></iframe>
 </div>
 
 <div>
@@ -106,124 +71,141 @@ button {
 
 </div>
 
-<!-- LOGIC FILES -->
+<!-- Data & logic files -->
 <script src="series-data.js"></script>
 <script src="auth.js"></script>
 <script src="pins.js"></script>
 <script src="ads.js"></script>
 
-<!-- LIBS -->
+<!-- Video.js + YouTube plugin -->
 <script src="https://vjs.zencdn.net/8.11.2/video.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/videojs-youtube@2.6.1/dist/Youtube.min.js"></script>
+
+<!-- Plyr -->
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
 <script>
 /* ================= SERIES LOAD ================= */
-const params=new URLSearchParams(location.search);
-const seriesId=params.get("id");
-const serie=SERIES.find(s=>s.id===seriesId);
-if(!serie)location.replace("series.html");
+const params = new URLSearchParams(location.search);
+const seriesId = params.get("id");
+const serie = SERIES.find(s=>s.id===seriesId);
+if(!serie) location.replace("series.html");
 
-seriesTitle.textContent=serie.title;
-seriesMeta.textContent=`${serie.genre} • ${serie.country} • ${serie.year}`;
-seriesSynopsis.textContent=serie.synopsis||"";
+seriesTitle.textContent = serie.title;
+seriesMeta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
+seriesSynopsis.textContent = serie.synopsis || "";
+
+document.querySelector('meta[property="og:title"]').content = serie.title;
+document.querySelector('meta[property="og:description"]').content = serie.synopsis || "";
+document.querySelector('meta[property="og:image"]').content = serie.poster;
 
 /* ================= PLAYERS ================= */
-const vjs=videojs("vjsPlayer",{autoplay:false,controls:true,fluid:true});
-const plyr=new Plyr(plyrFrame,{autoplay:false});
+const vjs = videojs("vjsPlayer",{autoplay:false, controls:true, fluid:true, techOrder:['youtube','html5']});
+const plyrFrame = document.getElementById("iframePlayer");
+const driveFrame = document.getElementById("drivePlayer");
+let currentEpisode = 0;
+const storageKey = `resume_${seriesId}`;
 
-/* ================= HELPERS ================= */
-const vjsEl=vjs.el();
-const storageKey=`resume_${seriesId}`;
-let currentEpisode=0;
-
-function hideAll(){
+function hideAllPlayers(){
   vjs.pause();
-  vjsEl.classList.add("hidden");
+  vjs.el().classList.add("hidden");
   plyrFrame.classList.add("hidden");
   driveFrame.classList.add("hidden");
 }
 
-function ytEmbed(url){
-  const id=(url.match(/v=([^&]+)/)||url.match(/youtu\.be\/([^?]+)/))?.[1];
+/* ================= HELPERS ================= */
+function detectType(url){
+  if(!url) return "mp4";
+  if(/youtu\.?be/.test(url)) return "youtube";
+  if(url.includes("vimeo.com")) return "vimeo";
+  if(url.includes("drive.google.com")) return "drive";
+  return "mp4";
+}
+
+function normalizeYouTube(url){
+  const id = (url.match(/v=([^&]+)/) || url.match(/youtu\.be\/([^?]+)/))?.[1];
   return `https://www.youtube.com/embed/${id}?autoplay=1`;
 }
 
-function driveEmbed(url){
-  const id=(url.match(/\/d\/([^/]+)/)||url.match(/id=([^&]+)/))?.[1];
+function normalizeVimeo(url){
+  const id = url.match(/vimeo\.com\/(\d+)/)?.[1];
+  return `https://player.vimeo.com/video/${id}?autoplay=1`;
+}
+
+function normalizeDrive(url){
+  const id = (url.match(/\/d\/([^/]+)/) || url.match(/id=([^&]+)/))?.[1];
   return `https://drive.google.com/file/d/${id}/preview`;
 }
 
 /* ================= LOAD EPISODE ================= */
-function loadEpisode(index,userAction=false){
-  const ep=serie.episodes[index];
-  currentEpisode=index;
-  hideAll();
+function loadEpisode(index, userAction=false){
+  const ep = serie.episodes[index];
+  currentEpisode = index;
+  hideAllPlayers();
 
-  let tried=[];
+  const type = detectType(ep.video);
 
-  function tryVideoJS(){
-    tried.push("vjs");
-    vjsEl.classList.remove("hidden");
-    vjs.src({src:ep.video,type:"video/mp4"});
-    vjs.play().catch(()=>tryPlyr());
-  }
-
-  function tryPlyr(){
-    if(tried.includes("plyr"))return tryDrive();
-    tried.push("plyr");
-    plyrFrame.src=ytEmbed(ep.video);
+  if(type === "youtube"){
+    plyrFrame.src = normalizeYouTube(ep.video);
     plyrFrame.classList.remove("hidden");
-    setTimeout(()=>{ if(!plyr.playing) tryDrive(); },1500);
   }
-
-  function tryDrive(){
-    driveFrame.src=driveEmbed(ep.video);
+  else if(type === "vimeo"){
+    plyrFrame.src = normalizeVimeo(ep.video);
+    plyrFrame.classList.remove("hidden");
+  }
+  else if(type === "drive"){
+    driveFrame.src = normalizeDrive(ep.video);
     driveFrame.classList.remove("hidden");
   }
+  else{
+    vjs.el().classList.remove("hidden");
+    vjs.src({src: ep.video, type: "video/mp4"});
+    vjs.play().catch(()=>{
+      // fallback silently to iframe player if Video.js fails
+      if(ep.video.includes("youtu")) plyrFrame.src = normalizeYouTube(ep.video), plyrFrame.classList.remove("hidden");
+      else if(ep.video.includes("drive.google.com")) driveFrame.src = normalizeDrive(ep.video), driveFrame.classList.remove("hidden");
+    });
+  }
 
-  if(/youtu|vimeo/.test(ep.video)) tryPlyr();
-  else if(ep.video.includes("drive.google.com")) tryDrive();
-  else tryVideoJS();
-
-  localStorage.setItem(storageKey,JSON.stringify({episode:index,time:0}));
+  localStorage.setItem(storageKey, JSON.stringify({episode:index, time:0}));
 
   if(userAction && userHasActivePIN()){
-    const el=!vjsEl.classList.contains("hidden")?vjsEl:
-             !plyrFrame.classList.contains("hidden")?plyrFrame:driveFrame;
+    const el = !vjs.el().classList.contains("hidden")?vjs.el():
+               !plyrFrame.classList.contains("hidden")?plyrFrame:driveFrame;
     el.requestFullscreen?.();
   }
 }
 
 /* ================= RESUME ================= */
-const saved=JSON.parse(localStorage.getItem(storageKey));
-if(saved&&serie.episodes[saved.episode]){
+const saved = JSON.parse(localStorage.getItem(storageKey));
+if(saved && serie.episodes[saved.episode]){
   loadEpisode(saved.episode);
   vjs.one("loadedmetadata",()=>vjs.currentTime(saved.time||0));
 }
 
-vjs.on("timeupdate",()=>{
-  const d=JSON.parse(localStorage.getItem(storageKey))||{};
-  d.time=vjs.currentTime();
-  localStorage.setItem(storageKey,JSON.stringify(d));
+vjs.on("timeupdate", ()=>{
+  const data = JSON.parse(localStorage.getItem(storageKey))||{};
+  data.time = vjs.currentTime();
+  localStorage.setItem(storageKey, JSON.stringify(data));
 });
 
-vjs.on("ended",()=>{
+vjs.on("ended", ()=>{
   if(serie.episodes[currentEpisode+1]) loadEpisode(currentEpisode+1);
 });
 
 /* ================= UI ================= */
 serie.episodes.forEach((ep,i)=>{
-  const b=document.createElement("button");
-  b.textContent=ep.title;
-  b.onclick=()=>loadEpisode(i,true);
+  const b = document.createElement("button");
+  b.textContent = ep.title;
+  b.onclick = ()=>loadEpisode(i,true);
   episodes.appendChild(b);
 });
 
-watchNowBtn.onclick=()=>loadEpisode(saved?.episode||0,true);
-nextEpisodeBtn.onclick=()=>serie.episodes[currentEpisode+1]&&loadEpisode(currentEpisode+1,true);
-prevEpisodeBtn.onclick=()=>serie.episodes[currentEpisode-1]&&loadEpisode(currentEpisode-1,true);
-toggleEpisodesBtn.onclick=()=>episodes.style.display=episodes.style.display==="none"?"block":"none";
-shareBtn.onclick=()=>{
+watchNowBtn.onclick = ()=>loadEpisode(saved?.episode||0,true);
+nextEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode+1]&&loadEpisode(currentEpisode+1,true);
+prevEpisodeBtn.onclick = ()=>serie.episodes[currentEpisode-1]&&loadEpisode(currentEpisode-1,true);
+toggleEpisodesBtn.onclick = ()=>episodes.style.display = episodes.style.display==="none"?"block":"none";
+shareBtn.onclick = ()=>{
   const t=encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
   window.open(`https://api.whatsapp.com/send?text=${t}`);
 };
@@ -231,9 +213,9 @@ shareBtn.onclick=()=>{
 function userHasActivePIN(){return window.ACTIVE_PIN===true;}
 
 submitComment.onclick=()=>{
-  if(!commentInput.value.trim())return;
+  if(!commentInput.value.trim()) return;
   const d=document.createElement("div");
-  d.textContent=commentInput.value;
+  d.textContent = commentInput.value;
   commentList.appendChild(d);
   commentInput.value="";
 };
