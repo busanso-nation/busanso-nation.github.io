@@ -90,7 +90,7 @@ var id = params.get("id");
 var movie = MOVIES.find(m => m.id === id);
 if(!movie) location.replace("movies.html");
 
-/* ===== ADS: FREE CONTENT ONLY ===== */
+// ===== ADS: FREE CONTENT ONLY =====
 var AD_INTERVAL = 10 * 60 * 1000; // 10 minutes
 var adTimer = null;
 
@@ -123,37 +123,39 @@ title.textContent = movie.title;
 meta.textContent = movie.country + " • " + movie.year;
 synopsis.textContent = movie.synopsis || "";
 
-// ===== VIDEO NORMALIZATION =====
+// ===== VIDEO NORMALIZATION (FIXED YouTube embed) =====
 function normalizeVideo(url){
   try{
     url = url.trim();
 
+    // YouTube
     if(url.includes("youtube.com") || url.includes("youtu.be")){
-      var videoId = "";
+      let videoId = "";
       if(url.includes("youtu.be")){
         videoId = url.split("youtu.be/")[1].split(/[?&]/)[0];
-      } 
-      else if(url.includes("/shorts/")){
+      } else if(url.includes("/embed/")){
+        videoId = url.split("/embed/")[1].split(/[?&]/)[0];
+      } else if(url.includes("/shorts/")){
         videoId = url.split("/shorts/")[1].split(/[?&]/)[0];
-      }
-      else{
-        var u = new URL(url);
+      } else {
+        let u = new URL(url);
         videoId = u.searchParams.get("v");
       }
-      if(videoId){
-        return {type:'youtube', source:videoId};
-      }
+      if(videoId) return {type:'youtube', source:videoId};
     }
 
+    // Vimeo
     if(url.includes("vimeo.com")){
       return {type:'vimeo', source:url.split("/").pop()};
     }
 
+    // Google Drive
     if(url.includes("/d/")){
       var driveId = url.split("/d/")[1].split("/")[0];
       return {type:'mp4', source:"https://drive.google.com/uc?export=download&id="+driveId};
     }
 
+    // Default MP4
     return {type:'mp4', source:url};
   }catch(e){ return {type:'mp4', source:url}; }
 }
@@ -174,7 +176,7 @@ watchBtn.onclick = function(){
   if(v.type==='youtube') source={type:'video',sources:[{src:v.source,provider:'youtube'}]};
   else if(v.type==='vimeo') source={type:'video',sources:[{src:v.source,provider:'vimeo'}]};
   else source={type:'video',sources:[{src:v.source,type:'video/mp4'}]};
-  
+
   player.source = source;
 
   // ===== AUTO-RESUME =====
