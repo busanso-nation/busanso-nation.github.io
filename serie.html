@@ -91,6 +91,7 @@ button.nav { background:#1db954; color:#fff; }
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
@@ -138,21 +139,37 @@ serie.episodes.forEach((ep,index)=>{
 // Scroll to player
 function scrollToPlayer(){ document.getElementById('playerContainer').scrollIntoView({behavior:'smooth',block:'start'}); }
 
-// Normalize video URLs for Plyr
+// Normalize video URLs (YouTube, Vimeo, Google Drive)
 function normalizeVideo(url){
   url = url.trim();
+
+  // YouTube variations
   if(url.includes("youtu.be") || url.includes("youtube.com")){
-    let id = "";
-    if(url.includes("youtu.be")) id = url.split("youtu.be/")[1].split(/[?&]/)[0];
-    else if(url.includes("/shorts/")) id = url.split("/shorts/")[1].split(/[?&]/)[0];
-    else id = new URL(url).searchParams.get("v");
-    return { type:'youtube', source:id };
+    let id="";
+    try{
+      if(url.includes("youtu.be")) id = url.split("youtu.be/")[1].split(/[?&]/)[0];
+      else if(url.includes("/shorts/")) id = url.split("/shorts/")[1].split(/[?&]/)[0];
+      else if(url.includes("/embed/")) id = url.split("/embed/")[1].split(/[?&]/)[0];
+      else id = new URL(url).searchParams.get("v");
+    } catch(e){}
+    if(id) return { type:'youtube', source:id };
   }
-  if(url.includes("vimeo.com")) return { type:'vimeo', source:url.split("/").pop() };
+
+  // Vimeo
+  if(url.includes("vimeo.com")){
+    const vid = url.split("/").filter(Boolean).pop();
+    if(vid) return { type:'vimeo', source:vid };
+  }
+
+  // Google Drive variations
   if(url.includes("drive.google.com")){
-    let fileId = url.split("/d/")[1]?.split("/")[0];
-    if(fileId) return { type:'mp4', source:`https://drive.google.com/uc?export=download&id=${fileId}` };
+    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if(match && match[1]){
+      return { type:'mp4', source:`https://drive.google.com/uc?export=media&id=${match[1]}` };
+    }
   }
+
+  // Default MP4
   return { type:'mp4', source:url };
 }
 
@@ -161,11 +178,12 @@ function loadEpisode(index,userAction=false){
   const ep = serie.episodes[index];
   currentEpisode=index;
   const v = normalizeVideo(ep.video);
+
   let source;
   if(v.type==='youtube') source={type:'video',sources:[{src:v.source,provider:'youtube'}]};
   else if(v.type==='vimeo') source={type:'video',sources:[{src:v.source,provider:'vimeo'}]};
   else source={type:'video',sources:[{src:v.source,type:'video/mp4'}]};
-  
+
   player.source = source;
 
   const saved = JSON.parse(localStorage.getItem(storageKey))||{};
@@ -173,12 +191,17 @@ function loadEpisode(index,userAction=false){
 
   if(userAction && userHasActivePIN()) player.fullscreen.enter();
   player.play();
+
   localStorage.setItem(storageKey,JSON.stringify({episode:index,time:player.currentTime}));
 }
 
-// Auto-resume
+// Auto-resume last episode + timestamp
 const saved = JSON.parse(localStorage.getItem(storageKey));
-if(saved && serie.episodes[saved.episode]) loadEpisode(saved.episode);
+if(saved && serie.episodes[saved.episode] !== undefined){
+  loadEpisode(saved.episode);
+} else {
+  loadEpisode(0);
+}
 
 // Save playback time
 player.on('timeupdate',()=>{ 
@@ -203,8 +226,10 @@ let episodesVisible=true;
 toggleEpisodesBtn.onclick=()=>{ episodesVisible=!episodesVisible; episodesContainer.style.display=episodesVisible?'block':'none'; };
 
 // Share WhatsApp
-shareBtn.onclick=()=>{ const text=encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
-window.open(`https://api.whatsapp.com/send?text=${text}`,'_blank'); };
+shareBtn.onclick=()=>{
+  const text=encodeURIComponent(`${serie.title}\n\n${serie.synopsis}\n\nWatch 👉 https://bit.ly/busanso`);
+  window.open(`https://api.whatsapp.com/send?text=${text}`,'_blank');
+};
 
 // Dummy auth
 function userHasActivePIN(){ return window.ACTIVE_PIN===true; }
