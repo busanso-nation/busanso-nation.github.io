@@ -3,22 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MOVIE PLAYER</title>
+  <title>Movie Player</title>
 
-  <!-- Plyr CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@latest/dist/plyr.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@latest/dist/plyr.css"/>
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
       background: #f4f4f4;
+      padding: 20px;
       text-align: center;
-    }
-
-    .movie-info {
-      margin-bottom: 20px;
     }
 
     #movie-poster {
@@ -39,24 +33,21 @@
 
     .player-wrapper {
       max-width: 800px;
-      margin: 0 auto;
+      margin: 20px auto;
       display: none;
     }
 
-    /* Fullscreen icon styling */
     .plyr__control--fullscreen svg {
       fill: none;
-      stroke: #ffffff;
+      stroke: #fff;
       stroke-width: 2;
-      width: 24px;
-      height: 24px;
     }
   </style>
 </head>
 <body>
 
-  <div class="movie-info" id="movie-info">
-    <img id="movie-poster" alt="Movie Poster" />
+  <div id="movie-info">
+    <img id="movie-poster" />
     <h1 id="movie-title"></h1>
     <p id="movie-synopsis"></p>
     <p><strong>Year:</strong> <span id="movie-year"></span></p>
@@ -70,19 +61,20 @@
     <div id="player-container"></div>
   </div>
 
-  <!-- Plyr JS -->
   <script src="https://cdn.jsdelivr.net/npm/plyr@latest/dist/plyr.polyfilled.js"></script>
-
-  <!-- Movies Data -->
   <script src="movies-data.js"></script>
 
   <script>
-    // Get movie by ?id= or fallback
+    if (typeof movies === "undefined") {
+      alert("movies-data.js not loaded or movies array missing!");
+    }
+
     const params = new URLSearchParams(window.location.search);
     const movieId = params.get("id");
+
     const movie = movies.find(m => m.id === movieId) || movies[0];
 
-    // Fill movie info
+    // Fill UI
     document.getElementById("movie-title").textContent = movie.title;
     document.getElementById("movie-synopsis").textContent = movie.synopsis;
     document.getElementById("movie-year").textContent = movie.year;
@@ -90,16 +82,11 @@
     document.getElementById("movie-duration").textContent = movie.duration;
     document.getElementById("movie-poster").src = movie.poster;
 
-    // Watch button click
-    document.getElementById("watch-btn").addEventListener("click", () => {
-      // Hide poster & info
+    document.getElementById("watch-btn").onclick = () => {
       document.getElementById("movie-info").style.display = "none";
+      document.getElementById("player-wrapper").style.display = "block";
 
-      // Show player
-      const wrapper = document.getElementById("player-wrapper");
-      wrapper.style.display = "block";
-
-      const videoId = extractYoutubeId(movie.video);
+      const videoId = movie.video.split("/").pop();
 
       document.getElementById("player-container").innerHTML = `
         <div id="player"
@@ -120,18 +107,13 @@
         ]
       });
 
-      // Replace fullscreen icon
       setTimeout(() => {
         const icon = document.querySelector(".plyr__control--fullscreen svg");
         if (icon) {
-          icon.innerHTML = '<rect x="3" y="3" width="18" height="18" />';
+          icon.innerHTML = '<rect x="3" y="3" width="18" height="18"/>';
         }
       }, 300);
-    });
-
-    function extractYoutubeId(url) {
-      return url.split("/").pop();
-    }
+    };
   </script>
 
 </body>
