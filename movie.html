@@ -4,33 +4,77 @@
 <meta charset="UTF-8">
 <title>Movie Player</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Load movies data first -->
 <script src="movies-data.js"></script>
 
 <style>
-body { margin:0; background:#000; color:#fff; font-family:Arial,sans-serif; text-align:center; padding:16px; }
-.poster-container { position:relative; display:inline-block; max-width:400px; width:100%; cursor:pointer; }
-.poster-container img { width:100%; border-radius:12px; display:block; }
-.play-overlay { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:64px; color:#fff; opacity:0.8; pointer-events:none; }
-.details { max-width:600px; margin:16px auto; }
-button.watch-btn { padding:12px 24px; font-size:18px; border:none; border-radius:8px; background:#e50914; color:#fff; cursor:pointer; margin-top:12px; }
-.player { margin-top:20px; width:100%; max-width:800px; height:450px; display:none; border:none; border-radius:12px; }
+body { margin:0; background:#111; color:#fff; font-family:Arial,sans-serif; text-align:center; }
+.banner { 
+  position: relative; 
+  width: 100%; 
+  max-height: 400px; 
+  overflow: hidden; 
+  background: #222; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+.banner img { 
+  width: auto; 
+  height: 100%; 
+  object-fit: cover; 
+  object-position: center; 
+  filter: brightness(0.5);
+  transition: transform 0.5s ease;
+}
+.banner:hover img { transform: scale(1.05); }
+.banner .buttons { 
+  position: absolute; 
+  bottom: 20px; 
+  display: flex; 
+  gap: 12px; 
+  justify-content: center; 
+  width: 100%;
+}
+button { 
+  padding: 12px 24px; 
+  font-size: 18px; 
+  border:none; 
+  border-radius:8px; 
+  cursor:pointer; 
+  font-weight:bold;
+}
+button#watchBtn { background:#e50914; color:#fff; }
+button#shareBtn { background:#555; color:#fff; }
+
+.details { max-width:800px; margin:20px auto; text-align:left; padding:0 16px; }
+.details h1 { margin-bottom:10px; font-size:2em; }
+.details p { line-height:1.5; }
+
+.player { 
+  margin:20px auto; 
+  width:90%; 
+  max-width:900px; 
+  height:500px; 
+  display:none; 
+  border:none; 
+  border-radius:12px; 
+}
 </style>
 </head>
 <body>
 
-<h1 id="title">Loading...</h1>
-
-<div class="poster-container" id="posterContainer">
-  <img id="posterImg" src="" alt="Movie Poster">
-  <div class="play-overlay">▶</div>
+<div class="banner">
+  <img id="posterImg" src="" alt="Movie Banner">
+  <div class="buttons">
+    <button id="watchBtn">▶ Watch Now</button>
+    <button id="shareBtn">Share</button>
+  </div>
 </div>
 
 <div class="details">
+  <h1 id="title">Loading...</h1>
   <p id="synopsis"></p>
   <p id="meta"></p>
-  <button class="watch-btn" id="watchBtn">Watch Now</button>
 </div>
 
 <iframe id="player" class="player" allowfullscreen></iframe>
@@ -39,17 +83,11 @@ button.watch-btn { padding:12px 24px; font-size:18px; border:none; border-radius
 // ===== GET MOVIE ID =====
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
-if(!id) {
-  alert("No movie selected!");
-  location.href = "movies-list.html";
-}
+if(!id){ alert("No movie selected!"); location.href = "movies-list.html"; }
 
 // ===== FETCH MOVIE =====
 const movie = MOVIES.find(m => m.id === id);
-if(!movie) {
-  alert("Movie not found!");
-  location.href = "movies-list.html";
-}
+if(!movie){ alert("Movie not found!"); location.href = "movies-list.html"; }
 
 // ===== POPULATE INFO =====
 document.getElementById("title").textContent = movie.title;
@@ -57,35 +95,50 @@ document.getElementById("posterImg").src = movie.poster;
 document.getElementById("synopsis").textContent = movie.synopsis || "";
 document.getElementById("meta").textContent = `${movie.year} • ${movie.duration || ""} • ${movie.type || ""}`;
 
-// ===== VIDEO NORMALIZATION =====
+// ===== VIDEO URL NORMALIZATION =====
 function getVideoUrl(url){
   if(!url) return "";
   url = url.trim();
   if(url.includes("youtube.com") || url.includes("youtu.be")){
     const ytId = url.includes("v=") ? new URL(url).searchParams.get("v") : url.split("/").pop();
-    return `https://www.youtube.com/embed/${ytId}?autoplay=1`;
+    return `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=0&modestbranding=1&rel=0`;
   }
   if(url.includes("/d/")) { // Google Drive
     const driveId = url.split("/d/")[1].split("/")[0];
     return `https://drive.google.com/file/d/${driveId}/preview`;
   }
-  return url; // fallback
+  return url;
 }
 
-// ===== WATCH BUTTON =====
+// ===== PLAY MOVIE =====
 const watchBtn = document.getElementById("watchBtn");
-const posterContainer = document.getElementById("posterContainer");
+const posterImg = document.getElementById("posterImg");
 const player = document.getElementById("player");
 
 function playMovie(){
   player.src = getVideoUrl(movie.video);
   player.style.display = "block";
-  posterContainer.style.display = "none";
+  posterImg.style.display = "none";
   watchBtn.style.display = "none";
+  shareBtn.style.display = "none";
 }
 
 watchBtn.addEventListener("click", playMovie);
-posterContainer.addEventListener("click", playMovie);
+posterImg.addEventListener("click", playMovie);
+
+// ===== SHARE BUTTON =====
+const shareBtn = document.getElementById("shareBtn");
+shareBtn.addEventListener("click", ()=>{
+  const shareData = {
+    title: movie.title,
+    text: movie.synopsis,
+    url: location.href
+  };
+  if(navigator.share){ navigator.share(shareData).catch(console.error); }
+  else { 
+    prompt("Copy this link to share:", location.href);
+  }
+});
 </script>
 
 </body>
