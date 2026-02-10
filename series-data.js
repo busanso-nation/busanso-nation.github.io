@@ -3253,6 +3253,35 @@ const SERIES = [
   { title: "Episode 6", video: "https://drive.google.com/file/d/1u1-L2zLmM4LSoI8c4Of6wz5lDyIDRJnh/preview" },
   { title: "Episode 7", video: "https://drive.google.com/file/d/1hxx1PyQDTDALJ2Cn3p1zQPpCMJnb3xC0/preview" },
   { title: "Episode 8", video: "https://drive.google.com/file/d/1dhR3-9rwPFNkbX-jDQgQeq2gZ1u-w2yI/preview" }
+      ]
+  },
+{
+    id: "rainoflove",
+    title: "RAIN OF LOVE",
+   poster: "https://i.ibb.co/FQyF0qr/Untitled-1-Recovered-Recovered.jpg",
+    genre: "Love story",
+    added: 84,
+    type: "premium",
+    country: "Japan",
+    year: "2025",
+    synopsis: "Akira Tachibana is a beautiful 17-year-old high school student and a former star of her school's running club. After suffering a severe Achilles tendon injury, she is forced to stop running, leaving her emotionally withdrawn and struggling with the loss of her passion",
+    cast:["Jang Keun-suk", "Im Yoon-ah", "Kim Si-hoo",  "Son Eun-seo "],
+    episodes: [
+ { title: "Episode 1", video: "https://drive.google.com/file/d/1OVs42IceqMxSKP1qH94nkw7Vdt1pnpEP/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1AKA__e6nIrLggU725P6648K5LLS9PYeI/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1PMxpycW9CxIJPix36n0dothCjJ9S3vdS/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1_db1STuLJXLx7DqyGeOcFlajSRRHG9SX/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1-Jmj5r2vJsvrsD0y7SC2w7CyViNu08LE/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1_FU3kJC5yVOUwZuucHQsb7_E9nos2GgX/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1GuvRjtrHy3JL2CdFra3pEWjeqDACj6Jd/preview" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/1_acFV1Wm3tzuyQoUVXsjHKLfw0Zv7lM8/preview" },
+  { title: "Episode 9", video: "https://drive.google.com/file/d/1esZqDvNXgmuHYIo2WMVIDiztofMUtiY3/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/1sNnpM6qSHNhRHQhm16nPg7gYdYGmEP4s/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/1_55HbporNzi7YUeDUx2z1pg8GCE0AjVP/preview" },
+  { title: "Episode 12", video: "https://drive.google.com/file/d/1bYCdzQW3R7wftkm8W1stb7-l0gqf8bMd/preview" },
+  { title: "Episode 13", video: "https://drive.google.com/file/d/1tbrUM6XRR6qWaxkfTkYurIp9lA3teXWc/preview" },
+  { title: "Episode 14", video: "https://drive.google.com/file/d/1N22rCZc10Wmlaq7vQuvHDwszllOnznkC/preview" },
+  { title: "Episode 15", video: "https://drive.google.com/file/d/1TsJZUKkbIvR1WcVyqTpyK1ZpIUaD8Jh6/preview" }
     ]
   }
 ];
