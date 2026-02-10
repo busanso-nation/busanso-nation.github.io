@@ -3282,6 +3282,34 @@ const SERIES = [
   { title: "Episode 13", video: "https://drive.google.com/file/d/1tbrUM6XRR6qWaxkfTkYurIp9lA3teXWc/preview" },
   { title: "Episode 14", video: "https://drive.google.com/file/d/1N22rCZc10Wmlaq7vQuvHDwszllOnznkC/preview" },
   { title: "Episode 15", video: "https://drive.google.com/file/d/1TsJZUKkbIvR1WcVyqTpyK1ZpIUaD8Jh6/preview" }
+       ]
+  },
+{
+    id: "secrettear",
+    title: "SECRET TEAR",
+   poster: "https://i.ibb.co/1YGXNLc8/Untitled-1.jpg",
+    genre: "Drama",
+    added: 85,
+    type: "premium",
+    country: "Chine",
+    year: "2025",
+    synopsis: "Chinese drama series about a Japanese woman living with a Chinese family after WWII, featuring a main cast including",
+    cast:["Sun Li", "Jiang Wu", "Yan Xuejing",  "Sa Rina"],
+    episodes: [
+ { title: "Episode 1", video: "https://drive.google.com/file/d/1Igal4w6KqvajTbpXNmnJLu3yOuk2uLTX/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1FfrGHiPDaIRJMNAc9SEP0OikcgJ93NFu/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1Hj91-yuhNI9BtUelYDOpoEZaP6LxXGyO/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1RBwhKPklUPp6lGTsPqKQhoMtbDkskz6R/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1mBtZiBMj6jcGBoIqf8BUXMjRwpUSxrL9/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1hA815Gs_VYgH3MSzsO140sX54ErEaDmz/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1OvE0TvxTRCEqqWP68X_EKfJ4aRtz1rp_/preview" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/1CtOPPEFwf_sZTt6oEqXwXtSMx8K7TdMW/preview" },
+  { title: "Episode 9", video: "https://drive.google.com/file/d/1s9fvZV12eQa_u6aYGAo1CmDb3cvDjuAJ/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/1EWElMlrQqeHWGTrxleid-9-ffJSTobNx/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/1GzeyKIlSEDze6MC51jRQBf7beLLM3L2Q/preview" },
+  { title: "Episode 12", video: "https://drive.google.com/file/d/1Iq2D1wdpZteWQ3p2eJRArAadPfruZZB1/preview" },
+  { title: "Episode 13", video: "https://drive.google.com/file/d/1t6INO9yxGTfgybItU3jxHpKJ5Yje5ZYN/preview" },
+  { title: "Episode 14", video: "https://drive.google.com/file/d/1ntKZGcLvu7DwhDS3jPg3YEojsN8B_7mV/preview" }
     ]
   }
 ];
