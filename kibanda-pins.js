@@ -10,7 +10,6 @@ const KIBANDA_PINS = {
     "banakampala": "SHOES23",
    "opolot": "KING4",
   "wande": "55M",
-   "safi": "1002",
   "nasaji": "NASAJILIB456"
 };
 
