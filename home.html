@@ -189,6 +189,33 @@ body{
   padding:10px 15px;
   font-size:12px;
 }
+/* WHATSAPP FLOATING BUTTON */
+.whatsapp-float{
+  position:fixed;
+  right:20px;
+  bottom:90px; /* above footer */
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  background:#25D366;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 8px 25px rgba(0,0,0,.5);
+  z-index:9999;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.whatsapp-float:hover{
+  transform:translateY(-4px) scale(1.08);
+  box-shadow:0 12px 35px rgba(0,0,0,.7);
+}
+
+.whatsapp-float img{
+  width:34px;
+  height:34px;
+}
+
 </style>
 </head>
 
@@ -328,6 +355,13 @@ installBtn.onclick=async()=>{
 </script>
 
 <script src="https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js"></script>
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/256703888884" 
+   class="whatsapp-float" 
+   target="_blank">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
 
 </body>
 </html>
