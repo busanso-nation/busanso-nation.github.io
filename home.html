@@ -299,6 +299,25 @@ body{
     <div class="slider" id="freeSeriesBox"></div>
   </div>
 </div>
+<button id="audioToggle" title="Mute / Unmute" style="
+  position: fixed;
+  bottom: 180px;
+  right: 20px;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(255,255,255,0.4);
+  transition: 0.3s;
+">🔊</button>
 
 <!-- INSTALL APP -->
 <button id="installBtn">Install App</button>
@@ -399,8 +418,6 @@ else {
   
 }
 
-
-
 </script>
 
 <script src="https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js"></script>
@@ -410,7 +427,44 @@ else {
    target="_blank">
    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
 </a>
+<audio id="bgAudio" loop>
+  <source src="backgrou.mp3" type="audio/mpeg">
+</audio>
+<script>
+const bgAudio = document.getElementById("bgAudio");
+bgAudio.volume = 0.3; // soft background volume
 
+function startAudio() {
+  bgAudio.play().catch(() => {}); // safely ignore autoplay restrictions
+  document.removeEventListener("click", startAudio);
+}
+
+// Wait for first user interaction (required by mobile/autoplay policies)
+document.addEventListener("click", startAudio);
+</script>
+
+<script>
+const bgAudio = document.getElementById("bgAudio");
+const audioToggle = document.getElementById("audioToggle");
+let isMuted = false;
+
+// Set initial volume
+bgAudio.volume = 0.3;
+
+// Start audio on first click (required on mobile)
+function startAudio() {
+  bgAudio.play().catch(() => {});
+  document.removeEventListener("click", startAudio);
+}
+document.addEventListener("click", startAudio);
+
+// Toggle mute/unmute
+audioToggle.onclick = () => {
+  isMuted = !isMuted;
+  bgAudio.muted = isMuted;
+  audioToggle.textContent = isMuted ? "🔇" : "🔊"; // change icon
+};
+</script>
 
 </body>
 </html>
