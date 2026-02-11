@@ -154,8 +154,7 @@ body{
   border:none;
   background:#ff7a18;
   color:#fff;
-  box-shadow:0 4px 12px rgba(0,0,0,.6);
-  display:block; /* changed */
+  cursor:pointer;
   z-index:9999;
 }
 
@@ -171,6 +170,32 @@ body{
   text-align:center;
   display:none; /* keep this hidden */
   z-index:9999;
+}
+#installBtn{
+  box-shadow:0 0 10px #ff7a18,
+             0 0 20px #ff7a18,
+             0 0 40px rgba(255,122,24,.6);
+  animation: glowPulse 2s infinite ease-in-out;
+  transition: transform .2s ease;
+}
+
+#installBtn:hover{
+  transform: scale(1.08);
+}
+
+@keyframes glowPulse{
+  0%{
+    box-shadow:0 0 5px #ff7a18,
+               0 0 15px #ff7a18;
+  }
+  50%{
+    box-shadow:0 0 20px #ffae42,
+               0 0 40px #ff7a18;
+  }
+  100%{
+    box-shadow:0 0 5px #ff7a18,
+               0 0 15px #ff7a18;
+  }
 }
 
 
@@ -214,8 +239,8 @@ body{
 }
 
 .whatsapp-float img{
-  width:34px;
-  height:34px;
+  width:30px;
+  height:30px;
 }
 
 </style>
@@ -333,30 +358,48 @@ SERIES.forEach(s=>{
 let deferredPrompt;
 const installBtn = document.getElementById("installBtn");
 
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-});
+/* Detect if already installed */
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
 
-installBtn.onclick = async () => {
+/* If app is already installed */
+if (isStandalone()) {
+  installBtn.textContent = "Open App";
+  installBtn.onclick = () => {
+    window.location.href = "home.html"; // or your main app page
+  };
+} 
+else {
 
-  // If Android install is available
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-  }
+  /* Capture install availability */
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+  });
 
-  // If iPhone
-  else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-    alert("Tap Share → Add to Home Screen");
-  }
+  installBtn.onclick = async () => {
 
-  // If Desktop
-  else {
-    alert("Use your browser menu to Install this app.");
-  }
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const result = await deferredPrompt.userChoice;
 
-};
+      if (result.outcome === "accepted") {
+        installBtn.textContent = "Open App";
+      }
+
+      deferredPrompt = null;
+    } 
+    else {
+      // fallback for iPhone
+      window.location.href = "install.html";
+    }
+
+  };
+  
+}
+
+
 
 </script>
 
