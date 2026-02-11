@@ -145,7 +145,7 @@ body{
 /* INSTALL BUTTON */
 #installBtn{
   position:fixed;
-  bottom:20px;
+  bottom:60px;
   right:20px;
   padding:14px 18px;
   border-radius:50px;
@@ -155,9 +155,10 @@ body{
   background:#ff7a18;
   color:#fff;
   box-shadow:0 4px 12px rgba(0,0,0,.6);
-  display:none;
+  display:block; /* changed */
   z-index:9999;
 }
+
 #iosHint{
   position:fixed;
   bottom:20px;
@@ -168,9 +169,10 @@ body{
   border-radius:12px;
   font-size:14px;
   text-align:center;
-  display:none;
+  display:none; /* keep this hidden */
   z-index:9999;
 }
+
 
 /* FOOTER BUTTONS */
 .footer-actions{
@@ -193,7 +195,7 @@ body{
 .whatsapp-float{
   position:fixed;
   right:20px;
-  bottom:90px; /* above footer */
+  bottom:110px; /* above footer */
   width:65px;
   height:65px;
   border-radius:50%;
@@ -329,29 +331,33 @@ SERIES.forEach(s=>{
 
 /* ===== INSTALL LOGIC (UNCHANGED) ===== */
 let deferredPrompt;
-const installBtn=document.getElementById("installBtn");
-const iosHint=document.getElementById("iosHint");
+const installBtn = document.getElementById("installBtn");
 
-function isStandalone(){
-  return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-}
-function isiOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent);}
-function isAndroid(){return /android/i.test(navigator.userAgent);}
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
 
-if(!isStandalone()){
-  window.addEventListener("beforeinstallprompt",e=>{
-    e.preventDefault();
-    deferredPrompt=e;
-    if(isAndroid()) installBtn.style.display="block";
-  });
-  if(isiOS()) iosHint.style.display="block";
-}
+installBtn.onclick = async () => {
 
-installBtn.onclick=async()=>{
-  installBtn.style.display="none";
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
+  // If Android install is available
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+  }
+
+  // If iPhone
+  else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+    alert("Tap Share → Add to Home Screen");
+  }
+
+  // If Desktop
+  else {
+    alert("Use your browser menu to Install this app.");
+  }
+
 };
+
 </script>
 
 <script src="https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js"></script>
