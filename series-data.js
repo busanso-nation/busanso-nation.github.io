@@ -71,7 +71,8 @@ const SERIES = [
 { title: "Episode 20", video: "https://drive.google.com/file/d/14KoaGObxNEFzL3nlITOSIaQImm5KmIct/preview" },
 { title: "Episode 21", video: "https://drive.google.com/file/d/1E_Y5zq6I8Dr8QR8IWk4rs6d4T9yJb9B3/preview" },
 { title: "Episode 22", video: "https://drive.google.com/file/d/14bVKJ7XQz8QsQrwcBoM4RjPB2DfxMiGD/preview" },
- { title: "Episode 23", video: "https://drive.google.com/file/d/1dB9VYbPbWxstjqdra5BG4Iqvu3bamszC/preview" }
+ { title: "Episode 23", video: "https://drive.google.com/file/d/1dB9VYbPbWxstjqdra5BG4Iqvu3bamszC/preview" },
+{ title: "Episode 24", video: "https://drive.google.com/file/d/1LDu_TFyIBlFoCaweBLyYGRswXsmxlNaG/preview" }
       ]
   },
 {
@@ -149,7 +150,8 @@ const SERIES = [
   { title: "Episode 27", video: "https://www.youtube.com/embed/a5Biq1rOJvE" },
     { title: "Episode 28", video: "https://www.youtube.com/embed/G2HKumviEDQ" },
  { title: "Episode 29", video: "https://www.youtube.com/embed/aH2i_vcCVoA" },
- { title: "Episode 30", video: "https://www.youtube.com/embed/T2H6mCKlt4Y" }      
+ { title: "Episode 30", video: "https://www.youtube.com/embed/T2H6mCKlt4Y" },
+ { title: "Episode 31", video: "https://www.youtube.com/embed/UOqB-3zrw98" } 
       ]
   },
   {
