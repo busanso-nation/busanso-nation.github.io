@@ -16,7 +16,7 @@ const MOVIES = [
     title: "RADHE",
     poster: "https://i.ibb.co/SDjNgMyH/Chat-GPT-Image-Feb-6-2026-01-26-06-PM.png",
     video: "https://www.youtube.com/embed/7riCt-H911w",
-    type: "premium",
+    type: "free",
     year: "2026",
     country: "India",
     duration: "1hr 05m ",
