@@ -1,6 +1,17 @@
 // movies-data.js
 const MOVIES = [
        {
+                         id: "ganga",
+    title: "GANGA",
+    poster: "https://cdn.britannica.com/86/265786-050-6F5F5956/sholay-hindi-film-1975-Amitabh-Bachchan-Dharmendra.jpg",
+    video: "https://www.youtube.com/embed/zH6nl9g9S6Y",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "In the village of Ramgarh, retired police chief Thakur Baldev Singh plots to bring down the notorious bandit Gabbar Singh and enlists the help of two lesser criminals, Jai and Veeru. When Gabbar attacks the village, however, Jai and Veeru wonder why Thakur does nothing to help them. They soon learn that he has no arms, and that Gabbar was the one who cut them off. Enraged by this, they redouble their efforts to help"
+  },
+    {
                 id: "radhee",
     title: "RADHE",
     poster: "https://i.ibb.co/SDjNgMyH/Chat-GPT-Image-Feb-6-2026-01-26-06-PM.png",
