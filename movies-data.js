@@ -1,6 +1,28 @@
 // movies-data.js
 const MOVIES = [
        {
+                id: "radhee",
+    title: "RADHE",
+    poster: "https://i.ibb.co/SDjNgMyH/Chat-GPT-Image-Feb-6-2026-01-26-06-PM.png",
+    video: "https://www.youtube.com/embed/7riCt-H911w",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "Radhe is a poor Hindu with a bad temper, who often gets into fights. One of these fights puts him in the hospital with head injuries causing amnesia. At the same time a woman he was in love with re-enters his life. "
+  },
+    {
+                         id: "radhee2",
+    title: "RADHE 2",
+    poster: "https://i.ibb.co/SDjNgMyH/Chat-GPT-Image-Feb-6-2026-01-26-06-PM.png",
+    video: "https://drive.google.com/file/d/1VjyVd2wrUXfEPWEuPXaWd2bcLOuHJNq-/preview",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "Radhe is a poor Hindu with a bad temper, who often gets into fights. One of these fights puts him in the hospital with head injuries causing amnesia. At the same time a woman he was in love with re-enters his life. "
+  },
+    {
     id: "kuwambaa",
     title: "KIDNAP",
     poster: "https://m.media-amazon.com/images/M/MV5BNzY4MTE5Njc1MV5BMl5BanBnXkFtZTgwNjA1MTgzNzE@._V1_.jpg",
@@ -179,17 +201,7 @@ const MOVIES = [
     synopsis: "These films feature larger-than-life protagonists, high-stakes fight choreography, and,,, frequently, a mix of romance and emotional storylines. "
   },
   {
-    id: "radhee",
-    title: "RADHE",
-    poster: "https://i.ibb.co/SDjNgMyH/Chat-GPT-Image-Feb-6-2026-01-26-06-PM.png",
-    video: "https://www.youtube.com/embed/7riCt-H911w",
-    type: "premium",
-    year: "2026",
-    country: "India",
-    duration: "1hr 05m ",
-    synopsis: "Radhe is a poor Hindu with a bad temper, who often gets into fights. One of these fights puts him in the hospital with head injuries causing amnesia. At the same time a woman he was in love with re-enters his life. "
-  },
-    {
+  
     id: "mama",
     title: "MAMA",
     poster: "https://i.ibb.co/XZKMYq8S/sddefault.jpg",
