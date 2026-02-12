@@ -5,7 +5,7 @@ const MOVIES = [
     title: "GANGA",
     poster: "https://cdn.britannica.com/86/265786-050-6F5F5956/sholay-hindi-film-1975-Amitabh-Bachchan-Dharmendra.jpg",
     video: "https://www.youtube.com/embed/zH6nl9g9S6Y",
-    type: "premium",
+    type: "free",
     year: "2026",
     country: "India",
     duration: "1hr 05m ",
