@@ -74,7 +74,8 @@ const SERIES = [
 { title: "Episode 21", video: "https://drive.google.com/file/d/1E_Y5zq6I8Dr8QR8IWk4rs6d4T9yJb9B3/preview" },
 { title: "Episode 22", video: "https://drive.google.com/file/d/14bVKJ7XQz8QsQrwcBoM4RjPB2DfxMiGD/preview" },
  { title: "Episode 23", video: "https://drive.google.com/file/d/1dB9VYbPbWxstjqdra5BG4Iqvu3bamszC/preview" },
-{ title: "Episode 24", video: "https://drive.google.com/file/d/1LDu_TFyIBlFoCaweBLyYGRswXsmxlNaG/preview" }
+{ title: "Episode 24", video: "https://drive.google.com/file/d/1LDu_TFyIBlFoCaweBLyYGRswXsmxlNaG/preview" },
+{ title: "Episode 25", video: "https://drive.google.com/file/d/1PRyQgZE9Ko3tfJmdS3ZUr9UreSsfDP-w/preview" }
       ]
   },
 {
