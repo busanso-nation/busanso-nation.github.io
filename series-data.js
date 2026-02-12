@@ -3316,5 +3316,38 @@ const SERIES = [
   { title: "Episode 13", video: "https://drive.google.com/file/d/1t6INO9yxGTfgybItU3jxHpKJ5Yje5ZYN/preview" },
   { title: "Episode 14", video: "https://drive.google.com/file/d/1ntKZGcLvu7DwhDS3jPg3YEojsN8B_7mV/preview" }
     ]
+  },
+{
+    id: "mystarb",
+    title: "MY STAR BRIDE",
+   poster: "https://m.media-amazon.com/images/M/MV5BNzEzM2I4NzItNGJhMS00YzE1LTg2ZTctZWYxN2Q4YzIyNTI4XkEyXkFqcGc@._V1_.jpg",
+    genre: "Drama",
+    added: 86,
+    type: "premium",
+    country: "Korea",
+    year: "2024",
+    synopsis: "he popular romantic drama, which focuses on a Vietnamese bride in Singapore, also stars Edwin Goh, Gini Chang, Desmond Ng, and Cynthia Koh.",
+    cast:["Chantalle Ng", "Xu Bin", "Edwin Goh",  "Gini Chang"],
+    episodes: [
+{ title: "Episode 1", video: "https://drive.google.com/file/d/10-9wwvDXN-nPau3yrpM82n3EEq9ttkkv/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1N-6QYU_X3OM1q4CuhIz0OC5fN-DLhI39/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1qb4zVafnEjHhNHTNWci2ra1UmU1HEx5b/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1bsQ9KN0eyuSq6PgxYHl7IUqOGTqPACd4/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1NF9nSZ50OIMAtxz-AJl0s7fCHGjHHYTC/preview" },
+  { title: "Episode 6", video: "https://drive.google.com/file/d/1XmuAutjkjXndLIvUqSG3zQ6Keln6U8jW/preview" },
+  { title: "Episode 7", video: "https://drive.google.com/file/d/1GsBc_lqUa8QMOW--NIS1JUWB7LO8NHlA/preview" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/13TXBdwKOQl4qOhxfQXSe6Co6aWCRX8h5/preview" },
+  { title: "Episode 9", video: "https://drive.google.com/file/d/1tSMtLkpobR2BRzR7agysLzET_kkN7_Nn/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/1K2KNu5bDcJf1ixq99mGpLm_cfZGAq8W4/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/1KbbKHmcNb6NG2pPHhyHQd1FRovzL6vyK/preview" },
+  { title: "Episode 12", video: "https://drive.google.com/file/d/17LU1UBASKy9jnJY2iIPynvHQ4sOyxYjW/preview" },
+  { title: "Episode 13", video: "https://drive.google.com/file/d/110WK-UYulfJOdAuwY1PEGVR6s_jB9KK3/preview" },
+  { title: "Episode 14", video: "https://drive.google.com/file/d/1tzH7G7UaJW4taYxWpePEclfTgVBtnDmx/preview" },
+  { title: "Episode 15", video: "https://drive.google.com/file/d/1PPSr7lstvSLEX_WravXxinbPlcbCnu6V/preview" },
+  { title: "Episode 16", video: "https://drive.google.com/file/d/1B9KnzUa2EbgI9FsX4WQpvOvybA-PWy0U/preview" },
+  { title: "Episode 17", video: "https://drive.google.com/file/d/1m4J21jXUPvTxg6khtQw5ezMUfmt8ny5F/preview" },
+  { title: "Episode 18", video: "https://drive.google.com/file/d/11F45GNxi_0Q3kH1VURmPSKBlNdf3Xbf-/preview" },
+  { title: "Episode 19", video: "https://drive.google.com/file/d/1XyL3NtU7Rf3M8O6bOTJ3Grdmy1j3LF3J/preview" }
+    ]
   }
 ];
