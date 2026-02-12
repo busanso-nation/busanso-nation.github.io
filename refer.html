@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share & Earn</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:20px;
+}
+
+.card{
+  width:100%;
+  max-width:500px;
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:20px;
+  backdrop-filter:blur(15px);
+  box-shadow:0 0 40px rgba(0,0,0,.5);
+}
+
+h2{text-align:center;margin-bottom:20px;}
+
+.progress-bar{
+  width:100%;
+  height:18px;
+  background:#222;
+  border-radius:50px;
+  overflow:hidden;
+  margin-bottom:15px;
+}
+
+.progress{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#00f5a0,#00d9f5);
+  transition:width .4s;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.share-btn{
+  background:#25D366;
+  color:#000;
+}
+
+.share-btn:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+}
+
+.section{
+  display:none;
+  margin-top:20px;
+}
+
+.question{margin-bottom:15px;}
+
+label{display:block;margin:6px 0;}
+
+.claim-btn{
+  background:#25D366;
+  color:#000;
+  opacity:.5;
+  pointer-events:none;
+  transition:.3s;
+}
+
+.claim-btn.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.countdown{
+  text-align:center;
+  margin-top:10px;
+  font-weight:600;
+  color:#00f5a0;
+}
+
+.locked{
+  text-align:center;
+}
+</style>
+</head>
+<body>
+
+<div class="card" id="mainCard">
+
+<h2>🔥 Share to 20 People or 5 Groups & Get 1 Free Day</h2>
+
+<div class="progress-bar">
+  <div class="progress" id="progress"></div>
+</div>
+
+<p id="progressText">0 / 20 Shares Completed</p>
+
+<button class="share-btn" id="shareBtn">Share on WhatsApp</button>
+<div class="countdown" id="countdown"></div>
+
+<div class="section" id="questionSection">
+
+<h3>Before claiming, answer:</h3>
+
+<div class="question">
+<strong>1. What do you enjoy mostly?</strong>
+<label><input type="checkbox" name="enjoy"> Series</label>
+<label><input type="checkbox" name="enjoy"> Movies</label>
+</div>
+
+<div class="question">
+<strong>2. How did you hear about us?</strong>
+<label><input type="checkbox" name="source"> Google</label>
+<label><input type="checkbox" name="source"> WhatsApp</label>
+<label><input type="checkbox" name="source"> YouTube</label>
+</div>
+
+<label>
+<input type="checkbox" id="confirmCheck">
+I confirm I have shared to 20 real people honestly.
+</label>
+
+<button class="claim-btn" id="claimBtn">
+Claim Gift via WhatsApp
+</button>
+
+</div>
+
+</div>
+
+<script>
+const shareBtn = document.getElementById("shareBtn");
+const progressBar = document.getElementById("progress");
+const progressText = document.getElementById("progressText");
+const countdown = document.getElementById("countdown");
+const questionSection = document.getElementById("questionSection");
+const claimBtn = document.getElementById("claimBtn");
+const confirmCheck = document.getElementById("confirmCheck");
+const mainCard = document.getElementById("mainCard");
+
+const BLOCK_KEY = "refBlockUntil";
+const SHARE_KEY = "refShares";
+const TIME_KEY = "lastShareTime";
+
+const now = Date.now();
+const blockedUntil = parseInt(localStorage.getItem(BLOCK_KEY)) || 0;
+
+/* ================= 48 HOUR BLOCK CHECK ================= */
+
+if(now < blockedUntil){
+  const hoursLeft = Math.ceil((blockedUntil - now) / (1000*60*60));
+  mainCard.innerHTML = `
+    <div class="locked">
+      <h2>⛔ Referral Locked</h2>
+      <p>You have already claimed your reward.</p>
+      <p>Please return after <strong>${hoursLeft} hour(s)</strong>.</p>
+    </div>
+  `;
+  throw new Error("Referral Locked");
+}
+
+/* ================= SHARE LOGIC ================= */
+
+let shares = parseInt(localStorage.getItem(SHARE_KEY)) || 0;
+let lastShareTime = parseInt(localStorage.getItem(TIME_KEY)) || 0;
+
+updateUI();
+startCountdown();
+
+function updateUI(){
+  progressBar.style.width = (shares/20)*100 + "%";
+  progressText.textContent = shares + " / 20 Shares Completed";
+
+  if(shares >= 20){
+    shareBtn.style.display = "none";
+    questionSection.style.display = "block";
+  }
+}
+
+function startCountdown(){
+  const diff = Date.now() - lastShareTime;
+  const remaining = 45000 - diff;
+
+  if(remaining > 0){
+    shareBtn.disabled = true;
+    countdown.textContent = "Wait " + Math.ceil(remaining/1000) + " seconds before next share.";
+    setTimeout(startCountdown,1000);
+  } else {
+    shareBtn.disabled = false;
+    countdown.textContent = "";
+  }
+}
+
+shareBtn.onclick = function(){
+
+  const now = Date.now();
+  const diff = now - lastShareTime;
+
+  if(diff < 45000) return;
+
+  const message = encodeURIComponent(
+    "Join Busanso Nation and enjoy movies & series 🔥 https://bit.ly/busanso"
+  );
+
+  window.open("https://wa.me/?text=" + message, "_blank");
+
+  shares++;
+  lastShareTime = now;
+
+  localStorage.setItem(SHARE_KEY, shares);
+  localStorage.setItem(TIME_KEY, lastShareTime);
+
+  updateUI();
+  startCountdown();
+};
+
+/* ================= CLAIM ACTIVATION ================= */
+
+document.querySelectorAll("input").forEach(input=>{
+  input.addEventListener("change", checkClaimEligibility);
+});
+
+function checkClaimEligibility(){
+  const enjoyChecked = document.querySelectorAll('input[name="enjoy"]:checked').length;
+  const sourceChecked = document.querySelectorAll('input[name="source"]:checked').length;
+
+  if(confirmCheck.checked && enjoyChecked>0 && sourceChecked>0){
+    claimBtn.classList.add("active");
+  } else {
+    claimBtn.classList.remove("active");
+  }
+}
+
+/* ================= CLAIM LOGIC ================= */
+
+claimBtn.onclick = function(){
+
+  if(!claimBtn.classList.contains("active")) return;
+
+  const verificationCode = Math.floor(100000 + Math.random() * 900000);
+
+  const blockUntil = Date.now() + (48 * 60 * 60 * 1000);
+
+  localStorage.setItem(BLOCK_KEY, blockUntil);
+  localStorage.removeItem(SHARE_KEY);
+  localStorage.removeItem(TIME_KEY);
+
+  const msg = encodeURIComponent(
+    `Hi, I am here to claim my one-day gift.\nVerification Code: ${verificationCode}`
+  );
+
+  window.open("https://wa.me/256703888884?text=" + msg, "_blank");
+
+  alert("Verification Code Generated: " + verificationCode + 
+        "\nReferral locked for 48 hours.");
+
+  location.reload();
+};
+</script>
+
+</body>
+</html>
