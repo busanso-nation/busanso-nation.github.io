@@ -11,6 +11,7 @@ const KIBANDA_PINS = {
    "opolot": "KING4",
   "wande": "55M",
   "steven": "11M",
+    "dustan": "132",
   "nasaji": "NASAJILIB456"
 };
 
