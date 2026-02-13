@@ -155,7 +155,7 @@ const SERIES = [
   { title: "Episode 27", video: "https://drive.google.com/file/d/1O2T5GAR_EgOH929dpXfDzU3paQI9IwTO/preview" },
     { title: "Episode 28", video: "https://www.youtube.com/embed/G2HKumviEDQ" },
  { title: "Episode 29", video: "https://www.youtube.com/embed/aH2i_vcCVoA" },
- { title: "Episode 30", video: "https://www.youtube.com/embed/T2H6mCKlt4Y" },
+ { title: "Episode 30", video: "https://drive.google.com/file/d/1-FS90N5EQ3Ag6TDsgFRmJslnIKwB3K0Q/preview" },
  { title: "Episode 31", video: "https://drive.google.com/file/d/1hz8OKY1LNjYs1u49C_aqJyI1y-KjrZow/preview" },
  { title: "Episode 32", video: "https://drive.google.com/file/d/130cBUgXHa-EKLghIh3fwPy6kKmUMy94w/preview" } 
       ]
