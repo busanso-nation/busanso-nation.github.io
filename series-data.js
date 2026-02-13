@@ -159,7 +159,8 @@ const SERIES = [
  { title: "Episode 29", video: "https://drive.google.com/file/d/1KLE04V4yx-3PdrrJjpGqzmFZ4EGY_rgm/preview" },
  { title: "Episode 30", video: "https://drive.google.com/file/d/1-FS90N5EQ3Ag6TDsgFRmJslnIKwB3K0Q/preview" },
  { title: "Episode 31", video: "https://drive.google.com/file/d/1hz8OKY1LNjYs1u49C_aqJyI1y-KjrZow/preview" },
- { title: "Episode 32", video: "https://drive.google.com/file/d/130cBUgXHa-EKLghIh3fwPy6kKmUMy94w/preview" } 
+ { title: "Episode 32", video: "https://drive.google.com/file/d/130cBUgXHa-EKLghIh3fwPy6kKmUMy94w/preview" },
+ { title: "Episode 33", video: "https://drive.google.com/file/d/10yLAKMG1ua_VEyj4rJV5ypV_PdfSJ3dh/preview" } 
       ]
   },
   {
