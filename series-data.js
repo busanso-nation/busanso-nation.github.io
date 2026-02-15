@@ -80,7 +80,8 @@ const SERIES = [
 { title: "Episode 24", video: "https://drive.google.com/file/d/1LDu_TFyIBlFoCaweBLyYGRswXsmxlNaG/preview" },
 { title: "Episode 25", video: "https://drive.google.com/file/d/1PRyQgZE9Ko3tfJmdS3ZUr9UreSsfDP-w/preview" },
 { title: "Episode 26", video: "https://drive.google.com/file/d/1XVORpx0zFi95WZu6-1AM8mPHWDgWt90m/preview" },
-{ title: "Episode 27", video: "https://drive.google.com/file/d/1HLLBouYjLCUe4bhy5vEm3GnyqOf8NQWv/preview" }
+{ title: "Episode 27", video: "https://drive.google.com/file/d/1HLLBouYjLCUe4bhy5vEm3GnyqOf8NQWv/preview" },
+{ title: "Episode 28", video: "https://drive.google.com/file/d/12X_HqmYdZsjH6wYB-cKC5Y7tyUXeGosO/preview" }
       ]
   },
 {
