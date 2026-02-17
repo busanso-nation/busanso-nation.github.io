@@ -1,18 +1,6 @@
 // movies-data.js
 const MOVIES = [
-   
-            {
-    id: "ubduing",
-    title: "SUBDUING PALM FIST",
-    poster: "https://i.ibb.co/99jbXTNy/photo-size-large-1280-url-https-image-tmdb-org-t-p-original-48-PDe-JDevk6-HXR3q68-FY4-DBG.jpg",
-    video: "https://drive.google.com/file/d/1UGqtyFsECpG_Hd7Wd_NTbaG0hibe8xNx/preview",
-    type: "premium",
-    year: "2024",
-    country: "China",
-    duration: "1hr 45m ",
-    synopsis: "The duo joins the Beggars' Sect to hide their identities, but face personal setbacks—Tie Qiaosan is trapped by love, a Blissful Pill "
-  },
-           {
+                {
     id: "yesuu",
     title: "PASSION OF THE CHRIST",
     poster: "https://i.ibb.co/GfDs1Gkt/images-q-tbn-ANd9-Gc-Q0-Ly-3-Klw-Bo-Fsd8-VOL53-Tvu4hj1-Y0w-Kx8m4-A-s.jpg",
@@ -35,7 +23,7 @@ const MOVIES = [
     synopsis: "It follows Sadashiv Rao Bhau (Arjun Kapoor), a Maratha commander fighting against the invading Afghan king, Ahmad Shah Abdali (Sanjay Dutt), to protect the Maratha Empire and India. "
   },
     {
-                                       id: "veeron2",
+       id: "veeron2",
     title: "VEERON 2",
     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77GY9dNMyiG3eSX48WJ4Jpdar3C5EiBjbSw&s",
     video: "https://www.youtube.com/embed/wecGbo54dxk",
@@ -67,8 +55,31 @@ const MOVIES = [
     duration: "1hr 15m ",
     synopsis: "It follows a story of love, betrayal and development "
   },
+   {
+    id: "infini",
+    title: "INFINITE",
+    poster: "https://twinchaptertrading.mta4.sitegiant.cc/image/twinchaptertrading/image/data/all_product_images/product-7673/735316ed-3cb2-4450-b081-db554bb6ba17.jpg",
+    video: "https://drive.google.com/file/d/1Nac0Z_akuzO5ISoXAQa0gdktWxsH0Loe/preview",
+    type: "premium",
+    year: "2023",
+    country: "USA",
+    duration: "1hr 35m ",
+    synopsis: "is a sci-fi action film following Evan McCauley, a man tormented by memories of lives he never lived, who discovers these are past-life visions. He joins a secret group of near-immortal reincarnated souls called Infinites to stop a villain from destroying the world using a weapon that ends the cycle of reincarnation "
+  },
+   {
+    id: "ubduing",
+    title: "SUBDUING PALM FIST",
+    poster: "https://i.ibb.co/99jbXTNy/photo-size-large-1280-url-https-image-tmdb-org-t-p-original-48-PDe-JDevk6-HXR3q68-FY4-DBG.jpg",
+    video: "https://drive.google.com/file/d/1UGqtyFsECpG_Hd7Wd_NTbaG0hibe8xNx/preview",
+    type: "premium",
+    year: "2024",
+    country: "China",
+    duration: "1hr 45m ",
+    synopsis: "The duo joins the Beggars' Sect to hide their identities, but face personal setbacks—Tie Qiaosan is trapped by love, a Blissful Pill "
+  },
+    
     {
-                                                           id: "naaga",
+      id: "naaga",
     title: "NAAGA",
     poster: "https://m.media-amazon.com/images/M/MV5BOWE1YjdhZWEtM2UxZC00MzM2LTg4OWMtNWM3M2JhNjIxZDQ3XkEyXkFqcGc@._V1_.jpg",
     video: "https://drive.google.com/file/d/15f7izGrsCTMl6bOKtQOhWcPdVMVvMoNu/preview",
@@ -79,7 +90,7 @@ const MOVIES = [
     synopsis: "It follows Sadashiv Rao Bhau (Arjun Kapoor), a Maratha commander fighting against the invading Afghan king, Ahmad Shah Abdali (Sanjay Dutt), to protect the Maratha Empire and India. "
   },
     {
-                                                           id: "naaga2",
+      id: "naaga2",
     title: "NAAGA 2",
     poster: "https://m.media-amazon.com/images/M/MV5BOWE1YjdhZWEtM2UxZC00MzM2LTg4OWMtNWM3M2JhNjIxZDQ3XkEyXkFqcGc@._V1_.jpg",
     video: "https://drive.google.com/file/d/1RLObvKkoEgIi7Af8NDJAqG-_tnDhGSkT/preview",
