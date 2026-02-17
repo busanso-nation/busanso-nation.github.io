@@ -92,9 +92,174 @@ const MOVIES = [
   duration: "2hr 10m",
   synopsis: "The action continues as the warrior faces new enemies in a relentless fight for survival across harsh desert lands."
 },
+{
+  id: "paagal",
+  title: "PAAGAL",
+  poster: "https://stat5.bollywoodhungama.in/wp-content/uploads/2022/11/An-Action-Hero-1-1-322x572.jpg",
+  video: "https://drive.google.com/file/d/1_nGvsMz4pHRuZQpmbzfVju8LZAmgPfBJ/preview",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "2hr 10m",
+  synopsis: "An intense action-packed drama following a fearless hero navigating betrayal, revenge and survival."
+},
 
+{
+  id: "paagal-2",
+  title: "PAAGAL 2",
+  poster: "https://stat5.bollywoodhungama.in/wp-content/uploads/2022/11/An-Action-Hero-1-1-322x572.jpg",
+  video: "https://drive.google.com/file/d/12r8IYDwLdyDOK50cpPmhcNA6UQIuNy-R/preview",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "2hr 05m",
+  synopsis: "The sequel continues the explosive journey with higher stakes and deadlier enemies."
+},
 
-        {
+{
+  id: "divaar",
+  title: "DIVAAR",
+  poster: "https://images.news18.com/webstories/uploads/2024/12/salman-khan-upcoming-movies-2024-1705314741-2024-12-0c85b66ecae8fab48d6f29e08b745d36.jpeg",
+  video: "https://www.youtube.com/embed/X5Etb2Xiyis",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "1hr 55m",
+  synopsis: "A gripping tale of power, loyalty and brotherhood set in a world ruled by crime."
+},
+
+{
+  id: "divaar-2",
+  title: "DIVAAR 2",
+  poster: "https://images.news18.com/webstories/uploads/2024/12/salman-khan-upcoming-movies-2024-1705314741-2024-12-0c85b66ecae8fab48d6f29e08b745d36.jpeg",
+  video: "https://drive.google.com/file/d/1wXHbR7AxzgISDcW2mXXVjuDFesa5997z/preview",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "2hr 08m",
+  synopsis: "The saga intensifies as alliances break and revenge becomes unstoppable."
+},
+
+{
+  id: "fallen-general",
+  title: "THE FALLEN GENERAL",
+  poster: "https://i.pinimg.com/236x/82/fe/ca/82fecaff97b6756f28f938bf3f351daa.jpg",
+  video: "https://www.youtube.com/embed/n1OAr8qZhAc",
+  type: "free",
+  year: "2025",
+  country: "Don Yuen",
+  duration: "1hr 48m",
+  synopsis: "A legendary warrior rises against impossible odds in a battle that defines history."
+},
+
+{
+  id: "vigilant",
+  title: "VIGILANT",
+  poster: "https://images1.dnaindia.com/images/DNA-EN/900x1600/2024/2/6/1707215591760_B3.png",
+  video: "https://drive.google.com/file/d/1aNS2byVEYkJ3MU0cK83v2Do4bLeOrevd/preview",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "2hr 02m",
+  synopsis: "A lone protector stands against corruption and injustice in a chaotic city."
+},
+
+{
+  id: "vigilant-2",
+  title: "VIGILANT 2",
+  poster: "https://images1.dnaindia.com/images/DNA-EN/900x1600/2024/2/6/1707215591760_B3.png",
+  video: "https://drive.google.com/file/d/1vDvTFVVxuMhWfWt9GAP4o8-j7uOxvFdf/preview",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "2hr 12m",
+  synopsis: "The vigilante returns stronger, facing a ruthless syndicate threatening everything."
+},
+
+{
+  id: "terue",
+  title: "TERUE",
+  poster: "https://resizing.flixster.com/3NzeB-9NTjXDWYUxuBE4871epX8=/fit-in/705x460/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p178884_k_v8_aa.jpg",
+  video: "https://drive.google.com/file/d/1D13asqlSwHskeXWo8Fg5AlrRYOcPjnVS/preview",
+  type: "free",
+  year: "2025",
+  country: "Korea",
+  duration: "1hr 40m",
+  synopsis: "A heartfelt family adventure blending emotion, courage and unforgettable moments."
+},
+
+{
+  id: "thug-life",
+  title: "THUG LIFE",
+  poster: "https://upload.wikimedia.org/wikipedia/en/9/95/Thug_Life_2025.jpg",
+  video: "https://drive.google.com/file/d/1xgFft5fLDtWcAYBX_tPG_0MhyZQ-zOE8/preview",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "2hr 15m",
+  synopsis: "A powerful underworld action story filled with ambition, loyalty and betrayal."
+},
+
+{
+  id: "thug-life-2",
+  title: "THUG LIFE 2",
+  poster: "https://upload.wikimedia.org/wikipedia/en/9/95/Thug_Life_2025.jpg",
+  video: "https://drive.google.com/file/d/1SowmMxYO3UdCTzwg7DczMxC3ivjY3hZt/preview",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "2hr 18m",
+  synopsis: "The empire expands but so do the enemies in this explosive continuation."
+},
+
+{
+  id: "rishvat",
+  title: "RISHVAT",
+  poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVHp5HNaJ2dMsldcXuGF05AkMWT4alXogIml0I1cbrYVH1KkswvKuv2h4IyuTcrcoPbFU&usqp=CAU",
+  video: "https://drive.google.com/file/d/1kg7PslWHo45ClphOj58DY8qrQO9n9f8J/preview",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "2hr 03m",
+  synopsis: "A gritty action thriller uncovering corruption, greed and dangerous secrets."
+},
+
+{
+  id: "rishvat-2",
+  title: "RISHVAT 2",
+  poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVHp5HNaJ2dMsldcXuGF05AkMWT4alXogIml0I1cbrYVH1KkswvKuv2h4IyuTcrcoPbFU&usqp=CAU",
+  video: "https://drive.google.com/file/d/1oarjhaF02U7-api176kL32mk-Xa4OqQJ/preview",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "2hr 09m",
+  synopsis: "The battle against corruption escalates in this high-stakes sequel."
+},
+
+{
+  id: "american-dream",
+  title: "AMERICAN DREAM",
+  poster: "https://upload.wikimedia.org/wikipedia/en/9/96/GoalPoster.jpg",
+  video: "https://drive.google.com/file/d/1la7hgEm138xamER0OzB9NhBBJMrF0g88/preview",
+  type: "free",
+  year: "2025",
+  country: "America",
+  duration: "1hr 58m",
+  synopsis: "A powerful football drama about ambition, sacrifice and chasing greatness."
+},
+
+{
+  id: "rubber",
+  title: "RUBBER",
+  poster: "https://en.notrecinema.com/images/wallpapers/vign/jaquette_395793.jpg",
+  video: "https://drive.google.com/file/d/1RJugc0wgjW6Ew7iK4BhkKv1WM8_J4Kt1/preview",
+  type: "free",
+  year: "2025",
+  country: "Unknown",
+  duration: "1hr 32m",
+  synopsis: "A dark action thriller where survival depends on ruthless decisions."
+}
+  {
       id: "balktl",
     title: "BALAATKAR",
     poster: "https://i.pinimg.com/736x/ab/93/97/ab93979da668d48c383f43991c2dbacf.jpg",
