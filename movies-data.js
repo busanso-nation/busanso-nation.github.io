@@ -113,7 +113,7 @@ const MOVIES = [
     id: "poly",
     title: "POLY",
     poster: "https://m.media-amazon.com/images/M/MV5BODEzZWNlODMtZDc0MC00N2M1LThkYWYtNGRkZDk2NWM5MjhkXkEyXkFqcGc@._V1_.jpg",
-    video: "https://www.youtube.com/watch?v=Nvt3o4863fQ",
+    video: "https://drive.google.com/file/d/1Ul7oNxYLpngwJZTU5oFZJuqQEot8vK1N/preview",
     type: "free",
     year: "2026",
     country: "India",
