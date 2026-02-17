@@ -1,10 +1,21 @@
 // movies-data.js
 const MOVIES = [
        {
-                                       id: "veeron",
+                                                   id: "veeron",
     title: "VEERON",
     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77GY9dNMyiG3eSX48WJ4Jpdar3C5EiBjbSw&s",
     video: "https://www.youtube.com/embed/_BI3j39_asE",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "It follows Sadashiv Rao Bhau (Arjun Kapoor), a Maratha commander fighting against the invading Afghan king, Ahmad Shah Abdali (Sanjay Dutt), to protect the Maratha Empire and India. "
+  },
+    {
+                                       id: "veeron2",
+    title: "VEERON 2",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77GY9dNMyiG3eSX48WJ4Jpdar3C5EiBjbSw&s",
+    video: "https://www.youtube.com/embed/wecGbo54dxk",
     type: "premium",
     year: "2026",
     country: "India",
@@ -169,7 +180,7 @@ const MOVIES = [
   id: "kyandake",
     title: "CHANDAKE",
     poster: "https://bollyspice.com/wp-content/uploads/2013/10/R-1...Rajkumar-Still.jpg",
-    video: "https://www.youtube.com/embed/eqOgeaf8SFE",
+    video: "https://drive.google.com/file/d/1t5xBP2zw72SySro-YWeIEZs-lpWgUeqd/preview",
     type: "free",
     year: "2026",
     country: "India",
@@ -180,7 +191,7 @@ const MOVIES = [
   id: "cyandake",
     title: "CHANDAKE 2",
     poster: "https://bollyspice.com/wp-content/uploads/2013/10/R-1...Rajkumar-Still.jpg",
-    video: "https://www.youtube.com/embed/IG3jJsmz-Lc",
+    video: "https://drive.google.com/file/d/11rPL7dVgfDUvSVdAv1V_Ov_ID2XrSjom/preview",
     type: "premium",
     year: "2026",
     country: "India",
