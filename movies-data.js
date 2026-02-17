@@ -23,6 +23,28 @@ const MOVIES = [
     synopsis: "It follows Sadashiv Rao Bhau (Arjun Kapoor), a Maratha commander fighting against the invading Afghan king, Ahmad Shah Abdali (Sanjay Dutt), to protect the Maratha Empire and India. "
   },
     {
+                                                           id: "naaga",
+    title: "NAAGA",
+    poster: "https://m.media-amazon.com/images/M/MV5BOWE1YjdhZWEtM2UxZC00MzM2LTg4OWMtNWM3M2JhNjIxZDQ3XkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/15f7izGrsCTMl6bOKtQOhWcPdVMVvMoNu/preview",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "It follows Sadashiv Rao Bhau (Arjun Kapoor), a Maratha commander fighting against the invading Afghan king, Ahmad Shah Abdali (Sanjay Dutt), to protect the Maratha Empire and India. "
+  },
+    {
+                                                           id: "naaga2",
+    title: "NAAGA 2",
+    poster: "https://m.media-amazon.com/images/M/MV5BOWE1YjdhZWEtM2UxZC00MzM2LTg4OWMtNWM3M2JhNjIxZDQ3XkEyXkFqcGc@._V1_.jpg",
+    video: "https://drive.google.com/file/d/1RLObvKkoEgIi7Af8NDJAqG-_tnDhGSkT/preview",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "It follows Sadashiv Rao Bhau (Arjun Kapoor), a Maratha commander fighting against the invading Afghan king, Ahmad Shah Abdali (Sanjay Dutt), to protect the Maratha Empire and India. "
+  },
+    {
                          id: "ganga",
     title: "GANGA",
     poster: "https://cdn.britannica.com/86/265786-050-6F5F5956/sholay-hindi-film-1975-Amitabh-Bachchan-Dharmendra.jpg",
@@ -825,7 +847,7 @@ const MOVIES = [
     id: "1anna1",
     title: "ANNA",
     poster: "https://i.pinimg.com/736x/c2/3a/cd/c23acd89369cfcb3273f632c374ed2b4.jpg",
-    video: "https://www.youtube.com/embed/K0-AdBt0ncg",
+    video: "https://drive.google.com/file/d/1bHPIqWgkMXGPbZ_B-oprA7SRH1IQHp8c/preview",
     type: "free",
     year: "2026",
     country: "India",
@@ -836,7 +858,7 @@ const MOVIES = [
     id: "1anna2",
     title: "ANNA 2",
     poster: "https://i.pinimg.com/736x/c2/3a/cd/c23acd89369cfcb3273f632c374ed2b4.jpg",
-    video: "https://www.youtube.com/embed/eZNIvshGBPo",
+    video: "https://drive.google.com/file/d/1F42iF3-aKrzeB9V3OvN6R9RAW8Lj4hug/preview",
     type: "premium",
     year: "2026",
     country: "India",
