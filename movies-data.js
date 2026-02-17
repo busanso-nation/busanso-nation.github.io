@@ -1,11 +1,22 @@
 // movies-data.js
 const MOVIES = [
-       {
-                                                   id: "veeron",
+   
+            {
+    id: "yesuu",
+    title: "PASSION OF THE CHRIST",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77GY9dNMyiG3eSX48WJ4Jpdar3C5EiBjbSw&s",
+    video: "https://drive.google.com/file/d/1QQEKdIFMJLNFMiJKJkPPHHJ7dJYdnT3s/preview",
+    type: "free",
+    year: "2024",
+    country: "USA",
+    duration: "1hr 45m ",
+    synopsis: "is a visceral depiction of the final 12 hours of Jesus of Nazareth's life, beginning with the betrayal in the Garden of Gethsemane and ending with a brief resurrection scene. The film focuses on intense, graphic scenes of suffering, including the scourging and crucifixion, while highlighting Jesus's sacrifice and, at times, his humanity through brief flashbacks. "
+  },{
+    id: "veeron",
     title: "VEERON",
     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77GY9dNMyiG3eSX48WJ4Jpdar3C5EiBjbSw&s",
     video: "https://www.youtube.com/embed/_BI3j39_asE",
-    type: "premium",
+    type: "free",
     year: "2026",
     country: "India",
     duration: "1hr 05m ",
@@ -21,6 +32,28 @@ const MOVIES = [
     country: "India",
     duration: "1hr 05m ",
     synopsis: "It follows Sadashiv Rao Bhau (Arjun Kapoor), a Maratha commander fighting against the invading Afghan king, Ahmad Shah Abdali (Sanjay Dutt), to protect the Maratha Empire and India. "
+  },
+        {
+      id: "balktl",
+    title: "BALAATKAR",
+    poster: "https://i.pinimg.com/736x/ab/93/97/ab93979da668d48c383f43991c2dbacf.jpg",
+    video: "https://drive.google.com/file/d/1ZKIPDdGfseMUmOtJaNb64HstZZxgqetk/preview",
+    type: "free",
+    year: "2025",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "It follows a story of love, betrayal and development "
+  },
+             {
+      id: "balk2tl",
+    title: "BALAATKAR 2",
+    poster: "https://i.pinimg.com/736x/ab/93/97/ab93979da668d48c383f43991c2dbacf.jpg",
+    video: "https://drive.google.com/file/d/15bb6uIRSa3noi5yWuyYyqBfPhOxKxb0-/preview",
+    type: "premium",
+    year: "2025",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "It follows a story of love, betrayal and development "
   },
     {
                                                            id: "naaga",
