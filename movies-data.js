@@ -33,6 +33,67 @@ const MOVIES = [
     duration: "1hr 05m ",
     synopsis: "It follows Sadashiv Rao Bhau (Arjun Kapoor), a Maratha commander fighting against the invading Afghan king, Ahmad Shah Abdali (Sanjay Dutt), to protect the Maratha Empire and India. "
   },
+  {
+  id: "dojjo",
+  title: "DOJO",
+  poster: "https://karateintokyo.com/wp-content/uploads/2018/10/cropped-img_1650-2.jpg",
+  video: "https://drive.google.com/file/d/1Kw-UPXgFm3aeGrzWFciHO8-R8D4FFxK8/preview",
+  type: "premium",
+  year: "2025",
+  country: "Japan",
+  duration: "1hr 45m",
+  synopsis: "An intense martial arts story set inside a traditional dojo where honor, discipline, and combat skills are tested to the limit."
+},
+
+  {
+  id: "weapon1",
+  title: "WEAPON",
+  poster: "https://images.justwatch.com/poster/317094695/s718/weapon-2024.jpg",
+  video: "https://drive.google.com/file/d/1hC3R9QadEkNJIaI_RxiGi09pCQ5k6ywZ/preview",
+  type: "premium",
+  year: "2024",
+  country: "India",
+  duration: "1hr 55m",
+  synopsis: "An explosive action thriller following a highly trained operative forced into a deadly mission involving advanced military technology."
+},
+
+{
+  id: "weapon2",
+  title: "WEAPON 2",
+  poster: "https://images.justwatch.com/poster/317094695/s718/weapon-2024.jpg",
+  video: "https://drive.google.com/file/d/1v3ioHdE7VGTMEBz2u29lN3sz1YxyWQfO/preview",
+  type: "premium",
+  year: "2024",
+  country: "India",
+  duration: "2hr 05m",
+  synopsis: "The sequel intensifies the action as a new threat emerges, pushing the hero into even more dangerous territory."
+},
+
+{
+  id: "madmax1",
+  title: "MAD MAX",
+  poster: "https://external-preview.redd.it/eJzA4wtVGKuSOOu_JGxz7VdhZuaj5ZeqhvWKbruzP5A.jpg?width=640&crop=smart&auto=webp&s=533e62926780fec865a3a1ec59e4ca453c913997",
+  video: "https://drive.google.com/file/d/19F1ZhZ21CpiuaE0Tm5N2Tzzz8Qf8URTE/preview",
+  type: "premium",
+  year: "2024",
+  country: "USA",
+  duration: "2hr 00m",
+  synopsis: "A high-octane dystopian action story set in a brutal wasteland where survival depends on speed, strength, and strategy."
+},
+
+{
+  id: "mad2max2",
+  title: "MAD MAX 2",
+  poster: "https://external-preview.redd.it/eJzA4wtVGKuSOOu_JGxz7VdhZuaj5ZeqhvWKbruzP5A.jpg?width=640&crop=smart&auto=webp&s=533e62926780fec865a3a1ec59e4ca453c913997",
+  video: "https://drive.google.com/file/d/1MGRifTMp3fqkbvkAosAHn7_pGiAcKfio/preview",
+  type: "premium",
+  year: "2024",
+  country: "USA",
+  duration: "2hr 10m",
+  synopsis: "The action continues as the warrior faces new enemies in a relentless fight for survival across harsh desert lands."
+},
+
+
         {
       id: "balktl",
     title: "BALAATKAR",
@@ -121,6 +182,19 @@ const MOVIES = [
     duration: "1hr 05m ",
     synopsis: "In the village of Ramgarh, retired police chief Thakur Baldev Singh plots to bring down the notorious bandit Gabbar Singh and enlists the help of two lesser criminals, Jai and Veeru. When Gabbar attacks the village, however, Jai and Veeru wonder why Thakur does nothing to help them. They soon learn that he has no arms, and that Gabbar was the one who cut them off. Enraged by this, they redouble their efforts to help"
   },
+  {
+  id: "mancalledhero",
+  title: "MAN CALLED HERO",
+  poster: "https://pic0.iqiyipic.com/image/20250728/00/ed/v_165631021_m_601_en_m1_260_360.jpg",
+  video: "https://drive.google.com/file/d/1f2eYbmrIMuXCnv7cFholzmKNhJ84ydLF/preview",
+  type: "premium",
+  year: "2024",
+  country: "China",
+  duration: "1hr 50m",
+  synopsis: "A martial arts action drama about a legendary warrior protecting his homeland from powerful enemies and internal betrayal."
+},
+
+
     {
      id: "radhee",
     title: "RADHE",
