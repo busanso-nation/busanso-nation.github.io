@@ -2,16 +2,28 @@
 const MOVIES = [
    
             {
+    id: "ubduing",
+    title: "SUBDUING PALM FIST",
+    poster: "https://i.ibb.co/99jbXTNy/photo-size-large-1280-url-https-image-tmdb-org-t-p-original-48-PDe-JDevk6-HXR3q68-FY4-DBG.jpg",
+    video: "https://drive.google.com/file/d/1UGqtyFsECpG_Hd7Wd_NTbaG0hibe8xNx/preview",
+    type: "premium",
+    year: "2024",
+    country: "China",
+    duration: "1hr 45m ",
+    synopsis: "The duo joins the Beggars' Sect to hide their identities, but face personal setbacks—Tie Qiaosan is trapped by love, a Blissful Pill "
+  },
+           {
     id: "yesuu",
     title: "PASSION OF THE CHRIST",
-    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77GY9dNMyiG3eSX48WJ4Jpdar3C5EiBjbSw&s",
+    poster: "https://i.ibb.co/GfDs1Gkt/images-q-tbn-ANd9-Gc-Q0-Ly-3-Klw-Bo-Fsd8-VOL53-Tvu4hj1-Y0w-Kx8m4-A-s.jpg",
     video: "https://drive.google.com/file/d/1QQEKdIFMJLNFMiJKJkPPHHJ7dJYdnT3s/preview",
-    type: "free",
+    type: "premium",
     year: "2024",
     country: "USA",
     duration: "1hr 45m ",
     synopsis: "is a visceral depiction of the final 12 hours of Jesus of Nazareth's life, beginning with the betrayal in the Garden of Gethsemane and ending with a brief resurrection scene. The film focuses on intense, graphic scenes of suffering, including the scourging and crucifixion, while highlighting Jesus's sacrifice and, at times, his humanity through brief flashbacks. "
-  },{
+  },
+   {
     id: "veeron",
     title: "VEERON",
     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77GY9dNMyiG3eSX48WJ4Jpdar3C5EiBjbSw&s",
