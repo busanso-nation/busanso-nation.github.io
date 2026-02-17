@@ -138,7 +138,174 @@ const MOVIES = [
     duration: "1hr 45m ",
     synopsis: "The duo joins the Beggars' Sect to hide their identities, but face personal setbacks—Tie Qiaosan is trapped by love, a Blissful Pill "
   },
-    
+    {
+  id: "munni1",
+  title: "MUNNI",
+  poster: "https://i.redd.it/je3mp9oqs6qe1.jpeg",
+  video: "https://drive.google.com/file/d/1ApHQ-IAUEinMmY4O_Kzma-SzLqy4Mjuu/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "2hr 05m",
+  synopsis: "An action-packed drama following a fearless young woman navigating danger, loyalty, and revenge."
+},
+
+{
+  id: "munni2",
+  title: "MUNNI 2",
+  poster: "https://i.redd.it/je3mp9oqs6qe1.jpeg",
+  video: "https://drive.google.com/file/d/1VffXMcn9xgeY7fdxdrWrNaXzlk4zrhZn/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "2hr 10m",
+  synopsis: "The sequel raises the stakes as Munni faces greater threats and deeper emotional conflicts."
+},
+
+{
+  id: "maidaan1",
+  title: "MAIDAAN",
+  poster: "https://d12d6l12s3d372.cloudfront.net/Untitled_design_9_11093a2f63.jpg",
+  video: "https://drive.google.com/file/d/1FhIQ_eDc9Ic8n9pC20VEup90fRvTpje3/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "2hr 20m",
+  synopsis: "A sports-inspired drama blending emotion and determination as a team rises against overwhelming odds."
+},
+
+{
+  id: "maidaan2",
+  title: "MAIDAAN 2",
+  poster: "https://d12d6l12s3d372.cloudfront.net/Untitled_design_9_11093a2f63.jpg",
+  video: "https://drive.google.com/file/d/1S44_kjQNxqyVgTpl58WvSbuemcJFoYhO/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "2hr 25m",
+  synopsis: "The continuation of the inspiring sports saga with higher stakes and more intense competition."
+},
+
+{
+  id: "kill1",
+  title: "KILL",
+  poster: "https://images.static-bluray.com/products/20/154521_2_front.jpg",
+  video: "https://drive.google.com/file/d/1IClj5jx6f89AQIOsTQ5GeQo_VPRwvV0_/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "1hr 55m",
+  synopsis: "A relentless action thriller centered on survival and brutal combat inside a confined battleground."
+},
+
+{
+  id: "kill2",
+  title: "KILL 2",
+  poster: "https://images.static-bluray.com/products/20/154521_2_front.jpg",
+  video: "https://drive.google.com/file/d/1P2imDIK4AMWDcAWXAHyh08DMcYa83zKy/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "2hr 05m",
+  synopsis: "The sequel intensifies the violence and suspense as the conflict expands beyond its original setting."
+},
+
+{
+  id: "warriorsofglory",
+  title: "WARRIORS OF GLORY",
+  poster: "https://dramapanda.com/wp-content/uploads/2020/05/Wolf2BWarrior2B22BCharacter2B1.jpg",
+  video: "https://drive.google.com/file/d/1wPdzqMza-rlKS1BwaXOwj_B0fLh7JP0O/preview",
+  type: "premium",
+  year: "2025",
+  country: "China",
+  duration: "2hr 00m",
+  synopsis: "A patriotic action epic featuring elite soldiers defending their homeland against powerful enemies."
+},
+
+{
+  id: "thekiller1",
+  title: "THE KILLER",
+  poster: "https://img.lazcdn.com/g/p/09cdde276847d34886a7c9fd01b497b7.jpg_720x720q80.jpg",
+  video: "https://drive.google.com/file/d/1MMg-XaGj4BAxA4Svu4BVLnjeW8dKxz0c/preview",
+  type: "premium",
+  year: "2025",
+  country: "USA",
+  duration: "1hr 50m",
+  synopsis: "A cold-blooded assassin finds himself caught between loyalty, betrayal, and redemption."
+},
+
+{
+  id: "thekiller2",
+  title: "THE KILLER 2",
+  poster: "https://img.lazcdn.com/g/p/09cdde276847d34886a7c9fd01b497b7.jpg_720x720q80.jpg",
+  video: "https://drive.google.com/file/d/1oJHx458ikvwCsgpOj7d6YvxSn4TWXbke/preview",
+  type: "premium",
+  year: "2025",
+  country: "USA",
+  duration: "2hr 00m",
+  synopsis: "The assassin returns in a darker sequel where past enemies resurface and new alliances are tested."
+},
+
+{
+  id: "unbroken1",
+  title: "UNBROKEN",
+  poster: "https://i.pinimg.com/236x/2a/3a/1c/2a3a1cfa18e40d74a2cc91fcf84e92ee.jpg",
+  video: "https://drive.google.com/file/d/1Aw5X2lBxEYb4tmWEd8g8mzB17vKU3TtT/preview",
+  type: "premium",
+  year: "2025",
+  country: "USA",
+  duration: "2hr 10m",
+  synopsis: "A powerful action drama about resilience and survival against impossible circumstances."
+},
+
+{
+  id: "unbroken2",
+  title: "UNBROKEN 2",
+  poster: "https://i.pinimg.com/236x/2a/3a/1c/2a3a1cfa18e40d74a2cc91fcf84e92ee.jpg",
+  video: "https://drive.google.com/file/d/1NSNGnJysRneE_Mz4_8CCxN8vlgcxvSAh/preview",
+  type: "premium",
+  year: "2025",
+  country: "USA",
+  duration: "2hr 15m",
+  synopsis: "The sequel explores deeper emotional struggles while maintaining intense action sequences."
+},
+
+{
+  id: "kungfuboy1",
+  title: "KUNGFU BOY",
+  poster: "https://canvas-lb.tubitv.com/opts/Uim84BUTM9eUtA==/edbb5638-6111-41bb-a9fb-53c04a7a0478/CIACEPACOgUxLjEuOA==",
+  video: "https://drive.google.com/file/d/17ktkwFfYVP7VIyHuueKG4meqpY-INzUU/preview",
+  type: "premium",
+  year: "2025",
+  country: "Japan",
+  duration: "1hr 45m",
+  synopsis: "A young martial artist embarks on a journey of discipline and courage to prove his strength."
+},
+
+{
+  id: "kungfuboy2",
+  title: "KUNGFU BOY 2",
+  poster: "https://canvas-lb.tubitv.com/opts/Uim84BUTM9eUtA==/edbb5638-6111-41bb-a9fb-53c04a7a0478/CIACEPACOgUxLjEuOA==",
+  video: "https://drive.google.com/file/d/1NsrplCwqikbtLCewhSEMyESRX54Az4vb/preview",
+  type: "premium",
+  year: "2025",
+  country: "Japan",
+  duration: "1hr 55m",
+  synopsis: "The martial arts saga continues as new rivals challenge the young hero's honor and skill."
+},
+
+{
+  id: "homealone",
+  title: "HOME ALONE",
+  poster: "https://www.countryandtownhouse.com/wp-content/uploads/2024/12/Macaulay-Culkin-1.jpg",
+  video: "https://drive.google.com/file/d/14B79OeiI9Suq3cCiTftaidmPuYWFmj7p/preview",
+  type: "premium",
+  year: "2025",
+  country: "USA",
+  duration: "1hr 40m",
+  synopsis: "A clever young protagonist must defend his home against unexpected intruders using wit and creativity."
+},
+
     {
       id: "naaga",
     title: "NAAGA",
