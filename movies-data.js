@@ -14,7 +14,7 @@ const MOVIES = [
    {
     id: "veeron",
     title: "VEERON",
-    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77GY9dNMyiG3eSX48WJ4Jpdar3C5EiBjbSw&s",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-8VSZ0uBvMpvLT8VgzK-4dZKgaORe1w2xA&s",
     video: "https://www.youtube.com/embed/_BI3j39_asE",
     type: "free",
     year: "2026",
@@ -25,7 +25,7 @@ const MOVIES = [
     {
        id: "veeron2",
     title: "VEERON 2",
-    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77GY9dNMyiG3eSX48WJ4Jpdar3C5EiBjbSw&s",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-8VSZ0uBvMpvLT8VgzK-4dZKgaORe1w2xA&s",
     video: "https://www.youtube.com/embed/wecGbo54dxk",
     type: "premium",
     year: "2026",
