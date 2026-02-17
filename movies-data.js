@@ -1,6 +1,17 @@
 // movies-data.js
 const MOVIES = [
        {
+                                       id: "veeron",
+    title: "VEERON",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77GY9dNMyiG3eSX48WJ4Jpdar3C5EiBjbSw&s",
+    video: "https://www.youtube.com/embed/_BI3j39_asE",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 05m ",
+    synopsis: "It follows Sadashiv Rao Bhau (Arjun Kapoor), a Maratha commander fighting against the invading Afghan king, Ahmad Shah Abdali (Sanjay Dutt), to protect the Maratha Empire and India. "
+  },
+    {
                          id: "ganga",
     title: "GANGA",
     poster: "https://cdn.britannica.com/86/265786-050-6F5F5956/sholay-hindi-film-1975-Amitabh-Bachchan-Dharmendra.jpg",
