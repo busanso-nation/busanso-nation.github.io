@@ -1,6 +1,23 @@
 const SERIES = [
   
   {
+         id: "lingshan",
+    title: "HEROES OF LINGSHAN",
+    poster: "https://i.ibb.co/gbXcQfLP/vvvvvvvvvvv.jpg",
+    genre: "Action",
+    added: 1,
+    type: "free",
+    country: "Chine",
+    year: "2026",
+    synopsis: "Led by Song Jiang, they gather at Mount Liang to fight tyranny, rob from the rich to help the poor, and eventually seek amnesty to serve the empire, culminating in a tragic, battle-heavy narrative.",
+    cast: ["Toshio Kurosawa", "Sanae Tsuchida", "Kei Sato"],
+    episodes: [
+      { title: "Episode 1", video: "https://www.youtube.com/embed/-CzFCNw_1wY" }
+     
+      
+]
+  },
+  {
      id: "seaman",
     title: "REVENGE OF THE SEAMAN",
     poster: "https://img-tv.20mn.fr/sites/default/files/image/cover/6/b/a/img-1100098230.jpg?t3y09a",
