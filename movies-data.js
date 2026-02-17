@@ -258,7 +258,7 @@ const MOVIES = [
   country: "Unknown",
   duration: "1hr 32m",
   synopsis: "A dark action thriller where survival depends on ruthless decisions."
-}
+},
   {
       id: "balktl",
     title: "BALAATKAR",
