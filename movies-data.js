@@ -100,8 +100,7 @@ const MOVIES = [
     duration: "1hr 05m ",
     synopsis: "It follows Sadashiv Rao Bhau (Arjun Kapoor), a Maratha commander fighting against the invading Afghan king, Ahmad Shah Abdali (Sanjay Dutt), to protect the Maratha Empire and India. "
   },
-    {
-                         id: "ganga",
+    { id: "ganga",
     title: "GANGA",
     poster: "https://cdn.britannica.com/86/265786-050-6F5F5956/sholay-hindi-film-1975-Amitabh-Bachchan-Dharmendra.jpg",
     video: "https://drive.google.com/file/d/1wqJMlkk4l06Tfz0WyZkwuukqUboZAg5a/preview",
@@ -123,7 +122,7 @@ const MOVIES = [
     synopsis: "In the village of Ramgarh, retired police chief Thakur Baldev Singh plots to bring down the notorious bandit Gabbar Singh and enlists the help of two lesser criminals, Jai and Veeru. When Gabbar attacks the village, however, Jai and Veeru wonder why Thakur does nothing to help them. They soon learn that he has no arms, and that Gabbar was the one who cut them off. Enraged by this, they redouble their efforts to help"
   },
     {
-                id: "radhee",
+     id: "radhee",
     title: "RADHE",
     poster: "https://i.ibb.co/SDjNgMyH/Chat-GPT-Image-Feb-6-2026-01-26-06-PM.png",
     video: "https://drive.google.com/file/d/1cfELj-2ZxR2MKImCbvyIUP1xCSwdLYLh/preview",
@@ -166,6 +165,90 @@ const MOVIES = [
     duration: "1hr 20m",
     synopsis: "A wealthy man is told that his daughter has been kidnapped. The kidnapper, however, does not want money, he wants the man to perform a series of tasks for him.."
   },
+  {
+  id: "m65",
+  title: "65",
+  poster: "https://m.media-amazon.com/images/S/pv-target-images/9ca426b6d3bb1862c115d7e93e45cd0f4f53bf9747bc6944f95fb2e5942ceb22.jpg",
+  video: "https://drive.google.com/file/d/1ZjfNBmRntniOE6NA1HDcedWoHqkdSYz4/preview",
+  type: "premium",
+  year: "2025",
+  country: "USA",
+  duration: "1hr 40m",
+  synopsis: "A sci-fi survival adventure about a pilot stranded on a hostile prehistoric planet after a catastrophic crash."
+},
+
+{
+  id: "om1",
+  title: "OM",
+  poster: "https://i.ibb.co/tMcMNXqb/p22391087-k-v8-af.jpg",
+  video: "https://drive.google.com/file/d/1N8MFLND-ytFK_cDx0WFvQ6Tk76aFNH9J/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "2hr 10m",
+  synopsis: "An action-packed thriller centered on a special agent drawn into a high-risk mission filled with betrayal and explosive combat."
+},
+
+{
+  id: "om2",
+  title: "OM 2",
+  poster: "https://i.ibb.co/tMcMNXqb/p22391087-k-v8-af.jpg",
+  video: "https://drive.google.com/file/d/1r4SP6h_skJNTXa1riYS0VyRtR5WXZOD3/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "2hr 15m",
+  synopsis: "The sequel continues the high-stakes mission with bigger action sequences and deeper conspiracies."
+},
+
+{
+  id: "chirutha",
+  title: "CHIRUTHA",
+  poster: "https://m.media-amazon.com/images/S/pv-target-images/f312a103401c4f3aa849cea8bd893860db83626e80476b96ee7adb6ee0ec7f95.jpg",
+  video: "https://drive.google.com/file/d/1WYZlo-psEfrpF0vZHn0A85Rv-71CuaLP/preview",
+  type: "premium",
+  year: "2024",
+  country: "China",
+  duration: "2hr 05m",
+  synopsis: "An intense action drama following a fearless fighter navigating crime, revenge, and redemption."
+},
+
+{
+  id: "naayak1",
+  title: "NAAYAK",
+  poster: "https://w0.peakpx.com/wallpaper/306/217/HD-wallpaper-pathan-movie-fighting-scene-actor-shahrukh-khan.jpg",
+  video: "https://drive.google.com/file/d/1PgqZgQD5JZSGlYrtW5oUKZT4RTAIzhrF/preview",
+  type: "free",
+  year: "2025",
+  country: "India",
+  duration: "2hr 20m",
+  synopsis: "A powerful action entertainer about a fearless leader who challenges corruption and injustice."
+},
+
+{
+  id: "naayak2",
+  title: "NAAYAK 2",
+  poster: "https://w0.peakpx.com/wallpaper/306/217/HD-wallpaper-pathan-movie-fighting-scene-actor-shahrukh-khan.jpg",
+  video: "https://drive.google.com/file/d/1Vroh00IKAro4dos38mfK6_lczFuZuVdq/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "2hr 25m",
+  synopsis: "The sequel raises the stakes as the hero returns to confront larger threats and political turmoil."
+},
+
+{
+  id: "darc",
+  title: "DARC",
+  poster: "https://www.actionfreunde.de/wp-content/uploads/Darc.jpg",
+  video: "https://drive.google.com/file/d/1nS27oelxKYx7dln2ErOi_yfpi8J1Lulq/preview",
+  type: "premium",
+  year: "2025",
+  country: "USA",
+  duration: "1hr 35m",
+  synopsis: "A gritty action thriller about a mysterious enforcer fighting organized crime using brutal tactics."
+},
+
    {
     id: "kaithin",
     title: "KATHIN ANAATH",
