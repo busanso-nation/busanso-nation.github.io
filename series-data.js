@@ -1,5 +1,20 @@
 const SERIES = [
-  
+    {
+         id: "hijac",
+    title: "HIJACK",
+    poster: "https://i.ibb.co/YF5zwYk7/images-q-tbn-ANd9-Gc-Qqm-Cf8-Vi0r10bs6fwn0be-BTCn9pr-ZBlqf-Yz-A-s.jpg",
+    genre: "Action",
+    added: 1800000,
+    type: "premium",
+    country: "USA",
+    year: "2026",
+    synopsis: "Kingdom Airlines Flight KA29 is hijacked by a criminal organization, not terrorists, seeking the release of their leaders.",
+    cast: ["Idris Elba", "Archie Panjabi", "Aimée Kelly"],
+    episodes: [
+      { title: "Episode 1", video: "https://drive.google.com/file/d/1SxYJMDrHdka6Y5TsoqcVfQtvSkbTO-jA/preview" },
+       { title: "Episode 2", video: "https://drive.google.com/file/d/1PODkgDcAERiURfsmSfDbqVM4Ia3vocaO/preview" }  
+]
+  },
   {
          id: "lingshan",
     title: "HEROES OF LINGSHAN",
@@ -7,15 +22,63 @@ const SERIES = [
     genre: "Action",
     added: 1,
     type: "free",
-    country: "Chine",
+    country: "China",
     year: "2026",
     synopsis: "Led by Song Jiang, they gather at Mount Liang to fight tyranny, rob from the rich to help the poor, and eventually seek amnesty to serve the empire, culminating in a tragic, battle-heavy narrative.",
     cast: ["Toshio Kurosawa", "Sanae Tsuchida", "Kei Sato"],
     episodes: [
-      { title: "Episode 1", video: "https://www.youtube.com/embed/-CzFCNw_1wY" }
-     
-      
+      { title: "Episode 1", video: "https://www.youtube.com/embed/-CzFCNw_1wY" }   
 ]
+  },
+  {
+      id: "marimar",
+    title: "MARIMAR",
+    poster: "https://serializd-tmdb-images.b-cdn.net/t/p/w500/oTw4YlgUEwqIp0zBxeyvNOMhLrn.jpg",
+    genre: "drama",
+    added: 4,
+    type: "premium",
+    country: "Pilippines",
+    year: "2026",
+    synopsis: "Marimar is a naive, poor young woman living in a beach hut with her grandparents. She falls in love with and marries Sergio Santibañez, whose wealthy family, especially his stepmother Angélica, humiliates her and drives them apart. After suffering tragic losses, Marimar transforms into the sophisticated Bella Aldama to seek revenge",
+    cast: ["Thalía", "Chantal Andere", "Tito Guízar"],
+    episodes: [
+   { title: "Episode 1", video: "https://drive.google.com/file/d/1Nzu5YV8qAbJf79Kgpsbda_R3iP8whf4i/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/10slIIVYLWOPgsEWJdg9RZoz0w5tDI6ur/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/11qyKiktMtz6YOgwCWZxHNpBhh94GxI_k/preview" },
+  { title: "Episode 4", video: "https://drive.google.com/file/d/1Num7ZqlDwe4ThtQMrX4dAaPGZgInS06t/preview" },
+  { title: "Episode 5", video: "https://drive.google.com/file/d/1pnsW6PcfbL8bEpBxbjKGRw5OAjsBKylQ/preview" },
+  { title: "Episode 6", video: "https://www.youtube.com/embed/KjCCe-YSWrI" },
+  { title: "Episode 7", video: "https://www.youtube.com/embed/jzAtePeQkTY" },
+  { title: "Episode 8", video: "https://drive.google.com/file/d/1i328ibtWj8e2i0hUjMyZ_hQ6TOaDNsfi/preview" },
+  { title: "Episode 9", video: "https://drive.google.com/file/d/1bL0xwKOTxNRw5I3AjOU0uIMHunqHI4GR/preview" },
+  { title: "Episode 10", video: "https://drive.google.com/file/d/17PY_8EefHlsm6uZp5XiTtKemi8BaZO-i/preview" },
+  { title: "Episode 11", video: "https://drive.google.com/file/d/1Nzu5YV8qAbJf79Kgpsbda_R3iP8whf4i/preview" },
+  { title: "Episode 12", video: "https://drive.google.com/file/d/1eZg9Rh8-_3jr3l94Jy1YzDjVP3g7fVh0/preview" },
+  { title: "Episode 13", video: "https://drive.google.com/file/d/1DlAaM2fttUH-vpRbBmNLCdXwUj5e6gal/preview" },
+  { title: "Episode 14", video: "https://drive.google.com/file/d/1sIS1WKkWTmrgI_Y31CBfr1W7dDepk0-9/preview" },
+  { title: "Episode 15", video: "https://drive.google.com/file/d/1czMAmATL-AtadTfzLor07TljbPbKByuV/preview" },
+  { title: "Episode 16", video: "https://drive.google.com/file/d/11AvfcMuesZ6tdPrWoDnaTYYDUblPXRhX/preview" },
+  { title: "Episode 17", video: "https://drive.google.com/file/d/1CEur-F0J4kqXuvL_W5fWZ8kMVvFriuoC/preview" },
+  { title: "Episode 18", video: "https://drive.google.com/file/d/1NzMY9aG5T_oBI5bUEhJuc9FWZmjMKBE9/preview" },
+  { title: "Episode 19", video: "https://drive.google.com/file/d/16u2QICq_RHslY1aHYkBwDfzRD2lirO-Q/preview" },
+  { title: "Episode 20", video: "https://drive.google.com/file/d/19iWlgQeusvw262WYpodcBFAo5W7vGtQh/preview" },
+  { title: "Episode 21", video: "https://drive.google.com/file/d/131zXpQwgXpy2BxIYvaWqadBYUu4rkdHF/preview" },
+ { title: "Episode 22", video: "https://drive.google.com/file/d/1E7NHkrdDBEjdACucx5NcpR35fRNuoumR/preview" },
+ { title: "Episode 23", video: "https://drive.google.com/file/d/1iH9O4h8fBngqGb753E8M8S7LZHhyno6F/preview" },
+  { title: "Episode 24", video: "https://drive.google.com/file/d/1ea-0Enxv6ugDPX9yIcQR55n0cy4Vt2CP/preview" },
+ { title: "Episode 25", video: "https://drive.google.com/file/d/1igZjvJSTkT55mFn_RogPTx82-CUsfGWv/preview" },
+  { title: "Episode 26", video: "https://drive.google.com/file/d/1XBHyPm1bwMKadWy3gYAoIW9Rn38tWWqg/preview" },
+  { title: "Episode 27", video: "https://drive.google.com/file/d/1O2T5GAR_EgOH929dpXfDzU3paQI9IwTO/preview" },
+    { title: "Episode 28", video: "https://drive.google.com/file/d/1YozvlS0CBjn8A94E-tRZ0uruPkhgF1iY/preview" },
+ { title: "Episode 29", video: "https://drive.google.com/file/d/1KLE04V4yx-3PdrrJjpGqzmFZ4EGY_rgm/preview" },
+ { title: "Episode 30", video: "https://drive.google.com/file/d/1-FS90N5EQ3Ag6TDsgFRmJslnIKwB3K0Q/preview" },
+ { title: "Episode 31", video: "https://drive.google.com/file/d/1hz8OKY1LNjYs1u49C_aqJyI1y-KjrZow/preview" },
+ { title: "Episode 32", video: "https://drive.google.com/file/d/130cBUgXHa-EKLghIh3fwPy6kKmUMy94w/preview" },
+ { title: "Episode 33", video: "https://drive.google.com/file/d/10yLAKMG1ua_VEyj4rJV5ypV_PdfSJ3dh/preview" },
+ { title: "Episode 34", video: "https://drive.google.com/file/d/1HROsT4G16SWaxjMUwYgtB-QQZcUTPh7e/preview" },
+ { title: "Episode 35", video: "https://www.youtube.com/embed/v_DEU44B0Ds" },
+  { title: "Episode 36", video: "https://www.youtube.com/embed/GYRXcPQurTE" }
+      ]
   },
   {
      id: "seaman",
@@ -56,8 +119,8 @@ const SERIES = [
      { title: "Episode 4", video: "https://www.youtube.com/embed/vPUP84kkzqQ" },
      { title: "Episode 5", video: "https://www.youtube.com/embed/-dIpQvXfq_g" },
      { title: "Episode 6", video: "https://www.youtube.com/embed/glf86y9wI_g" },
-        { title: "Episode 5", video: "https://www.youtube.com/embed/7EXhGTRJeds" },
-     { title: "Episode 6", video: "https://www.youtube.com/embed/XtqkOKC4ZRQ" }
+        { title: "Episode 7", video: "https://www.youtube.com/embed/7EXhGTRJeds" },
+     { title: "Episode 8", video: "https://www.youtube.com/embed/XtqkOKC4ZRQ" }
 
 ]
   },
@@ -106,56 +169,7 @@ const SERIES = [
 { title: "Episode 30", video: "https://drive.google.com/file/d/161u8Ehv1YEOh811i1vFRlpIGZYRsd5YD/preview" }
       ]
   },
-{
-      id: "marimar",
-    title: "MARIMAR",
-    poster: "https://serializd-tmdb-images.b-cdn.net/t/p/w500/oTw4YlgUEwqIp0zBxeyvNOMhLrn.jpg",
-    genre: "drama",
-    added: 4,
-    type: "premium",
-    country: "Pilippine",
-    year: "2026",
-    synopsis: "Marimar is a naive, poor young woman living in a beach hut with her grandparents. She falls in love with and marries Sergio Santibañez, whose wealthy family, especially his stepmother Angélica, humiliates her and drives them apart. After suffering tragic losses, Marimar transforms into the sophisticated Bella Aldama to seek revenge",
-    cast: ["Thalía", "Chantal Andere", "Tito Guízar"],
-    episodes: [
-   { title: "Episode 1", video: "https://drive.google.com/file/d/1Nzu5YV8qAbJf79Kgpsbda_R3iP8whf4i/preview" },
-  { title: "Episode 2", video: "https://drive.google.com/file/d/10slIIVYLWOPgsEWJdg9RZoz0w5tDI6ur/preview" },
-  { title: "Episode 3", video: "https://drive.google.com/file/d/11qyKiktMtz6YOgwCWZxHNpBhh94GxI_k/preview" },
-  { title: "Episode 4", video: "https://drive.google.com/file/d/1Num7ZqlDwe4ThtQMrX4dAaPGZgInS06t/preview" },
-  { title: "Episode 5", video: "https://drive.google.com/file/d/1pnsW6PcfbL8bEpBxbjKGRw5OAjsBKylQ/preview" },
-  { title: "Episode 6", video: "https://www.youtube.com/embed/KjCCe-YSWrI" },
-  { title: "Episode 7", video: "https://www.youtube.com/embed/jzAtePeQkTY" },
-  { title: "Episode 8", video: "https://drive.google.com/file/d/1i328ibtWj8e2i0hUjMyZ_hQ6TOaDNsfi/preview" },
-  { title: "Episode 9", video: "https://drive.google.com/file/d/1bL0xwKOTxNRw5I3AjOU0uIMHunqHI4GR/preview" },
-  { title: "Episode 10", video: "https://drive.google.com/file/d/17PY_8EefHlsm6uZp5XiTtKemi8BaZO-i/preview" },
-  { title: "Episode 11", video: "https://drive.google.com/file/d/1Nzu5YV8qAbJf79Kgpsbda_R3iP8whf4i/preview" },
-  { title: "Episode 12", video: "https://drive.google.com/file/d/1eZg9Rh8-_3jr3l94Jy1YzDjVP3g7fVh0/preview" },
-  { title: "Episode 13", video: "https://drive.google.com/file/d/1DlAaM2fttUH-vpRbBmNLCdXwUj5e6gal/preview" },
-  { title: "Episode 14", video: "https://drive.google.com/file/d/1sIS1WKkWTmrgI_Y31CBfr1W7dDepk0-9/preview" },
-  { title: "Episode 15", video: "https://drive.google.com/file/d/1czMAmATL-AtadTfzLor07TljbPbKByuV/preview" },
-  { title: "Episode 16", video: "https://drive.google.com/file/d/11AvfcMuesZ6tdPrWoDnaTYYDUblPXRhX/preview" },
-  { title: "Episode 17", video: "https://drive.google.com/file/d/1CEur-F0J4kqXuvL_W5fWZ8kMVvFriuoC/preview" },
-  { title: "Episode 18", video: "https://drive.google.com/file/d/1NzMY9aG5T_oBI5bUEhJuc9FWZmjMKBE9/preview" },
-  { title: "Episode 19", video: "https://drive.google.com/file/d/16u2QICq_RHslY1aHYkBwDfzRD2lirO-Q/preview" },
-  { title: "Episode 20", video: "https://drive.google.com/file/d/19iWlgQeusvw262WYpodcBFAo5W7vGtQh/preview" },
-  { title: "Episode 21", video: "https://drive.google.com/file/d/131zXpQwgXpy2BxIYvaWqadBYUu4rkdHF/preview" },
- { title: "Episode 22", video: "https://drive.google.com/file/d/1E7NHkrdDBEjdACucx5NcpR35fRNuoumR/preview" },
- { title: "Episode 23", video: "https://drive.google.com/file/d/1iH9O4h8fBngqGb753E8M8S7LZHhyno6F/preview" },
-  { title: "Episode 24", video: "https://drive.google.com/file/d/1ea-0Enxv6ugDPX9yIcQR55n0cy4Vt2CP/preview" },
- { title: "Episode 25", video: "https://drive.google.com/file/d/1igZjvJSTkT55mFn_RogPTx82-CUsfGWv/preview" },
-  { title: "Episode 26", video: "https://drive.google.com/file/d/1XBHyPm1bwMKadWy3gYAoIW9Rn38tWWqg/preview" },
-  { title: "Episode 27", video: "https://drive.google.com/file/d/1O2T5GAR_EgOH929dpXfDzU3paQI9IwTO/preview" },
-    { title: "Episode 28", video: "https://drive.google.com/file/d/1YozvlS0CBjn8A94E-tRZ0uruPkhgF1iY/preview" },
- { title: "Episode 29", video: "https://drive.google.com/file/d/1KLE04V4yx-3PdrrJjpGqzmFZ4EGY_rgm/preview" },
- { title: "Episode 30", video: "https://drive.google.com/file/d/1-FS90N5EQ3Ag6TDsgFRmJslnIKwB3K0Q/preview" },
- { title: "Episode 31", video: "https://drive.google.com/file/d/1hz8OKY1LNjYs1u49C_aqJyI1y-KjrZow/preview" },
- { title: "Episode 32", video: "https://drive.google.com/file/d/130cBUgXHa-EKLghIh3fwPy6kKmUMy94w/preview" },
- { title: "Episode 33", video: "https://drive.google.com/file/d/10yLAKMG1ua_VEyj4rJV5ypV_PdfSJ3dh/preview" },
- { title: "Episode 34", video: "https://drive.google.com/file/d/1HROsT4G16SWaxjMUwYgtB-QQZcUTPh7e/preview" },
- { title: "Episode 35", video: "https://www.youtube.com/embed/v_DEU44B0Ds" },
-  { title: "Episode 36", video: "https://www.youtube.com/embed/GYRXcPQurTE" }
-      ]
-  },
+
   {
     id: "tianlan",
     title: "LEGEND OF TIANLAN",
