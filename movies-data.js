@@ -1,6 +1,28 @@
 // movies-data.js
 const MOVIES = [
-                {
+                  {
+    id: "raneep",
+    title: "RANEE",
+    poster: "https://images.tribuneindia.com/cms/gall_content/2017/11/2017_11$largeimg14_Tuesday_2017_232507202.jpg",
+    video: "https://www.youtube.com/embed/o107RQuwdwc",
+    type: "free",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: " In Singhal, princess Padma accidentally wounds the Rajputi ruler of Mewar, Maharawal Ratan Singh, while hunting in a forest. As she treats him, the two bond and fall in love, and with permission from her father, they are married but Alaudin a ruthless Dehli ruler has his eyes on Ranee padma "
+  },
+                  {
+    id: "raneepad",
+    title: "RANEE 2",
+    poster: "https://images.tribuneindia.com/cms/gall_content/2017/11/2017_11$largeimg14_Tuesday_2017_232507202.jpg",
+    video: "https://drive.google.com/file/d/1GfW02vn1wCyeOfTlLettRNkY7hknDUp7/preview",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: " In Singhal, princess Padma accidentally wounds the Rajputi ruler of Mewar, Maharawal Ratan Singh, while hunting in a forest. As she treats him, the two bond and fall in love, and with permission from her father, they are married but Alaudin a ruthless Dehli ruler has his eyes on Ranee padma "
+  },
+  {
     id: "yesuu",
     title: "PASSION OF THE CHRIST",
     poster: "https://i.ibb.co/GfDs1Gkt/images-q-tbn-ANd9-Gc-Q0-Ly-3-Klw-Bo-Fsd8-VOL53-Tvu4hj1-Y0w-Kx8m4-A-s.jpg",
