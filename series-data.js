@@ -12,7 +12,8 @@ const SERIES = [
     cast: ["Idris Elba", "Archie Panjabi", "Aimée Kelly"],
     episodes: [
       { title: "Episode 1", video: "https://drive.google.com/file/d/1SxYJMDrHdka6Y5TsoqcVfQtvSkbTO-jA/preview" },
-       { title: "Episode 2", video: "https://drive.google.com/file/d/1PODkgDcAERiURfsmSfDbqVM4Ia3vocaO/preview" }  
+       { title: "Episode 2", video: "https://drive.google.com/file/d/1PODkgDcAERiURfsmSfDbqVM4Ia3vocaO/preview" },
+               { title: "Episode 2", video: "https://drive.google.com/file/d/16G03W8MG4Jt23fBUbkpuHxsdp5SspR5s/preview" }  
 ]
   },
   {
