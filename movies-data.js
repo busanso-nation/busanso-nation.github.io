@@ -23,6 +23,66 @@ const MOVIES = [
     synopsis: " In Singhal, princess Padma accidentally wounds the Rajputi ruler of Mewar, Maharawal Ratan Singh, while hunting in a forest. As she treats him, the two bond and fall in love, and with permission from her father, they are married but Alaudin a ruthless Dehli ruler has his eyes on Ranee padma "
   },
   {
+  id: "sathree1",
+  title: "SATHREE",
+  poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLiVzomcSqp-G4I547xoiMeHbXJdyEaOiTBQ&s",
+  video: "https://drive.google.com/file/d/1_T5POPcED8pKbGoG07nFZYH0pgHARi_-/preview",
+  type: "premium",
+  year: "2024",
+  country: "India",
+  duration: "2hr 10m",
+  synopsis: "A fearless warrior rises against powerful enemies to protect his people and restore justice. Packed with intense action sequences and emotional drama."
+},
+
+{
+  id: "sathree2",
+  title: "SATHREE 2",
+  poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLiVzomcSqp-G4I547xoiMeHbXJdyEaOiTBQ&s",
+  video: "https://drive.google.com/file/d/10S0Szk-_x-pHMuH1OcVmJOl2S7tCn4ws/preview",
+  type: "premium",
+  year: "2024",
+  country: "India",
+  duration: "2hr 5m",
+  synopsis: "The saga continues as Sathree faces a more dangerous enemy. With higher stakes and deeper betrayals, he must fight to protect everything he loves."
+},
+
+{
+  id: "swatundersiege",
+  title: "SWAT UNDER SIEGE",
+  poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe4-lUY2XUcpbqZETMwI7Xj7XNXR5_E9OMeA&s",
+  video: "https://drive.google.com/file/d/1hXeNCdgQgCOMNfmBwuILFZD_PR3RRZKA/preview",
+  type: "premium",
+  year: "2024",
+  country: "USA",
+  duration: "1hr 45m",
+  synopsis: "An elite SWAT team becomes trapped inside a federal compound under attack. Outnumbered and outgunned, they must use strategy and courage to survive the siege."
+},
+
+{
+  id: "anjali1",
+  title: "ANJALI",
+  poster: "https://i.pinimg.com/564x/48/e6/3e/48e63eb77e8207e21584bf1276ff96cb.jpg",
+  video: "https://drive.google.com/file/d/1Dka1qV0vOFv-1Zi-A_n9FKZbXZySbnDS/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "2hr 0m",
+  synopsis: "A heartfelt love story about two souls who find each other against all odds. Their journey tests trust, destiny, and the true meaning of love."
+},
+
+{
+  id: "anjali2",
+  title: "ANJALI 2",
+  poster: "https://i.pinimg.com/564x/48/e6/3e/48e63eb77e8207e21584bf1276ff96cb.jpg",
+  video: "https://drive.google.com/file/d/1p6oFRyKJR4h9lnyiMwV5mKPvDrAktxxQ/preview",
+  type: "premium",
+  year: "2025",
+  country: "India",
+  duration: "2hr 8m",
+  synopsis: "The love story continues as Anjali and her partner face new emotional challenges that threaten to separate them. Will love conquer all once again?"
+},
+
+  {
     id: "yesuu",
     title: "PASSION OF THE CHRIST",
     poster: "https://i.ibb.co/GfDs1Gkt/images-q-tbn-ANd9-Gc-Q0-Ly-3-Klw-Bo-Fsd8-VOL53-Tvu4hj1-Y0w-Kx8m4-A-s.jpg",
