@@ -77,7 +77,7 @@ const SERIES = [
  { title: "Episode 33", video: "https://drive.google.com/file/d/10yLAKMG1ua_VEyj4rJV5ypV_PdfSJ3dh/preview" },
  { title: "Episode 34", video: "https://drive.google.com/file/d/1HROsT4G16SWaxjMUwYgtB-QQZcUTPh7e/preview" },
  { title: "Episode 35", video: "https://www.youtube.com/embed/v_DEU44B0Ds" },
-  { title: "Episode 36", video: "https://www.youtube.com/embed/GYRXcPQurTE" }
+  { title: "Episode 36", video: "https://www.youtube.com/embed/GYRXcPQurTE" },
     { title: "Episode 37", video: "https://www.youtube.com/embed/AVhjLXs-i18" }
       ]
   },
