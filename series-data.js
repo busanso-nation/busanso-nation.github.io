@@ -11,9 +11,10 @@ const SERIES = [
     synopsis: "Kingdom Airlines Flight KA29 is hijacked by a criminal organization, not terrorists, seeking the release of their leaders.",
     cast: ["Idris Elba", "Archie Panjabi", "Aimée Kelly"],
     episodes: [
-      { title: "Episode 1", video: "https://drive.google.com/file/d/1SxYJMDrHdka6Y5TsoqcVfQtvSkbTO-jA/preview" },
-       { title: "Episode 2", video: "https://drive.google.com/file/d/1PODkgDcAERiURfsmSfDbqVM4Ia3vocaO/preview" },
-               { title: "Episode 2", video: "https://drive.google.com/file/d/16G03W8MG4Jt23fBUbkpuHxsdp5SspR5s/preview" }  
+      { title: "Part 1", video: "https://drive.google.com/file/d/1SxYJMDrHdka6Y5TsoqcVfQtvSkbTO-jA/preview" },
+       { title: "Part 2", video: "https://drive.google.com/file/d/1PODkgDcAERiURfsmSfDbqVM4Ia3vocaO/preview" },
+        { title: "Part 3", video: "https://drive.google.com/file/d/16G03W8MG4Jt23fBUbkpuHxsdp5SspR5s/preview" },
+        { title: "Part 4", video: "https://drive.google.com/file/d/1kB2qnxtYikTueIfdeaBcG2EpViG1H3aI/preview" }  
 ]
   },
   {
