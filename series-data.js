@@ -14,22 +14,23 @@ const SERIES = [
       { title: "Part 1", video: "https://drive.google.com/file/d/1SxYJMDrHdka6Y5TsoqcVfQtvSkbTO-jA/preview" },
        { title: "Part 2", video: "https://drive.google.com/file/d/1PODkgDcAERiURfsmSfDbqVM4Ia3vocaO/preview" },
         { title: "Part 3", video: "https://drive.google.com/file/d/16G03W8MG4Jt23fBUbkpuHxsdp5SspR5s/preview" },
-        { title: "Part 4", video: "https://drive.google.com/file/d/1kB2qnxtYikTueIfdeaBcG2EpViG1H3aI/preview" }  
+        { title: "Part 4", video: "https://drive.google.com/file/d/1kB2qnxtYikTueIfdeaBcG2EpViG1H3aI/preview" },
+    { title: "Part 5", video: "https://drive.google.com/file/d/101gLJxYP_ZSdrtYe74giy10P69NEm_nT/preview" }
 ]
   },
   {
-         id: "lingshan",
-    title: "HEROES OF LINGSHAN",
-    poster: "https://i.ibb.co/gbXcQfLP/vvvvvvvvvvv.jpg",
+         id: "kingdomd",
+    title: "KINGDOM DOCTOR",
+    poster: "https://asianwiki.com/images/6/61/Kingdom_Season_2-P2.jpg",
     genre: "Action",
     added: 1,
-    type: "free",
-    country: "China",
+    type: "premium",
+    country: "Korea",
     year: "2026",
-    synopsis: "Led by Song Jiang, they gather at Mount Liang to fight tyranny, rob from the rich to help the poor, and eventually seek amnesty to serve the empire, culminating in a tragic, battle-heavy narrative.",
-    cast: ["Toshio Kurosawa", "Sanae Tsuchida", "Kei Sato"],
+    synopsis: "The series follows a young, intelligent, and incorruptible Bao Zheng (Judge Bao) as he solves intricate murder mysteries and crime cases in the Northern Song Dynasty",
+    cast: ["Ai Liya", "Donglin Guo", "Miao Pu"],
     episodes: [
-      { title: "Episode 1", video: "https://www.youtube.com/embed/-CzFCNw_1wY" }   
+      { title: "Episode 1", video: "https://www.youtube.com/embed/8Oqf1bC_UfY" }   
 ]
   },
   {
