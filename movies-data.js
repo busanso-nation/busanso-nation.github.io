@@ -1,6 +1,17 @@
 // movies-data.js
 const MOVIES = [
                   {
+       id: "bloodsu",
+    title: "BLOOD SUCKER",
+    poster: "https://i.pinimg.com/736x/8e/df/20/8edf203c71153810db9f0a174619ec4d.jpg",
+    video: "https://www.youtube.com/embed/Rhd04zbd8bI",
+    type: "premium",
+    year: "2026",
+    country: "USA",
+    duration: "1hr 15m ",
+    synopsis: " In Singhal, princess Padma accidentally wounds the Rajputi ruler of Mewar, Maharawal Ratan Singh, while hunting in a forest. As she treats him, the two bond and fall in love, and with permission from her father, they are married but Alaudin a ruthless Dehli ruler has his eyes on Ranee padma "
+  },
+   {
     id: "raneep",
     title: "RANEE",
     poster: "https://images.tribuneindia.com/cms/gall_content/2017/11/2017_11$largeimg14_Tuesday_2017_232507202.jpg",
@@ -11,7 +22,7 @@ const MOVIES = [
     duration: "1hr 15m ",
     synopsis: " In Singhal, princess Padma accidentally wounds the Rajputi ruler of Mewar, Maharawal Ratan Singh, while hunting in a forest. As she treats him, the two bond and fall in love, and with permission from her father, they are married but Alaudin a ruthless Dehli ruler has his eyes on Ranee padma "
   },
-                  {
+ {
     id: "raneepad",
     title: "RANEE 2",
     poster: "https://images.tribuneindia.com/cms/gall_content/2017/11/2017_11$largeimg14_Tuesday_2017_232507202.jpg",
