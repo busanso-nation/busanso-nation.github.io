@@ -248,6 +248,8 @@ const shareBtn = document.getElementById("shareBtn");
 
 function playMovie(){
   player.src = getVideoUrl(movie.video);
+  // Save last played movie ID
+localStorage.setItem("lastMovieId", movie.id);
   player.style.display = "block";
   posterImg.style.display = "none";
   watchBtn.style.display = "none";
@@ -333,6 +335,34 @@ function checkActivePIN(){
 }
 
 checkActivePIN();
+  // ===== MOVIE RESUME SYSTEM =====
+player.addEventListener("load", () => {
+  const savedTime = localStorage.getItem("movieTime_" + movie.id);
+  if(savedTime){
+    player.contentWindow.postMessage({
+      type: "resume",
+      time: parseFloat(savedTime)
+    }, "*");
+  }
+});
+
+// Save progress every 5 seconds
+setInterval(() => {
+  try {
+    player.contentWindow.postMessage({ type: "getTime" }, "*");
+  } catch(e){}
+}, 5000);
+
+// Listen for time response
+window.addEventListener("message", (event) => {
+  if(event.data?.currentTime){
+    localStorage.setItem(
+      "movieTime_" + movie.id,
+      event.data.currentTime
+    );
+  }
+});
+
 </script>
 
 </body>
