@@ -277,7 +277,6 @@ if(!pin){
 }
 
 /* ===== ADDED CONTINUE WATCHING LOGIC ===== */
-
 const lastMovieId = localStorage.getItem("lastMovieId");
 const lastSeriesData = JSON.parse(localStorage.getItem("lastSeries"));
 
@@ -291,9 +290,11 @@ if(lastMovieId){
 }
 
 if(lastSeriesData){
+  // Generate URL with episode index & timestamp
+  const seriesUrl = `series-player.html?id=${lastSeriesData.id}&ep=${lastSeriesData.episodeIdx}&t=${lastSeriesData.currentTime}`;
   document.getElementById("lastSeriesCard").innerHTML = `
     <strong>${lastSeriesData.title}</strong><br>
-    <button onclick="location.href='series-player.html?id=${lastSeriesData.id}'">
+    <button onclick="location.href='${seriesUrl}'">
       Resume Series
     </button>
   `;
