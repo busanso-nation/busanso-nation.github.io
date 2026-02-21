@@ -6,47 +6,109 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="movies-data.js"></script>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
-  authDomain: "busanso-pins.firebaseapp.com",
-  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
-  projectId: "busanso-pins",
-  storageBucket: "busanso-pins.appspot.com",
-  messagingSenderId: "137040014808",
-  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-</script>
-
 <style>
-body{margin:0;background:#111;color:#fff;font-family:Arial;}
-.banner{position:relative;height:55vh;display:flex;align-items:flex-end;justify-content:center;}
-.banner img{width:100%;height:100%;object-fit:cover;}
-.banner .buttons{position:absolute;bottom:30px;display:flex;gap:12px;}
-button{padding:14px 28px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
-#watchBtn{background:#e50914;color:#fff;}
-#shareBtn{background:#25D366;color:#fff;}
-.details{max-width:900px;margin:20px auto;padding:0 16px;}
-.player{width:90%;max-width:1200px;margin:20px auto;aspect-ratio:16/9;display:none;border-radius:12px;}
-#adOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;
-display:none;justify-content:center;align-items:center;flex-direction:column;z-index:9999;}
-.countdown{font-size:24px;color:#00ff99;margin:15px 0;}
-#upgradePopup{position:fixed;bottom:20px;right:20px;background:#1c1c1c;
-padding:20px;border-radius:12px;display:none;}
-#bannerAd{text-align:center;margin:20px 0;}
+body {
+  margin:0;
+  background:#111;
+  color:#fff;
+  font-family: Arial, sans-serif;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: 55vh;
+  max-height: 450px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s ease;
+  transform: scale(1.1); /* zoom for Netflix feel */
+}
+
+.banner:hover img {
+  transform: scale(1.15);
+}
+
+/* Full gradient overlay */
+.banner::after {
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.3) 60%, transparent 100%);
+  pointer-events:none;
+}
+
+/* Buttons on top of gradient */
+.banner .buttons {
+  position: absolute;
+  bottom: 30px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  width:100%;
+  z-index: 2; /* ensure buttons above gradient */
+}
+
+button {
+  padding:14px 28px;
+  font-size:16px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  box-shadow:0 2px 6px rgba(0,0,0,0.5);
+  opacity: 1; /* fully visible */
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+button#watchBtn { background:#e50914; color:#fff; }
+button#shareBtn { background:#25D366; color:#fff; }
+
+.details {
+  max-width:900px;
+  margin:20px auto;
+  text-align:left;
+  padding:0 16px;
+}
+.details h1 { margin-bottom:10px; font-size:2.2em; }
+.details p { line-height:1.5; }
+
+.player {
+  margin:20px auto;
+  width:90%;
+  max-width:1200px;
+  aspect-ratio:16/9;
+  display:none;
+  border:none;
+  border-radius:12px;
+}
+
+@media (max-width:768px){
+  .banner { height: 40vh; }
+  button { font-size:14px; padding:12px 20px; }
+}
 </style>
 </head>
-
 <body>
 
 <div class="banner">
-  <img id="posterImg">
+  <img id="posterImg" src="" alt="Movie Banner">
   <div class="buttons">
     <button id="watchBtn">▶ Watch Now</button>
     <button id="shareBtn">Share</button>
@@ -54,171 +116,72 @@ padding:20px;border-radius:12px;display:none;}
 </div>
 
 <div class="details">
-  <h1 id="title"></h1>
+  <h1 id="title">Loading...</h1>
   <p id="synopsis"></p>
   <p id="meta"></p>
 </div>
 
 <iframe id="player" class="player" allowfullscreen></iframe>
-<div id="bannerAd"></div>
-
-<div id="adOverlay">
-  <h2>Advertisement</h2>
-  <div class="countdown" id="countdown">10</div>
-  <p>Your movie will start shortly...</p>
-</div>
-
-<div id="upgradePopup">
-  <h3>Remove Ads 🚀</h3>
-  <p>If you pay, you will not see these annoying ads again.</p>
-  <button onclick="window.location.href='packages.html'">
-    Upgrade Now
-  </button>
-</div>
 
 <script>
-
-// ===== MOVIE LOAD =====
+// ===== GET MOVIE ID =====
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
-if(!id) location.href="movies-list.html";
+if(!id){ alert("No movie selected!"); location.href = "movies-list.html"; }
+
+// ===== FETCH MOVIE =====
 const movie = MOVIES.find(m => m.id === id);
-if(!movie) location.href="movies-list.html";
+if(!movie){ alert("Movie not found!"); location.href = "movies-list.html"; }
 
-title.textContent = movie.title;
-posterImg.src = movie.poster;
-synopsis.textContent = movie.synopsis || "";
-meta.textContent = `${movie.year} • ${movie.duration||""}`;
+// ===== POPULATE INFO =====
+document.getElementById("title").textContent = movie.title;
+document.getElementById("posterImg").src = movie.poster;
+document.getElementById("synopsis").textContent = movie.synopsis || "";
+document.getElementById("meta").textContent = `${movie.year} • ${movie.duration || ""} • ${movie.type || ""}`;
 
-// ===== URL NORMALIZER =====
+// ===== VIDEO URL NORMALIZATION =====
 function getVideoUrl(url){
-  if(url.includes("youtube")){
-    const ytId = new URL(url).searchParams.get("v");
-    return `https://www.youtube.com/embed/${ytId}?autoplay=1`;
+  if(!url) return "";
+  url = url.trim();
+  if(url.includes("youtube.com") || url.includes("youtu.be")){
+    const ytId = url.includes("v=") ? new URL(url).searchParams.get("v") : url.split("/").pop();
+    return `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=0&modestbranding=1&rel=0`;
   }
-  if(url.includes("/d/")){
+  if(url.includes("/d/")) { // Google Drive
     const driveId = url.split("/d/")[1].split("/")[0];
     return `https://drive.google.com/file/d/${driveId}/preview`;
   }
   return url;
 }
 
+// ===== FULLSCREEN PLAY =====
+const watchBtn = document.getElementById("watchBtn");
+const posterImg = document.getElementById("posterImg");
 const player = document.getElementById("player");
-const adOverlay = document.getElementById("adOverlay");
-const countdownEl = document.getElementById("countdown");
-const upgradePopup = document.getElementById("upgradePopup");
-const bannerAd = document.getElementById("bannerAd");
-let isPaidUser = false;
+const shareBtn = document.getElementById("shareBtn");
 
-// ===== VERIFY PIN =====
-async function verifyPIN(){
-
-  const storedPIN = localStorage.getItem("validPIN");
-  const storedDevice = localStorage.getItem("deviceId");
-
-  if(!storedPIN || !storedDevice) return false;
-
-  try{
-    const snapshot = await db.ref("pins/" + storedPIN).once("value");
-    if(!snapshot.exists()) return false;
-
-    const data = snapshot.val();
-
-    if(!data.used) return false;
-    if(Date.now() > data.expiry) return false;
-    if(data.activeDevice !== storedDevice) return false;
-
-    return true;
-  } catch(e){
-    return false;
-  }
-}
-
-// ===== START MOVIE =====
-function startMovie(){
+function playMovie(){
   player.src = getVideoUrl(movie.video);
-  player.style.display="block";
-  posterImg.style.display="none";
-  watchBtn.style.display="none";
-  shareBtn.style.display="none";
+  player.style.display = "block";
+  posterImg.style.display = "none";
+  watchBtn.style.display = "none";
+  shareBtn.style.display = "none";
+
+  // Request full screen
+  if(player.requestFullscreen){ player.requestFullscreen(); }
+  else if(player.webkitRequestFullscreen){ player.webkitRequestFullscreen(); }
+  else if(player.msRequestFullscreen){ player.msRequestFullscreen(); }
 }
 
-// ===== AD FLOW =====
-function playWithAd(){
+watchBtn.addEventListener("click", playMovie);
+posterImg.addEventListener("click", playMovie);
 
-  adOverlay.style.display="flex";
-  let timeLeft = 10;
-  countdownEl.textContent = timeLeft;
-
-  window.open(
-    "https://www.effectivegatecpm.com/bur4x69piu?key=111989f663f7a1507cb9aee022725797",
-    "_blank"
-  );
-
-  const timer = setInterval(()=>{
-    timeLeft--;
-    countdownEl.textContent = timeLeft;
-
-    if(timeLeft <= 0){
-      clearInterval(timer);
-      adOverlay.style.display="none";
-      startMovie();
-    }
-  },1000);
-}
-
-// ===== LOAD BANNER AD PROPERLY =====
-function loadBannerAd(){
-
-  const script1 = document.createElement("script");
-  script1.innerHTML = `
-    atOptions={
-      'key':'1c9ccdb756a82c4d663014a338917bd7',
-      'format':'iframe',
-      'height':250,
-      'width':300,
-      'params':{}
-    };
-  `;
-  bannerAd.appendChild(script1);
-
-  const script2 = document.createElement("script");
-  script2.src="https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js";
-  bannerAd.appendChild(script2);
-}
-
-// ===== INIT =====
-document.addEventListener("DOMContentLoaded", async ()=>{
-
-  isPaidUser = await verifyPIN();
-
-  if(isPaidUser){
-    upgradePopup.style.display="none";
-    bannerAd.style.display="none";
-  } else {
-    upgradePopup.style.display="block";
-    loadBannerAd();
-  }
+// ===== WHATSAPP SHARE =====
+shareBtn.addEventListener("click", ()=>{
+  const text = `🎬 ${movie.title}\n${movie.synopsis}\nWatch now: https://bit.ly/busanso`;
+  const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  window.open(url, "_blank");
 });
-
-// ===== WATCH CLICK =====
-watchBtn.addEventListener("click",()=>{
-  if(isPaidUser){
-    startMovie();
-  } else {
-    playWithAd();
-  }
-});
-
-// ===== SHARE =====
-shareBtn.addEventListener("click",()=>{
-  const text=`🎬 ${movie.title}\nWatch now`;
-  window.open(
-    "https://api.whatsapp.com/send?text="+encodeURIComponent(text),
-    "_blank"
-  );
-});
-
 </script>
 
 </body>
