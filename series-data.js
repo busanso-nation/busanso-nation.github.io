@@ -174,7 +174,7 @@ const SERIES = [
     synopsis: "Akasanso akasufu okukamala, akagenda otuyisa mu valentine mood. kajjude action ne tagali",
     cast: ["Zifeng Li", "Yang Rong", "Yang Xuwen"],
     episodes: [
-      { title: "Episode 1", video: "https://www.youtube.com/embed/nwQD_BVTI5o" },
+      { title: "Episode 1", video: "https://drive.google.com/file/d/12ToEtpGzXR2jQtYZPpknsLErVTcAthfk/preview" },
      { title: "Episode 2", video: "https://drive.google.com/file/d/1CVoAfyJ4llObz8pqu3QnoKYUdtRXJX8q/preview" },
     { title: "Episode 3", video: "https://www.youtube.com/embed/avd2LwsDcUo" },
      { title: "Episode 4", video: "https://www.youtube.com/embed/vPUP84kkzqQ" },
