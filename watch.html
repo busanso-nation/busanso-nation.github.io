@@ -119,13 +119,47 @@ footer{
   opacity:.75;
   color:#333;
 }
+
+/* ===== ADDED CONTINUE WATCHING STYLES ===== */
+.continue-section{
+  margin-top:25px;
+}
+
+.continue-title{
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.continue-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.continue-card{
+  background:#fff;
+  border-radius:14px;
+  padding:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  text-align:center;
+}
+
+.continue-card button{
+  margin-top:8px;
+  padding:8px 10px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,#4361ee,#4895ef);
+  color:#fff;
+  cursor:pointer;
+  font-weight:600;
+}
 </style>
 </head>
 <body>
 
 <div class="card">
   <div class="header">
-    <!-- Package Nickname will appear here -->
     <h1 id="planNickname">Loading...</h1>
     <small id="planLabel">Loading...</small>
   </div>
@@ -138,6 +172,15 @@ footer{
     <div class="info-row">
       <span class="label">Expires In</span>
       <span class="value countdown" id="timeLeft">Loading...</span>
+    </div>
+  </div>
+
+  <!-- ===== ADDED CONTINUE WATCHING SECTION ===== -->
+  <div class="continue-section">
+    <div class="continue-title">Continue Watching</div>
+    <div class="continue-grid">
+      <div class="continue-card" id="lastMovieCard"></div>
+      <div class="continue-card" id="lastSeriesCard"></div>
     </div>
   </div>
 
@@ -158,7 +201,7 @@ footer{
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
 const firebaseConfig = {
-  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
+  apiKey: "AIzaSy...",
   authDomain: "busanso-pins.firebaseapp.com",
   databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
   projectId: "busanso-pins",
@@ -207,14 +250,12 @@ if(!pin){
       "Annual": "Kabejest"
     };
 
-    // Display nickname prominently
     document.getElementById("planNickname").textContent =
       planNicknames[data.type] || data.type;
 
     document.getElementById("planLabel").textContent =
       `Package: ${data.type}`;
 
-    // Countdown timer
     const timeLeftEl = document.getElementById("timeLeft");
     function updateCountdown(){
       const diff = data.expiry - Date.now();
@@ -234,6 +275,30 @@ if(!pin){
     setInterval(updateCountdown,1000);
   });
 }
+
+/* ===== ADDED CONTINUE WATCHING LOGIC ===== */
+
+const lastMovieId = localStorage.getItem("lastMovieId");
+const lastSeriesData = JSON.parse(localStorage.getItem("lastSeries"));
+
+if(lastMovieId){
+  document.getElementById("lastMovieCard").innerHTML = `
+    <strong>Last Movie</strong><br>
+    <button onclick="location.href='movie.html?id=${lastMovieId}'">
+      Resume Movie
+    </button>
+  `;
+}
+
+if(lastSeriesData){
+  document.getElementById("lastSeriesCard").innerHTML = `
+    <strong>${lastSeriesData.title}</strong><br>
+    <button onclick="location.href='series-player.html?id=${lastSeriesData.id}'">
+      Resume Series
+    </button>
+  `;
+}
 </script>
+
 </body>
 </html>
