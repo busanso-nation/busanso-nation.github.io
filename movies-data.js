@@ -399,7 +399,7 @@ const MOVIES = [
     {
   id: "munni1",
   title: "MUNNI",
-  poster: "https://i.redd.it/je3mp9oqs6qe1.jpeg",
+  poster: "https://i.ibb.co/xK1gxpnY/images-q-tbn-ANd9-Gc-RQUip-ER-w-LQ-Hu-QVv-C70p-P38h2bu-H5xal-SSA-s.jpg",
   video: "https://drive.google.com/file/d/1ApHQ-IAUEinMmY4O_Kzma-SzLqy4Mjuu/preview",
   type: "premium",
   year: "2025",
@@ -411,7 +411,7 @@ const MOVIES = [
 {
   id: "munni2",
   title: "MUNNI 2",
-  poster: "https://i.redd.it/je3mp9oqs6qe1.jpeg",
+  poster: "https://i.ibb.co/xK1gxpnY/images-q-tbn-ANd9-Gc-RQUip-ER-w-LQ-Hu-QVv-C70p-P38h2bu-H5xal-SSA-s.jpg",
   video: "https://drive.google.com/file/d/1VffXMcn9xgeY7fdxdrWrNaXzlk4zrhZn/preview",
   type: "premium",
   year: "2025",
