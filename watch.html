@@ -294,7 +294,7 @@ if(lastSeriesData){
   const seriesUrl = `series-player.html?id=${lastSeriesData.id}&ep=${lastSeriesData.episodeIdx}&t=${lastSeriesData.currentTime}`;
   document.getElementById("lastSeriesCard").innerHTML = `
     <strong>${lastSeriesData.title}</strong><br>
-    <button onclick="location.href='${seriesUrl}'">
+    <button onclick="location.href='serie.html?id${seriesUrl}'">
       Resume Series
     </button>
   `;
