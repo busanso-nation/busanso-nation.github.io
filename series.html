@@ -5,7 +5,17 @@
 <title>BUSANSO – Series</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Series data -->
 <script src="series-data.js"></script>
+
+<!-- ACTIVE PIN CHECK -->
+<script>
+// Redirect if activePIN not found
+const activePIN = localStorage.getItem("activePIN");
+if(!activePIN || activePIN === "undefined" || activePIN === ""){
+  window.location.href = "expired.html";
+}
+</script>
 
 <style>
 *{box-sizing:border-box}
@@ -240,9 +250,7 @@ function filterGenre(genre, btn){
 /* HIGHLIGHT SELECTED GENRE BUTTON */
 function highlightActiveGenre(btn){
   const buttons = document.querySelectorAll(".footer-genres button");
-  buttons.forEach(b=>{
-    b.style.background = "linear-gradient(45deg,#102a38,#1f3f54)";
-  });
+  buttons.forEach(b=>{ b.style.background = "linear-gradient(45deg,#102a38,#1f3f54)"; });
   btn.style.background = "linear-gradient(45deg,#ff7a18,#ffb347)";
 }
 
