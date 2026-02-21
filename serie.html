@@ -148,16 +148,72 @@ function normalizeVideo(url){
 
 // ===== EPISODE PLAYBACK =====
 let idx = 0;
+let progressInterval = null;
+
 function playEpisode(i){
   const ep = serie.episodes[i];
   if(!ep) return;
-  player.innerHTML = `<iframe src="${normalizeVideo(ep.video)}" allowfullscreen></iframe>`;
+
   idx = i;
-  document.querySelectorAll(".episode").forEach((el,j)=>el.classList.toggle("active", i===j));
+
+  // Save last played SERIES (for dashboard)
+  localStorage.setItem("lastSeries", JSON.stringify({
+    id: serie.id,
+    title: serie.title,
+    episodeIndex: i,
+    episodeTitle: ep.title,
+    video: ep.video,
+    thumbnail: serie.thumbnail || "",
+    updated: Date.now()
+  }));
+
+  // Check saved progress
+  const savedData = JSON.parse(localStorage.getItem("seriesProgress_"+serie.id)) || {};
+  const savedTime = savedData[i] || 0;
+
+  // Add start time if exists
+  let videoURL = normalizeVideo(ep.video);
+  if(savedTime > 0){
+    if(videoURL.includes("?")){
+      videoURL += `&start=${Math.floor(savedTime)}`;
+    } else {
+      videoURL += `?start=${Math.floor(savedTime)}`;
+    }
+  }
+
+  player.innerHTML = `<iframe id="seriesFrame" src="${videoURL}" allowfullscreen></iframe>`;
+
+  document.querySelectorAll(".episode")
+    .forEach((el,j)=>el.classList.toggle("active", i===j));
+
   prevBtn.disabled = i===0;
   nextBtn.disabled = i===serie.episodes.length-1;
+
   window.scrollTo({ top:0, behavior:"smooth" });
+
+  // Clear old interval
+  if(progressInterval){
+    clearInterval(progressInterval);
+  }
+
+  // Save progress every 5 seconds
+  progressInterval = setInterval(()=>{
+    const iframe = document.getElementById("seriesFrame");
+    if(!iframe) return;
+
+    try{
+      const currentTime = savedTime + 5; // fallback estimation
+
+      let progress = JSON.parse(localStorage.getItem("seriesProgress_"+serie.id)) || {};
+      progress[i] = currentTime;
+
+      localStorage.setItem("seriesProgress_"+serie.id, JSON.stringify(progress));
+    }catch(e){
+      // Cross-origin iframe limitation (normal)
+    }
+  },5000);
 }
+
 
 watchBtn.onclick = () => {
   if (isFreeUser()) {
