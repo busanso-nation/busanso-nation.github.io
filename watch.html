@@ -190,7 +190,7 @@ if(!pin){
     if(now > data.expiry){
       alert("Your subscription has expired.");
       localStorage.removeItem("activePIN");
-      location.href = "packages.html";
+      location.href = "expired.html";
       return;
     }
 
@@ -221,7 +221,7 @@ if(!pin){
       if(diff <= 0){
         timeLeftEl.textContent = "Expired";
         localStorage.removeItem("activePIN");
-        setTimeout(()=>location.href="packages.html",1500);
+        setTimeout(()=>location.href="expired.html",1500);
         return;
       }
       const days = Math.floor(diff / 86400000);
