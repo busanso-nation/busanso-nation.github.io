@@ -335,11 +335,13 @@ function checkActivePIN(){
   if(!activePIN){
     loadAds();
     // Show upgrade popup
-    const popup = document.getElementById("upgradePopup");
-    popup.style.display = "block";
-    popup.addEventListener("click", ()=>{
-      alert("packages.html"); // replace with real upgrade link
-    });
+const popup = document.getElementById("upgradePopup");
+popup.style.display = "block";
+popup.addEventListener("click", ()=>{
+  // Redirect user to packages.html
+  window.location.href = "packages.html";
+});
+
   }
 }
 
