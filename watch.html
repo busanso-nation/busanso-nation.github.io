@@ -1,4 +1,3 @@
-<!-- FULL DASHBOARD WITH LAST PLAYED ADDED -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,88 +6,234 @@
 <title>User Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* YOUR ORIGINAL CSS IS UNTOUCHED ABOVE */
-
-/* ===== Added Continue Watching Styles ===== */
-.continue-section{
-  margin-top:20px;
+:root{
+  --primary-gradient: linear-gradient(135deg,#ff9f1c,#ff6f61);
+  --secondary-gradient: linear-gradient(135deg,#00c9a7,#2ec4b6);
+  --accent-gradient: linear-gradient(135deg,#4361ee,#4895ef);
+  --bg-light:#f8fafc;
+  --dark-bg:#0f172a;
+  --glass:rgba(255,255,255,.14);
+  --btn-radius:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',system-ui,sans-serif;}
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#f5f7fa,#c3cfe2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+  color:#1f2933;
 }
 
-.continue-title{
-  font-weight:700;
-  margin-bottom:10px;
+.card{
+  width:100%;
+  max-width:520px;
+  background:rgba(255,255,255,.95);
+  border-radius:25px;
+  padding:30px 25px;
+  box-shadow:0 25px 60px rgba(0,0,0,.2);
+  transition: transform 0.3s;
+}
+.card:hover{ transform: translateY(-5px); }
+
+.header{
+  text-align:center;
+  margin-bottom:20px;
+}
+.header h1{
+  font-size:2.8rem;
+  font-weight:900;
+  background: linear-gradient(90deg,#ff512f,#f09819);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.header small{
+  display:block;
+  font-size:1.2rem;
+  margin-top:6px;
+  color:#333;
+  font-weight:600;
 }
 
-.continue-grid{
+.info-box{
+  background:var(--bg-light);
+  border-radius:20px;
+  padding:18px 20px;
+  margin-bottom:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+.info-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  font-size:1.05rem;
+  border-bottom:1px dashed #e5e7eb;
+}
+.info-row:last-child{ border-bottom:none; }
+.label{ opacity:.75; font-size:1rem; }
+.value{ font-weight:700; font-size:1rem; color:#111; }
+
+.countdown{
+  text-align:center;
+  font-weight:800;
+  margin-top:15px;
+  font-size:1.4rem;
+  color:#ff3d00;
+}
+
+.actions{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:14px;
+  margin-top:20px;
 }
-
-.continue-card{
-  background:#fff;
-  border-radius:14px;
-  padding:12px;
-  box-shadow:0 6px 18px rgba(0,0,0,.08);
+.btn{
+  padding:15px 12px;
+  border-radius:var(--btn-radius);
+  font-size:1rem;
+  font-weight:700;
   text-align:center;
+  text-decoration:none;
+  color:#fff;
+  display:block;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover{
+  transform: translateY(-3px);
+  box-shadow:0 6px 18px rgba(0,0,0,.2);
 }
 
-.continue-card button{
-  margin-top:8px;
-  padding:8px 10px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,#4361ee,#4895ef);
-  color:#fff;
-  cursor:pointer;
-  font-weight:600;
+/* Button gradients */
+.movies{background:linear-gradient(135deg,#ff9f1c,#ff6f61);}
+.series{background:linear-gradient(135deg,#00c9a7,#2ec4b6);}
+.renew{background:linear-gradient(135deg,#4361ee,#4895ef);}
+.join{background:linear-gradient(135deg,#ef476f,#f72585);}
+.donate{background:linear-gradient(135deg,#fcbf49,#ff006e);}
+.live{background:linear-gradient(135deg,#9b5de5,#f15bb5);}
+
+footer{
+  text-align:center;
+  font-size:.85rem;
+  margin-top:18px;
+  opacity:.75;
+  color:#333;
 }
 </style>
 </head>
 <body>
 
 <div class="card">
+  <div class="header">
+    <!-- Package Nickname will appear here -->
+    <h1 id="planNickname">Loading...</h1>
+    <small id="planLabel">Loading...</small>
+  </div>
 
-  <!-- EVERYTHING ABOVE IS UNCHANGED -->
-
-  <div class="continue-section">
-    <div class="continue-title">Continue Watching</div>
-    <div class="continue-grid">
-      <div class="continue-card" id="lastMovieCard"></div>
-      <div class="continue-card" id="lastSeriesCard"></div>
+  <div class="info-box">
+    <div class="info-row">
+      <span class="label">Your Password</span>
+      <span class="value">••••••••</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Expires In</span>
+      <span class="value countdown" id="timeLeft">Loading...</span>
     </div>
   </div>
 
-  <!-- YOUR ACTION BUTTONS REMAIN EXACTLY SAME -->
+  <div class="actions">
+    <a href="movies.html" class="btn movies">🎬 Movies</a>
+    <a href="series.html" class="btn series">📺 Series</a>
+    <a href="packages.html" class="btn renew">⏳ Extend Subscription</a>
+    <a href="busansocity.html" class="btn join">💖 Join Busanso City</a>
+    <a href="donate.html" class="btn donate">💖 Donate to Orphans</a>
+    <a href="live.html" class="btn live">📡 Live</a>
+  </div>
 
+  <div class="countdown" id="countdownDisplay"></div>
+  <footer>💫 Thank you for being part of Busanso Nation</footer>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-/* YOUR ORIGINAL SCRIPT REMAINS EXACTLY SAME */
+const firebaseConfig = {
+  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
+  authDomain: "busanso-pins.firebaseapp.com",
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
+  projectId: "busanso-pins",
+  storageBucket: "busanso-pins.firebasestorage.app",
+  messagingSenderId: "137040014808",
+  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-/* ===== Added Continue Watching Logic ===== */
+const pin = localStorage.getItem("activePIN");
+const deviceId = localStorage.getItem("deviceId") || "device-" + Math.random().toString(36).substr(2,9);
+localStorage.setItem("deviceId", deviceId);
 
-const lastMovieId = localStorage.getItem("lastMovieId");
-const lastSeriesId = localStorage.getItem("lastSeriesId");
+if(!pin){
+  location.href = "login.html";
+} else {
+  db.ref("pins/"+pin).get().then(snapshot => {
+    if(!snapshot.exists()){
+      alert("Invalid PIN.");
+      localStorage.removeItem("activePIN");
+      location.href = "login.html";
+      return;
+    }
 
-if(lastMovieId){
-  document.getElementById("lastMovieCard").innerHTML = `
-    <strong>Last Movie</strong><br>
-    <button onclick="location.href='movie.html?id=${lastMovieId}'">
-      Resume Movie
-    </button>
-  `;
-}
+    const data = snapshot.val();
+    const now = Date.now();
 
-if(lastSeriesId){
-  document.getElementById("lastSeriesCard").innerHTML = `
-    <strong>Last Series</strong><br>
-    <button onclick="location.href='series.html?id=${lastSeriesId}'">
-      Resume Series
-    </button>
-  `;
+    if(now > data.expiry){
+      alert("Your subscription has expired.");
+      localStorage.removeItem("activePIN");
+      location.href = "expired.html";
+      return;
+    }
+
+    if(!data.activeDevice){
+      db.ref("pins/"+pin+"/activeDevice").set(deviceId);
+    }
+
+    localStorage.setItem("activePackage", JSON.stringify(data));
+
+    const planNicknames = {
+      "Weekly": "Weekly",
+      "Monthly": "Kabeja",
+      "Half-Year": "Kabeje",
+      "Annual": "Kabejest"
+    };
+
+    // Display nickname prominently
+    document.getElementById("planNickname").textContent =
+      planNicknames[data.type] || data.type;
+
+    document.getElementById("planLabel").textContent =
+      `Package: ${data.type}`;
+
+    // Countdown timer
+    const timeLeftEl = document.getElementById("timeLeft");
+    function updateCountdown(){
+      const diff = data.expiry - Date.now();
+      if(diff <= 0){
+        timeLeftEl.textContent = "Expired";
+        localStorage.removeItem("activePIN");
+        setTimeout(()=>location.href="expired.html",1500);
+        return;
+      }
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+      timeLeftEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown,1000);
+  });
 }
 </script>
-
 </body>
 </html>
