@@ -5,7 +5,17 @@
 <title>BUSANSO – Movies</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Movies data -->
 <script src="movies-data.js"></script>
+
+<!-- ACTIVE PIN CHECK -->
+<script>
+// Redirect user to expired.html if activePIN not found
+const activePIN = localStorage.getItem("activePIN");
+if(!activePIN || activePIN === "undefined" || activePIN === ""){
+  window.location.href = "expired.html";
+}
+</script>
 
 <style>
 *{box-sizing:border-box}
