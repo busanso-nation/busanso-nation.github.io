@@ -132,6 +132,42 @@ const SERIES = [
 ]
   },
   {
+          id: "bluelo",
+    title: "BLUE LOVE",
+    poster: "https://m.media-amazon.com/images/M/MV5BZDk3YTAyM2MtZmUzNC00NzkzLWJkNzQtYThhNDJmMDE1NDc1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    genre: "Drama",
+    added: 1,
+    type: "premium",
+    country: "Korea",
+    year: "2024",
+    synopsis: "A heartbreaking melodrama about a terminally ill radio producer, K, and a lyricist, Cream, who are soulmates sharing a deep, unspoken love. Knowing his time is limited, K hides his illness to ensure Cream finds a happy, healthy life with another man. The story is known for its intense emotional, tragic, and tear-jerking, sacrificial love story.",
+    cast: ["Kwon Sang-woo", "Lee Bo-young", "Lee Beom-soo"],
+    episodes: [
+      { title: "Episode 1", video: "https://drive.google.com/file/d/1zwTeLXFpIMxC9dDWk977jijz7Kb7JW3T/preview" },
+     { title: "Episode 2", video: "https://drive.google.com/file/d/1yfk-te3qyonQD1IToAgTJaaobAglUpi7/preview" },
+    { title: "Episode 3", video: "https://drive.google.com/file/d/1Xh_vzWK6uv4hzuwhJITQZCs6z4fpyk_o/preview" },
+     { title: "Episode 5", video: "https://drive.google.com/file/d/1XesUYNPvdwu_lEYwgoZtki4B5vfANORR/preview" },
+     { title: "Episode 6", video: "https://drive.google.com/file/d/1P_KdpqgAnVh0aCZHnnc1Hmro079ivC9o/preview" },
+        { title: "Episode 7", video: "https://drive.google.com/file/d/1qrCjs_e3Cmgarwc6YSn7JjCLa7QdCdLL/preview" },
+     { title: "Episode 8", video: "https://drive.google.com/file/d/1ZgxKFiYt0up2SJeUTcmWhw90zWpWg3iy/preview" },
+      { title: "Episode 9", video: "https://drive.google.com/file/d/1RrDBJiadBGLL36YC_oHsrU6do0jFAuVM/preview" },
+        { title: "Episode 10", video: "https://drive.google.com/file/d/13u36TwxlW1R2yqDsmTPzkYa6HJZ2lzno/preview" },
+     { title: "Episode 11", video: "https://drive.google.com/file/d/1laQijY_SDL3RM0iZ09mdQB4pLIBchCX2/preview" },
+     { title: "Episode 12", video: "https://drive.google.com/file/d/1Tnl8Mxw62ADLagdAqx_N4bqrFTk8oO6n/preview" },
+        { title: "Episode 13", video: "https://drive.google.com/file/d/18zgaycrnJT_fkhgDEWokLLlqFSZrap_v/preview" },
+     { title: "Episode 14", video: "https://drive.google.com/file/d/1l04GeAmV_YWEg81Sg28-H6mh_QWLgeGc/preview" },
+      { title: "Episode 15", video: "https://drive.google.com/file/d/1iJDYDEZ4Oh651Ydo677VrrflcVsfQQPS/preview" },
+    { title: "Episode 16", video: "https://drive.google.com/file/d/1vVHiAKwU3lkk14WPmYCE50URDJW6mwAl/preview" },
+    { title: "Episode 17", video: "https://drive.google.com/file/d/1fvQm3cEGa7BoK3q9Zj2LonF7OlAC9uW5/preview" },
+      { title: "Episode 18", video: "https://drive.google.com/file/d/1qWQoaxqZq2oD9T7R9qfaj5KP8G_RMp5B/preview" },
+     { title: "Episode 21", video: "https://drive.google.com/file/d/1dKf85yzGGj9EVlLJhIQ2h5-VfsAVhi5l/preview" },
+        { title: "Episode 22", video: "https://drive.google.com/file/d/1kCoDHJPv8f0ktgeBjjPQFqjhc2Ee9PTD/preview" },
+      { title: "Episode 24", video: "https://drive.google.com/file/d/1XpeZL8eIZWxfLKo6VJDlRrWQb25Ww8CM/preview" },
+    { title: "Episode 25", video: "https://drive.google.com/file/d/1IPbfxE8n1BB4l99UWHH5L8GnK8tuU2Ot/preview" }
+
+]
+  },
+  {
         id: "tokyoli",
     title: "TOKYO LIES",
     poster: "https://m.media-amazon.com/images/M/MV5BOWJmYTUxZTUtZWNjNS00MjU1LWI3NzMtMWMwMjkyNTU3ZWU4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
