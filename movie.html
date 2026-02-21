@@ -248,17 +248,25 @@ const shareBtn = document.getElementById("shareBtn");
 
 function playMovie(){
   player.src = getVideoUrl(movie.video);
+
   // Save last played movie ID
-localStorage.setItem("lastMovieId", movie.id);
+  localStorage.setItem("lastMovieId", movie.id);
+
   player.style.display = "block";
   posterImg.style.display = "none";
   watchBtn.style.display = "none";
   shareBtn.style.display = "none";
 
-  if(player.requestFullscreen){ player.requestFullscreen(); }
-  else if(player.webkitRequestFullscreen){ player.webkitRequestFullscreen(); }
-  else if(player.msRequestFullscreen){ player.msRequestFullscreen(); }
+  // ✅ Only Premium Users Get Auto Fullscreen
+  const activePIN = localStorage.getItem("activePIN");
+
+  if(activePIN){
+    if(player.requestFullscreen){ player.requestFullscreen(); }
+    else if(player.webkitRequestFullscreen){ player.webkitRequestFullscreen(); }
+    else if(player.msRequestFullscreen){ player.msRequestFullscreen(); }
+  }
 }
+
 
 watchBtn.addEventListener("click", playMovie);
 posterImg.addEventListener("click", playMovie);
