@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* Reset & base */
 * { box-sizing: border-box; margin:0; padding:0; }
+
 body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
@@ -18,7 +18,6 @@ body {
   min-height: 100vh;
 }
 
-/* Container */
 .container {
   text-align: center;
   max-width: 600px;
@@ -29,17 +28,16 @@ body {
   backdrop-filter: blur(4px);
 }
 
-/* Logo */
 .logo {
   margin-bottom: 30px;
 }
+
 .logo img {
   height: 60px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
-/* Title */
 h1 {
   font-size: 2.4em;
   font-weight: bold;
@@ -48,7 +46,6 @@ h1 {
   text-shadow: 0 2px 8px rgba(0,0,0,0.7);
 }
 
-/* Subtitle */
 h2 {
   font-size: 1.5em;
   font-weight: normal;
@@ -57,7 +54,6 @@ h2 {
   opacity: 0.85;
 }
 
-/* Instructions */
 .instructions {
   font-size: 1em;
   line-height: 1.6;
@@ -68,58 +64,112 @@ h2 {
   color: #ddd;
 }
 
-/* Payment emphasis */
 .instructions strong {
   color: #ff416c;
 }
 
-/* Footer note */
 .footer-note {
   margin-top: 30px;
   font-size: 0.85em;
   color: #999;
   opacity: 0.8;
 }
+
+/* NEW BUTTON STYLES */
+.button-group {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.btn {
+  display: block;
+  padding: 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  transition: 0.3s ease;
+  font-size: 1em;
+}
+
+/* Button Variations */
+.btn-packages {
+  background: #e50914;
+  color: white;
+}
+
+.btn-packages:hover {
+  background: #ff1f2e;
+}
+
+.btn-login {
+  background: #333;
+  color: white;
+  border: 1px solid #555;
+}
+
+.btn-login:hover {
+  background: #444;
+}
+
+.btn-free {
+  background: #25D366;
+  color: white;
+}
+
+.btn-free:hover {
+  background: #1ebe5d;
+}
 </style>
 </head>
 <body>
 
 <div class="container">
-  <!-- Logo -->
+
   <div class="logo">
     <img src="https://i.ibb.co/1GMMrMmS/logo.png" alt="BUSANSO">
   </div>
 
-  <!-- Main message -->
   <h1>Subscription Expired</h1>
   <h2>Package yo ewedeko.</h2>
 
-  <!-- Payment instructions -->
   <div class="instructions">
     <p>We noticed that your subscription has expired. To continue enjoying all movies and series in full HD, please renew your subscription.</p>
     
     <p><strong>How to renew:</strong></p>
 
-Select a package to pay:
-KABEJA (13000 Per month)
-KABEJE (70000 per six months)
-KABEJEST (120000 for a year)
-payment is made to 0703888884 in names of David Bakamize or 0792172818 in names of senyonjo Geofrey
-<br>
-</br>
+    Select a package to pay:<br>
+    KABEJA (13000 Per month)<br>
+    KABEJE (70000 per six months)<br>
+    KABEJEST (120000 for a year)<br><br>
+
+    Payment is made to:<br>
+    0703888884 (David Bakamize)<br>
+    0792172818 (Senyonjo Geofrey)
+    <br><br>
+
     <p>Thank you for supporting <strong>BUSANSO</strong>. We look forward to welcoming you back!</p>
   </div>
 
-<!-- Footer note -->
-<div class="footer-note">
-  Need help? 
-  <a href="https://wa.me/256703888884?text=hello%20busanso%20nation,%20i%20need%20to%20pay%20now" 
-     target="_blank" 
-     style="color:#25D366; text-decoration:none; font-weight:bold;">
-     WhatsApp us
-  </a>
-</div>
+  <!-- NEW BUTTONS -->
+  <div class="button-group">
+    <a href="packages.html" class="btn btn-packages">See Packages</a>
+    <a href="login.html" class="btn btn-login">Login with New Password</a>
+    <a href="home.html" class="btn btn-free">Go to Free Movies</a>
+  </div>
 
+  <div class="footer-note">
+    Need help? 
+    <a href="https://wa.me/256703888884?text=hello%20busanso%20nation,%20i%20need%20to%20pay%20now" 
+       target="_blank" 
+       style="color:#25D366; text-decoration:none; font-weight:bold;">
+       WhatsApp us
+    </a>
+  </div>
+
+</div>
 
 </body>
 </html>
