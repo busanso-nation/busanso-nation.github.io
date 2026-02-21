@@ -108,6 +108,61 @@ const SERIES = [
 ]
   },
   {
+         id: "cavehunters",
+    title: "CAVE HUNTERS",
+    poster: "https://i.pinimg.com/564x/90/c7/c3/90c7c3fa20c45ef1bff181dd9e2fd720.jpg",
+    genre: "Action",
+    added: 1,
+    type: "premium",
+    country: "Korea",
+    year: "2026",
+    synopsis: "A spy action-thriller about two KCIA agents investigating a North Korean spy",
+    cast: ["Ma Dong-seok", "Lee Hee-joon", "Lee Jun-young"],
+    episodes: [
+      { title: "Episode 1", video: "https://drive.google.com/file/d/16QDdoYo6AY2zG2EfWnrVMtRoVC0izICV/preview" },
+     { title: "Episode 2", video: "https://drive.google.com/file/d/1fzbHsz6pYHj1x9pzp3FNV_-YzmZOi7Ae/preview" },
+    { title: "Episode 3", video: "https://drive.google.com/file/d/1CYcvNM0svykC89TCl_UnqSM-jx34n-Sb/preview" },
+     { title: "Episode 4", video: "https://drive.google.com/file/d/1CYcvNM0svykC89TCl_UnqSM-jx34n-Sb/preview" },
+     { title: "Episode 5", video: "https://drive.google.com/file/d/1rjPPY-yorHB_V3C4fp3AHwGgLxKgG-Js/preview" },
+     { title: "Episode 6", video: "https://drive.google.com/file/d/1rjPPY-yorHB_V3C4fp3AHwGgLxKgG-Js/preview" },
+        { title: "Episode 7", video: "https://drive.google.com/file/d/1bdPqdVeVu9a6QB_rCO_wpNGnMRRBBq61/preview" },
+     { title: "Episode 8", video: "https://drive.google.com/file/d/1HTL0j0bcU540JzPfURIFnp1ESAxQpT4w/preview" },
+      { title: "Episode 9", video: "https://drive.google.com/file/d/1IZd17EFG-B2iXZ2I4znputPffE--Tp42/preview" }
+
+]
+  },
+  {
+        id: "tokyoli",
+    title: "TOKYO LIES",
+    poster: "https://m.media-amazon.com/images/M/MV5BOWJmYTUxZTUtZWNjNS00MjU1LWI3NzMtMWMwMjkyNTU3ZWU4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    genre: "Drama",
+    added: 1,
+    type: "premium",
+    country: "Jampan",
+    year: "2024",
+    synopsis: "Ji-na, a hotel employee who returns to her family's apartment complex after her older sister vanishes",
+    cast: ["Yoon Kyun Sang", "Im Ji Yeon", "Ahn Jung Hun"],
+    episodes: [
+      { title: "Episode 1", video: "https://drive.google.com/file/d/12zRmcqBYtN--rRyBTZTc_30whtVTBdoD/preview" },
+     { title: "Episode 2", video: "https://drive.google.com/file/d/1TuJYXqZ2LAjQ4UPZVWPoPu0qH360UqbP/preview" },
+    { title: "Episode 3", video: "https://drive.google.com/file/d/1NlpdarFvUm1S9xVVI7E2x099u9tJRS-R/preview" },
+     { title: "Episode 4", video: "https://drive.google.com/file/d/1NlpdarFvUm1S9xVVI7E2x099u9tJRS-R/preview" },
+     { title: "Episode 5", video: "https://drive.google.com/file/d/1IG4Fd9661q8OJX_6IOsKp_noAT_8Drho/preview" },
+     { title: "Episode 6", video: "https://drive.google.com/file/d/1f4arKRT_kHJydM1Oaj1PRZtRNXkT5N6s/preview" },
+        { title: "Episode 7", video: "https://drive.google.com/file/d/1gkv_pGgJDnvtb68cUT_TmJcNfTLNO8h8/preview" },
+     { title: "Episode 8", video: "https://drive.google.com/file/d/1x4a57cIN4zK21F1F7eZkDhmjKUTp9TfR/preview" },
+      { title: "Episode 9", video: "https://drive.google.com/file/d/1PDdVki9SEV3YrZvOXQsncTC12swkEeNH/preview" },
+        { title: "Episode 10", video: "https://drive.google.com/file/d/1UpHRgolF4oo6x9-zIc90thDpcpqSw3h0/preview" },
+     { title: "Episode 11", video: "https://drive.google.com/file/d/15_c5ueqG4hjiJdlDqhtpIZvpFbUzd_G8/preview" },
+     { title: "Episode 12", video: "https://drive.google.com/file/d/1NYuoTrOy28pC30vEmx30B-7QzmMUGuu5/preview" },
+        { title: "Episode 13", video: "https://drive.google.com/file/d/1r9nwN1jGAKQJqPSluCAsV2fe1GgKvKXO/preview" },
+     { title: "Episode 14", video: "https://drive.google.com/file/d/17kXuaDhOiGHdiXZXY59t8FppwZt6KXpz/preview" },
+      { title: "Episode 15", video: "https://drive.google.com/file/d/19nJ6qvIhh3zsVAlRq4vZDf1_4vN4fFUh/preview" },
+    { title: "Episode 16", video: "https://drive.google.com/file/d/1v3_M7c_KPLaBzCsxVmFYNbYJruFkyN0n/preview" }
+
+]
+  },
+  {
      id: "snowmaster",
     title: "SNOW MASTER",
     poster: "https://i.ibb.co/tPLhLrsw/24LQwf.jpg",
