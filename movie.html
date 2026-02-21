@@ -101,24 +101,22 @@ button#shareBtn { background:#25D366; color:#fff; }
 }
 
 /* Ads Containers */
-.ad-vertical-left, .ad-vertical-right {
+.ad-vertical-left,
+.ad-vertical-right {
   position: fixed;
-  top: 100px;
-  width: 160px;
-  display: flex;
+  top: 120px;
+  width: 140px;
+  display:flex;
   flex-direction: column;
-  gap: 20px;
+  gap:25px;
+  padding:10px;
   z-index: 1000;
-  background: rgba(0,0,0,0.85);
-  padding: 5px;
-  border-radius: 6px;
-  max-height: 80vh;
-  overflow-y: auto;
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
 }
 
-.ad-vertical-left { left: 10px; }
-.ad-vertical-right { right: 10px; }
-
+.ad-vertical-left { left:10px; }
+.ad-vertical-right { right:10px; }
 
 .ad-horizontal {
   width: 100%;
@@ -292,11 +290,15 @@ function loadAds(){
   // Bottom Ads (Monetag)
   const bottomAds = document.getElementById("bottomAds");
   const monetagScript = document.createElement("script");
-  monetagScript.textContent = `(function(s){s.dataset.zone='10536867',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
+  monetagScript.textContent = `(function(s){s.dataset.zone='10536867',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;  
   bottomAds.appendChild(monetagScript);
 
   // Left Ad (EGC)
   const leftAds = document.getElementById("leftAds");
+  leftAds.style.display = "flex";
+  leftAds.style.alignItems = "flex-start";
+  leftAds.style.justifyContent = "center";
+  leftAds.style.flexDirection = "column";
   const leftEGC = document.createElement("script");
   leftEGC.async = true;
   leftEGC.src = "https://pl28760946.effectivegatecpm.com/fd3cd948dadbd8aa0ae06bc1d133066f/invoke.js";
@@ -307,6 +309,10 @@ function loadAds(){
 
   // Right Ad (EGC)
   const rightAds = document.getElementById("rightAds");
+  rightAds.style.display = "flex";
+  rightAds.style.alignItems = "flex-start";
+  rightAds.style.justifyContent = "center";
+  rightAds.style.flexDirection = "column";
   const rightEGC = document.createElement("script");
   rightEGC.src = "https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js";
   rightAds.appendChild(rightEGC);
