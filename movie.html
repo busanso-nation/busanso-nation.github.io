@@ -124,7 +124,7 @@ button#shareBtn { background:#25D366; color:#fff; }
   gap:10px;
 }
 
-/* Upgrade popup */
+/* Upgrade popup with glowing effect */
 #upgradePopup {
   position: fixed;
   bottom: 30px;
@@ -135,10 +135,16 @@ button#shareBtn { background:#25D366; color:#fff; }
   border-radius:8px;
   font-weight:bold;
   cursor:pointer;
-  box-shadow:0 2px 10px rgba(0,0,0,0.7);
+  box-shadow:0 0 10px #e50914, 0 0 20px #ff0000, 0 0 30px #ff3333;
   z-index: 2000;
   display:none;
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 10px #e50914, 0 0 20px #ff0000, 0 0 30px #ff3333; }
+  100% { box-shadow: 0 0 20px #e50914, 0 0 30px #ff0000, 0 0 40px #ff3333; }
 }
 
 #upgradePopup:hover {
@@ -261,14 +267,10 @@ shareBtn.addEventListener("click", ()=>{
 
 // ===== ADS & UPGRADE LOGIC =====
 function loadAds(){
+  // Top Ads
   const topAds = document.getElementById("topAds");
-  const bottomAds = document.getElementById("bottomAds");
-  const leftAds = document.getElementById("leftAds");
-  const rightAds = document.getElementById("rightAds");
-
-  // ----- TOP ADS -----
-  const topScriptHPF = document.createElement("script");
-  topScriptHPF.textContent = `
+  const topHPF = document.createElement("script");
+  topHPF.textContent = `
     atOptions = {
       'key' : '1c9ccdb756a82c4d663014a338917bd7',
       'format' : 'iframe',
@@ -277,53 +279,40 @@ function loadAds(){
       'params' : {}
     };
   `;
-  topAds.appendChild(topScriptHPF);
-
+  topAds.appendChild(topHPF);
   const topInvoke = document.createElement("script");
   topInvoke.src = "https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js";
   topAds.appendChild(topInvoke);
 
-  const topEGC = document.createElement("script");
-  topEGC.src = "https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js";
-  topAds.appendChild(topEGC);
+  // Bottom Ads (Monetag)
+  const bottomAds = document.getElementById("bottomAds");
+  const monetagScript = document.createElement("script");
+  monetagScript.textContent = `(function(s){s.dataset.zone='10536867',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`;
+  bottomAds.appendChild(monetagScript);
 
-  // ----- BOTTOM ADS -----
-  const bottomScriptHPF = document.createElement("script");
-  bottomScriptHPF.textContent = `
-    atOptions = {
-      'key' : '1c9ccdb756a82c4d663014a338917bd7',
-      'format' : 'iframe',
-      'height' : 250,
-      'width' : 300,
-      'params' : {}
-    };
-  `;
-  bottomAds.appendChild(bottomScriptHPF);
+  // Left Ad (EGC)
+  const leftAds = document.getElementById("leftAds");
+  const leftEGC = document.createElement("script");
+  leftEGC.async = true;
+  leftEGC.src = "https://pl28760946.effectivegatecpm.com/fd3cd948dadbd8aa0ae06bc1d133066f/invoke.js";
+  leftAds.appendChild(leftEGC);
+  const leftContainer = document.createElement("div");
+  leftContainer.id = "container-fd3cd948dadbd8aa0ae06bc1d133066f";
+  leftAds.appendChild(leftContainer);
 
-  const bottomInvoke = document.createElement("script");
-  bottomInvoke.src = "https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js";
-  bottomAds.appendChild(bottomInvoke);
-
-  const bottomEGC = document.createElement("script");
-  bottomEGC.src = "https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js";
-  bottomAds.appendChild(bottomEGC);
-
-  // ----- SIDE ADS (left/right) -----
-  const sideEGCLeft = document.createElement("script");
-  sideEGCLeft.src = "https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js";
-  leftAds.appendChild(sideEGCLeft);
-
-  const sideEGCRight = document.createElement("script");
-  sideEGCRight.src = "https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js";
-  rightAds.appendChild(sideEGCRight);
+  // Right Ad (EGC)
+  const rightAds = document.getElementById("rightAds");
+  const rightEGC = document.createElement("script");
+  rightEGC.src = "https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js";
+  rightAds.appendChild(rightEGC);
 }
 
-// Show ads if no activePIN
+// Check PIN and show ads + upgrade popup
 function checkActivePIN(){
   const activePIN = localStorage.getItem("activePIN");
   if(!activePIN){
     loadAds();
-    // Show upgrade popup
+
     const popup = document.getElementById("upgradePopup");
     popup.style.display = "block";
     popup.addEventListener("click", ()=>{
