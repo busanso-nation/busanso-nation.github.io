@@ -89,6 +89,30 @@ const SERIES = [
 ]
   },
   {
+               id: "nightagent",
+    title: "THE NIGHT AGENT",
+    poster: "https://occ-0-858-92.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABcei14ZFQABlJYSdpgzQgpLP5yy1puGJoGqm2r6kDkTAfZ-JJm98r95hgkbldOj4Libg-0hWb0nuoyYBiH4qJGtLBFG1YSlsfJtY.jpg?r=480",
+    genre: "Action",
+    added: 1,
+    type: "premium",
+    country: "USA",
+    year: "2025",
+    synopsis: "To save the nation, he plunges into a desperate hunt for the traitor, while protecting former tech CEO Rose Larkin from the people who murdered her aunt and uncle",
+    cast: ["Gabriel Basso", "Luciane Buchanan", "Eve Harlow"],
+    episodes: [
+     { title: "Part 1", video: "https://drive.google.com/file/d/1UFOAsJnEhcVVA3fpbo7aPhFFGmZZmF7L/preview" },
+  { title: "Part 2", video: "https://drive.google.com/file/d/17bq2krUT5iJBth5-y7_GkrDXBTpWscui/preview" },
+  { title: "Part 3", video: "https://drive.google.com/file/d/1BGqJ6WzLw6LoyNHj9A4oFOZiU9KHrW40/preview" },
+  { title: "Part 4", video: "https://drive.google.com/file/d/1bBJiLj0NSa7upxRuK4qCEZgG6Cf8CO67/preview" },
+  { title: "Part 5", video: "https://drive.google.com/file/d/1JlvmLPUOOWan3JcOcBM-MZEEyv2bpqo3/preview" },
+  { title: "Part 6", video: "https://drive.google.com/file/d/1DkibRnELpyxhneqMwjQLJXK6ruvDM_5T/preview" },
+  { title: "Part 7", video: "https://drive.google.com/file/d/1nBz5I9EAnIRdrMROMYUhmvezf-6g7wA4/preview" },
+  { title: "Part 8", video: "https://drive.google.com/file/d/1CKuHwuB_tw_xRvaj7PER2ZhxJJv2zHIg/preview" },
+  { title: "Part 9", video: "https://drive.google.com/file/d/1McOZTURerU_llFV0GcPp2AH04-8Qgj82/preview" },
+  { title: "Part 10", video: "https://drive.google.com/file/d/1JEGHTG7hmVXip_0PkmvwS5_MSS3vSX_o/preview" }
+]
+  },
+  {
      id: "seaman",
     title: "REVENGE OF THE SEAMAN",
     poster: "https://img-tv.20mn.fr/sites/default/files/image/cover/6/b/a/img-1100098230.jpg?t3y09a",
