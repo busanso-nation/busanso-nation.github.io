@@ -15,7 +15,8 @@ const SERIES = [
        { title: "Part 2", video: "https://drive.google.com/file/d/1PODkgDcAERiURfsmSfDbqVM4Ia3vocaO/preview" },
         { title: "Part 3", video: "https://drive.google.com/file/d/16G03W8MG4Jt23fBUbkpuHxsdp5SspR5s/preview" },
         { title: "Part 4", video: "https://drive.google.com/file/d/1kB2qnxtYikTueIfdeaBcG2EpViG1H3aI/preview" },
-    { title: "Part 5", video: "https://drive.google.com/file/d/101gLJxYP_ZSdrtYe74giy10P69NEm_nT/preview" }
+    { title: "Part 5", video: "https://drive.google.com/file/d/101gLJxYP_ZSdrtYe74giy10P69NEm_nT/preview" },
+      { title: "Part 6", video: "https://drive.google.com/file/d/10MkOLYzsEh07JzCaEwAdkn8jvBvUTtO7/preview" }
 ]
   },
   {
