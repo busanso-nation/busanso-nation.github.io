@@ -164,6 +164,28 @@ const SERIES = [
 ]
   },
   {
+      
+     id: "finallove",
+    title: "FINAL LOVE",
+    poster: "https://i.ibb.co/23Kn0HDZ/AAAAAAAAAAAAAAAAAAAAAA.jpg",
+    genre: "Action",
+    added: 1,
+    type: "free",
+    country: "Korea",
+    year: "2024",
+    synopsis: "fantasy-romance film directed by Luo Luo, starring Ruonan Zhang as Ji Ze and Chenjun Sun as Xin Tang. The story follows a depressed girl and a boy with special auditory abilities. Key cast members include Yanlin Wang (Yu Chitong), Shutong Guo (Sang Yaoyao), and Zuo Xiaoqing",
+    cast: ["Ruonan Zhang", "Chenjun Sun", "Yanlin Wang"],
+    episodes: [
+      { title: "Episode 1", video: "https://drive.google.com/file/d/1jsTUnqn_EVi35cG6vCybB-t0oupmLZaF/preview" },
+     { title: "Episode 2", video: "https://drive.google.com/file/d/1FDjAq0LBXOCfPBvPJwArwysC32e4weFl/preview" },
+     { title: "Episode 3", video: "https://drive.google.com/file/d/1Kot5bmFsBUIgniiNYorPhlFdgP9padgE/preview" },
+     { title: "Episode 4", video: "https://drive.google.com/file/d/1Rdgd7rnLoklCwhESqEj_hDrd7A60sRyA/preview" },
+    { title: "Episode 5", video: "https://drive.google.com/file/d/1UK7De5FqImYVZ3284alt0WMC5SsoEukW/preview" }
+  
+      
+]
+  },
+  {
          id: "cavehunters",
     title: "CAVE HUNTERS",
     poster: "https://i.pinimg.com/564x/90/c7/c3/90c7c3fa20c45ef1bff181dd9e2fd720.jpg",
