@@ -1,25 +1,5 @@
 const SERIES = [
     {
-         id: "hijac",
-    title: "HIJACK",
-    poster: "https://i.ibb.co/YF5zwYk7/images-q-tbn-ANd9-Gc-Qqm-Cf8-Vi0r10bs6fwn0be-BTCn9pr-ZBlqf-Yz-A-s.jpg",
-    genre: "Action",
-    added: 1800000,
-    type: "premium",
-    country: "USA",
-    year: "2026",
-    synopsis: "Kingdom Airlines Flight KA29 is hijacked by a criminal organization, not terrorists, seeking the release of their leaders.",
-    cast: ["Idris Elba", "Archie Panjabi", "Aimée Kelly"],
-    episodes: [
-      { title: "Part 1", video: "https://drive.google.com/file/d/1SxYJMDrHdka6Y5TsoqcVfQtvSkbTO-jA/preview" },
-       { title: "Part 2", video: "https://drive.google.com/file/d/1PODkgDcAERiURfsmSfDbqVM4Ia3vocaO/preview" },
-        { title: "Part 3", video: "https://drive.google.com/file/d/16G03W8MG4Jt23fBUbkpuHxsdp5SspR5s/preview" },
-        { title: "Part 4", video: "https://drive.google.com/file/d/1kB2qnxtYikTueIfdeaBcG2EpViG1H3aI/preview" },
-    { title: "Part 5", video: "https://drive.google.com/file/d/101gLJxYP_ZSdrtYe74giy10P69NEm_nT/preview" },
-      { title: "Part 6", video: "https://drive.google.com/file/d/10MkOLYzsEh07JzCaEwAdkn8jvBvUTtO7/preview" }
-]
-  },
-  {
          id: "kingdomd",
     title: "KINGDOM DOCTOR",
     poster: "https://asianwiki.com/images/6/61/Kingdom_Season_2-P2.jpg",
@@ -86,6 +66,27 @@ const SERIES = [
   { title: "Episode 38", video: "https://www.youtube.com/embed/rjMxAUDOlxw" },
   { title: "Episode 39", video: "https://www.youtube.com/embed/iqznlf3txOE" }
       ]
+  },
+  {
+          id: "hijac",
+    title: "HIJACK",
+    poster: "https://i.ibb.co/YF5zwYk7/images-q-tbn-ANd9-Gc-Qqm-Cf8-Vi0r10bs6fwn0be-BTCn9pr-ZBlqf-Yz-A-s.jpg",
+    genre: "Action",
+    added: 1800000,
+    type: "premium",
+    country: "USA",
+    year: "2026",
+    synopsis: "Kingdom Airlines Flight KA29 is hijacked by a criminal organization, not terrorists, seeking the release of their leaders.",
+    cast: ["Idris Elba", "Archie Panjabi", "Aimée Kelly"],
+    episodes: [
+      { title: "Part 1", video: "https://drive.google.com/file/d/1SxYJMDrHdka6Y5TsoqcVfQtvSkbTO-jA/preview" },
+       { title: "Part 2", video: "https://drive.google.com/file/d/1PODkgDcAERiURfsmSfDbqVM4Ia3vocaO/preview" },
+        { title: "Part 3", video: "https://drive.google.com/file/d/16G03W8MG4Jt23fBUbkpuHxsdp5SspR5s/preview" },
+        { title: "Part 4", video: "https://drive.google.com/file/d/1kB2qnxtYikTueIfdeaBcG2EpViG1H3aI/preview" },
+    { title: "Part 5", video: "https://drive.google.com/file/d/101gLJxYP_ZSdrtYe74giy10P69NEm_nT/preview" },
+      { title: "Part 6", video: "https://drive.google.com/file/d/10MkOLYzsEh07JzCaEwAdkn8jvBvUTtO7/preview" },
+       { title: "Part 7", video: "https://drive.google.com/file/d/1pWbWbh4L00e74VBc0LL7oFBaNEt-CduO/preview" }
+]
   },
   {
      id: "seaman",
