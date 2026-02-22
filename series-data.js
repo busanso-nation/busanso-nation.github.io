@@ -2001,11 +2001,11 @@ const SERIES = [
 {title:"Episode 13",video:"https://drive.google.com/file/d/1wZxF_0Yw3uDiw-AYq82y2ukpLRZb22uQ/preview"},
 {title:"Episode 14",video:"https://drive.google.com/file/d/1I1I76rrWg1-Kq3pAt2CwGkG62nIZnoPb/preview"},
 {title:"Episode 15",video:"https://drive.google.com/file/d/1KNtG-ChVBXBioa5DlHkJpGEgqAh4KV2s/preview"},
-{title:"Episode 16",video:"https://drive.google.com/file/d/1h5pZ7nQd7WWyOffKRC--mIwUjeFf6OoC/preview"},
-{title:"Episode 17",video:"https://drive.google.com/file/d/1BgzA3dqFhjQGol-fL_kz_uHSb_dSdHkS/preview"},
-{title:"Episode 18",video:"https://drive.google.com/file/d/18_NfRAw3BG1xzdMH32Z8cu7DllnOmTKq/preview"},
-{title:"Episode 19",video:"https://drive.google.com/file/d/1BKe_355eVoCp8C5xEN7tAkokfuSl_y0R/preview"},
-{title:"Episode 20",video:"https://drive.google.com/file/d/1i8puHYtqGJ95QQ5bWEDywJXINjAUqY5L/preview"}
+{title:"Episode 16",video:"https://drive.google.com/file/d/1cdDFm52lb7ZBbMKETCfLmQOp8O9H9QTM/preview"},
+{title:"Episode 17",video:"https://drive.google.com/file/d/1-cGd6YgDt-DBMe83cPqKsFGOUUcfK4ok/preview"},
+{title:"Episode 18",video:"https://drive.google.com/file/d/1jE9QH_ZZKOw_y6RXGCshxzreeLg9uV55/preview"},
+{title:"Episode 19",video:"https://drive.google.com/file/d/1KpKm509rWH6EP4BwsvstHR7QZnRTcb7k/preview"},
+{title:"Episode 20",video:"https://drive.google.com/file/d/1AO9zb9ai25KeAq87PaPNSnM7yFuqkX0V/preview"}
       ]
   },
 {
@@ -2990,24 +2990,6 @@ const SERIES = [
       ]
   },
 {
-    id: "coldheart",
-    title: "COLD HEART",
-   poster: "https://www.themoviedb.org/t/p/w600_and_h900_face/cYh6ygbYbrVvLtNARNY0tnu2ug9.jpg",
-    genre: "Action",
-    added: 71,
-    type: "premium",
-    country: "Chine",
-    year: "2025",
-    synopsis: "The story of a young millionaire and a talented financier, who was nicknamed the 'God of Economics'. Yiamyuth - a proud and charming guy who believes that in life there is nothing more important than money. Outside, he seems cunning and irritable, but it's all just a mask that he wears because of his lack of love. At heart he is understanding and sensitive. Abandoned as a child by his parents, Yiamyuth does not believe in love and uses women only as a mechanism to achieve his goals. When he learns who his father is, he decides to take revenge by taking over his father's company. There he meets Dao Nuer - a carefree and cheerful, but poor girl. At first, they don't get along well and bicker all the time, but they gradually start to develop feelings for each other. Dao Nuer will help Yiamyuth realize the value of love and will do everything for him to abandon his revenge",
-    cast:["James Ma", "Yeena Salas", "Nattasha Bunprachom",  "Sarin Ronnakiat"],
-    episodes: [
-   { title: "Episode 1", video: "https://youtu.be/UXROfjLXDmY" },
-  { title: "Episode 2", video: "https://www.youtube.com/embed/0qx9SO3RTmo" },
-  { title: "Episode 3", video: "https://www.youtube.com/embed/BcYTJGiRYlo" },
-  { title: "Episode 4", video: "https://www.youtube.com/embed/QmjNwVfTGZQ" }
-      ]
-  },
-{
     id: "whyme",
     title: "WHY ME",
    poster: "https://upload.wikimedia.org/wikipedia/en/9/99/Lovemenotposter2.jpg",
@@ -3369,9 +3351,9 @@ const SERIES = [
     synopsis: "The story follows Jin Xiao Yu, a young girl suffering from a strange disease, whose life takes a dramatic turn after a bizarre car accident brings her into the life of Jiang Bai Ju, a mysterious designer",
     cast:["Ian Yi", "Evan Ma", "Xue Wen Hua",  "Sun Lu Lu Han Qian Luo"],
     episodes: [
- { title: "Episode 1", video: "https://www.youtube.com/embed/vwpgcWmmWws" },
-  { title: "Episode 2", video: "https://www.youtube.com/embed/9pM-RFFXUXY" },
-  { title: "Episode 3", video: "https://www.youtube.com/embed/lGD1ng50wR4" },
+ { title: "Episode 1", video: "https://drive.google.com/file/d/1qao1Ev6OKaiD9gHXJ_wJW5j_FHHdF-_4/preview" },
+  { title: "Episode 2", video: "https://drive.google.com/file/d/1Q2mwrDUagSacFkrHIvY5xTvkMy7xGscN/preview" },
+  { title: "Episode 3", video: "https://drive.google.com/file/d/1et6M_YkDvv-OQTgHpi97sHSGNiDbRRqx/preview" },
   { title: "Episode 4", video: "https://drive.google.com/file/d/1qW0n7bxRKkSNEvYoNL9AEU1wI_5rSp18/preview" },
   { title: "Episode 5", video: "https://drive.google.com/file/d/1d64_UbNCzeM4Wmc3axSKPPscuaQUN1aA/preview" },
   { title: "Episode 6", video: "https://drive.google.com/file/d/1u1-L2zLmM4LSoI8c4Of6wz5lDyIDRJnh/preview" },
