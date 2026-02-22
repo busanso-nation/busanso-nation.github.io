@@ -69,6 +69,35 @@ const SERIES = [
       ]
   },
   {
+          id: "thegeneraland",
+    title: "THE GENERAL AND THE PRINCESS",
+    poster: "https://upload.wikimedia.org/wikipedia/en/d/d0/General_and_I_Poster.jpg",
+    genre: "Action",
+    added: 1800000,
+    type: "premium",
+    country: "USA",
+    year: "2026",
+    synopsis: "Wang Xuan (Zhang Ziyi) is a noble princess who is forced into a political, arranged marriage with Xiao Qi (Zhou Yiwei), a powerful, low-born general who commands the army. Initially strangers, they fall in love and form a deep, passionate partnership. Together, they navigate intense court politics, power struggles, and battles to protect their people and secure their reign, despite being pawns in a larger, treacherous game",
+    cast: ["Wallace Chung", "Angelababy", "Sun Yizhou"],
+    episodes: [
+      { title: "Part 1", video: "https://drive.google.com/file/d/1nSRT5N6YcXes5gwpDtLmbdZtmaWmzYNh/preview" },
+       { title: "Part 2", video: "https://drive.google.com/file/d/1428x3JQ8otcfzFPq7C29nEezm94wUi31/preview" },
+        { title: "Part 3", video: "https://drive.google.com/file/d/1trT4eYDDpwe8v7-rzakPyE1THmXmzHpr/preview" },
+        { title: "Part 4", video: "https://drive.google.com/file/d/1yw4DOY9YlmGk8_2Tj82MDhY00EEMQpW6/preview" },
+    { title: "Part 5", video: "https://drive.google.com/file/d/1IpDx8BwGLG-Km2Qj_MbYfSHFpart7u6l/preview" },
+      { title: "Part 6", video: "https://drive.google.com/file/d/18Q0gNVhFek8-ktP4bRCEhddFUx_YZOxl/preview" },
+       { title: "Part 7", video: "https://drive.google.com/file/d/19u2Bn6Uu7SmZSXCCmx4tNdAWrCB7Vvxi/preview" },
+         { title: "Part 8", video: "https://drive.google.com/file/d/1utt__U9RwfTeRHlrxKimW0Cb1KTSmeHv/preview" },
+       { title: "Part 9", video: "https://drive.google.com/file/d/1KxSsPmaUiEmokolxV76irxwXA0X-jjPR/preview" },
+        { title: "Part 10", video: "https://drive.google.com/file/d/1mKzwzIHuUiUMFGzeokVI9DDWIhImH8M0/preview" },
+        { title: "Part 11", video: "https://drive.google.com/file/d/1s4UrBkrGZGjiyeyL2iK9mCyI4gRuulMe/preview" },
+    { title: "Part 12", video: "https://drive.google.com/file/d/1ZBCjnnzDq3ELEqvxC3T7Je4-RxXx2REo/preview" },
+      { title: "Part 13", video: "https://drive.google.com/file/d/1-YF_YulZTHD30eQMI2EOiLubX3KLIZqM/preview" },
+       { title: "Part 14", video: "https://drive.google.com/file/d/1aFOuHzhBdAdoTBb5bEoKEO_ailo8DZwT/preview" },
+      { title: "Part 15", video: "https://drive.google.com/file/d/1pUqzpOmcEnro7wu8iYkU2CBQllQu0GZ9/preview" }
+]
+  },
+  {
           id: "hijac",
     title: "HIJACK",
     poster: "https://i.ibb.co/YF5zwYk7/images-q-tbn-ANd9-Gc-Qqm-Cf8-Vi0r10bs6fwn0be-BTCn9pr-ZBlqf-Yz-A-s.jpg",
