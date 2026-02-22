@@ -11,7 +11,8 @@ const SERIES = [
     synopsis: "The series follows a young, intelligent, and incorruptible Bao Zheng (Judge Bao) as he solves intricate murder mysteries and crime cases in the Northern Song Dynasty",
     cast: ["Ai Liya", "Donglin Guo", "Miao Pu"],
     episodes: [
-      { title: "Episode 1", video: "https://www.youtube.com/embed/8Oqf1bC_UfY" }   
+      { title: "Episode 1", video: "https://www.youtube.com/embed/8Oqf1bC_UfY" },
+     { title: "Episode 2", video: "https://www.youtube.com/embed/OiQYFmaK7u8" }
 ]
   },
   {
