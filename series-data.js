@@ -12,7 +12,8 @@ const SERIES = [
     cast: ["Ai Liya", "Donglin Guo", "Miao Pu"],
     episodes: [
       { title: "Episode 1", video: "https://www.youtube.com/embed/8Oqf1bC_UfY" },
-     { title: "Episode 2", video: "https://www.youtube.com/embed/OiQYFmaK7u8" }
+     { title: "Episode 2", video: "https://www.youtube.com/embed/OiQYFmaK7u8" },
+      { title: "Episode 3", video: "https://www.youtube.com/embed/cUHap-PkXDE" }
 ]
   },
   {
