@@ -120,6 +120,27 @@ const SERIES = [
 ]
   },
   {
+             id: "pirates",
+    title: "PIRATES",
+    poster: "https://i.pinimg.com/736x/3a/95/9d/3a959df6fae76e4b98706b48f777ac27.jpg",
+    genre: "Action",
+    added: 1800000,
+    type: "premium",
+    country: "USA",
+    year: "2026",
+    synopsis: "across all five movies. Key supporting cast members include Orlando Bloom (Will Turner), Keira Knightley (Elizabeth Swann), Jack Davenport (Norrington), and Jonathan Pryce (Governor Swann).",
+    cast: ["Johnny Depp", "Geoffrey Rush", "Kevin McNally"],
+    episodes: [
+      { title: "Part 1", video: "https://player.vimeo.com/video/872051701" },
+       { title: "Part 2", video: "https://player.vimeo.com/video/872053528" },
+        { title: "Part 3", video: "https://player.vimeo.com/video/872237645" },
+        { title: "Part 4", video: "https://player.vimeo.com/video/872240608" },
+    { title: "Part 5", video: "https://player.vimeo.com/video/874741298" },
+      { title: "Part 6", video: "https://player.vimeo.com/video/876267165" }
+     
+]
+  },
+  {
                id: "nightagent",
     title: "THE NIGHT AGENT",
     poster: "https://occ-0-858-92.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABcei14ZFQABlJYSdpgzQgpLP5yy1puGJoGqm2r6kDkTAfZ-JJm98r95hgkbldOj4Libg-0hWb0nuoyYBiH4qJGtLBFG1YSlsfJtY.jpg?r=480",
