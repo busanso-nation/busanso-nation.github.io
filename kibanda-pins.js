@@ -12,6 +12,7 @@ const KIBANDA_PINS = {
   "wande": "55M",
   "steven": "11M",
     "dustan": "132",
+  "jo": "232"
   "nasaji": "NASAJILIB456"
 };
 
