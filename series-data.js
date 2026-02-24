@@ -33,8 +33,6 @@ const SERIES = [
   { title: "Episode 3", video: "https://drive.google.com/file/d/11qyKiktMtz6YOgwCWZxHNpBhh94GxI_k/preview" },
   { title: "Episode 4", video: "https://drive.google.com/file/d/1Num7ZqlDwe4ThtQMrX4dAaPGZgInS06t/preview" },
   { title: "Episode 5", video: "https://drive.google.com/file/d/1pnsW6PcfbL8bEpBxbjKGRw5OAjsBKylQ/preview" },
-  { title: "Episode 6", video: "https://www.youtube.com/embed/KjCCe-YSWrI" },
-  { title: "Episode 7", video: "https://www.youtube.com/embed/jzAtePeQkTY" },
   { title: "Episode 8", video: "https://drive.google.com/file/d/1i328ibtWj8e2i0hUjMyZ_hQ6TOaDNsfi/preview" },
   { title: "Episode 9", video: "https://drive.google.com/file/d/1bL0xwKOTxNRw5I3AjOU0uIMHunqHI4GR/preview" },
   { title: "Episode 10", video: "https://drive.google.com/file/d/17PY_8EefHlsm6uZp5XiTtKemi8BaZO-i/preview" },
@@ -119,6 +117,28 @@ const SERIES = [
     { title: "Part 5", video: "https://drive.google.com/file/d/101gLJxYP_ZSdrtYe74giy10P69NEm_nT/preview" },
       { title: "Part 6", video: "https://drive.google.com/file/d/10MkOLYzsEh07JzCaEwAdkn8jvBvUTtO7/preview" },
        { title: "Part 7", video: "https://drive.google.com/file/d/1pWbWbh4L00e74VBc0LL7oFBaNEt-CduO/preview" }
+]
+  },
+  {
+              id: "thenonstop",
+    title: "THE NONSTOP",
+    poster: "https://m.media-amazon.com/images/M/MV5BYmEwYTQ5NDEtNGRlYy00YTNmLTgxMGQtM2JkNmNiYmVmMzI5XkEyXkFqcGc@._V1_.jpg",
+    genre: "Action",
+    added: 1800000,
+    type: "premium",
+    country: "Korea",
+    year: "2023",
+    synopsis: "Renowned for relentless, fast-paced action and investigative elements into the criminal underworld",
+    cast: [" Julianne Moore", "Bill Marks", " Omar Metwally"],
+    episodes: [
+      { title: "Part 1", video: "https://drive.google.com/file/d/1Yx1R9XnTHJcr9VssY1lahJ7zpoMgaMRe/preview" },
+       { title: "Part 2", video: "https://drive.google.com/file/d/1WXI8ga6iYBpkD0bR1y5a7-l16HtNnaaW/preview" },
+        { title: "Part 3", video: "https://drive.google.com/file/d/1YAG9IpPcTTrIbiv_S3bsAaRasEGvrpC-/preview" },
+        { title: "Part 4", video: "https://drive.google.com/file/d/19IUfIo7tVO6zV8Vdvoj8ep8ma4zRj2iH/preview" },
+    { title: "Part 5", video: "https://drive.google.com/file/d/1OMj0ZgplJczozdgLjO_FN5f564a-kLLh/preview" },
+      { title: "Part 6", video: "https://drive.google.com/file/d/1a2tHfGT5iTQma3XqkWCSPpyHJfnMx5EW/preview" },
+       { title: "Part 7", video: "https://drive.google.com/file/d/1tbkeI26bN-oqHsCqy9gGha4_Otkfo_rJ/preview" },
+     { title: "Part 8", video: "https://drive.google.com/file/d/1sgKiAUYti6XJ49_-fhyDewabLJFLiyJK/preview" }
 ]
   },
   {
