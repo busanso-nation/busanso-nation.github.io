@@ -1,6 +1,28 @@
 // movies-data.js
 const MOVIES = [
                   {
+                       id: "kannappa",
+    title: "KANNAPPA",
+    poster: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/kannappa-et00377025-1750744616.jpg",
+    video: "https://www.youtube.com/embed/uHD0PwO0_-Y",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: " Guided by love for Nemali and mystical encounters, Thinnadu defies traditional rituals to offer his eyes to a Shiva Lingam, becoming the ultimate devotee, Kannappa."
+  },
+   {
+                        id: "kannappa2",
+    title: "KANNAPPA 2",
+    poster: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/kannappa-et00377025-1750744616.jpg",
+    video: "https://www.youtube.com/embed/yx_SSBbpYxo",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: " Guided by love for Nemali and mystical encounters, Thinnadu defies traditional rituals to offer his eyes to a Shiva Lingam, becoming the ultimate devotee, Kannappa."
+  },
+   {
        id: "bloodsu",
     title: "BLOOD SUCKER",
     poster: "https://i.pinimg.com/736x/8e/df/20/8edf203c71153810db9f0a174619ec4d.jpg",
