@@ -5,7 +5,7 @@ const MOVIES = [
     title: "KANNAPPA",
     poster: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/kannappa-et00377025-1750744616.jpg",
     video: "https://www.youtube.com/embed/uHD0PwO0_-Y",
-    type: "premium",
+    type: "free",
     year: "2026",
     country: "India",
     duration: "1hr 15m ",
@@ -20,6 +20,17 @@ const MOVIES = [
     year: "2026",
     country: "India",
     duration: "1hr 15m ",
+    synopsis: " Guided by love for Nemali and mystical encounters, Thinnadu defies traditional rituals to offer his eyes to a Shiva Lingam, becoming the ultimate devotee, Kannappa."
+  },
+     {
+                        id: "3kannappa3",
+    title: "KANNAPPA 3",
+    poster: "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/kannappa-et00377025-1750744616.jpg",
+    video: "https://drive.google.com/file/d/1fQi3gT9txaWpjs4P8NzSGpEL2QQ83EGp/preview",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "55m ",
     synopsis: " Guided by love for Nemali and mystical encounters, Thinnadu defies traditional rituals to offer his eyes to a Shiva Lingam, becoming the ultimate devotee, Kannappa."
   },
    {
