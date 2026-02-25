@@ -1,4 +1,22 @@
 const SERIES = [
+     {
+         id: "bloodylucky",
+    title: "A BLOODY LUCKY DAY",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTIwIn9QgyNRNRblKNgkVdqrLNh6hk3s1SXw&s",
+    genre: "Action",
+    added: 1,
+    type: "premium",
+    country: "Korea",
+    year: "2025",
+    synopsis: "The series  is a tense Korean thriller about Oh Taek, a struggling taxi driver who accepts a high-paying, long-distance fare to Mokpo. His lucky day turns into a nightmare when he realizes his passenger, Geum Hyeok-soo, is a remorseless serial killer trying to escape the country.",
+    cast: ["Lee Sung-min", "Lee Jung-eun", "Oh Hye-won"],
+    episodes: [
+      { title: "Episode 1", video: "https://drive.google.com/file/d/1QtIw-ZjqB94uwFJHP9Jl_OM6yIyK0OoH/preview" },
+     { title: "Episode 2", video: "https://drive.google.com/file/d/1kwAt10XWt4GT99sQ4BepQoQnPegM8ath/preview" },
+      { title: "Episode 3", video: "https://drive.google.com/file/d/1wP6iv3X9b4I0SZ-VHH-HQLPhLVB-Iopf/preview" },
+        { title: "Episode 4", video: "https://drive.google.com/file/d/1UGj2vukXCWUkhO5oCLnKkWF_Aid4BONM/preview" }
+]
+  },
     {
          id: "kingdomd",
     title: "KINGDOM DOCTOR",
