@@ -6,7 +6,7 @@ const MOVIES = [
                        id: "mynameissanjay",
     title: "MY NAME IS SANJAY",
     poster: "https://i0.wp.com/im.rediff.com/movies/2008/dec/26sld5.jpg",
-    video: "https://www.youtube.com/embed/HKa2VF7D3YI",
+    video: "https://drive.google.com/file/d/1TR2u2Z_tPQGqLU_kmtx_FfknpB7jWZnZ/preview",
     type: "premium",
     year: "2026",
     country: "India",
