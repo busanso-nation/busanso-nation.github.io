@@ -14,7 +14,14 @@ const SERIES = [
       { title: "Episode 1", video: "https://drive.google.com/file/d/1QtIw-ZjqB94uwFJHP9Jl_OM6yIyK0OoH/preview" },
      { title: "Episode 2", video: "https://drive.google.com/file/d/1kwAt10XWt4GT99sQ4BepQoQnPegM8ath/preview" },
       { title: "Episode 3", video: "https://drive.google.com/file/d/1wP6iv3X9b4I0SZ-VHH-HQLPhLVB-Iopf/preview" },
-        { title: "Episode 4", video: "https://drive.google.com/file/d/1UGj2vukXCWUkhO5oCLnKkWF_Aid4BONM/preview" }
+        { title: "Episode 4", video: "https://drive.google.com/file/d/1UGj2vukXCWUkhO5oCLnKkWF_Aid4BONM/preview" },
+            { title: "Episode 5", video: "https://drive.google.com/file/d/1I16A7uXGgcyT19_vawniiw_svlmA3nd_/preview" },
+     { title: "Episode 6", video: "https://drive.google.com/file/d/1P5BG3uJpl0bhcDfC74Zbl5-8Gm_02DMj/preview" },
+      { title: "Episode 7", video: "https://drive.google.com/file/d/17t_FLH2rbBAq3WQqSpzjnFGOkqmtdsV7/preview" },
+        { title: "Episode 8", video: "https://drive.google.com/file/d/1qHlaSRevMIe85IDQ3P6lQElhKj4v_MHJ/preview" },
+          { title: "Episode 9", video: "https://drive.google.com/file/d/16sDaqmDVMcSzfvuPcQBMtqp_-K_J5KJV/preview" },
+     { title: "Episode 10", video: "https://drive.google.com/file/d/1NbdTNbmtApNQ6357awaaH_1DPk1rl4gi/preview" }
+     
 ]
   },
     {
