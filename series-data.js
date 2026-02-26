@@ -213,6 +213,41 @@ const SERIES = [
 ]
   },
   {
+          id: "queenofthecity",
+    title: "QUEEN OF THE CITY",
+    poster: "https://asianwiki.com/images/6/6e/Queens_House-p1.jpg",
+    genre: "Drama",
+    added: 1800000,
+    type: "premium",
+    country: "Korea",
+    year: "2023",
+    synopsis: "The series follows the tumultuous love story of Hong Hae-in (Kim Ji-won), the arrogant third-generation chaebol heiress of Queens Group who runs their department stores, and Baek Hyun-woo (Kim Soo-hyun), the legal director of the conglomerate who comes from a modest country background.",
+    cast: ["Kim Soo-hyun", "Park Sung-hoon", "Kwak Dong-yeon"],
+    episodes: [
+      { title: "Part 1", video: "https://drive.google.com/file/d/1vImLFm5rVnLidg-xZTaTJ0LvAI1gBc0v/preview" },
+       { title: "Part 2", video: "https://drive.google.com/file/d/1075heDsj5seGqzgGAX7nWJFywGyw8k74/preview" },
+        { title: "Part 3", video: "https://drive.google.com/file/d/1UUpPXujR1Ed5qsxQcmmPa0A6TP_pxy2G/preview" },
+        { title: "Part 4", video: "https://drive.google.com/file/d/1hxAB8Q4JpsV3Qa6wk0i1C8OkV4anvhHH/preview" },
+    { title: "Part 5", video: "https://drive.google.com/file/d/12cIkdmI2V0H4WzcLOBJmdbSELdB5zPjL/preview" },
+      { title: "Part 6", video: "https://drive.google.com/file/d/1LJTRLidDjfK6Xrj2sTcY1IRZCRI4W0bM/preview" },
+       { title: "Part 7", video: "https://drive.google.com/file/d/1nntHYMRbSa8018CoM9bm0vAUO14j2mOV/preview" },
+      { title: "Part 8", video: "https://drive.google.com/file/d/1mQYvnnB5hELxiXnU9FtNkl1vYFGYCkhr/preview" },
+       { title: "Part 9", video: "https://drive.google.com/file/d/1bKHJiAPSuT5I8rQqxDtho5nCcvyZCA4B/preview" },
+        { title: "Part 10", video: "https://drive.google.com/file/d/1K3dBkjBXXn49t-yFIHqNNh7_Zb0Fx5Uc/preview" },
+        { title: "Part 11", video: "https://drive.google.com/file/d/1RqNFcVBBUuZ9mcwYLhnT-FNfls8rGeep/preview" },
+    { title: "Part 12", video: "https://drive.google.com/file/d/1C-3wQ5NVUdwarrNkHIAnHJo7hFqbABzj/preview" },
+      { title: "Part 13", video: "https://drive.google.com/file/d/1d_cfIyqtpwye7IttlmU1uGOiXMl3CN_n/preview" },
+       { title: "Part 14", video: "https://drive.google.com/file/d/1crWEgvh53yNioGKU5CYF3MBLCToTOV40/preview" },
+       { title: "Part 15", video: "https://drive.google.com/file/d/1z1ehMiISoGs6EagkIvq8uDfsypVqKdZ4/preview" },
+       { title: "Part 16", video: "https://drive.google.com/file/d/12ZQqM7ZcUpny6vOmMW9pMgA32XCbwFJb/preview" },
+        { title: "Part 17", video: "https://drive.google.com/file/d/1ZJmqHNtSdMTvuZHCZUmp-FfXd0moJqNX/preview" },
+        { title: "Part 18", video: "https://drive.google.com/file/d/1ZSPdGkaSiMMXZlsr-iDf6ucfvRUpdlm6/preview" },
+    { title: "Part 19", video: "https://drive.google.com/file/d/1DD5m3O0CtQpilX8-1M6-OO-fhC0LHsif/preview" },
+      { title: "Part 20", video: "https://drive.google.com/file/d/17FmIPySSvB3doRQoCJSllYXjaYfooY6k/preview" }
+      
+]
+  },
+  {
      id: "seaman",
     title: "REVENGE OF THE SEAMAN",
     poster: "https://img-tv.20mn.fr/sites/default/files/image/cover/6/b/a/img-1100098230.jpg?t3y09a",
