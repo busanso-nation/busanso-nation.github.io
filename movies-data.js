@@ -1,6 +1,20 @@
 // movies-data.js
 const MOVIES = [
-    { id: "gananaaa", title: "GANANA",
+    
+    
+    {
+                       id: "mynameissanjay",
+    title: "MY NAME IS SANJAY",
+    poster: "https://i0.wp.com/im.rediff.com/movies/2008/dec/26sld5.jpg",
+    video: "https://www.youtube.com/embed/HKa2VF7D3YI",
+    type: "premium",
+    year: "2026",
+    country: "India",
+    duration: "1hr 15m ",
+    synopsis: "Using tattoos, notes, and photos to track his memory, he hunts down the murderer, Ghajini Dharmatma, to avenge her death"
+  },
+   {
+        id: "gananaaa", title: "GANANA",
      poster: "https://upload.wikimedia.org/wikipedia/en/9/90/Villain_2017_film_poster.jpg",
      video: "https://drive.google.com/file/d/18UwgDPDC2Qh51yO5Imix_RW1faXCXWbD/preview",
      type: "free",
