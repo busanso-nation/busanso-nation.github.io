@@ -1,5 +1,37 @@
 const SERIES = [
      {
+              id: "triggers",
+    title: "TRIGGERS",
+    poster: "https://m.media-amazon.com/images/M/MV5BMTM3MWRiYWMtZmVkMi00OWE0LWI1M2ItMzE2ODc3YWM3YTU4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    genre: "Action",
+    added: 1,
+    type: "premium",
+    country: "Korea",
+    year: "2024",
+    synopsis: "Trigger is a South Korean action-thriller produced by Netflix, slated for release on July 25, 2025  starring Kim Nam-gil and Kim Young-kwang.",
+    cast: ["Lee Sung-min", "Lee Jung-eun", "Oh Hye-won"],
+    episodes: [
+      { title: "Episode 1", video: "https://www.youtube.com/embed/J-zKRS8_9mw" },
+     { title: "Episode 2", video: "https://www.youtube.com/embed/7fwuelJGYkA" },
+      { title: "Episode 3", video: "https://www.youtube.com/embed/tWbsJv2mLSE" },
+        { title: "Episode 4", video: "https://www.youtube.com/embed/8C-6mMpCjlw" },
+            { title: "Episode 5", video: "https://www.youtube.com/embed/GfmbQ0gW98k" },
+     { title: "Episode 6", video: "https://www.youtube.com/embed/wKWd8UDQxg0" },
+      { title: "Episode 7", video: "https://www.youtube.com/embed/_7iB5g-Gep0" },
+        { title: "Episode 8", video: "https://www.youtube.com/embed/3ZkNArH2Id0" },
+          { title: "Episode 9", video: "https://www.youtube.com/embed/jZiEyx2g87Y" },
+     { title: "Episode 10", video: "https://www.youtube.com/embed/5r98cbI_pzU" },
+     { title: "Episode 11", video: "https://www.youtube.com/embed/yv75rK68vqA" },
+     { title: "Episode 12", video: "https://www.youtube.com/embed/tElycBxaj7I" },
+      { title: "Episode 13", video: "https://www.youtube.com/embed/jZceIAKRb-4" },
+        { title: "Episode 14", video: "https://www.youtube.com/embed/z_tBhxSA51E" },
+          { title: "Episode 15", video: "https://www.youtube.com/embed/fuTFVLFbD88" }
+    
+         
+     
+]
+  },
+    {
          id: "bloodylucky",
     title: "A BLOODY LUCKY DAY",
     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTIwIn9QgyNRNRblKNgkVdqrLNh6hk3s1SXw&s",
