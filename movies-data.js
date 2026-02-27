@@ -57,16 +57,7 @@ const MOVIES = [
     duration: "1hr 15m ",
     synopsis: "Using tattoos, notes, and photos to track his memory, he hunts down the murderer, Ghajini Dharmatma, to avenge her death"
   },
-   {
-        id: "gananaaa", title: "GANANA",
-     poster: "https://upload.wikimedia.org/wikipedia/en/9/90/Villain_2017_film_poster.jpg",
-     video: "https://drive.google.com/file/d/18UwgDPDC2Qh51yO5Imix_RW1faXCXWbD/preview",
-     type: "free",
-     year: "2026",
-     country: "India",
-     duration: "1hr 10m ",
-     synopsis: " A ruthless bandit kidnaps the wife of a police inspector for revenge, but the hunt is on."
-   },
+   
   {
                        id: "kannappa",
     title: "KANNAPPA",
