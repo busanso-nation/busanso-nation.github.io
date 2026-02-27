@@ -3,6 +3,16 @@ const MOVIES = [
     
     
     {
+          id: "whokilled", title: "WHO KILLED SAMI",
+     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdA3F1gE6TM5zz72rVDP3y7KPgXkOK95edTg&s",
+     video: "https://www.youtube.com/embed/9IRVcbpwXfU",
+     type: "premium",
+     year: "2026",
+     country: "India",
+     duration: "1hr 10m ",
+     synopsis: "A South Indian crime thriller focusing on a battle for control among three crime lords in Chennai."
+   },
+  {
         
         id: "gananaaa", title: "GANANA",
      poster: "https://upload.wikimedia.org/wikipedia/en/9/90/Villain_2017_film_poster.jpg",
@@ -18,7 +28,7 @@ const MOVIES = [
         id: "gananaaa", title: "GANANA 2",
      poster: "https://upload.wikimedia.org/wikipedia/en/9/90/Villain_2017_film_poster.jpg",
      video: "https://drive.google.com/file/d/1drharDb2huGQVLzJsJdijpExLzMVBmHx/preview",
-     type: "free",
+     type: "premium",
      year: "2026",
      country: "India",
      duration: "1hr 10m ",
