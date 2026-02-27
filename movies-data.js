@@ -3,6 +3,29 @@ const MOVIES = [
     
     
     {
+        
+        id: "gananaaa", title: "GANANA",
+     poster: "https://upload.wikimedia.org/wikipedia/en/9/90/Villain_2017_film_poster.jpg",
+     video: "https://drive.google.com/file/d/18UwgDPDC2Qh51yO5Imix_RW1faXCXWbD/preview",
+     type: "free",
+     year: "2026",
+     country: "India",
+     duration: "1hr 10m ",
+     synopsis: " A ruthless bandit kidnaps the wife of a police inspector for revenge, but the hunt is on."
+   },
+  {
+     
+        id: "gananaaa", title: "GANANA 2",
+     poster: "https://upload.wikimedia.org/wikipedia/en/9/90/Villain_2017_film_poster.jpg",
+     video: "https://drive.google.com/file/d/1drharDb2huGQVLzJsJdijpExLzMVBmHx/preview",
+     type: "free",
+     year: "2026",
+     country: "India",
+     duration: "1hr 10m ",
+     synopsis: " A ruthless bandit kidnaps the wife of a police inspector for revenge, but the hunt is on."
+   },
+  {
+     
                        id: "mynameissanjay",
     title: "MY NAME IS SANJAY",
     poster: "https://i0.wp.com/im.rediff.com/movies/2008/dec/26sld5.jpg",
@@ -32,7 +55,8 @@ const MOVIES = [
      year: "2026",
      country: "India",
      duration: "1hr 10m ",
-     synopsis: " A ruthless bandit kidnaps the wife of a police inspector for revenge, but the hunt is on." },
+     synopsis: " A ruthless bandit kidnaps the wife of a police inspector for revenge, but the hunt is on."
+   },
   {
                        id: "kannappa",
     title: "KANNAPPA",
