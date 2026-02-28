@@ -1460,7 +1460,7 @@ const MOVIES = [
     synopsis: " The team seeks a revolutionary drug to cure diseases, but finds the dinosaurs have mutated and a sinister secret is hidden in the ruins of an old, abandoned research facility. ."
   },
         {
-    id: "jurassicrebirth",
+    id: "jurassicrebirth2",
     title: "JURRASIC WORLD Rebirth 2",
     poster: "https://i.ibb.co/Wvkwcgvz/FB-IMG-1751553903898.jpg",
     video: "https://drive.google.com/file/d/1-n6aSvRil0N0bNCawGJ01n0aTyRyR7TV/preview",
