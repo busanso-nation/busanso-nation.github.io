@@ -13,6 +13,16 @@ const MOVIES = [
      synopsis: "Following the death of his lover Sonia (Bipasha Basu) in a car explosion orchestrated by Armaan Mallik (John Abraham), Ranvir Singh (Saif Ali Khan) travels to Turkey to seek revenge. Ranvir enters the world of the Turkish mafia, crossing paths with the ruthless Armaan and his partner/sister Aleena (Deepika Padukone). Ranvir conspires with his friend RD (Anil Kapoor) and his assistant Cherry (Ameesha Patel) to infiltrate Armaan's empire. The plot involves a complex, long-con heist centered on stealing the Shroud of Turin to bankrupt Armaan"
    },
   {
+                    id: "poora2", title: "POORA 2",
+     poster: "https://i.pinimg.com/736x/12/a4/56/12a456df3b46e0d46f808e88aac659d7.jpg",
+     video: "https://drive.google.com/file/d/1fgendjCu6HXvAk1T16F2az5w1I_p8vSU/preview",
+     type: "free",
+     year: "2026",
+     country: "India",
+     duration: "1hr 10m ",
+     synopsis: "Following the death of his lover Sonia (Bipasha Basu) in a car explosion orchestrated by Armaan Mallik (John Abraham), Ranvir Singh (Saif Ali Khan) travels to Turkey to seek revenge. Ranvir enters the world of the Turkish mafia, crossing paths with the ruthless Armaan and his partner/sister Aleena (Deepika Padukone). Ranvir conspires with his friend RD (Anil Kapoor) and his assistant Cherry (Ameesha Patel) to infiltrate Armaan's empire. The plot involves a complex, long-con heist centered on stealing the Shroud of Turin to bankrupt Armaan"
+   },
+  {
               id: "72souls", title: "72 SOULS",
      poster: "https://m.media-amazon.com/images/M/MV5BMzA2ZTFlYjgtOWEzNS00NDUxLWIwYWYtYTg4OGM3OTlkODZlXkEyXkFqcGc@._V1_.jpg",
      video: "https://drive.google.com/file/d/17NP0BjSZWqR9Z3RMSmz7CXzMEe8TTJB1/preview",
