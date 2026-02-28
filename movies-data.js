@@ -5,8 +5,8 @@ const MOVIES = [
     {
                  id: "poora", title: "POORA",
      poster: "https://i.pinimg.com/736x/12/a4/56/12a456df3b46e0d46f808e88aac659d7.jpg",
-     video: "https://www.youtube.com/embed/B5DS34L8Zd8",
-     type: "premium",
+     video: "https://drive.google.com/file/d/1xt8-b9KetfCZDHkRtwo8ewos5sSQCGKV/preview",
+     type: "free",
      year: "2026",
      country: "India",
      duration: "1hr 10m ",
