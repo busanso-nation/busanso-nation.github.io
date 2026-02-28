@@ -1,7 +1,16 @@
 // movies-data.js
 const MOVIES = [
     
-    
+      {
+              id: "lststand", title: "THE LAST STAND",
+     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNWJV10DTObPpgcxQZBM6wUx6Ih0iEpFVM7A&s",
+     video: "https://drive.google.com/file/d/1aaAN9-eX1Je2S3fD1HRRGYs05dcJgRZt/preview",
+     type: "premium",
+     year: "2025",
+     country: "USA",
+     duration: "1hr 40m ",
+     synopsis: "an action thriller starring Arnold Schwarzenegger as Ray Owens, a retired LAPD officer turned small-town Arizona sheriff. He must stop a dangerous drug cartel leader fleeing to Mexico in a high-speed sports car. Assisted by his inexperienced deputies, Owens makes a final stand to prevent the escape"
+   },
     {
                  id: "poora", title: "POORA",
      poster: "https://i.pinimg.com/736x/12/a4/56/12a456df3b46e0d46f808e88aac659d7.jpg",
@@ -28,7 +37,7 @@ const MOVIES = [
      video: "https://drive.google.com/file/d/17NP0BjSZWqR9Z3RMSmz7CXzMEe8TTJB1/preview",
      type: "premium",
      year: "2025",
-     country: "Chine",
+     country: "China",
      duration: "1hr 10m ",
      synopsis: "However, several highly anticipated Chinese historical/fantasy dramas are scheduled for release around 2026 that may be of interest:"
    },
