@@ -35,7 +35,7 @@ const MOVIES = [
    },
   {
      
-        id: "gananaaa", title: "GANANA 2",
+        id: "gananaaa2", title: "GANANA 2",
      poster: "https://upload.wikimedia.org/wikipedia/en/9/90/Villain_2017_film_poster.jpg",
      video: "https://drive.google.com/file/d/1drharDb2huGQVLzJsJdijpExLzMVBmHx/preview",
      type: "premium",
