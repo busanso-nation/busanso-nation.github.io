@@ -2,6 +2,16 @@
 const MOVIES = [
     
       {
+                      id: "thedeadwants", title: "THE DEAD WANTS TO EAT",
+     poster: "https://i.ytimg.com/vi/4ar4V_G8I2I/oar2.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLAgIPpyYtQai8Zd8Y0S24u-zGWebg&usqp=CCk",
+     video: "https://www.youtube.com/embed/yQUjNHANgso",
+     type: "premium",
+     year: "2025",
+     country: "USA",
+     duration: "1hr 40m ",
+     synopsis: "As the world above is totally overrun, tensions escalate between researchers trying to understand the undead and soldiers demanding they be destroyed, leading to internal conflict and chaos."
+   },
+    {
               id: "lststand", title: "THE LAST STAND",
      poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNWJV10DTObPpgcxQZBM6wUx6Ih0iEpFVM7A&s",
      video: "https://drive.google.com/file/d/1aaAN9-eX1Je2S3fD1HRRGYs05dcJgRZt/preview",
