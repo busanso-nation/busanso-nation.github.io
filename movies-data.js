@@ -3,6 +3,16 @@ const MOVIES = [
     
     
     {
+              id: "72souls", title: "72 SOULS",
+     poster: "https://m.media-amazon.com/images/M/MV5BMzA2ZTFlYjgtOWEzNS00NDUxLWIwYWYtYTg4OGM3OTlkODZlXkEyXkFqcGc@._V1_.jpg",
+     video: "https://drive.google.com/file/d/17NP0BjSZWqR9Z3RMSmz7CXzMEe8TTJB1/preview",
+     type: "premium",
+     year: "2025",
+     country: "Chine",
+     duration: "1hr 10m ",
+     synopsis: "However, several highly anticipated Chinese historical/fantasy dramas are scheduled for release around 2026 that may be of interest:"
+   },
+  {
           id: "whokilled", title: "WHO KILLED SAMI",
      poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdA3F1gE6TM5zz72rVDP3y7KPgXkOK95edTg&s",
      video: "https://www.youtube.com/embed/9IRVcbpwXfU",
