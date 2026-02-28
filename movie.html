@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <title>Movie Player</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Load movies first -->
 <script src="movies-data.js"></script>
 
 <style>
@@ -18,7 +20,7 @@ body {
   position:relative;
 }
 
-/* ===== BANNER ===== */
+/* Banner */
 .banner {
   position:relative;
   width:100%;
@@ -35,18 +37,12 @@ body {
   height:100%;
   object-fit:cover;
   object-position:center;
-  transform:scale(1.1);
   transition:transform 0.6s ease;
-
-  /* ✅ FIX: prevent image blocking button clicks */
-  pointer-events:none;
+  transform:scale(1.1);
+  pointer-events:none; /* prevents click blocking */
 }
 
-.banner:hover img {
-  transform:scale(1.15);
-}
-
-.banner::after {
+.banner::after{
   content:"";
   position:absolute;
   top:0;
@@ -57,7 +53,7 @@ body {
   pointer-events:none;
 }
 
-.banner .buttons {
+.banner .buttons{
   position:absolute;
   bottom:30px;
   left:0;
@@ -65,10 +61,10 @@ body {
   display:flex;
   gap:12px;
   justify-content:center;
-  z-index:10; /* ✅ FIX: ensure always above ads */
+  z-index:10;
 }
 
-button {
+button{
   padding:14px 28px;
   font-size:16px;
   border:none;
@@ -76,26 +72,18 @@ button {
   cursor:pointer;
   font-weight:bold;
   box-shadow:0 2px 6px rgba(0,0,0,0.5);
-  transition:transform 0.2s;
 }
 
-button:hover { transform:scale(1.05); }
+button#watchBtn{ background:#e50914; color:#fff; }
+button#shareBtn{ background:#25D366; color:#fff; }
 
-button#watchBtn { background:#e50914; color:#fff; }
-button#shareBtn { background:#25D366; color:#fff; }
-
-/* ===== DETAILS ===== */
-.details {
+.details{
   max-width:900px;
   margin:20px auto;
-  text-align:left;
   padding:0 16px;
 }
-.details h1 { margin-bottom:10px; font-size:2.2em; }
-.details p { line-height:1.5; }
 
-/* ===== PLAYER ===== */
-.player {
+.player{
   margin:20px auto;
   width:90%;
   max-width:1200px;
@@ -103,22 +91,10 @@ button#shareBtn { background:#25D366; color:#fff; }
   display:none;
   border:none;
   border-radius:12px;
-  position:relative;
-  z-index:5;
 }
 
-/* ===== ADS ===== */
-
-/* Make ads NEVER block top section */
-.ad-horizontal,
 .ad-vertical-left,
-.ad-vertical-right {
-  pointer-events:auto;
-}
-
-/* Vertical ads */
-.ad-vertical-left,
-.ad-vertical-right {
+.ad-vertical-right{
   position:fixed;
   top:120px;
   width:140px;
@@ -126,27 +102,23 @@ button#shareBtn { background:#25D366; color:#fff; }
   flex-direction:column;
   gap:25px;
   padding:10px;
-  z-index:1; /* ✅ LOWER THAN BUTTONS */
+  z-index:1;
   background:rgba(0,0,0,0.3);
   border-radius:8px;
 }
 
-.ad-vertical-left { left:10px; }
-.ad-vertical-right { right:10px; }
+.ad-vertical-left{ left:10px; }
+.ad-vertical-right{ right:10px; }
 
-/* Horizontal ads */
-.ad-horizontal {
+.ad-horizontal{
   width:100%;
   max-width:1200px;
   margin:10px auto;
   display:flex;
   justify-content:center;
-  gap:10px;
-  z-index:1; /* ✅ below buttons */
 }
 
-/* ===== UPGRADE POPUP ===== */
-#upgradePopup {
+#upgradePopup{
   position:fixed;
   bottom:30px;
   right:30px;
@@ -156,16 +128,13 @@ button#shareBtn { background:#25D366; color:#fff; }
   border-radius:8px;
   font-weight:bold;
   cursor:pointer;
-  box-shadow:0 0 10px #e50914, 0 0 20px #ff0000;
   z-index:2000;
   display:none;
 }
 
-/* ===== MOBILE ===== */
-@media (max-width:768px){
-  .banner { height:40vh; }
-  button { font-size:14px; padding:12px 20px; }
-  .ad-vertical-left, .ad-vertical-right { display:none; }
+@media(max-width:768px){
+  .banner{ height:40vh; }
+  .ad-vertical-left,.ad-vertical-right{ display:none; }
 }
 </style>
 </head>
@@ -196,10 +165,95 @@ button#shareBtn { background:#25D366; color:#fff; }
 
 <div id="upgradePopup">UPGRADE TO SKIP ADS</div>
 
-<!-- KEEP ALL YOUR ORIGINAL JS BELOW EXACTLY AS IS -->
-<!-- I DID NOT TOUCH YOUR PLAYER LOGIC -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
-/* 🔒 KEEP YOUR ORIGINAL SCRIPT HERE UNCHANGED */
+document.addEventListener("DOMContentLoaded", function(){
+
+/* 🔐 WAIT UNTIL MOVIES IS READY */
+function waitForMovies(callback){
+  if(typeof MOVIES !== "undefined"){
+    callback();
+  } else {
+    setTimeout(()=>waitForMovies(callback), 50);
+  }
+}
+
+waitForMovies(function(){
+
+// ===== FIREBASE =====
+const firebaseConfig = {
+  apiKey:"AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
+  authDomain:"busanso-pins.firebaseapp.com",
+  databaseURL:"https://busanso-pins-default-rtdb.firebaseio.com",
+  projectId:"busanso-pins",
+  storageBucket:"busanso-pins.firebasestorage.app",
+  messagingSenderId:"137040014808",
+  appId:"1:137040014808:web:b0684e17b6b0328da596ad"
+};
+firebase.initializeApp(firebaseConfig);
+
+// ===== GET MOVIE ID =====
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+if(!id){ alert("No movie selected!"); location.href="movies-list.html"; }
+
+// ===== FETCH MOVIE =====
+const movie = MOVIES.find(m => m.id === id);
+if(!movie){ alert("Movie not found!"); location.href="movies-list.html"; }
+
+// ===== POPULATE =====
+document.getElementById("title").textContent = movie.title;
+document.getElementById("posterImg").src = movie.poster;
+document.getElementById("synopsis").textContent = movie.synopsis || "";
+document.getElementById("meta").textContent =
+`${movie.year} • ${movie.duration || ""} • ${movie.type || ""}`;
+
+// ===== VIDEO NORMALIZATION =====
+function getVideoUrl(url){
+  if(!url) return "";
+  url=url.trim();
+  if(url.includes("youtube.com")||url.includes("youtu.be")){
+    const ytId=url.includes("v=")?
+      new URL(url).searchParams.get("v"):
+      url.split("/").pop();
+    return `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=0&modestbranding=1&rel=0`;
+  }
+  if(url.includes("/d/")){
+    const driveId=url.split("/d/")[1].split("/")[0];
+    return `https://drive.google.com/file/d/${driveId}/preview`;
+  }
+  return url;
+}
+
+// ===== PLAYER LOGIC (UNCHANGED) =====
+const watchBtn=document.getElementById("watchBtn");
+const posterImg=document.getElementById("posterImg");
+const player=document.getElementById("player");
+const shareBtn=document.getElementById("shareBtn");
+
+function playMovie(){
+  player.src=getVideoUrl(movie.video);
+  localStorage.setItem("lastMovieId",movie.id);
+  player.style.display="block";
+  posterImg.style.display="none";
+  watchBtn.style.display="none";
+  shareBtn.style.display="none";
+
+  const activePIN=localStorage.getItem("activePIN");
+  if(activePIN){
+    if(player.requestFullscreen){ player.requestFullscreen(); }
+    else if(player.webkitRequestFullscreen){ player.webkitRequestFullscreen(); }
+    else if(player.msRequestFullscreen){ player.msRequestFullscreen(); }
+  }
+}
+
+watchBtn.addEventListener("click",playMovie);
+posterImg.addEventListener("click",playMovie);
+
+});
+});
 </script>
 
 </body>
