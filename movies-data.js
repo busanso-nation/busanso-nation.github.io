@@ -15,7 +15,7 @@ const MOVIES = [
                       id: "thedeadwants", title: "THE DEAD WANTS TO EAT",
      poster: "https://i.ytimg.com/vi/4ar4V_G8I2I/oar2.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLAgIPpyYtQai8Zd8Y0S24u-zGWebg&usqp=CCk",
      video: "https://www.youtube.com/embed/yQUjNHANgso",
-     type: "premium",
+     type: "free",
      year: "2025",
      country: "USA",
      duration: "1hr 40m ",
