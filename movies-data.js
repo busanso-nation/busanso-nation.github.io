@@ -2,6 +2,16 @@
 const MOVIES = [
     
       {
+                             id: "theodyssey", title: "THE ODYSSEY",
+     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZ3MVa7XVNAj8SbC2mNL4x9kV8cjWUlgWYQ&s",
+     video: "https://drive.google.com/file/d/13mzLKWFuBr3UVY0fveofq0l1v6wiu9T5/preview",
+     type: "premium",
+     year: "2025",
+     country: "USA",
+     duration: "1hr 40m ",
+     synopsis: "revolve around themes of divine intervention, fate, and morality, often blending action with mythological "religious" elements of ancient Greek belief"
+   },
+    {
                       id: "thedeadwants", title: "THE DEAD WANTS TO EAT",
      poster: "https://i.ytimg.com/vi/4ar4V_G8I2I/oar2.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLAgIPpyYtQai8Zd8Y0S24u-zGWebg&usqp=CCk",
      video: "https://www.youtube.com/embed/yQUjNHANgso",
