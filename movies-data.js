@@ -2,6 +2,26 @@
 const MOVIES = [
     
       {
+                               id: "totheforbidden", title: "JOURNEY TO THE FORBIDDEN",
+     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgwHINEMUBIJEDx9IFq1XJD5L4ttp9ErxoKg&s",
+     video: "https://drive.google.com/file/d/14-jA1eqq90KA5zkzTEsLDaY9fJS9x_Va/preview",
+     type: "premium",
+     year: "2025",
+     country: "Japan",
+     duration: "1hr 40m ",
+     synopsis: "A young Chinese boy and his American guardian land in Central China when their plane crashes. They then have to find a way to survive especially when they encounter the mythological beast Yeren"
+   },
+    {
+                              id: "totheforbidden2", title: "JOURNEY TO THE FORBIDDEN 2",
+     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgwHINEMUBIJEDx9IFq1XJD5L4ttp9ErxoKg&s",
+     video: "https://drive.google.com/file/d/1DcGVZIAMRHcHtJFsAvV0c01aUVj6G4EN/preview",
+     type: "premium",
+     year: "2025",
+     country: "Japan",
+     duration: "1hr 40m ",
+     synopsis: "A young Chinese boy and his American guardian land in Central China when their plane crashes. They then have to find a way to survive especially when they encounter the mythological beast Yeren"
+   },
+    {
                              id: "theodyssey", title: "THE ODYSSEY",
      poster: "https://i.ibb.co/yFFVmDbK/The-Odyssey-miniseries-1997.jpg",
      video: "https://drive.google.com/file/d/13mzLKWFuBr3UVY0fveofq0l1v6wiu9T5/preview",
