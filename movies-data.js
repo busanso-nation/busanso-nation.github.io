@@ -3,7 +3,7 @@ const MOVIES = [
     
       {
                              id: "theodyssey", title: "THE ODYSSEY",
-     poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyx5ZIznvtMMkxwpal2KkfKWLRx9da09cQoQ&s",
+     poster: "https://i.ibb.co/yFFVmDbK/The-Odyssey-miniseries-1997.jpg",
      video: "https://drive.google.com/file/d/13mzLKWFuBr3UVY0fveofq0l1v6wiu9T5/preview",
      type: "premium",
      year: "2025",
