@@ -2,6 +2,16 @@
 const MOVIES = [
     
       {
+                                       id: "dragonsofwalled", title: "DRAGONS OF WALLED CITY",
+     poster: "https://filmexposure.ch/wp-content/uploads/2024/05/walled-in-poster.jpg",
+     video: "https://drive.google.com/file/d/1iq39BRbhd7KvomMy8KD0xVFEwVi0nnoL/preview",
+     type: "premium",
+     year: "2024",
+     country: "Chine",
+     duration: "1hr 40m ",
+     synopsis: "Chan Lok-kwun, a troubled refugee who escapes into the lawless Kowloon Walled City, finds a new family among its defenders, and fights alongside leader Cyclone against ruthless crime lord Mr. Big to protect their home"
+   },
+    {
                                     id: "the33", title: "THE 33",
      poster: "https://www.moviexclusive.com/Files/950THE_33-2MB.jpg",
      video: "https://drive.google.com/file/d/1eeeOvbCfZuKGylelwGkop5XrvwNJwOC7/preview",
