@@ -2,6 +2,26 @@
 const MOVIES = [
     
       {
+                                    id: "the33", title: "THE 33",
+     poster: "https://www.moviexclusive.com/Files/950THE_33-2MB.jpg",
+     video: "https://drive.google.com/file/d/1eeeOvbCfZuKGylelwGkop5XrvwNJwOC7/preview",
+     type: "premium",
+     year: "2023",
+     country: "USA",
+     duration: "1hr 40m ",
+     synopsis: "Disaster strikes on Aug. 5, 2010, as a copper and gold mine collapses in Chile, trapping 33 men underground. With more than 2,000 feet of rock in their way, members of a rescue team work tirelessly for 69 days to save the seemingly doomed crew. Beneath the rubble, the miners begin an epic quest to survive, contending with suffocating heat and the need for food and water. With family, friends and the rest of the world watching, it becomes a race against time and a true test of the human spirit."
+   },
+    {
+                                        id: "the332", title: "THE 33 2",
+     poster: "https://www.moviexclusive.com/Files/950THE_33-2MB.jpg",
+     video: "https://drive.google.com/file/d/19Ypl5eJvB7eb-f4WgvFzPPXuHinBv0uG/preview",
+     type: "premium",
+     year: "2024",
+     country: "USA",
+     duration: "1hr 40m ",
+     synopsis: "Disaster strikes on Aug. 5, 2010, as a copper and gold mine collapses in Chile, trapping 33 men underground. With more than 2,000 feet of rock in their way, members of a rescue team work tirelessly for 69 days to save the seemingly doomed crew. Beneath the rubble, the miners begin an epic quest to survive, contending with suffocating heat and the need for food and water. With family, friends and the rest of the world watching, it becomes a race against time and a true test of the human spirit."
+   },
+    {
                                id: "totheforbidden", title: "JOURNEY TO THE FORBIDDEN",
      poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgwHINEMUBIJEDx9IFq1XJD5L4ttp9ErxoKg&s",
      video: "https://drive.google.com/file/d/14-jA1eqq90KA5zkzTEsLDaY9fJS9x_Va/preview",
