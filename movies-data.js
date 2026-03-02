@@ -9,7 +9,7 @@ const MOVIES = [
      year: "2025",
      country: "USA",
      duration: "1hr 40m ",
-     synopsis: "revolve around themes of divine intervention, fate, and morality, often blending action with mythological "religious" elements of ancient Greek belief"
+     synopsis: "revolve around themes of divine intervention fate and morality often blending action with mythological religious elements of ancient Greek belief"
    },
     {
                       id: "thedeadwants", title: "THE DEAD WANTS TO EAT",
