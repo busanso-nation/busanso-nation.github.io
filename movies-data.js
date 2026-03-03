@@ -2,6 +2,16 @@
 const MOVIES = [
     
       {
+                                                     id: "anderes", title: "ANDERE SHAKTI",
+     poster: "https://in.bmscdn.com/events/moviecard/et00432689.jpg",
+     video: "https://www.youtube.com/embed/cQxA0NXWOVg",
+     type: "premium",
+     year: "2026",
+     country: "India",
+     duration: "1hr 40m ",
+     synopsis: "is a Kannada action-thriller focusing on Carbon Vybhav a city-based man who returns to his roots to protect his community, the dying"
+   },
+    {
                                               id: "notorious", title: "NOTORIOUS",
      poster: "https://i.ibb.co/gZGyjcJS/ZZZZZZZZZZZZZZZZZZZZZ.jpg",
      video: "https://drive.google.com/file/d/1UGtX7Scy7yC1JFutH843jNMFduEP-VmI/preview",
