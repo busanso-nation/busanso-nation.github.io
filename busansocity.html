@@ -6,168 +6,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* --- styles unchanged --- */
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:linear-gradient(135deg,#0f0f0f,#1a1a2e);
-  color:#fff;
-  font-family:'Comic Sans MS', Arial, sans-serif;
-}
-.logo{
-  display:flex;
-  justify-content:center;
-  padding:16px 10px 6px;
-}
-.logo img{
-  height:50px;
-  border-radius:12px;
-}
-.nav{
-  display:flex;
-  gap:10px;
-  padding:12px;
-  background:#111;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-.nav button{
-  flex:1;
-  padding:14px;
-  border:none;
-  border-radius:18px;
-  background:linear-gradient(45deg, #ff7f50, #ff6347);
-  color:#fff;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
-  transition:.3s;
-  box-shadow: 0 4px 12px rgba(0,0,0,.5);
-}
-.nav button:nth-child(2){background:linear-gradient(45deg, #6a5acd, #836fff);}
-.nav button:nth-child(3){background:linear-gradient(45deg, #20b2aa, #3cb371);}
-.nav button:nth-child(4){background:linear-gradient(45deg, #ff69b4, #ff1493);}
-.nav button:hover{
-  filter: brightness(1.2) saturate(1.3);
-  transform:translateY(-2px) scale(1.05);
-}
-.search{
-  padding:16px;
-}
-.search input, .search select{
-  width:100%;
-  padding:14px;
-  border-radius:18px;
-  border:none;
-  background:#222;
-  color:#fff;
-  font-size:16px;
-  box-shadow:0 4px 12px rgba(0,0,0,.5);
-  margin-bottom:10px;
-}
-.movies{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-  padding:16px;
-  margin-bottom:80px;
-}
-@media(min-width:600px){.movies{grid-template-columns:repeat(4,1fr);}}
-@media(min-width:900px){.movies{grid-template-columns:repeat(5,1fr);}}
-.card{
-  background:linear-gradient(145deg,#181818,#282828);
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 10px 30px rgba(0,0,0,.45);
-  opacity:0;
-  transform:translateY(20px);
-  animation:fade .4s forwards;
-  position:relative;
-  transition:.25s;
-}
-.card:hover{transform:translateY(-5px) scale(1.02);}
+body{margin:0;background:linear-gradient(135deg,#0f0f0f,#1a1a2e);color:#fff;font-family:'Comic Sans MS', Arial, sans-serif}
+.logo{display:flex;justify-content:center;padding:16px 10px 6px}
+.logo img{height:50px;border-radius:12px}
+.nav{display:flex;gap:10px;padding:12px;background:#111;position:sticky;top:0;z-index:10}
+.nav button{flex:1;padding:14px;border:none;border-radius:18px;background:linear-gradient(45deg,#ff7f50,#ff6347);color:#fff;font-weight:bold;font-size:16px;cursor:pointer;transition:.3s;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.nav button:nth-child(2){background:linear-gradient(45deg,#6a5acd,#836fff)}
+.nav button:nth-child(3){background:linear-gradient(45deg,#20b2aa,#3cb371)}
+.nav button:nth-child(4){background:linear-gradient(45deg,#ff69b4,#ff1493)}
+.nav button:hover{filter:brightness(1.2) saturate(1.3);transform:translateY(-2px) scale(1.05)}
+.search{padding:16px}
+.search input,.search select{width:100%;padding:14px;border-radius:18px;border:none;background:#222;color:#fff;font-size:16px;box-shadow:0 4px 12px rgba(0,0,0,.5);margin-bottom:10px}
+.movies{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:16px;margin-bottom:80px}
+@media(min-width:600px){.movies{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:900px){.movies{grid-template-columns:repeat(5,1fr)}}
+.card{background:linear-gradient(145deg,#181818,#282828);border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0;transform:translateY(20px);animation:fade .4s forwards;position:relative;transition:.25s}
+.card:hover{transform:translateY(-5px) scale(1.02)}
 @keyframes fade{to{opacity:1;transform:none}}
-.card img{
-  width:100%;
-  aspect-ratio:2/3;
-  object-fit:cover;
-  border-bottom:2px solid #444;
-}
-.badge{
-  position:absolute;
-  top:10px;
-  left:10px;
-  padding:6px 12px;
-  font-size:12px;
-  font-weight:bold;
-  border-radius:12px;
-  text-transform:uppercase;
-  box-shadow:0 2px 8px rgba(0,0,0,.6);
-}
+.card img{width:100%;aspect-ratio:2/3;object-fit:cover;border-bottom:2px solid #444}
+.badge{position:absolute;top:10px;left:10px;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:12px;text-transform:uppercase;box-shadow:0 2px 8px rgba(0,0,0,.6)}
 .badge.free{background:#28a745}
 .badge.premium{background:#e50914}
 .info{padding:14px}
-.title{
-  font-weight:bold;
-  font-size:16px;
-  text-shadow:0 1px 4px rgba(0,0,0,.7);
-}
-.meta{
-  font-size:13px;
-  color:#ccc;
-  margin:6px 0 6px;
-}
-.created{
-  font-size:12px;
-  color:#aaa;
-  margin-bottom:6px;
-}
-.watch{
-  width:100%;
-  padding:16px;
-  border:none;
-  border-radius:20px;
-  background:linear-gradient(45deg,#e50914,#ff416c);
-  color:#fff;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
-  transition:.25s;
-  box-shadow:0 4px 12px rgba(0,0,0,.6);
-}
-.watch:hover{
-  background:linear-gradient(45deg,#ff416c,#e50914);
-  transform:scale(1.03);
-}
-.footer-categories{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  display:flex;
-  justify-content:space-around;
-  gap:10px;
-  padding:10px 12px;
-  background:#111;
-  z-index:20;
-  box-shadow:0 -4px 12px rgba(0,0,0,.6);
-}
-.footer-categories button{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:18px;
-  background:linear-gradient(45deg,#282828,#383838);
-  color:#fff;
-  font-weight:bold;
-  font-size:14px;
-  cursor:pointer;
-  transition:.25s;
-}
-.footer-categories button:hover{
-  background:linear-gradient(45deg,#e50914,#ff416c);
-  transform:translateY(-2px);
-}
+.title{font-weight:bold;font-size:16px;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.meta{font-size:13px;color:#ccc;margin:6px 0 6px}
+.created{font-size:12px;color:#aaa;margin-bottom:6px}
+.watch{width:100%;padding:16px;border:none;border-radius:20px;background:linear-gradient(45deg,#e50914,#ff416c);color:#fff;font-weight:bold;font-size:16px;cursor:pointer;transition:.25s;box-shadow:0 4px 12px rgba(0,0,0,.6)}
+.watch:hover{background:linear-gradient(45deg,#ff416c,#e50914);transform:scale(1.03)}
+.footer-categories{position:fixed;bottom:0;left:0;width:100%;display:flex;justify-content:space-around;gap:10px;padding:10px 12px;background:#111;z-index:20;box-shadow:0 -4px 12px rgba(0,0,0,.6)}
+.footer-categories button{flex:1;padding:12px;border:none;border-radius:18px;background:linear-gradient(45deg,#282828,#383838);color:#fff;font-weight:bold;font-size:14px;cursor:pointer;transition:.25s}
+.footer-categories button:hover{background:linear-gradient(45deg,#e50914,#ff416c);transform:translateY(-2px)}
 </style>
 </head>
 
@@ -210,7 +80,7 @@ body{
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 const supabaseUrl = 'https://dhkfhhybzcxdeoalcfqx.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWx4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const box = document.getElementById("list");
@@ -220,18 +90,18 @@ let activeCountry = null;
 let activeGenre = null;
 let MOVIES = [];
 
-/* RENDER MOVIES */
+/* --- RENDER CARDS --- */
 function render(data){
   box.innerHTML = "";
   if(!data || data.length === 0){
-    box.innerHTML = "<p>No movies found.</p>";
+    box.innerHTML = "<p>No movies available.</p>";
     return;
   }
 
-  data.forEach((m, i) => {
+  data.forEach((m,i)=>{
     const c = document.createElement("div");
     c.className = "card";
-    c.style.animationDelay = (i * 0.05) + "s";
+    c.style.animationDelay = (i*0.05)+"s";
 
     const badge = m.type ? `<div class="badge ${m.type.toLowerCase()}">${m.type}</div>` : "";
     const created = m.created_at ? `<div class="created">Added: ${new Date(m.created_at).toLocaleDateString()}</div>` : "";
@@ -252,7 +122,7 @@ function render(data){
   });
 }
 
-/* APPLY FILTERS */
+/* --- FILTERS --- */
 function applyFilters(){
   let filtered = [...MOVIES];
 
@@ -262,7 +132,6 @@ function applyFilters(){
   if(activeGenre){
     filtered = filtered.filter(m => m.genre && m.genre.toLowerCase() === activeGenre.toLowerCase());
   }
-
   const q = search.value.trim().toLowerCase();
   if(q){
     filtered = filtered.filter(m => m.title.toLowerCase().includes(q));
@@ -271,7 +140,6 @@ function applyFilters(){
   render(filtered);
 }
 
-/* COUNTRY FILTER BUTTONS */
 function filterCountry(country, btn){
   activeCountry = country === 'ALL' ? null : country;
   highlightActive(btn);
@@ -279,23 +147,18 @@ function filterCountry(country, btn){
 }
 
 function highlightActive(btn){
-  document.querySelectorAll(".footer-categories button").forEach(b => {
-    b.style.background = "linear-gradient(45deg,#282828,#383838)";
-  });
-  btn.style.background = "linear-gradient(45deg,#e50914,#ff416c)";
+  document.querySelectorAll(".footer-categories button").forEach(b=>b.style.background="linear-gradient(45deg,#282828,#383838)");
+  btn.style.background="linear-gradient(45deg,#e50914,#ff416c)";
 }
 
-/* SEARCH INPUT */
 search.oninput = applyFilters;
-
-/* GENRE SELECT */
 genreSelect.onchange = () => {
   const val = genreSelect.value;
   activeGenre = val === "ALL" ? null : val;
   applyFilters();
 }
 
-/* FETCH MOVIES FROM SUPABASE */
+/* --- LOAD MOVIES FROM SUPABASE --- */
 async function loadMovies(){
   const { data, error } = await supabase
     .from('movies')
@@ -314,37 +177,7 @@ async function loadMovies(){
   }
 
   MOVIES = data;
-  render(MOVIES); // render all movies on initial load
-}
-
-/* COUNTRY FILTER */
-function filterCountry(country, btn){
-  if(country.toUpperCase() === 'ALL'){ 
-    activeCountry = null; 
-  } else { 
-    activeCountry = country.toUpperCase(); 
-  }
-  highlightActive(btn);
-  applyFilters();
-}
-
-/* APPLY FILTERS */
-function applyFilters(){
-  let filtered = MOVIES;
-
-  if(activeCountry){
-    filtered = filtered.filter(m => m.country && m.country.toUpperCase() === activeCountry);
-  }
-  if(activeGenre){
-    filtered = filtered.filter(m => m.genre && m.genre.toUpperCase() === activeGenre);
-  }
-
-  const q = search.value.toLowerCase();
-  if(q){
-    filtered = filtered.filter(m => m.title.toLowerCase().includes(q));
-  }
-
-  render(filtered);
+  render(MOVIES);
 }
 
 // INITIAL LOAD
