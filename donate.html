@@ -5,7 +5,6 @@
 <title>BUSANSO – Series</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ACTIVE PIN CHECK -->
 <script>
 const activePIN = localStorage.getItem("activePIN");
 if(!activePIN || activePIN === "undefined" || activePIN === ""){
@@ -21,122 +20,30 @@ body{
   color:#eaf6ff;
   font-family:Arial, sans-serif;
 }
-.logo{
-  display:flex;
-  justify-content:center;
-  padding:18px 10px 10px;
-  background:#07141c;
-}
+.logo{display:flex;justify-content:center;padding:18px 10px 10px;background:#07141c;}
 .logo img{height:46px;}
-.nav{
-  display:flex;
-  gap:12px;
-  padding:14px;
-  background:#07141c;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-.nav button{
-  flex:1;
-  padding:14px;
-  border:none;
-  border-radius:18px;
-  background:linear-gradient(135deg,#1f6cff,#29ffd8);
-  color:#001018;
-  font-weight:bold;
-  font-size:14px;
-  cursor:pointer;
-  transition:.25s;
-}
-.nav button:hover{
-  transform:translateY(-2px) scale(1.02);
-  filter:brightness(1.1);
-}
-.search{
-  padding:16px;
-  background:#07141c;
-}
-.search input{
-  width:100%;
-  padding:16px;
-  border-radius:20px;
-  border:none;
-  background:#102a38;
-  color:#eaf6ff;
-  font-size:15px;
-}
-.series{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  padding:16px;
-  margin-bottom:140px;
-}
-.card{
-  background:linear-gradient(180deg,#102a38,#0b1c24);
-  border-radius:22px;
-  overflow:hidden;
-  box-shadow:0 14px 35px rgba(0,0,0,.5);
-  opacity:0;
-  transform:translateY(20px);
-  animation:fade .4s forwards;
-  transition:.25s;
-}
+.nav{display:flex;gap:12px;padding:14px;background:#07141c;position:sticky;top:0;z-index:10;}
+.nav button{flex:1;padding:14px;border:none;border-radius:18px;background:linear-gradient(135deg,#1f6cff,#29ffd8);color:#001018;font-weight:bold;font-size:14px;cursor:pointer;transition:.25s;}
+.nav button:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.1);}
+.filters{display:flex;gap:12px;padding:16px;background:#07141c;justify-content:flex-start;align-items:center;}
+.filters select{padding:8px 10px;border-radius:12px;border:none;background:#102a38;color:#eaf6ff;font-size:14px;cursor:pointer;}
+.search{padding:16px;background:#07141c;}
+.search input{width:100%;padding:12px;border-radius:20px;border:none;background:#102a38;color:#eaf6ff;font-size:15px;}
+.search input::placeholder{color:#9fc6d9;}
+.series{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:16px;margin-bottom:80px;}
+@media(min-width:768px){.series{grid-template-columns:repeat(4,1fr);gap:16px;}}
+@media(min-width:1200px){.series{grid-template-columns:repeat(5,1fr);gap:18px;}}
+.card{background:linear-gradient(180deg,#102a38,#0b1c24);border-radius:22px;overflow:hidden;box-shadow:0 14px 35px rgba(0,0,0,.5);opacity:0;transform:translateY(20px);animation:fade .4s forwards;transition:.25s;}
 .card:hover{transform:translateY(-6px);}
 @keyframes fade{to{opacity:1;transform:none}}
-.card img{
-  width:100%;
-  aspect-ratio:2/3;
-  object-fit:cover;
-}
+.card img{width:100%;aspect-ratio:2/3;object-fit:cover;}
 .info{padding:12px}
 .title{font-weight:bold;font-size:14px;}
-.meta{
-  font-size:11px;
-  color:#9fc6d9;
-  margin:6px 0 12px;
-}
-.watch{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:20px;
-  background:linear-gradient(135deg,#ff7a18,#ffb347);
-  color:#2a0d00;
-  font-weight:bold;
-  font-size:13px;
-  cursor:pointer;
-}
-.footer-filters{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  padding:10px;
-  background:#07141c;
-}
-.footer-filters .row{
-  display:flex;
-  gap:6px;
-}
-.footer-filters button{
-  flex:1;
-  padding:10px;
-  border:none;
-  border-radius:18px;
-  background:linear-gradient(45deg,#102a38,#1f3f54);
-  color:#eaf6ff;
-  font-weight:bold;
-  font-size:12px;
-  cursor:pointer;
-}
+.meta{font-size:11px;color:#9fc6d9;margin:6px 0 12px;}
+.watch{width:100%;padding:8px;border:none;border-radius:16px;background:linear-gradient(135deg,#ff7a18,#ffb347);color:#2a0d00;font-weight:bold;font-size:12px;cursor:pointer;}
+.watch:hover{transform:scale(1.03);filter:brightness(1.1);}
 </style>
 </head>
-
 <body>
 
 <div class="logo">
@@ -150,38 +57,34 @@ body{
   <button onclick="location.href='marriage.html'">💍 Marriage Tips</button>
 </div>
 
+<div class="filters">
+  <select id="genreFilter">
+    <option value="ALL">All Genres</option>
+    <option value="ACTION">Action</option>
+    <option value="DRAMA">Drama</option>
+    <option value="COMEDY">Comedy</option>
+  </select>
+  <select id="countryFilter">
+    <option value="ALL">All Countries</option>
+    <option value="INDIA">India</option>
+    <option value="USA">USA</option>
+    <option value="KOREA">Korea</option>
+  </select>
+</div>
+
 <div class="search">
   <input id="search" placeholder="Search series...">
 </div>
 
 <div class="series" id="list"></div>
 
-<!-- FILTERS -->
-<div class="footer-filters">
-
-  <!-- GENRE -->
-  <div class="row">
-    <button onclick="filterGenre('ALL',this)">ALL</button>
-    <button onclick="filterGenre('ACTION',this)">ACTION</button>
-    <button onclick="filterGenre('DRAMA',this)">DRAMA</button>
-    <button onclick="filterGenre('COMEDY',this)">COMEDY</button>
-  </div>
-
-  <!-- COUNTRY -->
-  <div class="row">
-    <button onclick="filterCountry('ALL',this)">ALL</button>
-    <button onclick="filterCountry('INDIA',this)">INDIA</button>
-    <button onclick="filterCountry('USA',this)">USA</button>
-    <button onclick="filterCountry('KOREA',this)">KOREA</button>
-  </div>
-
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script>
 const box=document.getElementById("list");
 const search=document.getElementById("search");
+const genreSelect=document.getElementById("genreFilter");
+const countrySelect=document.getElementById("countryFilter");
 
 let activeGenre=null;
 let activeCountry=null;
@@ -191,37 +94,25 @@ const SUPABASE_URL="https://dhkfhhybzcxdeoalcfqx.supabase.co";
 const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY";
 const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 
-/* LOAD NEWEST FIRST */
 async function loadSeries(){
   const {data,error}=await supabaseClient
     .from("series")
     .select("*")
     .order("created_at",{ascending:false});
-
   if(error){console.error(error);return;}
-
   SERIES=data;
   applyFilters();
 }
 
-/* APPLY ALL FILTERS TOGETHER */
 function applyFilters(){
   let filtered=SERIES;
-
-  if(activeGenre)
-    filtered=filtered.filter(s=>s.genre && s.genre.toUpperCase()===activeGenre);
-
-  if(activeCountry)
-    filtered=filtered.filter(s=>s.country && s.country.toUpperCase()===activeCountry);
-
+  if(activeGenre && activeGenre!=="ALL") filtered=filtered.filter(s=>s.genre?.toUpperCase()===activeGenre);
+  if(activeCountry && activeCountry!=="ALL") filtered=filtered.filter(s=>s.country?.toUpperCase()===activeCountry);
   const q=search.value.toLowerCase();
-  if(q)
-    filtered=filtered.filter(s=>s.title.toLowerCase().includes(q));
-
+  if(q) filtered=filtered.filter(s=>s.title.toLowerCase().includes(q));
   render(filtered);
 }
 
-/* RENDER */
 function render(data){
   box.innerHTML="";
   data.forEach((s,i)=>{
@@ -233,27 +124,17 @@ function render(data){
       <div class="info">
         <div class="title">${s.title}</div>
         <div class="meta">${s.country||''} • ${s.genre||''} • ${s.year||''}</div>
-        <button class="watch">▶ Watch Series</button>
+        <button class="watch">▶ WATCH</button>
       </div>`;
     c.querySelector("button").onclick=()=>location.href=`serie.html?id=${s.id}`;
     box.appendChild(c);
   });
 }
 
-/* GENRE */
-function filterGenre(g,btn){
-  activeGenre=g==='ALL'?null:g;
-  applyFilters();
-}
-
-/* COUNTRY */
-function filterCountry(c,btn){
-  activeCountry=c==='ALL'?null:c;
-  applyFilters();
-}
-
-/* SEARCH */
+/* Event listeners */
 search.oninput=applyFilters;
+genreSelect.onchange=()=>{activeGenre=genreSelect.value;applyFilters();}
+countrySelect.onchange=()=>{activeCountry=countrySelect.value;applyFilters();}
 
 loadSeries();
 </script>
