@@ -2,6 +2,18 @@
 const MOVIES = [
     
       {
+          
+                                                     id: "daniyal", title: "DANIYAL",
+     poster: "https://i.ibb.co/fYJvDSst/NNNNNNNNNNNNNNNNNNN.jpg",
+     video: "https://www.youtube.com/embed/3Emct5Ikffc",
+     type: "premium",
+     year: "2026",
+     country: "India",
+     duration: "1hr 40m ",
+     synopsis: "Sean Durkin, is a psychological drama about Rory  and their children from the US to a large English country manor in the 1980s Driven by greed and the desire for status, Rory’s risky business endeavors and lavish unaffordable lifestyle cause the family's relationships and mental health to unravel, exposing deep cracks in their marriage"
+   },
+    {
+     
                                                      id: "anderes", title: "ANDERE SHAKTI",
      poster: "https://in.bmscdn.com/events/moviecard/et00432689.jpg",
      video: "https://www.youtube.com/embed/cQxA0NXWOVg",
