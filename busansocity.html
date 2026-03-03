@@ -219,32 +219,49 @@ let activeCountry = null;
 let activeGenre = null;
 let MOVIES = [];
 
+<div id="list"></div>
+
+<script>
+const box = document.getElementById("list");
+let MOVIES = [];
+
 /* RENDER MOVIES */
 function render(data){
-  box.innerHTML = "";
+  box.innerHTML = ""; // clear existing cards
+
+  if(!data || data.length === 0){
+    box.innerHTML = "<p>No movies found.</p>";
+    return;
+  }
+
   data.forEach((m, i) => {
     const c = document.createElement("div");
     c.className = "card";
     c.style.animationDelay = i * 0.05 + "s";
 
+    // Correct field for badge
     const badge = m.type ? `<div class="badge ${m.type.toLowerCase()}">${m.type}</div>` : "";
 
-    const created = m.created_at 
-      ? `<div class="created">Added: ${new Date(m.created_at).toLocaleDateString()}</div>` 
-      : "";
+    // created_at
+    const created = m.created_at ? `<div class="created">Added: ${new Date(m.created_at).toLocaleDateString()}</div>` : "";
 
     c.innerHTML = `
       ${badge}
       <img src="${m.poster}" alt="${m.title}">
       <div class="info">
         <div class="title">${m.title}</div>
-        <div class="meta">${m.country} • ${m.year} • ${m.genre || ''}</div>
+        <div class="meta">${m.country || ''} • ${m.year || ''} • ${m.genre || ''}</div>
         ${created}
         <button class="watch">▶ Watch</button>
       </div>
     `;
 
-    c.querySelector("button").onclick = () => location.href = `movie.html?id=${m.id}`;
+    // Click button to movie page
+    const btn = c.querySelector("button.watch");
+    if(btn){
+      btn.onclick = () => location.href = `movie.html?id=${m.id}`;
+    }
+
     box.appendChild(c);
   });
 }
@@ -257,15 +274,23 @@ async function loadMovies(){
     .order('title', { ascending: true });
 
   if(error){
-    console.error(error);
+    console.error("Supabase fetch error:", error);
+    box.innerHTML = "<p>Failed to load movies.</p>";
+    return;
+  }
+
+  if(!data || data.length === 0){
+    box.innerHTML = "<p>No movies available.</p>";
     return;
   }
 
   MOVIES = data;
-  applyFilters();
+  render(MOVIES); // directly render after fetching
 }
 
+// Call fetch
 loadMovies();
+</script>
 /* COMBINED FILTER FUNCTION */
 function applyFilters(){
   let filtered = MOVIES;
