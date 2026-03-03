@@ -295,12 +295,12 @@ genreSelect.onchange = () => {
   applyFilters();
 }
 
-/* FETCH MOVIES - NEWEST FIRST */
+/* FETCH MOVIES FROM SUPABASE */
 async function loadMovies(){
   const { data, error } = await supabase
     .from('movies')
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false }); // newest first
 
   if(error){
     console.error("Supabase fetch error:", error);
@@ -308,8 +308,43 @@ async function loadMovies(){
     return;
   }
 
-  MOVIES = data || [];
-  render(MOVIES);
+  if(!data || data.length === 0){
+    box.innerHTML = "<p>No movies available.</p>";
+    return;
+  }
+
+  MOVIES = data;
+  render(MOVIES); // render all movies on initial load
+}
+
+/* COUNTRY FILTER */
+function filterCountry(country, btn){
+  if(country.toUpperCase() === 'ALL'){ 
+    activeCountry = null; 
+  } else { 
+    activeCountry = country.toUpperCase(); 
+  }
+  highlightActive(btn);
+  applyFilters();
+}
+
+/* APPLY FILTERS */
+function applyFilters(){
+  let filtered = MOVIES;
+
+  if(activeCountry){
+    filtered = filtered.filter(m => m.country && m.country.toUpperCase() === activeCountry);
+  }
+  if(activeGenre){
+    filtered = filtered.filter(m => m.genre && m.genre.toUpperCase() === activeGenre);
+  }
+
+  const q = search.value.toLowerCase();
+  if(q){
+    filtered = filtered.filter(m => m.title.toLowerCase().includes(q));
+  }
+
+  render(filtered);
 }
 
 // INITIAL LOAD
