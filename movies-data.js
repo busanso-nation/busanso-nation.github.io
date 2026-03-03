@@ -17,7 +17,7 @@ const MOVIES = [
      video: "https://drive.google.com/file/d/1KUnPf5Vhco9xkmd0tXEptNQ96SycFoXx/preview",
      type: "premium",
      year: "2024",
-     country: "USA",
+     country: "China",
      duration: "Comedy ",
      synopsis: "Set in the city of Chongqing, the plot revolves around a struggling, nearly bankrupt, state-owned factory that discovers a priceless piece of jade in its old latrine. The factory owner decides to exhibit the stone to save the business, making it the target of multiple parties.,"
    },
@@ -27,7 +27,7 @@ const MOVIES = [
      video: "https://drive.google.com/file/d/1w9gLlP4379MJjm5czy8opdW96G0oW08f/preview",
      type: "premium",
      year: "2024",
-     country: "USA",
+     country: "China",
      duration: "1hr 40m ",
      synopsis: "Set in the city of Chongqing, the plot revolves around a struggling, nearly bankrupt, state-owned factory that discovers a priceless piece of jade in its old latrine. The factory owner decides to exhibit the stone to save the business, making it the target of multiple parties.,"
    },
@@ -37,7 +37,7 @@ const MOVIES = [
      video: "https://drive.google.com/file/d/1tT_X8zaXaZXv8zG5Zm0LykvT9Mqxfr50/preview",
      type: "premium",
      year: "2024",
-     country: "USA",
+     country: "China",
      duration: "1hr 40m ",
      synopsis: "Set in the city of Chongqing, the plot revolves around a struggling, nearly bankrupt, state-owned factory that discovers a priceless piece of jade in its old latrine. The factory owner decides to exhibit the stone to save the business, making it the target of multiple parties.,"
    },
@@ -146,7 +146,7 @@ const MOVIES = [
                     id: "poora2", title: "POORA 2",
      poster: "https://i.pinimg.com/736x/12/a4/56/12a456df3b46e0d46f808e88aac659d7.jpg",
      video: "https://drive.google.com/file/d/1fgendjCu6HXvAk1T16F2az5w1I_p8vSU/preview",
-     type: "free",
+     type: "premium",
      year: "2026",
      country: "India",
      duration: "1hr 10m ",
