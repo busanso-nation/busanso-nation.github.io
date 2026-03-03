@@ -227,9 +227,8 @@ function render(data){
     c.className = "card";
     c.style.animationDelay = i * 0.05 + "s";
 
-    const badge = m.access_type ? `<div class="badge ${m.access_type.toLowerCase()}">${m.access_type}</div>` : "";
+    const badge = m.type ? `<div class="badge ${m.type.toLowerCase()}">${m.type}</div>` : "";
 
-    // Create the created_at element if it exists
     const created = m.created_at 
       ? `<div class="created">Added: ${new Date(m.created_at).toLocaleDateString()}</div>` 
       : "";
