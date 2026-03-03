@@ -18,7 +18,7 @@ const MOVIES = [
      type: "premium",
      year: "2024",
      country: "USA",
-     duration: "1hr 40m ",
+     duration: "Comedy ",
      synopsis: "Set in the city of Chongqing, the plot revolves around a struggling, nearly bankrupt, state-owned factory that discovers a priceless piece of jade in its old latrine. The factory owner decides to exhibit the stone to save the business, making it the target of multiple parties.,"
    },
     {
