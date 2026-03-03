@@ -2,6 +2,17 @@
 const MOVIES = [
     
       {
+          
+                                       id: "OPS", title: "SPECIAL OPS",
+     poster: "https://m.media-amazon.com/images/M/MV5BMmU3ZDdlNWUtMDAzOS00MTRiLThjNDctYTg5ZmU2ZmZlNGMxXkEyXkFqcGc@._V1_.jpg",
+     video: "https://drive.google.com/file/d/11sz1xV7fSnPXLFzsaFlnWIGxdYRBH3nq/view?usp=sharing",
+     type: "premium",
+     year: "2024",
+     country: "USA",
+     duration: "1hr 40m ",
+     synopsis: "is an action-thriller where Captain Kyle Fierson (A.J. Draven) must recover a stolen nuclear device and clear his name after his Black Ops unit is ambushed during a mission As he navigates betrayal and tracks down the weapon, he fights to expose the conspiracy,"
+   },
+    {
                                        id: "dragonsofwalled", title: "DRAGONS OF WALLED CITY",
      poster: "https://filmexposure.ch/wp-content/uploads/2024/05/walled-in-poster.jpg",
      video: "https://drive.google.com/file/d/1iq39BRbhd7KvomMy8KD0xVFEwVi0nnoL/preview",
