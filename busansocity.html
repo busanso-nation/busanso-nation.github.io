@@ -267,25 +267,19 @@ function render(data){
 
 /* FETCH MOVIES FROM SUPABASE */
 async function loadMovies(){
-  try {
-    const { data, error } = await supabase
-      .from('movies')
-      .select('*')
-      .order('title', { ascending: true });
+  const { data, error } = await supabase
+    .from('movies')
+    .select('*')
+    .order('created_at', { ascending: false }); // newest first
 
-    if(error){
-      console.error("Supabase fetch error:", error);
-      box.innerHTML = "<p style='color:#fff; text-align:center;'>Failed to load movies. Check RLS & table permissions.</p>";
-      return;
-    }
+  if(error){
+    console.error("Supabase fetch error:", error);
+    box.innerHTML = "<p>Failed to load movies.</p>";
+    return;
+  }
 
-    if(!data || data.length === 0){
-      box.innerHTML = "<p style='color:#fff; text-align:center;'>No movies found.</p>";
-      return;
-    }
-
-    MOVIES = data;
-    render(MOVIES);
+  MOVIES = data;
+  render(MOVIES);
 
   } catch(err){
     console.error("Unexpected error:", err);
