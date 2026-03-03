@@ -14,7 +14,7 @@ const MOVIES = [
     {
                                            id: "sbridge2", title: "STONE BRIDGE 2",
      poster: "https://i.ibb.co/5hkh8WdV/llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll.jpg",
-     video: "https://drive.google.com/file/d/1KUnPf5Vhco9xkmd0tXEptNQ96SycFoXx/preview",
+     video: "https://drive.google.com/file/d/1w9gLlP4379MJjm5czy8opdW96G0oW08f/preview",
      type: "premium",
      year: "2024",
      country: "USA",
@@ -24,7 +24,7 @@ const MOVIES = [
     {
                                            id: "sbridge3", title: "STONE BRIDGE 3",
      poster: "https://i.ibb.co/5hkh8WdV/llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll.jpg",
-     video: "https://drive.google.com/file/d/1KUnPf5Vhco9xkmd0tXEptNQ96SycFoXx/preview",
+     video: "https://drive.google.com/file/d/1tT_X8zaXaZXv8zG5Zm0LykvT9Mqxfr50/preview",
      type: "premium",
      year: "2024",
      country: "USA",
