@@ -209,32 +209,40 @@ body{
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
+// Supabase client
 const supabaseUrl = 'https://dhkfhhybzcxdeoalcfqx.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWx4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// DOM elements
 const box = document.getElementById("list");
 const search = document.getElementById("search");
 const genreSelect = document.getElementById("genreFilter");
+
+// Filters
 let MOVIES = [];
 let activeCountry = null;
 let activeGenre = null;
 
 /* RENDER MOVIES */
 function render(data){
-  box.innerHTML = "";
-  if(!data || data.length===0){
-    box.innerHTML = "<p>No movies found.</p>";
+  box.innerHTML = ""; // clear cards
+
+  if(!data || data.length === 0){
+    box.innerHTML = "<p style='color:#fff; text-align:center; grid-column:1/-1;'>No movies found.</p>";
     return;
   }
 
-  data.forEach((m,i)=>{
+  data.forEach((m, i) => {
     const c = document.createElement("div");
     c.className = "card";
-    c.style.animationDelay = i*0.05+"s";
+    c.style.animationDelay = i * 0.05 + "s";
 
+    // badge from type (free/premium)
     const badge = m.type ? `<div class="badge ${m.type.toLowerCase()}">${m.type}</div>` : "";
-    const created = m.created_at ? `<div class="created">Added: ${new Date(m.created_at).toLocaleDateString()}</div>` : "";
+
+    // created_at formatting
+    const created = m.created_at ? `<div class="created" style="font-size:12px; color:#aaa; margin-top:4px;">Added: ${new Date(m.created_at).toLocaleDateString()}</div>` : "";
 
     c.innerHTML = `
       ${badge}
@@ -247,56 +255,91 @@ function render(data){
       </div>
     `;
 
-    c.querySelector("button.watch").onclick = ()=> location.href=`movie.html?id=${m.id}`;
+    // watch button click
+    const btn = c.querySelector("button.watch");
+    if(btn){
+      btn.onclick = () => location.href = `movie.html?id=${m.id}`;
+    }
+
     box.appendChild(c);
   });
 }
 
 /* FETCH MOVIES FROM SUPABASE */
 async function loadMovies(){
-  const { data, error } = await supabase
-    .from('movies')
-    .select('*')
-    .order('title',{ascending:true});
+  try {
+    const { data, error } = await supabase
+      .from('movies')
+      .select('*')
+      .order('title', { ascending: true });
 
-  if(error){
-    console.error("Supabase fetch error:", error);
-    box.innerHTML="<p>Failed to load movies.</p>";
-    return;
+    if(error){
+      console.error("Supabase fetch error:", error);
+      box.innerHTML = "<p style='color:#fff; text-align:center;'>Failed to load movies. Check RLS & table permissions.</p>";
+      return;
+    }
+
+    if(!data || data.length === 0){
+      box.innerHTML = "<p style='color:#fff; text-align:center;'>No movies found.</p>";
+      return;
+    }
+
+    MOVIES = data;
+    render(MOVIES);
+
+  } catch(err){
+    console.error("Unexpected error:", err);
+    box.innerHTML = "<p style='color:#fff; text-align:center;'>Failed to load movies.</p>";
   }
-
-  MOVIES = data;
-  applyFilters();
 }
 
-function applyFilters(){
-  let filtered = MOVIES;
-  if(activeCountry) filtered = filtered.filter(m=>m.country && m.country.toUpperCase()===activeCountry);
-  if(activeGenre) filtered = filtered.filter(m=>m.genre && m.genre.toUpperCase()===activeGenre);
-  const q = search.value.toLowerCase();
-  if(q) filtered = filtered.filter(m=>m.title.toLowerCase().includes(q));
-  render(filtered);
-}
+// Call fetch on page load
+loadMovies();
 
-search.oninput = applyFilters;
-genreSelect.onchange = ()=>{
+/* SEARCH FILTER */
+search.oninput = () => applyFilters();
+
+/* GENRE FILTER */
+genreSelect.onchange = () => {
   const val = genreSelect.value.toUpperCase();
-  activeGenre = val==="ALL"?null:val;
+  activeGenre = val === "ALL" ? null : val;
   applyFilters();
-}
+};
 
+/* COUNTRY FILTER */
 function filterCountry(country, btn){
-  activeCountry = country==="ALL"?null:country.toUpperCase();
+  activeCountry = (country === 'ALL') ? null : country.toUpperCase();
   highlightActive(btn);
   applyFilters();
 }
 
-function highlightActive(btn){
-  document.querySelectorAll(".footer-categories button").forEach(b=>{
-    b.style.background="linear-gradient(45deg,#282828,#383838)";
-  });
-  btn.style.background="linear-gradient(45deg,#e50914,#ff416c)";
+/* APPLY FILTERS */
+function applyFilters(){
+  let filtered = MOVIES;
+
+  if(activeCountry){
+    filtered = filtered.filter(m => m.country && m.country.toUpperCase() === activeCountry);
+  }
+  if(activeGenre){
+    filtered = filtered.filter(m => m.genre && m.genre.toUpperCase() === activeGenre);
+  }
+
+  const query = search.value.toLowerCase();
+  if(query){
+    filtered = filtered.filter(m => m.title.toLowerCase().includes(query));
+  }
+
+  render(filtered);
 }
+
+/* HIGHLIGHT ACTIVE COUNTRY BUTTON */
+function highlightActive(btn){
+  document.querySelectorAll(".footer-categories button").forEach(b => {
+    b.style.background = "linear-gradient(45deg,#282828,#383838)";
+  });
+  btn.style.background = "linear-gradient(45deg,#e50914,#ff416c)";
+}
+</script>
 
 // INITIAL LOAD
 loadMovies();
