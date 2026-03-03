@@ -3,13 +3,33 @@ const MOVIES = [
     
       {
                                           id: "sbridge", title: "STONE BRIDGE",
-     poster: "https://m.media-amazon.com/images/M/MV5BMmU3ZDdlNWUtMDAzOS00MTRiLThjNDctYTg5ZmU2ZmZlNGMxXkEyXkFqcGc@._V1_.jpg",
-     video: "https://drive.google.com/file/d/11sz1xV7fSnPXLFzsaFlnWIGxdYRBH3nq/view?usp=sharing",
+     poster: "https://i.ibb.co/5hkh8WdV/llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll.jpg",
+     video: "https://drive.google.com/file/d/1KUnPf5Vhco9xkmd0tXEptNQ96SycFoXx/preview",
      type: "premium",
      year: "2024",
      country: "USA",
      duration: "1hr 40m ",
-     synopsis: "is an action-thriller where Captain Kyle Fierson (A.J. Draven) must recover a stolen nuclear device and clear his name after his Black Ops unit is ambushed during a mission As he navigates betrayal and tracks down the weapon, he fights to expose the conspiracy,"
+     synopsis: "Set in the city of Chongqing, the plot revolves around a struggling, nearly bankrupt, state-owned factory that discovers a priceless piece of jade in its old latrine. The factory owner decides to exhibit the stone to save the business, making it the target of multiple parties.,"
+   },
+    {
+                                           id: "sbridge2", title: "STONE BRIDGE 2",
+     poster: "https://i.ibb.co/5hkh8WdV/llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll.jpg",
+     video: "https://drive.google.com/file/d/1KUnPf5Vhco9xkmd0tXEptNQ96SycFoXx/preview",
+     type: "premium",
+     year: "2024",
+     country: "USA",
+     duration: "1hr 40m ",
+     synopsis: "Set in the city of Chongqing, the plot revolves around a struggling, nearly bankrupt, state-owned factory that discovers a priceless piece of jade in its old latrine. The factory owner decides to exhibit the stone to save the business, making it the target of multiple parties.,"
+   },
+    {
+                                           id: "sbridge3", title: "STONE BRIDGE 3",
+     poster: "https://i.ibb.co/5hkh8WdV/llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll.jpg",
+     video: "https://drive.google.com/file/d/1KUnPf5Vhco9xkmd0tXEptNQ96SycFoXx/preview",
+     type: "premium",
+     year: "2024",
+     country: "USA",
+     duration: "1hr 40m ",
+     synopsis: "Set in the city of Chongqing, the plot revolves around a struggling, nearly bankrupt, state-owned factory that discovers a priceless piece of jade in its old latrine. The factory owner decides to exhibit the stone to save the business, making it the target of multiple parties.,"
    },
     {
           
