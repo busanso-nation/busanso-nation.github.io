@@ -2,6 +2,16 @@
 const MOVIES = [
     
       {
+                                              id: "notorious", title: "NOTORIOUS",
+     poster: "https://i.ibb.co/gZGyjcJS/ZZZZZZZZZZZZZZZZZZZZZ.jpg",
+     video: "https://drive.google.com/file/d/1UGtX7Scy7yC1JFutH843jNMFduEP-VmI/preview",
+     type: "premium",
+     year: "2024",
+     country: "USA",
+     duration: "1hr 40m ",
+     synopsis: "Chinese films carry the notorious tag with recent focus on Evil Unbound 2025"
+   },
+    {
                                           id: "sbridge", title: "STONE BRIDGE",
      poster: "https://i.ibb.co/5hkh8WdV/llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll.jpg",
      video: "https://drive.google.com/file/d/1KUnPf5Vhco9xkmd0tXEptNQ96SycFoXx/preview",
