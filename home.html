@@ -43,7 +43,6 @@ body{margin:0;background:#0b0b0b;color:#fff;font-family:'Poppins',sans-serif;}
 
 <body>
 
-<!-- STICKY HEADER + TOP BUTTONS -->
 <div class="sticky-header">
   <div class="header">
     <h1>Busanso Nation</h1>
@@ -59,12 +58,15 @@ body{margin:0;background:#0b0b0b;color:#fff;font-family:'Poppins',sans-serif;}
   </div>
 </div>
 
-<!-- SCROLLABLE CONTENT -->
 <div class="main-content">
   <div class="section">
     <h3>Latest Movies</h3>
     <div class="slider" id="moviesBox"></div>
   </div>
+
+  
+<script async="async" data-cfasync="false" src="https://pl28760946.effectivegatecpm.com/fd3cd948dadbd8aa0ae06bc1d133066f/invoke.js"></script>
+<div id="container-fd3cd948dadbd8aa0ae06bc1d133066f"></div>
 
   <div class="section">
     <h3>Latest Series</h3>
@@ -72,7 +74,41 @@ body{margin:0;background:#0b0b0b;color:#fff;font-family:'Poppins',sans-serif;}
   </div>
 
   <!-- POPUNDER VIDEO AD -->
-  <script src="https://pl28816831.effectivegatecpm.com/3b/a1/5b/3ba15bda3296425578b90365d70f5523.js"></script>
+  <script>
+    function loadPopunderAd(){
+      const s=document.createElement("script");
+      s.src="https://pl28816831.effectivegatecpm.com/3b/a1/5b/3ba15bda3296425578b90365d70f5523.js";
+      s.async=true;
+      document.body.appendChild(s);
+    }
+    document.addEventListener("click", loadPopunderAd, {once:true});
+    document.addEventListener("DOMContentLoaded", ()=>{
+      if(!/Mobi|Android/i.test(navigator.userAgent)) loadPopunderAd();
+    });
+  </script>
+
+  <!-- BOTTOM BANNER AD -->
+  <div class="ad-banner" style="text-align:center; margin:25px 0;">
+    <script>
+      function loadBannerAd(){
+        atOptions = {
+          'key':'1c9ccdb756a82c4d663014a338917bd7',
+          'format':'iframe',
+          'height':250,
+          'width':300,
+          'params':{}
+        };
+        const s=document.createElement("script");
+        s.src="https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js";
+        s.async=true;
+        document.body.appendChild(s);
+      }
+      document.addEventListener("click", loadBannerAd, {once:true});
+      document.addEventListener("DOMContentLoaded", ()=>{
+        if(!/Mobi|Android/i.test(navigator.userAgent)) loadBannerAd();
+      });
+    </script>
+  </div>
 
   <div class="section">
     <h3>Free Movies</h3>
@@ -85,8 +121,7 @@ body{margin:0;background:#0b0b0b;color:#fff;font-family:'Poppins',sans-serif;}
   </div>
 </div>
 
-<button id="audioToggle" title="Mute / Unmute" style="
-  position: fixed; bottom: 180px; right: 20px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 0 10px rgba(255,255,255,0.4); transition: 0.3s;">🔊</button>
+<button id="audioToggle" title="Mute / Unmute" style="position: fixed; bottom: 180px; right: 20px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 0 10px rgba(255,255,255,0.4); transition: 0.3s;">🔊</button>
 
 <button id="installBtn">Install App</button>
 <div id="iosHint">Tap <strong>Share → Add to Home Screen</strong></div>
@@ -97,7 +132,6 @@ body{margin:0;background:#0b0b0b;color:#fff;font-family:'Poppins',sans-serif;}
   <a href="home.html" class="btn home">Home</a>
 </div>
 
-<!-- WHATSAPP FLOATING BUTTON -->
 <a href="https://wa.me/256703888884" class="whatsapp-float" target="_blank">
    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
 </a>
@@ -108,26 +142,18 @@ body{margin:0;background:#0b0b0b;color:#fff;font-family:'Poppins',sans-serif;}
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+const supabaseUrl='https://dhkfhhybzcxdeoalcfqx.supabase.co';
+const supabaseKey='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
+const supabase=createClient(supabaseUrl,supabaseKey);
+const moviesBox=document.getElementById("moviesBox");
+const freeMoviesBox=document.getElementById("freeMoviesBox");
+const seriesBox=document.getElementById("seriesBox");
+const freeSeriesBox=document.getElementById("freeSeriesBox");
 
-const supabaseUrl = 'https://dhkfhhybzcxdeoalcfqx.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
-const supabase = createClient(supabaseUrl, supabaseKey);
+/* ===== PIN REDIRECT ===== */
+(function(){ var pin=localStorage.getItem("activePIN"); var exp=Number(localStorage.getItem("pinExpiry")); if(pin&&exp&&Date.now()<exp){ location.replace("watch.html"); }})();
 
-const moviesBox = document.getElementById("moviesBox");
-const freeMoviesBox = document.getElementById("freeMoviesBox");
-const seriesBox = document.getElementById("seriesBox");
-const freeSeriesBox = document.getElementById("freeSeriesBox");
-
-/* ===== PIN REDIRECT (UNCHANGED) ===== */
-(function(){
-  var pin = localStorage.getItem("activePIN");
-  var exp = Number(localStorage.getItem("pinExpiry"));
-  if(pin && exp && Date.now() < exp){
-    location.replace("watch.html");
-  }
-})();
-
-/* ===== CARD CREATOR (UNCHANGED LOGIC) ===== */
+/* ===== CARD CREATOR ===== */
 function createCard(item,type){
   var isPremium=item.type==="premium";
   var card=document.createElement("div");
@@ -141,7 +167,6 @@ function createCard(item,type){
   '</div>'+
   '<div class="card-title">'+item.title+'</div>'+
   '<button class="watch-btn">'+(isPremium?'Pay to Watch':'Watch')+'</button>';
-
   card.querySelector(".watch-btn").onclick=function(){
     if(isPremium) location.href="packages.html";
     else location.href=(type==="movie"?"movie.html?id=":"serie.html?id=")+item.id;
@@ -149,25 +174,16 @@ function createCard(item,type){
   return card;
 }
 
-/* ===== FETCH MOVIES + SERIES FROM SUPABASE ===== */
+/* ===== FETCH CONTENT FROM SUPABASE ===== */
 async function fetchContent(){
   try{
-    // Fetch movies
-    const { data: movies, error: mErr } = await supabase
-      .from('movies')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const { data: movies, error: mErr } = await supabase.from('movies').select('*').order('created_at',{ascending:false});
     if(mErr) console.error("Movies fetch error:", mErr);
     else movies.forEach(m=>{
       moviesBox.appendChild(createCard(m,"movie"));
       if(m.type!=="premium") freeMoviesBox.appendChild(createCard(m,"movie"));
     });
-
-    // Fetch series
-    const { data: series, error: sErr } = await supabase
-      .from('series')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const { data: series, error: sErr } = await supabase.from('series').select('*').order('created_at',{ascending:false});
     if(sErr) console.error("Series fetch error:", sErr);
     else series.forEach(s=>{
       seriesBox.appendChild(createCard(s,"series"));
@@ -175,38 +191,30 @@ async function fetchContent(){
     });
   }catch(err){console.error(err);}
 }
-
 fetchContent();
 
-/* ===== INSTALL LOGIC (UNCHANGED) ===== */
+/* ===== INSTALL LOGIC ===== */
 let deferredPrompt;
-const installBtn = document.getElementById("installBtn");
-function isStandalone(){ return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true; }
-if (isStandalone()) {
-  installBtn.textContent = "Open App";
-  installBtn.onclick = () => { window.location.href = "home.html"; }
-} else {
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault(); deferredPrompt = e;
-  });
-  installBtn.onclick = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const result = await deferredPrompt.userChoice;
-      if (result.outcome === "accepted") installBtn.textContent = "Open App";
-      deferredPrompt = null;
-    } else window.location.href = "install.html";
+const installBtn=document.getElementById("installBtn");
+function isStandalone(){ return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true; }
+if(isStandalone()){ installBtn.textContent="Open App"; installBtn.onclick=()=>{ window.location.href="home.html"; }; }
+else{
+  window.addEventListener("beforeinstallprompt",(e)=>{ e.preventDefault(); deferredPrompt=e; });
+  installBtn.onclick=async()=>{
+    if(deferredPrompt){ deferredPrompt.prompt(); const result=await deferredPrompt.userChoice; if(result.outcome==="accepted") installBtn.textContent="Open App"; deferredPrompt=null; }
+    else window.location.href="install.html";
   };
 }
 
-/* ===== AUDIO LOGIC (UNCHANGED) ===== */
-const bgAudio = document.getElementById("bgAudio");
-const audioToggle = document.getElementById("audioToggle");
-let isMuted = false;
-bgAudio.volume = 0.3;
+/* ===== AUDIO LOGIC ===== */
+const bgAudio=document.getElementById("bgAudio");
+const audioToggle=document.getElementById("audioToggle");
+let isMuted=false;
+bgAudio.volume=0.3;
 function startAudio(){ bgAudio.play().catch(()=>{}); document.removeEventListener("click",startAudio); }
-document.addEventListener("click", startAudio);
-audioToggle.onclick = () => { isMuted = !isMuted; bgAudio.muted = isMuted; audioToggle.textContent = isMuted ? "🔇" : "🔊"; };
+document.addEventListener("click",startAudio);
+audioToggle.onclick=()=>{ isMuted=!isMuted; bgAudio.muted=isMuted; audioToggle.textContent=isMuted?"🔇":"🔊"; };
 </script>
+<script src="https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js"></script>
 </body>
 </html>
