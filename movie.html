@@ -93,36 +93,43 @@ const db = getDatabase(app);
 const isPremium = !!localStorage.getItem("activePIN");
 
 /* ===== LOAD ADS ONLY FOR NON-PREMIUM ===== */
-if(!isPremium){
+if (!isPremium) {
 
-  // TOP BANNER
-  document.getElementById("topBannerAd").innerHTML = `
-    <script>
-      atOptions = {
-        'key' : '1c9ccdb756a82c4d663014a338917bd7',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-      };
-    <\/script>
-    <script src="https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js"><\/script>
+  // ===== TOP BANNER =====
+  const topScript = document.createElement("script");
+  topScript.text = `
+    atOptions = {
+      'key' : '1c9ccdb756a82c4d663014a338917bd7',
+      'format' : 'iframe',
+      'height' : 250,
+      'width' : 300,
+      'params' : {}
+    };
   `;
+  document.getElementById("topBannerAd").appendChild(topScript);
 
-  // BOTTOM BANNER
-  document.getElementById("bottomBannerAd").innerHTML = `
-    <script async data-cfasync="false"
-    src="https://pl28760946.effectivegatecpm.com/fd3cd948dadbd8aa0ae06bc1d133066f/invoke.js"><\/script>
-    <div id="container-fd3cd948dadbd8aa0ae06bc1d133066f"><\/div>
-  `;
+  const topSrcScript = document.createElement("script");
+  topSrcScript.src = "https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js";
+  topSrcScript.async = true;
+  document.getElementById("topBannerAd").appendChild(topSrcScript);
 
-  // POPUNDER (fires on first click)
-  document.addEventListener("click", function(){
-    var s=document.createElement("script");
-    s.src="https://pl28816831.effectivegatecpm.com/3b/a1/5b/3ba15bda3296425578b90365d70f5523.js";
-    s.async=true;
-    document.body.appendChild(s);
-  }, {once:true});
+  // ===== BOTTOM BANNER =====
+  const bottomScript = document.createElement("script");
+  bottomScript.src = "https://pl28760946.effectivegatecpm.com/fd3cd948dadbd8aa0ae06bc1d133066f/invoke.js";
+  bottomScript.async = true;
+  document.getElementById("bottomBannerAd").appendChild(bottomScript);
+
+  const bottomContainer = document.createElement("div");
+  bottomContainer.id = "container-fd3cd948dadbd8aa0ae06bc1d133066f";
+  document.getElementById("bottomBannerAd").appendChild(bottomContainer);
+
+  // ===== POPUNDER (fires on first click) =====
+  document.addEventListener("click", function() {
+    const popScript = document.createElement("script");
+    popScript.src = "https://pl28816831.effectivegatecpm.com/3b/a1/5b/3ba15bda3296425578b90365d70f5523.js";
+    popScript.async = true;
+    document.body.appendChild(popScript);
+  }, { once: true });
 }
 
 const params = new URLSearchParams(location.search);
