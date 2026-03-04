@@ -8,61 +8,67 @@
 <style>
 body { margin:0; background:#111; color:#fff; font-family:Arial,sans-serif; display:flex; flex-direction:column; align-items:center; }
 .banner { position:relative; width:100%; height:55vh; max-height:450px; overflow:hidden; display:flex; align-items:flex-end; justify-content:center; }
-.banner img { width:100%; height:100%; object-fit:cover; object-position:center; transition:transform 0.6s ease; transform:scale(1.1); pointer-events:none; }
-.banner::after{ content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to top, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.3) 60%, transparent 100%); pointer-events:none; }
+.banner img { width:100%; height:100%; object-fit:cover; object-position:center; transform:scale(1.1); pointer-events:none; }
+.banner::after{ content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to top, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.3) 60%, transparent 100%); }
 .banner .buttons{ position:absolute; bottom:30px; left:0; right:0; display:flex; gap:12px; justify-content:center; z-index:10; }
-button{ padding:14px 28px; font-size:16px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; box-shadow:0 2px 6px rgba(0,0,0,0.5); }
-button#watchBtn{ background:#e50914; color:#fff; }
-button#shareBtn{ background:#25D366; color:#fff; }
+button{ padding:14px 28px; font-size:16px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
+#watchBtn{ background:#e50914; color:#fff; }
+#shareBtn{ background:#25D366; color:#fff; }
 .details{ max-width:900px; margin:20px auto; padding:0 16px; }
 .player{ margin:20px auto; width:90%; max-width:1200px; aspect-ratio:16/9; display:none; border:none; border-radius:12px; }
-.ad-vertical-left,.ad-vertical-right{ position:fixed; top:120px; width:140px; display:flex; flex-direction:column; gap:25px; padding:10px; z-index:1; background:rgba(0,0,0,0.3); border-radius:8px; }
-.ad-vertical-left{ left:10px; }
-.ad-vertical-right{ right:10px; }
-.ad-horizontal{ width:100%; max-width:1200px; margin:10px auto; display:flex; justify-content:center; }
-#upgradePopup{ position:fixed; bottom:30px; right:30px; background:#e50914; color:#fff; padding:16px 24px; border-radius:8px; font-weight:bold; cursor:pointer; z-index:2000; display:none; }
+.ad-horizontal{ width:100%; max-width:1200px; margin:15px auto; display:flex; justify-content:center; }
 #commentsContainer{ max-width:900px; width:90%; margin:20px auto; border-top:1px solid #333; padding-top:16px; }
-#commentsList{ max-height:300px; overflow-y:auto; margin-bottom:8px; }
-.comment{ padding:8px; border-bottom:1px solid #333; }
-#commentInput{ width:80%; padding:8px; border-radius:6px; border:none; outline:none; margin-right:8px; }
-#commentBtn{ padding:8px 12px; border-radius:6px; border:none; cursor:pointer; background:#e50914; color:#fff; font-weight:bold; }
-@media(max-width:768px){ .banner{ height:40vh; } .ad-vertical-left,.ad-vertical-right{ display:none; } }
+#commentsList{ max-height:350px; overflow-y:auto; margin-bottom:12px; }
+.comment{ position:relative; padding:10px; border-bottom:1px solid #333; }
+input{ padding:8px; border-radius:6px; border:none; outline:none; }
+#usernameInput{ width:25%; margin-right:8px; }
+#commentInput{ width:55%; margin-right:8px; }
+#commentBtn{ background:#e50914; color:#fff; }
+#commentMsg{ margin-top:6px; font-size:14px; }
+@media(max-width:768px){
+  .banner{ height:40vh; }
+  #usernameInput{ width:35%; }
+  #commentInput{ width:45%; }
+}
 </style>
 </head>
 <body>
 
 <div class="banner">
-  <img id="posterImg" src="" alt="Movie Banner">
+  <img id="posterImg" src="">
   <div class="buttons">
     <button id="watchBtn">▶ Watch Now</button>
     <button id="shareBtn">Share</button>
   </div>
 </div>
 
-<div class="ad-horizontal" id="topAds"></div>
+<!-- TOP BANNER CONTAINER -->
+<div class="ad-horizontal" id="topBannerAd"></div>
 
 <div class="details">
-  <h1 id="title">Loading...</h1>
+  <h1 id="title">Movie is Loading...</h1>
   <p id="synopsis"></p>
   <p id="meta"></p>
 </div>
 
-<div class="ad-vertical-left" id="leftAds"></div>
-<div class="ad-vertical-right" id="rightAds"></div>
+<iframe id="player"
+allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+allowfullscreen
+class="player"></iframe>
 
-<iframe id="player" class="player" allowfullscreen></iframe>
-
-<div class="ad-horizontal" id="bottomAds"></div>
-
-<div id="upgradePopup">UPGRADE TO SKIP ADS</div>
+<!-- BOTTOM BANNER CONTAINER -->
+<div class="ad-horizontal" id="bottomBannerAd"></div>
 
 <div id="commentsContainer">
   <h3>Comments</h3>
   <div id="commentsList"></div>
-  <div id="commentForm" style="display:flex;">
+
+  <div style="display:flex;flex-wrap:wrap;">
+    <input id="usernameInput" type="text" placeholder="Nickname">
     <input id="commentInput" type="text" placeholder="Add a comment...">
     <button id="commentBtn">Post</button>
   </div>
+  <div id="commentMsg"></div>
 </div>
 
 <script type="module">
@@ -70,64 +76,87 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
 import { getDatabase, ref, push, onValue } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
 
-const supabaseUrl = 'https://dhkfhhybzcxdeoalcfqx.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(
+'https://dhkfhhybzcxdeoalcfqx.supabase.co',
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
+);
 
-// Firebase init
 const firebaseConfig = {
   apiKey:"AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain:"busanso-pins.firebaseapp.com",
   databaseURL:"https://busanso-pins-default-rtdb.firebaseio.com",
   projectId:"busanso-pins",
-  storageBucket:"busanso-pins.firebasestorage.app",
-  messagingSenderId:"137040014808",
-  appId:"1:137040014808:web:b0684e17b6b0328da596ad"
 };
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+const isPremium = !!localStorage.getItem("activePIN");
+
+/* ===== LOAD ADS ONLY FOR NON-PREMIUM ===== */
+if(!isPremium){
+
+  // TOP BANNER
+  document.getElementById("topBannerAd").innerHTML = `
+    <script>
+      atOptions = {
+        'key' : '1c9ccdb756a82c4d663014a338917bd7',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+      };
+    <\/script>
+    <script src="https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js"><\/script>
+  `;
+
+  // BOTTOM BANNER
+  document.getElementById("bottomBannerAd").innerHTML = `
+    <script async data-cfasync="false"
+    src="https://pl28760946.effectivegatecpm.com/fd3cd948dadbd8aa0ae06bc1d133066f/invoke.js"><\/script>
+    <div id="container-fd3cd948dadbd8aa0ae06bc1d133066f"><\/div>
+  `;
+
+  // POPUNDER (fires on first click)
+  document.addEventListener("click", function(){
+    var s=document.createElement("script");
+    s.src="https://pl28816831.effectivegatecpm.com/3b/a1/5b/3ba15bda3296425578b90365d70f5523.js";
+    s.async=true;
+    document.body.appendChild(s);
+  }, {once:true});
+}
+
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
-if(!id){ alert("No movie selected!"); location.href="movies-list.html"; }
+if(!id){ location.href="movies-list.html"; }
 
 const player = document.getElementById("player");
 const watchBtn = document.getElementById("watchBtn");
 const posterImg = document.getElementById("posterImg");
 const shareBtn = document.getElementById("shareBtn");
-const activePIN = localStorage.getItem("activePIN");
 
-// Fetch movie from Supabase
-const { data: movie, error } = await supabase
+/* ===== FETCH MOVIE ===== */
+const { data: movie } = await supabase
   .from('movies')
   .select('*')
   .eq('id', id)
   .single();
 
-if(error){ alert("Movie not found!"); location.href="movies-list.html"; }
-
 document.getElementById("title").textContent = movie.title;
-document.getElementById("posterImg").src = movie.poster;
+posterImg.src = movie.poster;
 document.getElementById("synopsis").textContent = movie.synopsis || "";
 document.getElementById("meta").textContent =
-  `${movie.year} • ${movie.duration || ""} • ${movie.type || ""}`;
+`${movie.year || ""} • ${movie.duration || ""} • ${movie.type || ""}`;
 
-// Ads display for non-active users
-if(!activePIN){
-  document.getElementById("topAds").innerHTML = '<div style="background:#222; color:#fff; padding:8px;">Top Ad</div>';
-  document.getElementById("bottomAds").innerHTML = '<div style="background:#222; color:#fff; padding:8px;">Bottom Ad</div>';
-  document.getElementById("leftAds").innerHTML = '<div style="background:#222; color:#fff; padding:8px;">Left Ad</div>';
-  document.getElementById("rightAds").innerHTML = '<div style="background:#222; color:#fff; padding:8px;">Right Ad</div>';
-  document.getElementById("commentForm").style.display="none";
-}
-
-// Video URL normalization
+/* ===== VIDEO NORMALIZER ===== */
 function getVideoUrl(url){
   if(!url) return "";
-  url = url.trim();
-  if(url.includes("youtube.com") || url.includes("youtu.be")){
-    const ytId = url.includes("v=") ? new URL(url).searchParams.get("v") : url.split("/").pop();
-    return `https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=1&controls=1&modestbranding=1&rel=0`;
+  if(url.includes("youtube.com")){
+    const ytId = new URL(url).searchParams.get("v");
+    return `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=1&rel=0`;
+  }
+  if(url.includes("youtu.be")){
+    const ytId = url.split("youtu.be/")[1].split("?")[0];
+    return `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=1&rel=0`;
   }
   if(url.includes("vimeo.com")){
     const vid = url.split("/").pop();
@@ -142,46 +171,88 @@ function getVideoUrl(url){
 
 function playMovie(){
   player.src = getVideoUrl(movie.video);
-  localStorage.setItem("lastMovieId", movie.id);
-  player.style.display = "block";
-  posterImg.style.display = "none";
-  watchBtn.style.display = "none";
-  shareBtn.style.display = "none";
-  if(activePIN){
-    if(player.requestFullscreen){ player.requestFullscreen(); }
-    else if(player.webkitRequestFullscreen){ player.webkitRequestFullscreen(); }
-    else if(player.msRequestFullscreen){ player.msRequestFullscreen(); }
+  player.style.display="block";
+  posterImg.style.display="none";
+  watchBtn.style.display="none";
+  shareBtn.style.display="none";
+  if(isPremium && player.requestFullscreen){
+    player.requestFullscreen();
   }
 }
 
-watchBtn.addEventListener("click", playMovie);
-posterImg.addEventListener("click", playMovie);
+watchBtn.onclick = playMovie;
+posterImg.onclick = playMovie;
 
-// Comments system
-if(activePIN){
-  const commentsRef = ref(db, 'comments/' + movie.id);
-  const commentsList = document.getElementById('commentsList');
-  const commentInput = document.getElementById('commentInput');
-  const commentBtn = document.getElementById('commentBtn');
+shareBtn.onclick = () => {
+  navigator.clipboard.writeText(location.href);
+  alert("Link copied!");
+};
 
-  onValue(commentsRef, snapshot => {
-    commentsList.innerHTML = '';
-    snapshot.forEach(child => {
-      const c = child.val();
-      const div = document.createElement('div');
-      div.className = 'comment';
-      div.textContent = `${c.user}: ${c.text}`;
-      commentsList.appendChild(div);
-    });
+/* ===== COMMENTS ===== */
+const commentsRef = ref(db, "comments/movies/" + movie.id);
+const usernameInput = document.getElementById("usernameInput");
+const commentInput = document.getElementById("commentInput");
+const commentMsg = document.getElementById("commentMsg");
+const commentsList = document.getElementById("commentsList");
+const commentBtn = document.getElementById("commentBtn");
+
+const savedName = localStorage.getItem("username");
+if(savedName) usernameInput.value = savedName;
+
+commentBtn.onclick = () => {
+  const name = usernameInput.value.trim();
+  const text = commentInput.value.trim();
+
+  if(name.length < 2 || name.length > 20){
+    commentMsg.style.color="#ffb400";
+    commentMsg.textContent="Nickname must be 2–20 characters";
+    return;
+  }
+  if(text.length < 2 || text.length > 300){
+    commentMsg.style.color="#ffb400";
+    commentMsg.textContent="Comment must be 2–300 characters";
+    return;
+  }
+
+  localStorage.setItem("username", name);
+  push(commentsRef, { user:name, text, timestamp:Date.now() });
+  commentInput.value="";
+  commentMsg.style.color="#00ff66";
+  commentMsg.textContent="Comment posted";
+};
+
+onValue(commentsRef, snap => {
+  commentsList.innerHTML="";
+  const arr=[];
+  snap.forEach(c=>arr.push({...c.val(), ref:c.ref}));
+  arr.sort((a,b)=>b.timestamp-a.timestamp);
+
+  arr.forEach(c=>{
+    const div=document.createElement("div");
+    div.className="comment";
+    div.innerHTML=`<strong>${c.user}</strong>: ${c.text}`;
+
+    if(localStorage.getItem("activePIN")==="Orion196"){
+      const b=document.createElement("button");
+      b.textContent="X";
+      Object.assign(b.style,{
+        position:"absolute",
+        right:"6px",
+        top:"6px",
+        background:"#e50914",
+        color:"#fff",
+        border:"none",
+        borderRadius:"6px",
+        padding:"2px 6px",
+        cursor:"pointer"
+      });
+      b.onclick=()=>c.ref.remove();
+      div.appendChild(b);
+    }
+
+    commentsList.appendChild(div);
   });
-
-  commentBtn.addEventListener('click', () => {
-    const text = commentInput.value.trim();
-    if(!text) return;
-    push(commentsRef, { user:'Anonymous', text });
-    commentInput.value='';
-  });
-}
+});
 </script>
 
 </body>
