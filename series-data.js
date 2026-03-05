@@ -14,8 +14,7 @@ const SERIES = [
     episodes: [
       { title: "Episode 1", video: "https://www.youtube.com/embed/UHhNhJeTlE0" }
      
-   }
-         ]
+  ]
   },
     {
               id: "triggers",
