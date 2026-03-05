@@ -12,157 +12,77 @@
 <!-- Supabase -->
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-const SUPABASE_URL = 'https://dhkfhhybzcxdeoalcfqx.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabase = createClient(
+  'https://dhkfhhybzcxdeoalcfqx.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
+);
 </script>
 
 <style>
-body {
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#000;
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:16px;
-}
+body { margin:0; font-family:Arial,sans-serif; background:#000; color:#fff; display:flex; flex-direction:column; align-items:center; padding:12px; }
+.logo { text-align:center; margin-bottom:12px; }
+.logo img { max-height:50px; }
 
-.logo { text-align:center; margin-bottom:16px; }
-.logo img { max-height:60px; }
-
-.player { width:90%; max-width:900px; aspect-ratio:16/9; margin:0 auto; border-radius:12px; overflow:hidden; background:#000; }
+.player { width:100%; max-width:960px; aspect-ratio:16/9; margin:0 auto; border-radius:12px; overflow:hidden; background:#000; }
 .player iframe { width:100%; height:100%; border:none; border-radius:12px; }
 
-.player-nav {
-  display:flex;
-  gap:16px;
-  margin:16px 0;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-.player-nav button {
-  flex:1 1 120px;
-  padding:16px;
-  font-size:18px;
-  border:none;
-  border-radius:12px;
-  font-weight:bold;
-  background:#222;
-  color:#fff;
-  cursor:pointer;
-  transition:0.2s all;
-  box-shadow: 0 0 10px #e50914;
-}
-.player-nav button:hover { 
-  background:#e50914;
-  box-shadow:0 0 20px #e50914, 0 0 30px #ff3a3a;
-}
-.player-nav button:disabled {
-  opacity:0.5;
-  cursor:not-allowed;
-  box-shadow:none;
-}
+.player-nav { display:flex; gap:6px; margin:12px 0; justify-content:center; flex-wrap:wrap; width:100%; max-width:960px; }
+.player-nav button { flex:1 1 30%; padding:14px; font-size:16px; border:none; border-radius:12px; font-weight:bold; cursor:pointer; transition:0.2s all; }
+#prevBtn, #nextBtn { background:#222; color:#fff; box-shadow:0 0 10px #e50914; }
+#prevBtn:hover, #nextBtn:hover { background:#e50914; box-shadow:0 0 20px #e50914,0 0 30px #ff3a3a; }
+#prevBtn:disabled, #nextBtn:disabled { opacity:0.5; cursor:not-allowed; box-shadow:none; }
+#shareBtn { background:#1DA1F2; color:#fff; box-shadow:0 0 10px #1DA1F2; }
 
-.details {
-  max-width:900px;
-  width:100%;
-  background:#111;
-  border-radius:12px;
-  padding:16px;
-  margin-bottom:16px;
-}
-
-.details h1 { margin:0 0 8px 0; }
-.details .meta { color:#aaa; margin-bottom:12px; }
+.details { max-width:960px; width:100%; background:#111; border-radius:12px; padding:16px; margin-bottom:16px; }
+.details h1 { margin:0 0 8px 0; font-size:1.6rem; word-break:break-word; }
+.details .meta { color:#aaa; margin-bottom:10px; }
 .details p { margin-bottom:12px; }
-.cast span {
-  display:inline-block;
-  margin:4px;
-  padding:6px 12px;
-  border-radius:20px;
-  background:#222;
-  font-size:13px;
-}
-.episodes {
-  display:grid;
-  gap:8px;
-  margin-top:12px;
-}
-.episode {
-  background:#181818;
-  padding:12px;
-  border-radius:8px;
-  cursor:pointer;
-  transition:0.2s all;
-}
+.cast span { display:inline-block; margin:4px; padding:6px 12px; border-radius:20px; background:#222; font-size:13px; }
+
+#episodesBtn { width:100%; padding:16px; font-size:18px; background:#e50914; color:#fff; border:none; border-radius:12px; font-weight:bold; cursor:pointer; box-shadow:0 0 10px #e50914; transition:0.2s all; margin-top:8px; }
+#episodesBtn:hover { box-shadow:0 0 20px #ff3a3a; }
+
+.episodes { display:grid; gap:8px; margin-top:12px; }
+.episode { background:#181818; padding:12px; border-radius:8px; cursor:pointer; transition:0.2s all; }
 .episode:hover { background:#333; }
 .episode.active { background:#e50914; font-weight:bold; color:#fff; box-shadow:0 0 10px #e50914; }
 
-#commentsSection {
-  max-width:900px;
-  width:100%;
-  background:#111;
-  border-radius:12px;
-  padding:16px;
-  margin-bottom:32px;
-}
+#commentsSection { max-width:960px; width:100%; background:#111; border-radius:12px; padding:16px; margin-bottom:32px; }
 #commentsList { max-height:350px; overflow-y:auto; margin-bottom:12px; }
 .comment { position:relative; padding:10px; border-bottom:1px solid #333; }
-
-input, textarea { 
-  width:100%; 
-  padding:10px; 
-  border-radius:6px; 
-  border:none; 
-  background:#222; 
-  color:#fff; 
-  margin-top:6px;
-}
-#commentBtn {
-  margin-top:8px;
-  padding:12px 20px;
-  font-weight:bold;
-  font-size:16px;
-  border:none;
-  border-radius:8px;
-  background:#e50914;
-  color:#fff;
-  cursor:pointer;
-  box-shadow:0 0 10px #e50914;
-  transition:0.2s all;
-}
+input, textarea { width:100%; padding:10px; border-radius:6px; border:none; background:#222; color:#fff; margin-top:6px; }
+#commentBtn { margin-top:8px; padding:12px 20px; font-weight:bold; font-size:16px; border:none; border-radius:8px; background:#e50914; color:#fff; cursor:pointer; box-shadow:0 0 10px #e50914; transition:0.2s all; }
 #commentBtn:hover { box-shadow:0 0 20px #ff3a3a; }
 #commentMsg { margin-top:6px; font-size:14px; color:#0f0; }
 
 .ad-horizontal { width:100%; max-width:1200px; margin:16px auto; display:flex; justify-content:center; }
+
+@media(max-width:600px){
+  .player-nav button { font-size:14px; padding:12px; }
+  #episodesBtn { font-size:16px; padding:14px; }
+}
 </style>
 </head>
 
 <body>
+<div class="logo"><img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo"></div>
 
-<div class="logo">
-  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo">
-</div>
-
+<!-- Prev | Share | Next -->
 <div class="player-nav">
   <button id="prevBtn">◀ Previous</button>
-  <button id="shareBtn" style="background:#1DA1F2; color:#fff; flex:1; box-shadow:0 0 10px #1DA1F2;">Share</button>
+  <button id="shareBtn">Share</button>
   <button id="nextBtn">Next ▶</button>
 </div>
+
+<div class="player" id="player"></div>
 
 <div class="details">
   <h1 id="title">Loading Series...</h1>
   <div class="meta" id="meta"></div>
   <p id="synopsis"></p>
   <div class="cast" id="cast"></div>
- <!-- Episodes toggle button -->
-  <button id="episodesBtn" 
-          style="width:100%; padding:16px; font-size:18px; background:#e50914; color:#fff; border:none; border-radius:12px; font-weight:bold; cursor:pointer; box-shadow:0 0 10px #e50914; transition:0.2s all;">
-    📺 Episodes
-  </button>
 
+  <button id="episodesBtn">📺 Episodes</button>
   <div class="episodes" id="episodeList" style="display:none"></div>
 </div>
 
@@ -186,7 +106,7 @@ const supabase = createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
 );
 
-// Firebase setup
+// Firebase
 const firebaseConfig = {
   apiKey:"AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain:"busanso-pins.firebaseapp.com",
@@ -204,6 +124,8 @@ const player = document.getElementById("player");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const episodeList = document.getElementById("episodeList");
+const episodesBtn = document.getElementById("episodesBtn");
+const shareBtn = document.getElementById("shareBtn");
 const commentBtn = document.getElementById("commentBtn");
 const usernameInput = document.getElementById("usernameInput");
 const commentInput = document.getElementById("commentInput");
@@ -212,35 +134,24 @@ const commentsList = document.getElementById("commentsList");
 
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
-if(!id){
-   alert("No series ID provided.");
-}
+if(!id) title.textContent="❌ No series ID provided.";
 
 let serie=null, idx=0, progressInterval=null;
+let nicknameSaved=false; // <-- ensures nickname is saved only once
 
 // Fetch series
 async function fetchSerie(){
   const { data, error } = await supabase.from('series').select('*, episodes(*)').eq('id',id).single();
-  if(error || !data){
-    console.error("Series not found:", error);
-    alert("Series not found!");
-    return;
-  }
-  serie=data;
-  populateSeries();
+  if(error || !data){ title.textContent="❌ Series not found."; console.error(error); return; }
+  serie=data; populateSeries();
 }
 
-// Populate series and episodes
 function populateSeries(){
   title.textContent = serie.title;
   meta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
   synopsis.textContent = serie.synopsis || "";
   cast.innerHTML="";
-  serie.cast?.forEach(c=>{
-    const span=document.createElement("span");
-    span.textContent=c;
-    cast.appendChild(span);
-  });
+  serie.cast?.forEach(c=>{ const span=document.createElement("span"); span.textContent=c; cast.appendChild(span); });
 
   episodeList.innerHTML="";
   serie.episodes.forEach((ep,i)=>{
@@ -252,9 +163,8 @@ function populateSeries(){
   });
 
   const last = JSON.parse(localStorage.getItem("lastSeries")||"{}");
-  if(last && last.id===serie.id){
-    playEpisodeWithTime(last.episodeIndex||0,last.currentTime||0);
-  } else { playEpisode(0); }
+  if(last && last.id===serie.id) playEpisodeWithTime(last.episodeIndex||0,last.currentTime||0);
+  else playEpisode(0);
 }
 
 function normalizeVideo(url){
@@ -263,14 +173,8 @@ function normalizeVideo(url){
     const id=url.includes("v=")?new URL(url).searchParams.get("v"):url.split("/").pop();
     return `https://www.youtube.com/embed/${id}`;
   }
-  if(url.includes("vimeo.com")){
-    const id=url.split("/").pop();
-    return `https://player.vimeo.com/video/${id}`;
-  }
-  if(url.includes("/d/")){
-    const id=url.split("/d/")[1].split("/")[0];
-    return `https://drive.google.com/file/d/${id}/preview`;
-  }
+  if(url.includes("vimeo.com")){ const id=url.split("/").pop(); return `https://player.vimeo.com/video/${id}`; }
+  if(url.includes("/d/")){ const id=url.split("/d/")[1].split("/")[0]; return `https://drive.google.com/file/d/${id}/preview`; }
   return url;
 }
 
@@ -278,7 +182,7 @@ function playEpisode(i){
   const ep = serie.episodes[i]; if(!ep) return;
   idx=i;
   localStorage.setItem("lastSeries",JSON.stringify({id:serie.id,title:serie.title,episodeIndex:i,episodeTitle:ep.title,video:ep.video,currentTime:0,updated:Date.now()}));
-  let videoURL = normalizeVideo(ep.video);
+  const videoURL = normalizeVideo(ep.video);
   player.innerHTML=`<iframe src="${videoURL}" allowfullscreen></iframe>`;
 
   document.querySelectorAll(".episode").forEach((el,j)=>el.classList.toggle("active",i===j));
@@ -292,32 +196,38 @@ function playEpisode(i){
   },5000);
 }
 
-function playEpisodeWithTime(i,startTime=0){
-  playEpisode(i);
-}
+function playEpisodeWithTime(i,startTime=0){ playEpisode(i); }
 
 prevBtn.onclick=()=>idx>0&&playEpisode(idx-1);
 nextBtn.onclick=()=>idx<serie.episodes.length-1&&playEpisode(idx+1);
 
-function toggleEpisodes(){
-  episodeList.style.display = episodeList.style.display==="none"?"grid":"none";
-}
+episodesBtn.onclick=()=>{ episodeList.style.display = episodeList.style.display==="none"?"grid":"none"; };
+
+// WhatsApp share
+shareBtn.onclick=()=>{
+  if(!serie) return;
+  const shareText = `🎬 ${serie.title}\n\n📝 ${serie.synopsis || ""}\n\n🌐 Watch more: https://bit.ly/busanso`;
+  const whatsappURL = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  window.open(whatsappURL,"_blank");
+};
 
 // Comments
 const commentsRef = db.ref("comments/series/"+id);
-const savedName = localStorage.getItem("username");
-if(savedName) usernameInput.value=savedName;
+
+if(!nicknameSaved){
+  const savedName = localStorage.getItem("username");
+  if(savedName) { usernameInput.value=savedName; nicknameSaved=true; }
+}
 
 commentBtn.onclick=()=>{
+  if(!nicknameSaved){ localStorage.setItem("username",usernameInput.value.trim()); nicknameSaved=true; }
   const name=usernameInput.value.trim();
   const text=commentInput.value.trim();
   if(name.length<2||name.length>20){ commentMsg.style.color="#ffb400"; commentMsg.textContent="Nickname 2–20 chars"; return; }
   if(text.length<2||text.length>300){ commentMsg.style.color="#ffb400"; commentMsg.textContent="Comment 2–300 chars"; return; }
-  localStorage.setItem("username",name);
   commentsRef.push({user:name,text,timestamp:Date.now()});
   commentInput.value="";
-  commentMsg.style.color="#00ff66";
-  commentMsg.textContent="Comment posted";
+  commentMsg.style.color="#00ff66"; commentMsg.textContent="Comment posted";
 };
 
 commentsRef.on("value",snap=>{
@@ -341,19 +251,6 @@ commentsRef.on("value",snap=>{
 });
 
 fetchSerie();
-  const shareBtn = document.getElementById("shareBtn");
-shareBtn.onclick = () => {
-    if(!serie) return;
-    const shareText = 
-`🎬 ${serie.title}
-
-📝 ${serie.synopsis || ""}
-
-🌐 Watch more: https://bit.ly/busanso`;
-    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-    window.open(whatsappURL, "_blank");
-};
 </script>
-
 </body>
 </html>
