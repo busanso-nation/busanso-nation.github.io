@@ -214,7 +214,7 @@ let serie=null, idx=0, progressInterval=null;
 // Fetch series
 async function fetchSerie(){
   const { data, error } = await supabase.from('series').select('*, episodes(*)').eq('id',id).single();
-  if(error || !data) return location.href="series-list.html";
+  if(error || !data) return location.href="series.html";
   serie=data;
   populateSeries();
 }
