@@ -42,6 +42,9 @@ body { margin:0; font-family:Arial,sans-serif; background:#000; color:#fff; disp
 #episodesBtn { width:100%; padding:16px; font-size:18px; background:#e50914; color:#fff; border:none; border-radius:12px; font-weight:bold; cursor:pointer; box-shadow:0 0 10px #e50914; transition:0.2s all; margin-top:8px; }
 #episodesBtn:hover { box-shadow:0 0 20px #ff3a3a; }
 
+#fullScreenBtn { width:100%; padding:14px; font-size:16px; background:#0a84ff; color:#fff; border:none; border-radius:12px; font-weight:bold; cursor:pointer; box-shadow:0 0 10px #0a84ff; transition:0.2s all; margin-top:8px; }
+#fullScreenBtn:hover { box-shadow:0 0 20px #1e90ff; }
+
 .episodes { display:grid; gap:8px; margin-top:12px; }
 .episode { background:#181818; padding:12px; border-radius:8px; cursor:pointer; transition:0.2s all; }
 .episode:hover { background:#333; }
@@ -59,7 +62,7 @@ input, textarea { width:100%; padding:10px; border-radius:6px; border:none; back
 
 @media(max-width:600px){
   .player-nav button { font-size:14px; padding:12px; }
-  #episodesBtn { font-size:16px; padding:14px; }
+  #episodesBtn, #fullScreenBtn { font-size:16px; padding:14px; }
 }
 </style>
 </head>
@@ -67,7 +70,6 @@ input, textarea { width:100%; padding:10px; border-radius:6px; border:none; back
 <body>
 <div class="logo"><img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo"></div>
 
-<!-- Prev | Share | Next -->
 <div class="player-nav">
   <button id="prevBtn">◀ Previous</button>
   <button id="shareBtn">Share</button>
@@ -75,6 +77,9 @@ input, textarea { width:100%; padding:10px; border-radius:6px; border:none; back
 </div>
 
 <div class="player" id="player"></div>
+
+<!-- Fullscreen button -->
+<button id="fullScreenBtn">⛶ Wide Screen / Full Screen</button>
 
 <div class="details">
   <h1 id="title">Loading Series...</h1>
@@ -106,7 +111,6 @@ const supabase = createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
 );
 
-// Firebase
 const firebaseConfig = {
   apiKey:"AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
   authDomain:"busanso-pins.firebaseapp.com",
@@ -126,6 +130,7 @@ const nextBtn = document.getElementById("nextBtn");
 const episodeList = document.getElementById("episodeList");
 const episodesBtn = document.getElementById("episodesBtn");
 const shareBtn = document.getElementById("shareBtn");
+const fullScreenBtn = document.getElementById("fullScreenBtn");
 const commentBtn = document.getElementById("commentBtn");
 const usernameInput = document.getElementById("usernameInput");
 const commentInput = document.getElementById("commentInput");
@@ -137,9 +142,8 @@ const id = params.get("id");
 if(!id) title.textContent="❌ No series ID provided.";
 
 let serie=null, idx=0, progressInterval=null;
-let nicknameSaved=false; // <-- ensures nickname is saved only once
+let nicknameSaved=false;
 
-// Fetch series
 async function fetchSerie(){
   const { data, error } = await supabase.from('series').select('*, episodes(*)').eq('id',id).single();
   if(error || !data){ title.textContent="❌ Series not found."; console.error(error); return; }
@@ -184,10 +188,8 @@ function playEpisode(i){
   localStorage.setItem("lastSeries",JSON.stringify({id:serie.id,title:serie.title,episodeIndex:i,episodeTitle:ep.title,video:ep.video,currentTime:0,updated:Date.now()}));
   const videoURL = normalizeVideo(ep.video);
   player.innerHTML=`<iframe src="${videoURL}" allowfullscreen></iframe>`;
-
   document.querySelectorAll(".episode").forEach((el,j)=>el.classList.toggle("active",i===j));
   prevBtn.disabled=i===0; nextBtn.disabled=i===serie.episodes.length-1;
-
   if(progressInterval) clearInterval(progressInterval);
   progressInterval=setInterval(()=>{
     let prog = JSON.parse(localStorage.getItem("seriesProgress_"+serie.id)||"{}");
@@ -195,33 +197,37 @@ function playEpisode(i){
     localStorage.setItem("seriesProgress_"+serie.id,JSON.stringify(prog));
   },5000);
 }
-
 function playEpisodeWithTime(i,startTime=0){ playEpisode(i); }
 
 prevBtn.onclick=()=>idx>0&&playEpisode(idx-1);
 nextBtn.onclick=()=>idx<serie.episodes.length-1&&playEpisode(idx+1);
-
 episodesBtn.onclick=()=>{ episodeList.style.display = episodeList.style.display==="none"?"grid":"none"; };
 
 // WhatsApp share
 shareBtn.onclick=()=>{
   if(!serie) return;
-  const shareText = `🎬 ${serie.title}\n\n📝 ${serie.synopsis || ""}\n\n🌐 Watch Luganda Translated Movies and Series by the best Vj tap this link to watch: https://bit.ly/busanso`;
+  const shareText = `🎬 ${serie.title}\n\n📝 ${serie.synopsis || ""}\n\n🌐 Watch more: https://bit.ly/busanso`;
   const whatsappURL = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
   window.open(whatsappURL,"_blank");
 };
 
+// Fullscreen button
+fullScreenBtn.onclick=()=>{
+  if(player.requestFullscreen){ player.requestFullscreen(); }
+  else if(player.webkitRequestFullscreen){ player.webkitRequestFullscreen(); }
+  else if(player.msRequestFullscreen){ player.msRequestFullscreen(); }
+};
+
 // Comments
 const commentsRef = db.ref("comments/series/"+id);
-
 if(!nicknameSaved){
   const savedName = localStorage.getItem("username");
-  if(savedName) { usernameInput.value=savedName; nicknameSaved=true; }
+  if(savedName){ usernameInput.value=savedName; nicknameSaved=true; }
 }
 
 commentBtn.onclick=()=>{
-  if(!nicknameSaved){ localStorage.setItem("username",usernameInput.value.trim()); nicknameSaved=true; }
   const name=usernameInput.value.trim();
+  if(!nicknameSaved){ localStorage.setItem("username",name); nicknameSaved=true; }
   const text=commentInput.value.trim();
   if(name.length<2||name.length>20){ commentMsg.style.color="#ffb400"; commentMsg.textContent="Nickname 2–20 chars"; return; }
   if(text.length<2||text.length>300){ commentMsg.style.color="#ffb400"; commentMsg.textContent="Comment 2–300 chars"; return; }
@@ -230,6 +236,7 @@ commentBtn.onclick=()=>{
   commentMsg.style.color="#00ff66"; commentMsg.textContent="Comment posted";
 };
 
+// Display comments
 commentsRef.on("value",snap=>{
   commentsList.innerHTML="";
   const arr=[];
