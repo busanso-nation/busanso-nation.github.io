@@ -1,5 +1,23 @@
 const SERIES = [
      {
+          
+              id: "jigang",
+    title: "JIGANG",
+    poster: "https://i.ibb.co/3Y964m11/QQQQQQQQQQQQQQQQQQQ.jpg",
+    genre: "Action",
+    added: 1,
+    type: "premium",
+    country: "China",
+    year: "2024",
+    synopsis: "Set during the turbulent Warring States period, this Toei film focuses on the Bahansen (pirate ships) that operated in the Seto Inland Sea. The plot follows the struggle for power when a shipwreck survivor reveals a secret that could alter the course of history plunging the pirates into a high-seas battle for supremacy",
+    cast: ["Ryūnosuke Tsukigata", "Hiroko Sakuramachi", "Denjirō Ōkōchi"],
+    episodes: [
+      { title: "Episode 1", video: "https://www.youtube.com/embed/UHhNhJeTlE0" }
+     
+   }
+         ]
+  },
+    {
               id: "triggers",
     title: "TRIGGERS",
     poster: "https://m.media-amazon.com/images/M/MV5BMTM3MWRiYWMtZmVkMi00OWE0LWI1M2ItMzE2ODc3YWM3YTU4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
