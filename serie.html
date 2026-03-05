@@ -177,9 +177,10 @@ input, textarea {
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-const SUPABASE_URL = 'https://dhkfhhybzcxdeoalcfqx.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabase = createClient(
+  'https://dhkfhhybzcxdeoalcfqx.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
+);
 
 // Firebase setup
 const firebaseConfig = {
@@ -209,8 +210,6 @@ const params = new URLSearchParams(location.search);
 const id = params.get("id");
 if(!id){
    alert("No series ID provided.");
-    // Optionally redirect to home page
-    // location.href = "home.html";
 }
 
 let serie=null, idx=0, progressInterval=null;
@@ -218,7 +217,11 @@ let serie=null, idx=0, progressInterval=null;
 // Fetch series
 async function fetchSerie(){
   const { data, error } = await supabase.from('series').select('*, episodes(*)').eq('id',id).single();
-  if(error || !data) return location.href="serie.html";
+  if(error || !data){
+    console.error("Series not found:", error);
+    alert("Series not found!");
+    return;
+  }
   serie=data;
   populateSeries();
 }
@@ -335,5 +338,6 @@ commentsRef.on("value",snap=>{
 
 fetchSerie();
 </script>
+
 </body>
 </html>
