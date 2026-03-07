@@ -12,6 +12,7 @@ const KIBANDA_PINS = {
     "dustan": "132",
   "jo": "232",
   "isma": "023",
+  "beck": "073",
   "nasaji": "NASAJILIB456"
 };
 
