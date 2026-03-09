@@ -216,14 +216,6 @@ document.addEventListener("click",startAudio);
 audioToggle.onclick=()=>{ isMuted=!isMuted; bgAudio.muted=isMuted; audioToggle.textContent=isMuted?"🔇":"🔊"; };
 </script>
 <script src="https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js"></script>
-  <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("sw.js")
-      .then(reg => console.log("Service Worker Registered"))
-      .catch(err => console.log("SW registration failed", err));
-  });
-}
-</script>
+
 </body>
 </html>
