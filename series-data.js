@@ -29,27 +29,7 @@ const SERIES = [
 { title: "Episode 10", video: "https://drive.google.com/file/d/1NeOEoU1CrRjP-PngujChoPf0SKS2V23s/preview" }
 ]
   },
-{
-    id: "manvsbaby",
-    title: "MAN vs BABY",
-    poster: "https://www.moviemeter.nl/series/images/cover/33000/33739.jpg?cb=1766010505",
-    genre: "Comedy",
-    added: 6,
-    type: "premium",
-    country: "USA",
-    year: "2025",
-    synopsis: "comedy miniseries starring Rowan Atkinson as Trevor Bingley, a follow-up to the 2022 series Man vs. Bee",
-    cast: ["Rowan Atkinson", "Alanah Bloor", "Susannah"],
-    episodes: [
-   { title: "Episode 1", video: "https://drive.google.com/file/d/1h3ZX-xolsi2sbS3GZc4UqNOhZLBeMMK2/preview" },
-  { title: "Episode 2", video: "https://drive.google.com/file/d/1eNw09UOxdxksgrv70rH_0L3JrGx4x34R/preview" },
-  { title: "Episode 3", video: "https://drive.google.com/file/d/1trUrYKA1d_42Yz4LpWXSbuTuwcVxT6Z1/preview" },
-  { title: "Episode 4", video: "https://drive.google.com/file/d/1ny14W-WqThR0Gkm97V1X7ZCvdhJQ7dbs/preview" },
-  { title: "Episode 5", video: "https://drive.google.com/file/d/1eVDBuaemkfDIe34V0vjIPvetrw9AUmgg/preview" },
-  { title: "Episode 6", video: "https://drive.google.com/file/d/1eQo-qvWuD6OLeqdaVR7FdTBW9u_QMg6C/preview" },
-  { title: "Episode 7", video: "https://drive.google.com/file/d/1MVDAjXAQ1IeG-cj--rXQE9ISDUQc-jxz/preview" }
-      ]
-  },
+
 
 
 {
@@ -186,29 +166,6 @@ const SERIES = [
       ]
   },
 
-
-{
-    id: "manvsbee",
-    title: "MAN VS BEE",
-    poster: "https://upload.wikimedia.org/wikipedia/en/d/de/Man_vs_Bee.png",
-    genre: "Comedy",
-    added: 47,
-    type: "premium",
-    country: "USA",
-    year: "2025",
-    synopsis: "The story follows a simple premise: Trevor finds himself at war with a single bumblebee while trying to look after the mansion. As he attempts to kill the insect, his increasingly desperate and chaotic efforts lead to the systematic, irreparable destruction of the house, its art, and its contents",
-    cast: ["Rowan Atkinson", "India Fowler", "Jing Lusi"],
-    episodes: [
-{title:"Episode 1",video:"https://drive.google.com/file/d/1f7lF7No6RBx2zm6zDVRfsh2RvXLEhes9/preview"},
-{title:"Episode 2",video:"https://drive.google.com/file/d/17y4lW041WjEUVIKY4P8EsMIEMnt4bmjd/preview"},
-{title:"Episode 3",video:"https://drive.google.com/file/d/1lUabtCeyZgNdbwoBYwZzvD1DZNhsTZkw/preview"},
-{title:"Episode 4",video:"https://drive.google.com/file/d/1kKoePXcLs7WfPde89Q7cX3xp1H696ltC/preview"},
-{title:"Episode 5",video:"https://drive.google.com/file/d/1TCLpsV1bgLWgU_yozOp9hGWU9s_y4TuB/preview"},
-{title:"Episode 6",video:"https://drive.google.com/file/d/1yC298bF6aUhucFYkDcJhfZY23gqOm0gJ/preview"},
-{title:"Episode 7",video:"https://drive.google.com/file/d/1Eia2tsklfS9L0eoabaaszvLfTli5TXXQ/preview"},
-{title:"Episode 8",video:"https://drive.google.com/file/d/1RtrhktgA4vf_5gdQuT48SJgfkzKaVsCe/preview"}
-      ]
-  },
 
 {
     id: "spartacus",
