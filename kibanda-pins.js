@@ -7,7 +7,6 @@ const KIBANDA_PINS = {
   "nick": "NICKMOV123",
     "sk": "23M",
    "opolot": "KING4",
-  "steven": "11M",
     "dustan": "132",
   "jo": "232",
   "isma": "023",
