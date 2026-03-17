@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Busanso Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:#020617;
+color:#fff;
+}
+
+/* HEADER */
+.header{
+text-align:center;
+padding:20px;
+border-bottom:1px solid #111;
+background:linear-gradient(180deg,#020617,#020617);
+}
+.header img{
+height:60px;
+}
+
+/* MAIN BIG BUTTONS */
+.main{
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:20px;
+align-items:center;
+}
+
+.big-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+width:100%;
+max-width:700px;
+}
+
+.big-btn{
+padding:40px 20px;
+border-radius:20px;
+font-size:22px;
+font-weight:800;
+text-align:center;
+cursor:pointer;
+transition:0.3s;
+}
+
+.movies{
+background:linear-gradient(135deg,#22c55e,#4ade80);
+color:#022c22;
+}
+
+.series{
+background:linear-gradient(135deg,#3b82f6,#60a5fa);
+}
+
+.big-btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px rgba(255,255,255,0.1);
+}
+
+/* SECONDARY ACTIONS */
+.actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+width:100%;
+max-width:700px;
+margin-top:10px;
+}
+
+.btn{
+padding:14px;
+border-radius:14px;
+text-align:center;
+font-weight:600;
+text-decoration:none;
+color:#fff;
+background:#0f172a;
+border:1px solid #1e293b;
+transition:0.2s;
+}
+
+.btn:hover{
+background:#1e293b;
+}
+
+/* FOOTER */
+.footer{
+position:fixed;
+bottom:0;
+width:100%;
+display:flex;
+justify-content:space-around;
+background:#020617;
+padding:12px 0;
+border-top:1px solid #111;
+}
+
+.footer a{
+color:#aaa;
+text-decoration:none;
+font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
+</div>
+
+<div class="main">
+
+<!-- BIG BUTTONS -->
+<div class="big-grid">
+<div class="big-btn movies" onclick="location.href='kibmov.html'">
+🎬 Movies
+</div>
+
+<div class="big-btn series" onclick="location.href='kibser.html'">
+📺 Series
+</div>
+</div>
+
+<!-- OTHER ACTIONS -->
+<div class="actions">
+<a href="donate.html" class="btn">💳 Donate to Orphans</a>
+<a href="live.html" class="btn">📡 King VJ is Live</a>
+<a href="busansocity.html" class="btn">👥 Join Busanso City</a>
+<a href="about.html" class="btn">ℹ About Us</a>
+</div>
+
+</div>
+
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const supabase = createClient(
+'https://dhkfhhybzcxdeoalcfqx.supabase.co',
+'YOUR_ANON_KEY'
+);
+
+/* ===== SPECIAL PIN CHECK ===== */
+const pin = localStorage.getItem("specialPIN");
+
+if(!pin){
+location.href = "enter-pin.html";
+}
+
+/* CHECK PIN IN SUPABASE */
+const { data, error } = await supabase
+.from("special_pins")
+.select("*")
+.eq("pin", pin)
+.single();
+
+if(error || !data){
+localStorage.removeItem("specialPIN");
+location.href = "enter-pin.html";
+}
+</script>
+
+</body>
+</html>

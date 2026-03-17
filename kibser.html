@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BUSANSO SERIES by King VJ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+const supabase = createClient(
+'https://dhkfhhybzcxdeoalcfqx.supabase.co',
+'YOUR_ANON_KEY'
+);
+</script>
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#000;
+color:#fff;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:12px;
+}
+
+.logo{text-align:center;margin-bottom:12px}
+.logo img{max-height:50px}
+
+.player{
+width:100%;
+max-width:960px;
+aspect-ratio:16/9;
+margin:auto;
+border-radius:12px;
+overflow:hidden;
+background:#000;
+}
+
+.player iframe{
+width:100%;
+height:100%;
+border:none;
+border-radius:12px;
+}
+
+.player-nav{
+display:flex;
+gap:6px;
+margin:12px 0;
+justify-content:center;
+flex-wrap:wrap;
+width:100%;
+max-width:960px;
+}
+
+.player-nav button{
+flex:1 1 45%;
+padding:14px;
+font-size:16px;
+border:none;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+}
+
+#prevBtn,#nextBtn{
+background:#222;
+color:#fff;
+box-shadow:0 0 10px #e50914;
+}
+
+/* DOWNLOAD BUTTON */
+#downloadBtn{
+width:100%;
+padding:16px;
+font-size:17px;
+background:linear-gradient(135deg,#00c853,#00e676);
+color:#000;
+border:none;
+border-radius:14px;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+box-shadow:0 0 12px #00e676;
+transition:0.25s;
+}
+#downloadBtn:hover{
+transform:scale(1.03);
+box-shadow:0 0 25px #00ff88;
+}
+
+/* PROGRESS BAR */
+#downloadProgress{
+width:100%;
+max-width:960px;
+height:8px;
+background:#222;
+border-radius:10px;
+overflow:hidden;
+margin-top:8px;
+display:none;
+}
+#downloadBar{
+height:100%;
+width:0%;
+background:#00e676;
+transition:width 0.3s;
+}
+
+#progressText{
+font-size:13px;
+color:#aaa;
+margin-top:4px;
+display:none;
+}
+
+.details{
+max-width:960px;
+width:100%;
+background:#111;
+border-radius:12px;
+padding:16px;
+margin-bottom:16px;
+}
+
+.details h1{
+margin:0 0 8px 0;
+font-size:1.6rem;
+}
+
+.cast span{
+display:inline-block;
+margin:4px;
+padding:6px 12px;
+border-radius:20px;
+background:#222;
+font-size:13px;
+}
+
+#episodesBtn{
+width:100%;
+padding:16px;
+font-size:18px;
+background:#e50914;
+color:#fff;
+border:none;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+margin-top:8px;
+}
+
+.episodes{
+display:grid;
+gap:8px;
+margin-top:12px;
+}
+
+.episode{
+background:#181818;
+padding:12px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.episode.active{
+background:#e50914;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="logo">
+<img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
+</div>
+
+<div class="player-nav">
+<button id="prevBtn">◀ Previous</button>
+<button id="nextBtn">Next ▶</button>
+</div>
+
+<div class="player" id="player"></div>
+
+<button id="downloadBtn">⬇ Download Episode</button>
+
+<div id="downloadProgress">
+<div id="downloadBar"></div>
+</div>
+<div id="progressText">Preparing download...</div>
+
+<div class="details">
+<h1 id="title">Loading Series...</h1>
+
+<div id="meta"></div>
+<p id="synopsis"></p>
+
+<div class="cast" id="cast"></div>
+
+<button id="episodesBtn">📺 Episodes</button>
+
+<div class="episodes" id="episodeList" style="display:none"></div>
+</div>
+
+<script type="module">
+
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const supabase = createClient(
+'https://dhkfhhybzcxdeoalcfqx.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
+);
+
+const title=document.getElementById("title")
+const meta=document.getElementById("meta")
+const synopsis=document.getElementById("synopsis")
+const cast=document.getElementById("cast")
+const player=document.getElementById("player")
+
+const prevBtn=document.getElementById("prevBtn")
+const nextBtn=document.getElementById("nextBtn")
+const episodeList=document.getElementById("episodeList")
+const episodesBtn=document.getElementById("episodesBtn")
+const downloadBtn=document.getElementById("downloadBtn")
+
+const progressBar=document.getElementById("downloadBar")
+const progressWrap=document.getElementById("downloadProgress")
+const progressText=document.getElementById("progressText")
+
+const params=new URLSearchParams(location.search)
+const id=params.get("id")
+
+let serie=null
+let idx=0
+
+async function fetchSerie(){
+
+const {data,error}=await supabase
+.from('series')
+.select('*,episodes(*)')
+.eq('id',id)
+.single()
+
+if(error||!data){
+title.textContent="Series not found"
+return
+}
+
+serie=data
+populateSeries()
+
+}
+
+function populateSeries(){
+
+title.textContent=serie.title
+
+meta.textContent=`${serie.genre} • ${serie.country} • ${serie.year}`
+
+synopsis.textContent=serie.synopsis||""
+
+cast.innerHTML=""
+
+serie.cast?.forEach(c=>{
+const span=document.createElement("span")
+span.textContent=c
+cast.appendChild(span)
+})
+
+episodeList.innerHTML=""
+
+serie.episodes.forEach((ep,i)=>{
+const div=document.createElement("div")
+div.className="episode"
+div.textContent=`Episode ${i+1}`
+div.onclick=()=>playEpisode(i)
+episodeList.appendChild(div)
+})
+
+playEpisode(0)
+
+}
+
+function normalizeVideo(url){
+
+if(url.includes("/d/")){
+const id=url.split("/d/")[1].split("/")[0]
+return `https://drive.google.com/file/d/${id}/preview`
+}
+
+if(url.includes("youtube")){
+const id=new URL(url).searchParams.get("v")
+return `https://www.youtube.com/embed/${id}`
+}
+
+return url
+
+}
+
+function getDownloadLink(url){
+
+if(url.includes("/d/")){
+const id=url.split("/d/")[1].split("/")[0]
+return `https://drive.google.com/uc?export=download&id=${id}`
+}
+
+return url
+
+}
+
+function simulateProgress(callback){
+
+progressWrap.style.display="block"
+progressText.style.display="block"
+
+let progress=0
+
+const interval=setInterval(()=>{
+progress+=Math.random()*20
+if(progress>=100){
+progress=100
+clearInterval(interval)
+setTimeout(()=>{
+progressWrap.style.display="none"
+progressText.style.display="none"
+callback()
+},500)
+}
+progressBar.style.width=progress+"%"
+progressText.textContent=`Preparing download... ${Math.floor(progress)}%`
+},200)
+
+}
+
+function playEpisode(i){
+
+idx=i
+
+const ep=serie.episodes[i]
+
+const videoURL=normalizeVideo(ep.video)
+
+player.innerHTML=`<iframe src="${videoURL}" allowfullscreen></iframe>`
+
+downloadBtn.textContent=`⬇ Download Episode ${i+1}`
+
+downloadBtn.onclick=()=>{
+const link=getDownloadLink(ep.video)
+simulateProgress(()=>{
+window.open(link,"_blank")
+})
+}
+
+document.querySelectorAll(".episode")
+.forEach((el,j)=>el.classList.toggle("active",i===j))
+
+prevBtn.disabled=i===0
+nextBtn.disabled=i===serie.episodes.length-1
+
+}
+
+prevBtn.onclick=()=>idx>0&&playEpisode(idx-1)
+nextBtn.onclick=()=>idx<serie.episodes.length-1&&playEpisode(idx+1)
+
+episodesBtn.onclick=()=>{
+episodeList.style.display=
+episodeList.style.display==="none"?"grid":"none"
+}
+
+fetchSerie()
+
+</script>
+</body>
+</html>
+
+
