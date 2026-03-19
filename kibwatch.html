@@ -152,10 +152,10 @@ const supabase = createClient(
 );
 
 /* ===== SPECIAL PIN CHECK ===== */
-const pin = localStorage.getItem("specialPIN");
+const pin = localStorage.getItem("kibandaAccess");
 
 if(!pin){
-location.href = "enter-pin.html";
+location.href = "home.html";
 }
 
 /* CHECK PIN IN SUPABASE */
@@ -166,8 +166,8 @@ const { data, error } = await supabase
 .single();
 
 if(error || !data){
-localStorage.removeItem("specialPIN");
-location.href = "enter-pin.html";
+localStorage.removeItem("kibandaAccess");
+location.href = "home.html";
 }
 </script>
 
