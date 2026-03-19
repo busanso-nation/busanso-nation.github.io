@@ -151,7 +151,25 @@ const seriesBox=document.getElementById("seriesBox");
 const freeSeriesBox=document.getElementById("freeSeriesBox");
 
 /* ===== PIN REDIRECT ===== */
-(function(){ var pin=localStorage.getItem("activePIN"); var exp=Number(localStorage.getItem("pinExpiry")); if(pin&&exp&&Date.now()<exp){ location.replace("watch.html"); }})();
+(function(){
+  // ✅ Normal active PIN
+  var activePin = localStorage.getItem("activePIN");
+  var activeExp = Number(localStorage.getItem("pinExpiry"));
+
+  if(activePin && activeExp && Date.now() < activeExp){
+    location.replace("watch.html");
+    return;
+  }
+
+  // ✅ Special PIN (kibanda)
+  var specialAccess = localStorage.getItem("kibandaAccess");
+
+  if(specialAccess === "true"){
+    location.replace("kibwatch.html");
+    return;
+  }
+
+})();
 
 /* ===== CARD CREATOR ===== */
 function createCard(item,type){
