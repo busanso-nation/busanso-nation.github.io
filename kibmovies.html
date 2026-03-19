@@ -167,8 +167,7 @@ body {
 </div>
 
 <div class="nav">
-  <button onclick="location.href='index.html'">🏠 Home</button>
-  <button onclick="location.href='series.html'">📺 Series</button>
+  <button onclick="location.href='kibseries.html'">📺 Series</button>
   <button onclick="location.href='donate.html'">❤️ Donate</button>
   <button onclick="location.href='https://www.youtube.com/channel/UC9tPdYzPSM6LOXSGUbea7nw'">😂 Funny Videos</button>
 </div>
@@ -221,7 +220,7 @@ function render(data){
         <div class="meta">${m.country || ''} • ${m.year || ''} • ${m.genre || ''}</div>
         <button class="watch">▶ Watch</button>
       </div>`;
-    c.querySelector("button.watch").onclick = () => location.href = `movie.html?id=${m.id}`;
+    c.querySelector("button.watch").onclick = () => location.href = `kibmov.html?id=${m.id}`;
     box.appendChild(c);
   });
 }
