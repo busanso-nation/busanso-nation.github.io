@@ -72,33 +72,51 @@ document.getElementById("synopsis").textContent = movie.synopsis || "";
 document.getElementById("meta").textContent =
 `${movie.year || ""} • ${movie.duration || ""} • ${movie.type || ""}`;
 
+/* ===== HIDE DOWNLOAD FOR YOUTUBE ===== */
+function isYouTube(url){
+  return /youtube\.com|youtu\.be/.test(url);
+}
+
+if(isYouTube(movie.video)){
+  downloadBtn.style.display = "none";
+}
+
 /* ===== VIDEO NORMALIZER ===== */
 function getVideoUrl(url){
   if(!url) return "";
+
   if(url.includes("youtube.com")){
     const ytId = new URL(url).searchParams.get("v");
     return `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=1&rel=0`;
   }
+
   if(url.includes("youtu.be")){
     const ytId = url.split("youtu.be/")[1].split("?")[0];
     return `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=1&rel=0`;
   }
+
   if(url.includes("vimeo.com")){
     const vid = url.split("/").pop();
     return `https://player.vimeo.com/video/${vid}?autoplay=1`;
   }
-  if(url.includes("/d/")){
-    const driveId = url.split("/d/")[1].split("/")[0];
-    return `https://drive.google.com/file/d/${driveId}/preview`;
+
+  // ✅ Robust Google Drive preview
+  if(url.includes("drive.google.com")){
+    let match = url.match(/\/d\/(.*?)\//);
+    let id = match ? match[1] : new URL(url).searchParams.get("id");
+
+    if(id){
+      return `https://drive.google.com/file/d/${id}/preview`;
+    }
   }
+
   return url;
 }
 
-/* ===== DOWNLOAD URL BUILDER (UPDATED) ===== */
+/* ===== GOOGLE DRIVE DOWNLOAD FIX ===== */
 function getDownloadUrl(url){
   if(!url) return "";
 
-  // ✅ Google Drive (robust extraction)
   if(url.includes("drive.google.com")){
     let match = url.match(/\/d\/(.*?)\//);
     let id = match ? match[1] : new URL(url).searchParams.get("id");
@@ -106,12 +124,6 @@ function getDownloadUrl(url){
     if(id){
       return `https://drive.google.com/uc?export=download&id=${id}`;
     }
-  }
-
-  // YouTube fallback
-  if(url.includes("youtu.be/")){
-    const ytId = url.split("youtu.be/")[1].split("?")[0];
-    return `https://www.youtube.com/watch?v=${ytId}`;
   }
 
   return url;
@@ -128,10 +140,9 @@ function playMovie(){
 
 /* ===== DOWNLOAD ===== */
 function downloadMovie(){
-  const downloadUrl = getDownloadUrl(movie.video);
-  if(!downloadUrl) return;
-
-  window.open(downloadUrl, "_blank");
+  const url = getDownloadUrl(movie.video);
+  if(!url) return;
+  window.open(url, "_blank");
 }
 
 watchBtn.onclick = playMovie;
