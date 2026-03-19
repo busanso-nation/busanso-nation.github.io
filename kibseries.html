@@ -132,7 +132,7 @@ function render(data){
         <div class="meta">${s.country} • ${s.genre} • ${s.year}</div>
         <button class="watch">▶ Watch</button>
       </div>`;
-    c.querySelector("button").onclick = ()=> location.href=`serie.html?id=${s.id}`;
+    c.querySelector("button").onclick = ()=> location.href=`kibser.html?id=${s.id}`;
     box.appendChild(c);
     cacheImage(s.poster);
   });
