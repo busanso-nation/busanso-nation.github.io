@@ -9,23 +9,28 @@
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-const supabaseUrl = 'https://dhkfhhybzcxdeoalcfqx.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(
+'https://dhkfhhybzcxdeoalcfqx.supabase.co',
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
+);
 
-const pin = localStorage.getItem("specialPIN");
+/* ===== KIBANDA ACCESS CHECK ===== */
+const access = localStorage.getItem("kibandaAccess");
+const expiry = localStorage.getItem("kibandaExpiry");
 
-if(!pin || pin === "undefined" || pin === ""){
+// ❌ No access
+if(access !== "true"){
   window.location.href = "expired.html";
-}else{
-  const { data, error } = await supabase
-    .from("special_pins")
-    .select("*")
-    .eq("pin", pin)
-    .single();
+}
 
-  if(error || !data){
-    localStorage.removeItem("specialPIN");
+// ⏳ Expiry check
+if(expiry){
+  const now = new Date();
+  const expDate = new Date(expiry);
+
+  if(now > expDate){
+    localStorage.removeItem("kibandaAccess");
+    localStorage.removeItem("kibandaExpiry");
     window.location.href = "expired.html";
   }
 }
