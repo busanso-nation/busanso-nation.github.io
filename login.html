@@ -63,6 +63,13 @@ button:hover { background: #ffb400; }
 .msg-error{color:#ff4d4d;}
 .msg-success{color:#00ff66;}
 .msg-info{color:#ffb400;}
+
+/* NEW BUTTON */
+#requestBtn{
+  display:none;
+  margin-top:10px;
+  background:#2563eb;
+}
 </style>
 </head>
 
@@ -72,13 +79,17 @@ button:hover { background: #ffb400; }
   <h2>Enter Your Password</h2>
   <input id="pinInput" placeholder="Wandiika wano Password Jetwakuwade">
   <button onclick="login()">Login</button>
+
+  <!-- NEW BUTTON -->
+  <button id="requestBtn" onclick="requestPin()">Request New Password</button>
+
   <div id="msg"></div>
 </div>
-  <!-- Ad container -->
+
+<!-- Ad container -->
 <div style="max-width:380px;margin:14px auto 0;text-align:center;">
   <script src="https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js"></script>
 </div>
-
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -107,10 +118,14 @@ function getDeviceId(){
   return id;
 }
 
+/* ===== ATTEMPTS COUNTER (NEW) ===== */
+let attempts = 0;
+
 /* ===== LOGIN FUNCTION ===== */
 async function login(){
   const pin = document.getElementById("pinInput").value.trim();
   const msg = document.getElementById("msg");
+  const requestBtn = document.getElementById("requestBtn");
 
   msg.className = "msg-info";
   msg.textContent = "";
@@ -128,8 +143,16 @@ async function login(){
     const snapshot = await db.ref("pins/" + pin).get();
 
     if(!snapshot.exists()){
+      attempts++; // NEW
+
       msg.className = "msg-error";
       msg.textContent = "Wrong Password. Try again";
+
+      // SHOW BUTTON AFTER 2 FAILS
+      if(attempts >= 2){
+        requestBtn.style.display = "block";
+      }
+
       return;
     }
 
@@ -137,37 +160,32 @@ async function login(){
     const now = Date.now();
     const deviceId = getDeviceId();
 
-    /* Expired */
     if(data.expiry && now > data.expiry){
       msg.className = "msg-error";
       msg.textContent = "Your Subscription is expired";
       return;
     }
 
-    /* Used on another device */
     if(data.activeDevice && data.activeDevice !== deviceId){
       msg.className = "msg-error";
       msg.textContent = "Hahaha, This Password belongs to someone else.";
       return;
     }
 
-    /* Bind device */
     if(!data.activeDevice){
       await db.ref("pins/"+pin+"/activeDevice").set(deviceId);
     }
 
-    /* Mark used */
     if(!data.used){
       await db.ref("pins/"+pin+"/used").set(true);
     }
 
-    /* Success */
     localStorage.setItem("activePIN", pin);
     localStorage.setItem("pinExpiry", data.expiry);
     localStorage.setItem("activePackage", JSON.stringify(data));
 
     msg.className = "msg-success";
-    msg.textContent = "Access granted — Welcome to Busanso Nation…";
+    msg.textContent = "Password correct — Welcome to Busanso Nation…";
 
     setTimeout(()=>{
       window.location.href = "watch.html";
@@ -178,6 +196,12 @@ async function login(){
     msg.className = "msg-error";
     msg.textContent = "Connection error. Try again.";
   }
+}
+
+/* ===== REQUEST PIN FUNCTION (NEW) ===== */
+function requestPin(){
+  const text = encodeURIComponent("Hello King VJ, I need a Busanso password");
+  window.open("https://wa.me/256703888884?text=" + text, "_blank");
 }
 </script>
 
