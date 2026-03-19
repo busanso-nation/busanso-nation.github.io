@@ -151,24 +151,24 @@ const supabase = createClient(
 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
 );
 
-/* ===== SPECIAL PIN CHECK ===== */
-const pin = localStorage.getItem("kibandaAccess");
+/* ===== ACCESS + EXPIRY CHECK ===== */
+const access = localStorage.getItem("kibandaAccess");
+const expiry = localStorage.getItem("kibandaExpiry");
 
-if(!pin){
-location.href = "home.html";
+if(access !== "true"){
+  location.href = "home.html";
 }
 
-/* CHECK PIN IN SUPABASE */
-const { data, error } = await supabase
-.from("special_pins")
-.select("*")
-.eq("pin", pin)
-.single();
+// check expiry
+if(expiry){
+  const now = new Date();
+  const expDate = new Date(expiry);
 
-if(error || !data){
-localStorage.removeItem("kibandaAccess");
-location.href = "home.html";
-}
+  if(now > expDate){
+    localStorage.removeItem("kibandaAccess");
+    localStorage.removeItem("kibandaExpiry");
+    location.href = "home.html";
+  }
 </script>
 
 </body>
