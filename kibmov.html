@@ -98,17 +98,17 @@ function getVideoUrl(url){
 function getDownloadUrl(url){
   if(!url) return "";
 
-  // Convert preview → direct download
-  if(url.includes("drive.google.com") && url.includes("/d/")){
-    const driveId = url.split("/d/")[1].split("/")[0];
-    return `https://drive.google.com/uc?export=download&id=${driveId}`;
+  // ✅ Google Drive (robust extraction)
+  if(url.includes("drive.google.com")){
+    let match = url.match(/\/d\/(.*?)\//);
+    let id = match ? match[1] : new URL(url).searchParams.get("id");
+
+    if(id){
+      return `https://drive.google.com/uc?export=download&id=${id}`;
+    }
   }
 
-  if(url.includes("drive.google.com") && url.includes("id=")){
-    const driveId = new URL(url).searchParams.get("id");
-    return `https://drive.google.com/uc?export=download&id=${driveId}`;
-  }
-
+  // YouTube fallback
   if(url.includes("youtu.be/")){
     const ytId = url.split("youtu.be/")[1].split("?")[0];
     return `https://www.youtube.com/watch?v=${ytId}`;
