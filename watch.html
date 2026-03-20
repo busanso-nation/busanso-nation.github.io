@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>User Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <style>
 :root{
   --primary-gradient: linear-gradient(135deg,#ff9f1c,#ff6f61);
@@ -300,6 +301,16 @@ if(lastSeriesData){
   `;
 }
 </script>
-
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal) {
+  await OneSignal.init({
+    appId: "cc8dfd2b-74bf-43a9-8cd0-2915cf1bc629",
+    notifyButton: {
+      enable: true
+    }
+  });
+});
+</script>
 </body>
 </html>
