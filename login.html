@@ -71,6 +71,16 @@ button:hover { background: #ffb400; }
   background:#2563eb;
 }
 </style>
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+
+<script>
+window.OneSignal = window.OneSignal || [];
+OneSignal.push(function() {
+  OneSignal.init({
+    appId: "cc8dfd2b-74bf-43a9-8cd0-2915cf1bc629",
+  });
+});
+</script>
 </head>
 
 <body>
@@ -79,7 +89,7 @@ button:hover { background: #ffb400; }
   <h2>Enter Your Password</h2>
   <input id="pinInput" placeholder="Wandiika wano Password Jetwakuwade">
   <button onclick="login()">Login</button>
-
+<button onclick="subscribeUser()">Enable Notifications</button>
   <!-- NEW BUTTON -->
   <button id="requestBtn" onclick="requestPin()">Request New Password</button>
 
@@ -204,6 +214,12 @@ function requestPin(){
   window.open("https://wa.me/256703888884?text=" + text, "_blank");
 }
 </script>
-
+<script>
+function subscribeUser(){
+  OneSignal.push(function() {
+    OneSignal.showSlidedownPrompt();
+  });
+}
+</script>
 </body>
 </html>
