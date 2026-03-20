@@ -300,6 +300,16 @@ if(lastSeriesData){
   `;
 }
 </script>
-
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal) {
+  await OneSignal.init({
+    appId: "cc8dfd2b-74bf-43a9-8cd0-2915cf1bc629",
+    notifyButton: {
+      enable: true
+    }
+  });
+});
+</script>
 </body>
 </html>
