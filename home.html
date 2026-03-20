@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <style>
 body{margin:0;background:#0b0b0b;color:#fff;font-family:'Poppins',sans-serif;}
 .sticky-header{position:sticky;top:0;background:#0b0b0b;z-index:999;padding-bottom:5px;box-shadow:0 2px 8px rgba(0,0,0,.6);}
@@ -234,6 +234,16 @@ document.addEventListener("click",startAudio);
 audioToggle.onclick=()=>{ isMuted=!isMuted; bgAudio.muted=isMuted; audioToggle.textContent=isMuted?"🔇":"🔊"; };
 </script>
 <script src="https://pl28597623.effectivegatecpm.com/47/af/6b/47af6bb4248b5c79dabea6b329d6d72f.js"></script>
-
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal) {
+  await OneSignal.init({
+    appId: "YOUR_ONESIGNAL_APP_ID",
+    notifyButton: {
+      enable: true
+    }
+  });
+});
+</script>
 </body>
 </html>
