@@ -8,166 +8,153 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{
-background:#0f0f0f;
-color:white;
-display:flex;
-justify-content:center;
-padding:15px;
+  background:#0f0f0f;
+  color:white;
+  display:flex;
+  justify-content:center;
+  padding:15px;
 }
 
-/* MAIN CARD */
-
+/* DASHBOARD CARD */
 .dashboard{
-width:100%;
-max-width:520px;
+  width:100%;
+  max-width:520px;
 }
 
 /* HEADER */
-
-.header{
-text-align:center;
-margin-bottom:20px;
-}
-
+.header{text-align:center;margin-bottom:20px;}
 .header h1{
-font-size:2.5rem;
-font-weight:900;
-background:linear-gradient(90deg,#ff2e63,#ffa62b);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+  font-size:2.5rem;
+  font-weight:900;
+  background:linear-gradient(90deg,#ff2e63,#ffa62b);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
-
-.header small{
-color:#aaa;
-}
+.header small{color:#aaa;}
 
 /* USER BOX */
-
 .user-box{
-background:#1b1b1b;
-border-radius:18px;
-padding:18px;
-margin-bottom:18px;
-box-shadow:0 10px 30px rgba(0,0,0,.4);
+  background:#1b1b1b;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
-
 .row{
-display:flex;
-justify-content:space-between;
-margin:8px 0;
+  display:flex;
+  justify-content:space-between;
+  margin:8px 0;
 }
-
 .countdown{
-font-weight:700;
-color:#ffa62b;
+  font-weight:700;
+  color:#ffa62b;
 }
 
 /* MAIN BUTTONS */
-
 .main-buttons{
-display:grid;
-grid-template-columns:1fr;
-gap:14px;
-margin-bottom:20px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+  margin-bottom:20px;
 }
-
 .big-btn{
-padding:22px;
-border-radius:16px;
-font-size:1.3rem;
-font-weight:700;
-text-align:center;
-text-decoration:none;
-color:white;
+  padding:22px;
+  border-radius:16px;
+  font-size:1.3rem;
+  font-weight:700;
+  text-align:center;
+  text-decoration:none;
+  color:white;
+  display:block;
 }
-
-.movies{
-background:linear-gradient(135deg,#ff2e63,#ff6b6b);
-}
-
-.series{
-background:linear-gradient(135deg,#4361ee,#4cc9f0);
-}
+.movies{background:linear-gradient(135deg,#ff2e63,#ff6b6b);}
+.series{background:linear-gradient(135deg,#4361ee,#4cc9f0);}
 
 /* CONTINUE WATCHING */
-
-.continue{
-margin-top:15px;
+.continue-section{margin-top:15px;}
+.continue-section h3{
+  margin-bottom:10px;
+  font-weight:700;
+  color:#ffa62b;
 }
-
-.continue h3{
-margin-bottom:10px;
-}
-
 .continue-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
 }
-
-.poster-card{
-background:#1b1b1b;
-border-radius:14px;
-padding:12px;
-text-align:center;
+.continue-card{
+  flex-shrink:0;
+  width:140px;
+  background:#1b1b1b;
+  border-radius:14px;
+  overflow:hidden;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(0,0,0,.2);
+  transition:transform .2s,box-shadow .2s;
 }
-
-.poster-card img{
-width:100%;
-border-radius:10px;
+.continue-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 25px rgba(0,0,0,.4);
 }
-
-.poster-card button{
-margin-top:6px;
-border:none;
-background:#ff2e63;
-color:white;
-padding:7px 10px;
-border-radius:8px;
-cursor:pointer;
+.continue-card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+.continue-card .card-title{
+  font-size:13px;
+  font-weight:600;
+  margin:6px 0;
+  color:#fff;
+}
+.continue-card button{
+  margin-bottom:8px;
+  padding:6px 10px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  width:90%;
+  transition: transform .2s, box-shadow .2s;
+}
+.continue-card button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 10px rgba(34,197,94,.6);
 }
 
 /* FOOTER MENU */
-
 .footer-menu{
-display:flex;
-justify-content:space-between;
-margin-top:20px;
-gap:8px;
+  display:flex;
+  justify-content:space-between;
+  margin-top:20px;
+  gap:8px;
 }
-
 .footer-btn{
-flex:1;
-padding:10px;
-text-align:center;
-border-radius:10px;
-text-decoration:none;
-font-size:.8rem;
-font-weight:600;
-color:white;
+  flex:1;
+  padding:10px;
+  text-align:center;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:.8rem;
+  font-weight:600;
+  color:white;
 }
-
 .extend{background:#ffa62b;}
 .city{background:#7209b7;}
 .donate{background:#ff006e;}
 .live{background:#06d6a0;}
 
 footer{
-text-align:center;
-margin-top:15px;
-font-size:.8rem;
-opacity:.7;
+  text-align:center;
+  margin-top:15px;
+  font-size:.8rem;
+  opacity:.7;
 }
-
 </style>
 </head>
 
@@ -175,66 +162,43 @@ opacity:.7;
 
 <div class="dashboard">
 
-<div class="header">
-<h1 id="planNickname">Loading...</h1>
-<small id="planLabel">Loading...</small>
-</div>
+  <div class="header">
+    <h1 id="planNickname">Loading...</h1>
+    <small id="planLabel">Loading...</small>
+  </div>
 
-<div class="user-box">
+  <div class="user-box">
+    <div class="row">
+      <span>Your Password</span>
+      <span>••••••••</span>
+    </div>
+    <div class="row">
+      <span>Expires In</span>
+      <span class="countdown" id="timeLeft">Loading...</span>
+    </div>
+  </div>
 
-<div class="row">
-<span>Your Password</span>
-<span>••••••••</span>
-</div>
+  <div class="main-buttons">
+    <a href="movies.html" class="big-btn movies">🎬 Watch Movies</a>
+    <a href="series.html" class="big-btn series">📺 Watch Series</a>
+  </div>
 
-<div class="row">
-<span>Expires In</span>
-<span class="countdown" id="timeLeft">Loading...</span>
-</div>
+  <div class="continue-section">
+    <h3>Continue Watching</h3>
+    <div class="continue-grid">
+      <div class="continue-card" id="lastMovieCard"></div>
+      <div class="continue-card" id="lastSeriesCard"></div>
+    </div>
+  </div>
 
-</div>
+  <div class="footer-menu">
+    <a href="packages.html" class="footer-btn extend">Extend</a>
+    <a href="busansocity.html" class="footer-btn city">City</a>
+    <a href="donate.html" class="footer-btn donate">Donate</a>
+    <a href="live.html" class="footer-btn live">Live</a>
+  </div>
 
-<div class="main-buttons">
-
-<a href="movies.html" class="big-btn movies">
-🎬 Watch Movies
-</a>
-
-<a href="series.html" class="big-btn series">
-📺 Watch Series
-</a>
-
-</div>
-
-<div class="continue">
-
-<h3>Continue Watching</h3>
-
-<div class="continue-grid">
-
-<div class="poster-card" id="lastMovieCard"></div>
-
-<div class="poster-card" id="lastSeriesCard"></div>
-
-</div>
-
-</div>
-
-<div class="footer-menu">
-
-<a href="packages.html" class="footer-btn extend">Extend</a>
-
-<a href="busansocity.html" class="footer-btn city">City</a>
-
-<a href="donate.html" class="footer-btn donate">Donate</a>
-
-<a href="live.html" class="footer-btn live">Live</a>
-
-</div>
-
-<footer>
-💫 Thank you for being part of Busanso Nation
-</footer>
+  <footer>💫 Thank you for being part of Busanso Nation</footer>
 
 </div>
 
@@ -242,105 +206,67 @@ opacity:.7;
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-
-/* YOUR ORIGINAL FIREBASE CODE */
-
 const firebaseConfig = {
-apiKey: "AIzaSy...",
-authDomain: "busanso-pins.firebaseapp.com",
-databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
-projectId: "busanso-pins",
-storageBucket: "busanso-pins.firebasestorage.app",
-messagingSenderId: "137040014808",
-appId: "1:137040014808:web:b0684e17b6b0328da596ad"
+  apiKey: "AIzaSy...",
+  authDomain: "busanso-pins.firebaseapp.com",
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
+  projectId: "busanso-pins",
+  storageBucket: "busanso-pins.firebasestorage.app",
+  messagingSenderId: "137040014808",
+  appId: "1:137040014808:web:b0684e17b6b0328da596ad"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 const pin = localStorage.getItem("activePIN");
-
-if(!pin){
-location.href="expired.html";
-}
+if(!pin){ location.href="expired.html"; }
 
 db.ref("pins/"+pin).get().then(snapshot=>{
+  if(!snapshot.exists()){ location.href="expired.html"; return; }
+  const data = snapshot.val();
 
-const data=snapshot.val();
+  const planNicknames = { Weekly:"Beginner", Monthly:"Kabeja", "Half-Year":"Kabeje", Annual:"Kabejest" };
+  document.getElementById("planNickname").textContent = planNicknames[data.type] || data.type;
+  document.getElementById("planLabel").textContent = `Package: ${data.type}`;
 
-const planNicknames={
-Weekly:"Beginner",
-Monthly:"Kabeja",
-"Half-Year":"Kabeje",
-Annual:"Kabejest"
-};
-
-document.getElementById("planNickname").textContent=
-planNicknames[data.type]||data.type;
-
-document.getElementById("planLabel").textContent=
-`Package: ${data.type}`;
-
-function updateCountdown(){
-
-const diff=data.expiry-Date.now();
-
-if(diff<=0){
-location.href="expired.html";
-return;
-}
-
-const d=Math.floor(diff/86400000);
-const h=Math.floor(diff%86400000/3600000);
-const m=Math.floor(diff%3600000/60000);
-const s=Math.floor(diff%60000/1000);
-
-timeLeft.textContent=`${d}d ${h}h ${m}m ${s}s`;
-
-}
-
-updateCountdown();
-setInterval(updateCountdown,1000);
-
+  const timeLeftEl = document.getElementById("timeLeft");
+  function updateCountdown(){
+    const diff = data.expiry - Date.now();
+    if(diff <=0){ location.href="expired.html"; return; }
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor(diff%86400000/3600000);
+    const m = Math.floor(diff%3600000/60000);
+    const s = Math.floor(diff%60000/1000);
+    timeLeftEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+  }
+  updateCountdown();
+  setInterval(updateCountdown,1000);
 });
 
-/* CONTINUE WATCHING */
+/* CONTINUE WATCHING CARDS */
+const lastMovieData = JSON.parse(localStorage.getItem("lastMovieData"));
+const lastSeriesData = JSON.parse(localStorage.getItem("lastSeriesData"));
 
-const lastMovieId=localStorage.getItem("lastMovieId");
-const lastSeriesData=JSON.parse(localStorage.getItem("lastSeriesId"));
-
-if(lastMovieId){
-
-document.getElementById("lastMovieCard").innerHTML=`
-
-<strong>Last Movie</strong><br>
-
-<button onclick="location.href='movie.html?id=${lastMovieId}'">
-
-Resume ▶
-
-</button>
-
-`;
-
+if(lastMovieData){
+  document.getElementById("lastMovieCard").innerHTML = `
+    <img src="${lastMovieData.poster}" alt="${lastMovieData.title}">
+    <div class="card-title">${lastMovieData.title}</div>
+    <button onclick="location.href='movie.html?id=${lastMovieData.id}'">
+      ▶ Resume Movie
+    </button>
+  `;
 }
 
 if(lastSeriesData){
-
-document.getElementById("lastSeriesCard").innerHTML=`
-
-<strong>${lastSeriesData.title}</strong><br>
-
-<button onclick="location.href='serie.html?id=${lastSeriesData.id}'">
-
-Resume ▶
-
-</button>
-
-`;
-
+  const seriesUrl = `series-player.html?id=${lastSeriesData.id}&ep=${lastSeriesData.episodeIdx}&t=${Math.floor(lastSeriesData.currentTime)}`;
+  document.getElementById("lastSeriesCard").innerHTML = `
+    <img src="${lastSeriesData.poster}" alt="${lastSeriesData.title}">
+    <div class="card-title">${lastSeriesData.title}</div>
+    <button onclick="location.href='${seriesUrl}'">
+      ▶ Resume Series
+    </button>
+  `;
 }
-
 </script>
 
 </body>
