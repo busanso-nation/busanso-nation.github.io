@@ -145,7 +145,12 @@ let serie=null, idx=0, progressInterval=null;
 let nicknameSaved=false;
 
 async function fetchSerie(){
-  const { data, error } = await supabase.from('series').select('*, episodes(*)').eq('id',id).single();
+const { data, error } = await supabase
+  .from('series')
+  .select('*, episodes(*)')
+  .eq('id', id)
+  .order('id', { foreignTable: 'episodes', ascending: true })
+  .single();
   if(error || !data){ title.textContent="❌ Series not found."; console.error(error); return; }
   serie=data; populateSeries();
 }
