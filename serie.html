@@ -5,9 +5,11 @@
 <title>BUSANSO SERIES by King VJ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
+<!-- Supabase -->
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 const supabase = createClient(
@@ -17,7 +19,6 @@ const supabase = createClient(
 </script>
 
 <style>
-/* (all your styles unchanged) */
 body { margin:0; font-family:Arial,sans-serif; background:#000; color:#fff; display:flex; flex-direction:column; align-items:center; padding:12px; }
 .logo { text-align:center; margin-bottom:12px; }
 .logo img { max-height:50px; }
@@ -67,118 +68,205 @@ input, textarea { width:100%; padding:10px; border-radius:6px; border:none; back
 </head>
 
 <body>
-
-<div class="logo"><img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png"></div>
+<div class="logo"><img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo"></div>
 
 <div class="player-nav">
-<button id="prevBtn">◀ Previous</button>
-<button id="shareBtn">Share</button>
-<button id="nextBtn">Next ▶</button>
+  <button id="prevBtn">◀ Previous</button>
+  <button id="shareBtn">Share</button>
+  <button id="nextBtn">Next ▶</button>
 </div>
 
 <div class="player" id="player"></div>
 
+<!-- Fullscreen button -->
 <button id="fullScreenBtn">⛶ Wide Screen / Full Screen</button>
 
 <div class="details">
-<h1 id="title">Loading Series...</h1>
-<div class="meta" id="meta"></div>
-<p id="synopsis"></p>
-<div class="cast" id="cast"></div>
+  <h1 id="title">Loading Series...</h1>
+  <div class="meta" id="meta"></div>
+  <p id="synopsis"></p>
+  <div class="cast" id="cast"></div>
 
-<button id="episodesBtn">📺 Episodes</button>
-<div class="episodes" id="episodeList" style="display:none"></div>
+  <button id="episodesBtn">📺 Episodes</button>
+  <div class="episodes" id="episodeList" style="display:none"></div>
 </div>
+
+<div class="ad-horizontal" id="topBannerAd"></div>
 
 <div id="commentsSection">
-<h3>Comments</h3>
-<div id="commentsList"></div>
-<input id="usernameInput" placeholder="Nickname">
-<textarea id="commentInput" placeholder="Write your comment"></textarea>
-<button id="commentBtn">Post Comment</button>
-<div id="commentMsg"></div>
+  <h3>Comments</h3>
+  <div id="commentsList"></div>
+  <input id="usernameInput" placeholder="Nickname">
+  <textarea id="commentInput" placeholder="Write your comment"></textarea>
+  <button id="commentBtn">Post Comment</button>
+  <div id="commentMsg"></div>
 </div>
+
+<div class="ad-horizontal" id="bottomBannerAd"></div>
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
 const supabase = createClient(
-'https://dhkfhhybzcxdeoalcfqx.supabase.co',
-'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
+  'https://dhkfhhybzcxdeoalcfqx.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
 );
 
-const player=document.getElementById("player");
-const episodeList=document.getElementById("episodeList");
-const prevBtn=document.getElementById("prevBtn");
-const nextBtn=document.getElementById("nextBtn");
+const firebaseConfig = {
+  apiKey:"AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
+  authDomain:"busanso-pins.firebaseapp.com",
+  databaseURL:"https://busanso-pins-default-rtdb.firebaseio.com",
+  projectId:"busanso-pins"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-const params=new URLSearchParams(location.search);
-const id=params.get("id");
+const title = document.getElementById("title");
+const meta = document.getElementById("meta");
+const synopsis = document.getElementById("synopsis");
+const cast = document.getElementById("cast");
+const player = document.getElementById("player");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const episodeList = document.getElementById("episodeList");
+const episodesBtn = document.getElementById("episodesBtn");
+const shareBtn = document.getElementById("shareBtn");
+const fullScreenBtn = document.getElementById("fullScreenBtn");
+const commentBtn = document.getElementById("commentBtn");
+const usernameInput = document.getElementById("usernameInput");
+const commentInput = document.getElementById("commentInput");
+const commentMsg = document.getElementById("commentMsg");
+const commentsList = document.getElementById("commentsList");
 
-let serie=null,idx=0;
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+if(!id) title.textContent="❌ No series ID provided.";
+
+let serie=null, idx=0, progressInterval=null;
+let nicknameSaved=false;
 
 async function fetchSerie(){
-const {data}=await supabase
-.from('series')
-.select('*, episodes(*)')
-.eq('id',id)
-.order('id',{foreignTable:'episodes',ascending:true})
-.single();
-
-serie=data;
-populateSeries();
+const { data, error } = await supabase
+  .from('series')
+  .select('*, episodes(*)')
+  .eq('id', id)
+  .order('id', { foreignTable: 'episodes', ascending: true })
+  .single();
+  if(error || !data){ title.textContent="❌ Series not found."; console.error(error); return; }
+  serie=data; populateSeries();
 }
 
 function populateSeries(){
-episodeList.innerHTML="";
+  title.textContent = serie.title;
+  meta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
+  synopsis.textContent = serie.synopsis || "";
+  cast.innerHTML="";
+  serie.cast?.forEach(c=>{ const span=document.createElement("span"); span.textContent=c; cast.appendChild(span); });
 
-serie.episodes.forEach((ep,i)=>{
-const div=document.createElement("div");
-div.className="episode";
-div.textContent=`Episode ${i+1} • ${ep.title||""}`;
-div.onclick=()=>playEpisode(i);
-episodeList.appendChild(div);
+  episodeList.innerHTML="";
+ serie.episodes.forEach((ep,i)=>{
+  const div=document.createElement("div");
+  div.className="episode";
+  div.textContent=`Episode ${i+1} • ${ep.title || ""}`;
+  div.onclick=()=>{
+    playEpisode(i);
+    window.scrollTo({ top:0, behavior:"smooth" });
+    episodeList.style.display="none";
+  };
+  episodeList.appendChild(div);
 });
 
-playEpisode(0);
+  const last = JSON.parse(localStorage.getItem("lastSeries")||"{}");
+  if(last && last.id===serie.id) playEpisodeWithTime(last.episodeIndex||0,last.currentTime||0);
+  else playEpisode(0);
 }
 
 function normalizeVideo(url){
-if(url.includes("vimeo.com")){
-const id=url.split("/").pop();
-return `https://player.vimeo.com/video/${id}`;
-}
-if(url.includes("/d/")){
-const id=url.split("/d/")[1].split("/")[0];
-return `https://drive.google.com/file/d/${id}/preview`;
-}
-return url;
+  if(!url) return "";
+  if(url.includes("youtube.com")||url.includes("youtu.be")){
+    const id=url.includes("v=")?new URL(url).searchParams.get("v"):url.split("/").pop();
+    return `https://www.youtube.com/embed/${id}`;
+  }
+  if(url.includes("vimeo.com")){ const id=url.split("/").pop(); return `https://player.vimeo.com/video/${id}`; }
+  if(url.includes("/d/")){ const id=url.split("/d/")[1].split("/")[0]; return `https://drive.google.com/file/d/${id}/preview`; }
+  return url;
 }
 
 function playEpisode(i){
-
-idx=i;
-
-/* 🔵 ADDED LINE ONLY */
-window.scrollTo({top:0,behavior:"smooth"});
-
-const ep=serie.episodes[i];
-const videoURL=normalizeVideo(ep.video);
-
-player.innerHTML=`<iframe src="${videoURL}" allowfullscreen></iframe>`;
-
-document.querySelectorAll(".episode")
-.forEach((el,j)=>el.classList.toggle("active",i===j));
-
-prevBtn.disabled=i===0;
-nextBtn.disabled=i===serie.episodes.length-1;
+  const ep = serie.episodes[i]; if(!ep) return;
+  idx=i;
+  localStorage.setItem("lastSeries",JSON.stringify({id:serie.id,title:serie.title,episodeIndex:i,episodeTitle:ep.title,video:ep.video,currentTime:0,updated:Date.now()}));
+  const videoURL = normalizeVideo(ep.video);
+  player.innerHTML=`<iframe src="${videoURL}" allowfullscreen></iframe>`;
+  document.querySelectorAll(".episode").forEach((el,j)=>el.classList.toggle("active",i===j));
+  prevBtn.disabled=i===0; nextBtn.disabled=i===serie.episodes.length-1;
+  if(progressInterval) clearInterval(progressInterval);
+  progressInterval=setInterval(()=>{
+    let prog = JSON.parse(localStorage.getItem("seriesProgress_"+serie.id)||"{}");
+    prog[i]=(prog[i]||0)+5;
+    localStorage.setItem("seriesProgress_"+serie.id,JSON.stringify(prog));
+  },5000);
 }
+function playEpisodeWithTime(i,startTime=0){ playEpisode(i); }
 
 prevBtn.onclick=()=>idx>0&&playEpisode(idx-1);
 nextBtn.onclick=()=>idx<serie.episodes.length-1&&playEpisode(idx+1);
+episodesBtn.onclick=()=>{ episodeList.style.display = episodeList.style.display==="none"?"grid":"none"; };
+
+// WhatsApp share
+shareBtn.onclick=()=>{
+  if(!serie) return;
+  const shareText = `🎬 ${serie.title}\n\n📝 ${serie.synopsis || ""}\n\n🌐 Watch Luganda Translated Series and movies on this link https://bit.ly/busanso`;
+  const whatsappURL = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  window.open(whatsappURL,"_blank");
+};
+
+// Fullscreen button
+fullScreenBtn.onclick=()=>{
+  if(player.requestFullscreen){ player.requestFullscreen(); }
+  else if(player.webkitRequestFullscreen){ player.webkitRequestFullscreen(); }
+  else if(player.msRequestFullscreen){ player.msRequestFullscreen(); }
+};
+
+// Comments
+const commentsRef = db.ref("comments/series/"+id);
+if(!nicknameSaved){
+  const savedName = localStorage.getItem("username");
+  if(savedName){ usernameInput.value=savedName; nicknameSaved=true; }
+}
+
+commentBtn.onclick=()=>{
+  const name=usernameInput.value.trim();
+  if(!nicknameSaved){ localStorage.setItem("username",name); nicknameSaved=true; }
+  const text=commentInput.value.trim();
+  if(name.length<2||name.length>20){ commentMsg.style.color="#ffb400"; commentMsg.textContent="Nickname 2–20 chars"; return; }
+  if(text.length<2||text.length>300){ commentMsg.style.color="#ffb400"; commentMsg.textContent="Comment 2–300 chars"; return; }
+  commentsRef.push({user:name,text,timestamp:Date.now()});
+  commentInput.value="";
+  commentMsg.style.color="#00ff66"; commentMsg.textContent="Comment posted";
+};
+
+// Display comments
+commentsRef.on("value",snap=>{
+  commentsList.innerHTML="";
+  const arr=[];
+  snap.forEach(c=>arr.push({...c.val(),ref:c.ref}));
+  arr.sort((a,b)=>b.timestamp-b.timestamp);
+  arr.forEach(c=>{
+    const div=document.createElement("div");
+    div.className="comment";
+    div.innerHTML=`<strong>${c.user}</strong>: ${c.text}`;
+    if(localStorage.getItem("activePIN")==="Orion196"){
+      const b=document.createElement("button");
+      b.textContent="X";
+      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none",borderRadius:"6px",padding:"2px 6px",cursor:"pointer"});
+      b.onclick=()=>c.ref.remove();
+      div.appendChild(b);
+    }
+    commentsList.appendChild(div);
+  });
+});
 
 fetchSerie();
 </script>
-
 </body>
 </html>
