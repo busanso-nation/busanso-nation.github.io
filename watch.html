@@ -155,6 +155,57 @@ footer{
   font-size:.8rem;
   opacity:.7;
 }
+
+/* ================= FLOATING BUTTON + POPUP ================= */
+#offerBtn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:linear-gradient(135deg,#ff2e63,#ffa62b);
+  color:white;
+  border:none;
+  padding:14px 16px;
+  border-radius:50px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:2000;
+  box-shadow:0 5px 20px rgba(0,0,0,.4);
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+#offerPopup{
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  background:#1b1b1b;
+  padding:16px;
+  border-radius:14px;
+  width:250px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  display:none;
+  z-index:2000;
+}
+
+#offerPopup h4{
+  margin-bottom:8px;
+  color:#ffa62b;
+}
+
+#offerPopup button{
+  margin-top:10px;
+  padding:8px 12px;
+  border:none;
+  border-radius:8px;
+  background:#ff2e63;
+  color:#fff;
+  cursor:pointer;
+}
 </style>
 </head>
 
@@ -198,8 +249,18 @@ footer{
     <a href="live.html" class="footer-btn live">Live</a>
   </div>
 
-  <footer>💫 Thank you for being part of Busanso Nation</footer>
+  <footer>💫 Thank you for joining Busanso Nation</footer>
 
+</div>
+
+<!-- FLOATING BUTTON -->
+<button id="offerBtn">🔥 Offers</button>
+
+<!-- POPUP -->
+<div id="offerPopup">
+  <h4>🔥 New Offers</h4>
+  <p>Check out our latest discounts and packages!</p>
+  <button onclick="location.href='offers.html'">View Offers</button>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -267,6 +328,19 @@ if(lastSeriesData){
     </button>
   `;
 }
+
+/* FLOATING BUTTON LOGIC */
+const offerBtn = document.getElementById("offerBtn");
+const offerPopup = document.getElementById("offerPopup");
+
+offerBtn.onclick = () => {
+  offerPopup.style.display = offerPopup.style.display === "block" ? "none" : "block";
+};
+
+// Auto show after 3 seconds
+setTimeout(()=>{
+  offerPopup.style.display = "block";
+},3000);
 </script>
 
 </body>
