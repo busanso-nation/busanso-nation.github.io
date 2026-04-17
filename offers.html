@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Special Offers</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+  background:#0f0f0f;
+  color:white;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+}
+
+.container{
+  max-width:520px;
+  width:100%;
+}
+
+/* HEADER */
+.header{
+  text-align:center;
+  margin-bottom:20px;
+}
+.header h1{
+  font-size:2.2rem;
+  background:linear-gradient(90deg,#ff2e63,#ffa62b);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.header p{
+  color:#ffa62b;
+  font-weight:600;
+  margin-top:5px;
+}
+
+/* OFFER CARD */
+.offer-card{
+  background:#1b1b1b;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  position:relative;
+  overflow:hidden;
+}
+
+.badge{
+  position:absolute;
+  top:10px;
+  right:-40px;
+  background:#ff2e63;
+  color:#fff;
+  padding:6px 50px;
+  transform:rotate(45deg);
+  font-size:.75rem;
+  font-weight:700;
+}
+
+/* TEXT */
+.offer-title{
+  font-size:1.2rem;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.price{
+  margin:10px 0;
+}
+.old-price{
+  text-decoration:line-through;
+  color:#aaa;
+  font-size:.9rem;
+}
+.new-price{
+  font-size:1.6rem;
+  font-weight:700;
+  color:#22c55e;
+}
+
+/* BUTTON */
+.pay-btn{
+  display:block;
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff;
+  font-size:1rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+.pay-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px rgba(34,197,94,.6);
+}
+
+/* FOOTER NAV */
+.footer-menu{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:20px;
+}
+.footer-btn{
+  flex:1;
+  padding:10px;
+  text-align:center;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:.85rem;
+  font-weight:600;
+  color:white;
+}
+.movies{background:#ff2e63;}
+.series{background:#4361ee;}
+.watch{background:#06d6a0;}
+
+/* FOOTER TEXT */
+.footer{
+  text-align:center;
+  margin-top:15px;
+  font-size:.8rem;
+  opacity:.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>🔥 Limited Offers</h1>
+    <p>Offer expires today only!</p>
+  </div>
+
+  <!-- KABEJE -->
+  <div class="offer-card">
+    <div class="badge">SAVE</div>
+    <div class="offer-title">KABEJE PACKAGE (6 Months)</div>
+
+    <div class="price">
+      <div class="old-price">UGX 70,000</div>
+      <div class="new-price">UGX 60,000</div>
+    </div>
+
+    <button class="pay-btn payBtn">💳 Pay Now</button>
+  </div>
+
+  <!-- KABEJEST -->
+  <div class="offer-card">
+    <div class="badge">SAVE</div>
+    <div class="offer-title">KABEJEST PACKAGE (1 Year)</div>
+
+    <div class="price">
+      <div class="old-price">UGX 120,000</div>
+      <div class="new-price">UGX 110,000</div>
+    </div>
+
+    <button class="pay-btn payBtn">💳 Pay Now</button>
+  </div>
+
+  <!-- FOOTER NAV BUTTONS -->
+  <div class="footer-menu">
+    <a href="movies.html" class="footer-btn movies">🎬 Movies</a>
+    <a href="series.html" class="footer-btn series">📺 Series</a>
+    <a href="watch.html" class="footer-btn watch">▶ Watch</a>
+  </div>
+
+  <div class="footer">
+    💫 Don’t miss out — upgrade your experience today
+  </div>
+
+</div>
+
+<script>
+// Pay buttons (all)
+document.querySelectorAll(".payBtn").forEach(btn=>{
+  btn.onclick = () => {
+    window.location.href = "tel:*185*1#";
+  };
+});
+</script>
+
+</body>
+</html>
