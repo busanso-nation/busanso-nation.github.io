@@ -6,6 +6,9 @@
 
 <title>Busanso Nation - Watch</title>
 
+<!-- Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
 <style>
 body {
   margin: 0;
@@ -14,6 +17,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
+/* Header */
 .header {
   padding: 15px;
   font-size: 20px;
@@ -21,25 +25,30 @@ body {
   font-weight: bold;
 }
 
+/* Layout */
 .container {
   max-width: 900px;
   margin: auto;
 }
 
+/* Player */
 .player {
   width: 100%;
   aspect-ratio: 16/9;
   background: black;
   position: relative;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
+/* Poster */
 .poster {
-  position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* Overlay */
 .playOverlay {
   position: absolute;
   inset: 0;
@@ -48,9 +57,10 @@ body {
   align-items: center;
   font-size: 50px;
   cursor: pointer;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.5);
 }
 
+/* Meta */
 .meta {
   padding: 15px;
 }
@@ -70,12 +80,7 @@ body {
   color: #aaa;
 }
 
-.actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
+/* Buttons */
 .actions {
   display: flex;
   gap: 12px;
@@ -83,51 +88,42 @@ body {
 }
 
 button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   padding: 12px 18px;
   border: none;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.25s ease;
-  font-size: 14px;
+  transition: 0.25s;
 }
 
-/* ▶ Watch */
+/* Watch */
 #watchBtn {
   background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: #000;
-  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+  color: black;
 }
 
-#watchBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.6);
-}
-
-/* 🔗 Share */
-#shareBtn {
-  background: #1f2937;
-  color: #fff;
-  border: 1px solid #374151;
-}
-
-#shareBtn:hover {
-  background: #374151;
-  transform: translateY(-2px);
-}
-
-/* 🎞 Trailer */
+/* Trailer */
 #trailerBtn {
   background: linear-gradient(135deg, #f97316, #ea580c);
-  color: #000;
-  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+  color: black;
 }
 
-#trailerBtn:hover {
+/* Share */
+#shareBtn {
+  background: #1f2937;
+  color: white;
+}
+
+/* Hover */
+button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.6);
+  opacity: 0.9;
 }
 
+/* Similar */
 .similar {
   margin-top: 30px;
   padding: 15px;
@@ -141,8 +137,13 @@ button {
 
 .card img {
   width: 100%;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.card img:hover {
+  transform: scale(1.05);
 }
 </style>
 </head>
@@ -160,40 +161,33 @@ button {
     <div class="desc" id="desc"></div>
     <div class="views" id="views"></div>
 
-<button id="watchBtn">
-  <i data-lucide="play"></i>
-  Watch
-</button>
+    <div class="actions">
+      <button id="watchBtn"><i data-lucide="play"></i>Watch</button>
+      <button id="trailerBtn"><i data-lucide="film"></i>Trailer</button>
+      <button id="shareBtn"><i data-lucide="share-2"></i>Share</button>
+    </div>
 
-<button id="trailerBtn">
-  <i data-lucide="film"></i>
-  Trailer
-</button>
-
-<button id="shareBtn">
-  <i data-lucide="share-2"></i>
-  Share
-</button>
-
-  <div class="similar">
-    <h3>Similar Movies</h3>
-    <div class="grid" id="similar"></div>
+    <div class="similar">
+      <h3>Similar Movies</h3>
+      <div class="grid" id="similar"></div>
+    </div>
   </div>
 
 </div>
 
 <script type="module">
-
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
+// 🔐 Supabase
 const supabase = createClient(
   "https://dhkfhhybzcxdeoalcfqx.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY"
 );
 
-const params = new URLSearchParams(window.location.search);
-const movieId = params.get("id");
+// URL param
+const movieId = new URLSearchParams(window.location.search).get("id");
 
+// Elements
 const player = document.getElementById("player");
 const titleEl = document.getElementById("title");
 const descEl = document.getElementById("desc");
@@ -202,15 +196,16 @@ const similarEl = document.getElementById("similar");
 
 let movie = null;
 
+// 🎬 Load movie
 async function loadMovie() {
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("movies")
     .select("*")
     .eq("id", movieId)
     .single();
 
-  if (!data) {
+  if (error || !data) {
     titleEl.textContent = "Movie not found";
     return;
   }
@@ -218,13 +213,12 @@ async function loadMovie() {
   movie = data;
 
   titleEl.textContent = data.title;
-
- descEl.textContent = data.synopsis || "No description";
-
+  descEl.textContent = data.synopsis || "";
   viewsEl.textContent = (data.views || 0) + " views";
 
   showPoster(data.poster, data.video);
 
+  // update views
   await supabase
     .from("movies")
     .update({ views: (data.views || 0) + 1 })
@@ -233,21 +227,19 @@ async function loadMovie() {
   loadSimilar(data.id);
 }
 
-// 🎬 Poster preload
+// Poster first
 function showPoster(poster, videoUrl) {
-
   player.innerHTML = `
     <img src="${poster}" class="poster">
     <div class="playOverlay">▶</div>
   `;
-
-  player.onclick = () => {
-    renderPlayer(videoUrl);
-  };
+  player.onclick = () => renderPlayer(videoUrl);
 }
 
-// 🎬 Player switch
+// Player logic
 function renderPlayer(url) {
+
+  if (!url) return;
 
   if (url.includes("youtube") || url.includes("youtu.be")) {
     const id = url.match(/(?:v=|youtu\.be\/)([^&]+)/)?.[1];
@@ -269,9 +261,8 @@ function renderPlayer(url) {
   }
 }
 
-// 🎞 Similar movies
+// Similar
 async function loadSimilar(currentId) {
-
   const { data } = await supabase
     .from("movies")
     .select("*")
@@ -285,44 +276,26 @@ async function loadSimilar(currentId) {
   `).join("");
 }
 
-// 🔗 SHARE SITE (FIXED)
-document.getElementById("shareBtn").onclick = () => {
-
-  const siteURL = "https://kingvj.netlify.app"; // 👈 CHANGE THIS
-
-const text =
-`🎬 Watch movies on Busanso Nation
-
-🔥 Stream now:
-${siteURL}`;
-
-window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
-};
-
-// 🎞 Trailer
-document.getElementById("trailerBtn").onclick = () => {
-
-  if (!movie || !movie.trailer) {
-    alert("Trailer not available");
-    return;
-  }
-
-  renderPlayer(movie.trailer);
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
-// ▶ Watch (FIXED)
+// Buttons
 document.getElementById("watchBtn").onclick = () => {
-
-  if (!movie) return;
-
-  renderPlayer(movie.video);
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (movie) renderPlayer(movie.video);
 };
 
+document.getElementById("trailerBtn").onclick = () => {
+  if (!movie || !movie.trailer) return alert("No trailer");
+  renderPlayer(movie.trailer);
+};
+
+document.getElementById("shareBtn").onclick = () => {
+  const url = "https://kingvj.netlify.app";
+  const text = `🎬 Watch movies on Busanso Nation\n\n🔥 ${url}`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
+};
+
+// Init
 loadMovie();
 lucide.createIcons();
 </script>
-<script src="https://unpkg.com/lucide@latest"></script>
+
 </body>
 </html>
