@@ -174,22 +174,33 @@ function getVideoUrl(url){
     return `https://drive.google.com/file/d/${driveId}/preview`;
   }
   return url;
-}function playMovie(){
+}let counted = false;
+
+function playMovie(){
   player.src = getVideoUrl(movie.video);
-  player.style.display="block";
+  player.style.display = "block";
 
   // hide UI
-  posterImg.style.display="none";
-  watchBtn.style.display="none";
-  shareBtn.style.display="none";
+  posterImg.style.display = "none";
+  watchBtn.style.display = "none";
+  shareBtn.style.display = "none";
 
-  // ✅ increment views (THIS is the important part)
-  supabase.rpc('increment_views', {
-    movie_id: movie.id
-  });
-}
+  // fullscreen for premium
   if(isPremium && player.requestFullscreen){
     player.requestFullscreen();
+  }
+
+  // ✅ increment views ONCE
+  if(!counted){
+    counted = true;
+
+    supabase.rpc('increment_views', {
+      movie_id: movie.id
+    }).then(() => {
+      console.log("✅ Views updated");
+    }).catch(err => {
+      console.error("❌ View error:", err);
+    });
   }
 }
 
