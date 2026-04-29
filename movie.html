@@ -286,51 +286,35 @@ function renderPlayer(url) {
   }
 }
 
-// 🎞 Similar movies (FIXED)
+// 🎞 Similar movies (CLEAN + PROTECTED)
 async function loadSimilar(currentId) {
-
-  const { data } = await supabase
-    .from("movies")
-    .select("*")
-    .neq("id", currentId)
-    .limit(8);
 
   const isPremiumUser = !!localStorage.getItem("activePIN");
 
-  similarEl.innerHTML = data.map(m => {
+  let query = supabase
+    .from("movies")
+    .select("*")
+    .neq("id", currentId);
 
-    const isLocked = m.premium === true && !isPremiumUser;
+  // 🔒 Hide premium movies for free users
+  if (!isPremiumUser) {
+    query = query.eq("premium", false);
+  }
 
-    return `
-      <div class="card" style="position:relative;">
+  const { data } = await query.limit(8);
 
-        <img src="${m.poster}"
-             onclick="${isLocked 
-               ? `location.href='packages.html'` 
-               : `location.href='?id=${m.id}'`}">
+  // Safety check
+  if (!data || data.length === 0) {
+    similarEl.innerHTML = "<p style='color:#888;'>No similar movies found</p>";
+    return;
+  }
 
-        ${isLocked ? `
-          <div style="
-            position:absolute;
-            inset:0;
-            backdrop-filter: blur(6px);
-            background: rgba(0,0,0,0.6);
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            gap:6px;
-            border-radius:6px;
-          ">
-            <div style="font-size:24px;">🔒</div>
-            <div style="color:#22c55e;">Premium</div>
-          </div>
-        ` : ""}
-
-      </div>
-    `;
-
-  }).join("");
+  similarEl.innerHTML = data.map(m => `
+    <div class="card">
+      <img src="${m.poster}" onclick="location.href='?id=${m.id}'">
+    </div>
+  `).join("");
+}
 }
 
 // 🔗 SHARE SITE (FIXED)
