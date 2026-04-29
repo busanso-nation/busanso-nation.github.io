@@ -287,34 +287,42 @@ function renderPlayer(url) {
 }
 
 // 🎞 Similar movies (CLEAN + PROTECTED)
+// 🎞 Similar movies (SAFE FIX)
 async function loadSimilar(currentId) {
 
-  const isPremiumUser = !!localStorage.getItem("activePIN");
+  try {
+    const isPremiumUser = !!localStorage.getItem("activePIN");
 
-  let query = supabase
-    .from("movies")
-    .select("*")
-    .neq("id", currentId);
+    let query = supabase
+      .from("movies")
+      .select("*")
+      .neq("id", currentId);
 
-  // 🔒 Hide premium movies for free users
-  if (!isPremiumUser) {
-    query = query.eq("premium", false);
+    if (!isPremiumUser) {
+      query = query.eq("premium", false);
+    }
+
+    const { data, error } = await query.limit(8);
+
+    if (error) {
+      console.error("Similar error:", error);
+      return;
+    }
+
+    if (!data) {
+      similarEl.innerHTML = "No movies found";
+      return;
+    }
+
+    similarEl.innerHTML = data.map(m => `
+      <div class="card">
+        <img src="${m.poster}" onclick="location.href='?id=${m.id}'">
+      </div>
+    `).join("");
+
+  } catch (err) {
+    console.error("Crash in loadSimilar:", err);
   }
-
-  const { data } = await query.limit(8);
-
-  // Safety check
-  if (!data || data.length === 0) {
-    similarEl.innerHTML = "<p style='color:#888;'>No similar movies found</p>";
-    return;
-  }
-
-  similarEl.innerHTML = data.map(m => `
-    <div class="card">
-      <img src="${m.poster}" onclick="location.href='?id=${m.id}'">
-    </div>
-  `).join("");
-}
 }
 
 // 🔗 SHARE SITE (FIXED)
