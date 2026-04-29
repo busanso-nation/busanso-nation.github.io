@@ -191,7 +191,10 @@ function render(data){
       </div>
       <div class="info">
         <div class="title">${m.title}</div>
-        <div class="meta">${m.country || ''} • ${m.year || ''} • ${m.genre || ''}</div>
+<div class="meta">
+  ${m.country || ''} • ${m.year || ''} • ${m.genre || ''}
+  <br>👁 ${m.views || 0} views
+</div>
         <button class="watch">▶ Watch</button>
       </div>`;
     c.querySelector("button.watch").onclick = () => location.href = `movie.html?id=${m.id}`;
