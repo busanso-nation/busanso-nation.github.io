@@ -8,7 +8,7 @@
 <style>
 body{
   margin:0;
-  background:#0b0f1a;
+  background:#0f172a;
   color:#fff;
   font-family:Arial;
 }
@@ -16,8 +16,7 @@ body{
 /* HERO */
 .banner{
   position:relative;
-  height:55vh;
-  overflow:hidden;
+  height:50vh;
 }
 .banner img{
   width:100%;
@@ -28,11 +27,10 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(to top,#0b0f1a 20%,transparent);
+  background:linear-gradient(to top,#0f172a 20%,transparent);
 }
 
-/* BUTTONS */
-.controls{
+.buttons{
   position:absolute;
   bottom:20px;
   width:100%;
@@ -40,6 +38,7 @@ body{
   justify-content:center;
   gap:10px;
 }
+
 button{
   padding:12px 20px;
   border:none;
@@ -47,36 +46,39 @@ button{
   font-weight:bold;
   cursor:pointer;
 }
+
 .watch{background:#22c55e;color:#fff;}
 .share{background:#3b82f6;color:#fff;}
-.option{background:#1e293b;color:#fff;}
+.server{background:#1e293b;color:#fff;}
 
 /* DETAILS */
-.container{padding:16px;max-width:1000px;margin:auto;}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:15px;
+}
 .title{font-size:22px;font-weight:bold;}
 .meta{color:#aaa;font-size:13px;margin:5px 0;}
-.desc{color:#ddd;margin-top:10px;}
+.desc{margin-top:10px;color:#ddd}
 
 /* PLAYER */
+.player{margin-top:20px;display:none;}
 iframe{
   width:100%;
   height:220px;
   border:none;
   border-radius:10px;
 }
-.player{margin-top:20px;display:none;}
 
-/* OPTIONS */
-.options{
+/* SERVERS */
+.servers{
   display:flex;
   gap:10px;
   margin-top:10px;
 }
 
 /* RELATED */
-.related{
-  margin-top:30px;
-}
+.related{margin-top:30px;}
 .grid{
   display:flex;
   gap:10px;
@@ -85,6 +87,7 @@ iframe{
 .card{
   width:120px;
   flex-shrink:0;
+  cursor:pointer;
 }
 .card img{
   width:100%;
@@ -96,12 +99,13 @@ iframe{
 }
 
 /* COMMENTS */
-#commentsContainer{
-  margin-top:30px;
-}
-.comment{
+#commentsContainer{margin-top:30px;}
+.comment{padding:8px;border-bottom:1px solid #333;}
+input{
   padding:8px;
-  border-bottom:1px solid #333;
+  border-radius:6px;
+  border:none;
+  margin-right:6px;
 }
 </style>
 </head>
@@ -109,9 +113,9 @@ iframe{
 <body>
 
 <div class="banner">
-  <img id="poster">
-  <div class="controls">
-    <button class="watch" id="watchBtn">▶ Watch</button>
+  <img id="posterImg">
+  <div class="buttons">
+    <button class="watch" id="watchBtn">▶ Watch Now</button>
     <button class="share" id="shareBtn">Share</button>
   </div>
 </div>
@@ -119,17 +123,16 @@ iframe{
 <div class="container">
   <div class="title" id="title"></div>
   <div class="meta" id="meta"></div>
-  <div class="desc" id="desc"></div>
+  <div class="desc" id="synopsis"></div>
 
   <!-- PLAYER -->
   <div class="player" id="playerBox">
     <iframe id="player"></iframe>
 
-    <!-- MULTI OPTIONS -->
-    <div class="options">
-      <button class="option" onclick="setSource(0)">Server 1</button>
-      <button class="option" onclick="setSource(1)">Server 2</button>
-      <button class="option" onclick="setSource(2)">Server 3</button>
+    <div class="servers">
+      <button class="server" onclick="setSource(0)">Server 1</button>
+      <button class="server" onclick="setSource(1)">Server 2</button>
+      <button class="server" onclick="setSource(2)">Server 3</button>
     </div>
   </div>
 
@@ -147,7 +150,6 @@ iframe{
     <input id="usernameInput" placeholder="Name">
     <input id="commentInput" placeholder="Comment">
     <button id="commentBtn">Post</button>
-    <div id="commentMsg"></div>
   </div>
 </div>
 
@@ -156,54 +158,58 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
 import { getDatabase, ref, push, onValue } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
 
-/* ================== CONFIG ================== */
 const supabase = createClient(
 'https://dhkfhhybzcxdeoalcfqx.supabase.co',
-'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
+'YOUR_KEY'
 );
 
-const firebaseConfig = {
-  apiKey:"AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
-  databaseURL:"https://busanso-pins-default-rtdb.firebaseio.com"
-};
-const app = initializeApp(firebaseConfig);
+const app = initializeApp({
+  apiKey:"xxx",
+  databaseURL:"xxx"
+});
 const db = getDatabase(app);
 
-/* ================== GET MOVIE ================== */
+/* GET ID */
 const id = new URLSearchParams(location.search).get("id");
 
+/* FETCH MOVIE */
 const { data: movie } = await supabase
 .from('movies')
 .select('*')
 .eq('id', id)
 .single();
 
-/* ================== UI ================== */
-title.textContent = movie.title;
-poster.src = movie.poster;
-meta.textContent = `${movie.year} • ${movie.genre}`;
-desc.textContent = movie.synopsis || "";
+/* 🔒 PREMIUM BLOCK */
+if(movie.type === "premium" && !localStorage.getItem("activePIN")){
+  document.body.innerHTML = `
+    <div style="text-align:center;padding:60px">
+      <h2>Premium Movie</h2>
+      <button onclick="location.href='packages.html'">Unlock Now</button>
+    </div>`;
+  throw new Error("blocked");
+}
 
-/* ================== VIDEO HANDLER ================== */
+/* UI */
+title.textContent = movie.title;
+posterImg.src = movie.poster;
+synopsis.textContent = movie.synopsis || "";
+meta.textContent = `${movie.year || ""} • ${movie.genre || ""}`;
+
+/* VIDEO NORMALIZER */
 function normalize(url){
   if(!url) return "";
-
   if(url.includes("youtube"))
     return `https://www.youtube.com/embed/${new URL(url).searchParams.get("v")}`;
-
   if(url.includes("youtu.be"))
     return `https://www.youtube.com/embed/${url.split("/").pop()}`;
-
   if(url.includes("vimeo"))
     return `https://player.vimeo.com/video/${url.split("/").pop()}`;
-
   if(url.includes("/d/"))
     return `https://drive.google.com/file/d/${url.split("/d/")[1].split("/")[0]}/preview`;
-
   return url;
 }
 
-/* SUPPORT MULTIPLE LINKS */
+/* MULTI SOURCES */
 const sources = [
   normalize(movie.video),
   normalize(movie.video2),
@@ -217,16 +223,13 @@ watchBtn.onclick = () => {
   playerBox.style.display = "block";
   setSource(0);
 
-  /* ✅ FIXED VIEW COUNT FOR STRING ID */
   if(!counted){
     counted = true;
 
     supabase
       .from('movies')
       .update({ views: (movie.views || 0) + 1 })
-      .eq('id', movie.id)
-      .then(()=>console.log("views updated"))
-      .catch(err=>console.log(err));
+      .eq('id', movie.id);
   }
 };
 
@@ -234,7 +237,13 @@ window.setSource = (i) => {
   if(sources[i]) player.src = sources[i];
 };
 
-/* ================== RELATED MOVIES ================== */
+/* SHARE */
+shareBtn.onclick = ()=>{
+  const txt = `${movie.title} ${location.href}`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`);
+};
+
+/* RELATED */
 const { data: related } = await supabase
 .from('movies')
 .select('*')
@@ -245,42 +254,59 @@ const { data: related } = await supabase
 related.forEach(r=>{
   const c=document.createElement("div");
   c.className="card";
-  c.innerHTML=`
-    <img src="${r.poster}">
-    <p>${r.title}</p>
-  `;
-  c.onclick=()=>location.href=`movie.html?id=${r.id}`;
+  c.innerHTML=`<img src="${r.poster}"><p>${r.title}</p>`;
+  
+  c.onclick = () => {
+    if(r.type === "premium" && !localStorage.getItem("activePIN")){
+      location.href = "packages.html";
+    } else {
+      location.href = `movie.html?id=${r.id}`;
+    }
+  };
+
   relatedBox.appendChild(c);
 });
 
-/* ================== COMMENTS ================== */
+/* COMMENTS */
 const commentsRef = ref(db, "comments/movies/" + movie.id);
+
+const savedName = localStorage.getItem("username");
+if(savedName) usernameInput.value = savedName;
 
 commentBtn.onclick = () => {
   const name = usernameInput.value.trim();
   const text = commentInput.value.trim();
 
-  if(name && text){
-    push(commentsRef, { user:name, text, timestamp:Date.now() });
-    commentInput.value="";
-  }
+  if(!name || !text) return;
+
+  localStorage.setItem("username", name);
+
+  const newComment = { user:name, text, timestamp:Date.now() };
+
+  // instant UI update
+  const div=document.createElement("div");
+  div.className="comment";
+  div.innerHTML=`<b>${name}</b>: ${text}`;
+  commentsList.prepend(div);
+
+  push(commentsRef, newComment);
+  commentInput.value="";
 };
 
+/* LOAD COMMENTS */
 onValue(commentsRef, snap=>{
   commentsList.innerHTML="";
-  snap.forEach(c=>{
+  const arr=[];
+  snap.forEach(c=>arr.push(c.val()));
+  arr.sort((a,b)=>b.timestamp-a.timestamp);
+
+  arr.forEach(c=>{
     const d=document.createElement("div");
     d.className="comment";
-    d.innerHTML=`<b>${c.val().user}</b>: ${c.val().text}`;
+    d.innerHTML=`<b>${c.user}</b>: ${c.text}`;
     commentsList.appendChild(d);
   });
 });
-
-/* ================== SHARE ================== */
-shareBtn.onclick = ()=>{
-  const url = location.href;
-  window.open(`https://wa.me/?text=${encodeURIComponent(movie.title + " " + url)}`);
-};
 </script>
 
 </body>
