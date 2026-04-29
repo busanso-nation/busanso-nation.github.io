@@ -242,10 +242,6 @@ async function loadMovie() {
 
   showPoster(data.poster, data.video);
 
-  await supabase
-    .from("movies")
-    .update({ views: (data.views || 0) + 1 })
-    .eq("id", data.id);
 
   loadSimilar(data.id);
 }
@@ -352,9 +348,15 @@ location.href = "packages.html";
 };
 
 // ▶ Watch (FIXED)
-document.getElementById("watchBtn").onclick = () => {
+document.getElementById("watchBtn").onclick = async () => {
 
   if (!movie) return;
+
+  // 🔥 Increase views when user actually watches
+  await supabase
+    .from("movies")
+    .update({ views: (movie.views || 0) + 1 })
+    .eq("id", movie.id);
 
   renderPlayer(movie.video);
   window.scrollTo({ top: 0, behavior: "smooth" });
