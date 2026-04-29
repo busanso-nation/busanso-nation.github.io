@@ -37,12 +37,6 @@ body {
   box-shadow: 0 10px 40px rgba(0,0,0,0.8);
 }
 
-.player {
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: black;
-  position: relative;
-}
 
 .poster {
   position: absolute;
@@ -286,41 +280,51 @@ function renderPlayer(url) {
   }
 }
 
-// 🎞 Similar movies
+// 🎞 Similar movies (FIXED)
+async function loadSimilar(currentId) {
 
-similarEl.innerHTML = data.map(m => {
+  const { data } = await supabase
+    .from("movies")
+    .select("*")
+    .neq("id", currentId)
+    .limit(8);
 
   const isPremiumUser = !!localStorage.getItem("activePIN");
-  const isLocked = m.premium === true && !isPremiumUser;
 
-  return `
-    <div class="card" style="position:relative;">
+  similarEl.innerHTML = data.map(m => {
 
-      <img src="${m.poster}"
-           onclick="${isLocked ? `location.href='packages.html'` : `location.href='?id=${m.id}'`}">
+    const isLocked = m.premium === true && !isPremiumUser;
 
-      ${isLocked ? `
-        <div style="
-          position:absolute;
-          inset:0;
-          backdrop-filter: blur(6px);
-          background: rgba(0,0,0,0.6);
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          align-items:center;
-          gap:6px;
-          border-radius:6px;
-        ">
-          <div style="font-size:24px;">🔒</div>
-          <div style="color:#22c55e;">Premium</div>
-        </div>
-      ` : ""}
+    return `
+      <div class="card" style="position:relative;">
 
-    </div>
-  `;
+        <img src="${m.poster}"
+             onclick="${isLocked 
+               ? `location.href='packages.html'` 
+               : `location.href='?id=${m.id}'`}">
 
-}).join("");
+        ${isLocked ? `
+          <div style="
+            position:absolute;
+            inset:0;
+            backdrop-filter: blur(6px);
+            background: rgba(0,0,0,0.6);
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            gap:6px;
+            border-radius:6px;
+          ">
+            <div style="font-size:24px;">🔒</div>
+            <div style="color:#22c55e;">Premium</div>
+          </div>
+        ` : ""}
+
+      </div>
+    `;
+
+  }).join("");
 }
 
 // 🔗 SHARE SITE (FIXED)
@@ -341,7 +345,7 @@ window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
 document.getElementById("trailerBtn").onclick = () => {
 
   if (!movie || !movie.trailer) {
-    alert("Trailer not available");
+location.href = "packages.html";
     return;
   }
 
@@ -358,14 +362,13 @@ document.getElementById("watchBtn").onclick = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-loadMovie();
+loadMovie().then(() => {
+  lucide.createIcons();
+});
 </script>
 
 <script src="https://unpkg.com/lucide@latest"></script>
 
-<script>
-  lucide.createIcons();
-</script>
 
 </body>
 </html>
