@@ -283,7 +283,7 @@ function renderPlayer(url) {
 }
 
 // 🎞 Similar movies (CLEAN + PROTECTED)
-// 🎞 Similar movies (SAFE FIX)
+// 🎞 Similar movies (FINAL FIX)
 async function loadSimilar(currentId) {
 
   try {
@@ -294,8 +294,9 @@ async function loadSimilar(currentId) {
       .select("*")
       .neq("id", currentId);
 
+    // 🔥 FIX: use "type" column instead of "premium"
     if (!isPremiumUser) {
-      query = query.eq("premium", false);
+      query = query.eq("type", "free");
     }
 
     const { data, error } = await query.limit(8);
@@ -305,8 +306,8 @@ async function loadSimilar(currentId) {
       return;
     }
 
-    if (!data) {
-      similarEl.innerHTML = "No movies found";
+    if (!data || data.length === 0) {
+      similarEl.innerHTML = "<p style='color:#888;'>No movies found</p>";
       return;
     }
 
