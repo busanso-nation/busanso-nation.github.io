@@ -2,73 +2,153 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Movie Player</title>
+<title>Watch Movie | Busanso Nation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body { margin:0; background:#111; color:#fff; font-family:Arial,sans-serif; display:flex; flex-direction:column; align-items:center; }
-.banner { position:relative; width:100%; height:55vh; max-height:450px; overflow:hidden; display:flex; align-items:flex-end; justify-content:center; }
-.banner img { width:100%; height:100%; object-fit:cover; object-position:center; transform:scale(1.1); pointer-events:none; }
-.banner::after{ content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to top, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.3) 60%, transparent 100%); }
-.banner .buttons{ position:absolute; bottom:30px; left:0; right:0; display:flex; gap:12px; justify-content:center; z-index:10; }
-button{ padding:14px 28px; font-size:16px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
-#watchBtn{ background:#e50914; color:#fff; }
-#shareBtn{ background:#25D366; color:#fff; }
-.details{ max-width:900px; margin:20px auto; padding:0 16px; }
-.player{ margin:20px auto; width:90%; max-width:1200px; aspect-ratio:16/9; display:none; border:none; border-radius:12px; }
-.ad-horizontal{ width:100%; max-width:1200px; margin:15px auto; display:flex; justify-content:center; }
-#commentsContainer{ max-width:900px; width:90%; margin:20px auto; border-top:1px solid #333; padding-top:16px; }
-#commentsList{ max-height:350px; overflow-y:auto; margin-bottom:12px; }
-.comment{ position:relative; padding:10px; border-bottom:1px solid #333; }
-input{ padding:8px; border-radius:6px; border:none; outline:none; }
-#usernameInput{ width:25%; margin-right:8px; }
-#commentInput{ width:55%; margin-right:8px; }
-#commentBtn{ background:#e50914; color:#fff; }
-#commentMsg{ margin-top:6px; font-size:14px; }
-@media(max-width:768px){
-  .banner{ height:40vh; }
-  #usernameInput{ width:35%; }
-  #commentInput{ width:45%; }
+body{
+  margin:0;
+  background:#0b0f1a;
+  color:#fff;
+  font-family:Arial;
+}
+
+/* HERO */
+.banner{
+  position:relative;
+  height:55vh;
+  overflow:hidden;
+}
+.banner img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.banner::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,#0b0f1a 20%,transparent);
+}
+
+/* BUTTONS */
+.controls{
+  position:absolute;
+  bottom:20px;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+button{
+  padding:12px 20px;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.watch{background:#22c55e;color:#fff;}
+.share{background:#3b82f6;color:#fff;}
+.option{background:#1e293b;color:#fff;}
+
+/* DETAILS */
+.container{padding:16px;max-width:1000px;margin:auto;}
+.title{font-size:22px;font-weight:bold;}
+.meta{color:#aaa;font-size:13px;margin:5px 0;}
+.desc{color:#ddd;margin-top:10px;}
+
+/* PLAYER */
+iframe{
+  width:100%;
+  height:220px;
+  border:none;
+  border-radius:10px;
+}
+.player{margin-top:20px;display:none;}
+
+/* OPTIONS */
+.options{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+/* RELATED */
+.related{
+  margin-top:30px;
+}
+.grid{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+}
+.card{
+  width:120px;
+  flex-shrink:0;
+}
+.card img{
+  width:100%;
+  border-radius:8px;
+}
+.card p{
+  font-size:12px;
+  text-align:center;
+}
+
+/* COMMENTS */
+#commentsContainer{
+  margin-top:30px;
+}
+.comment{
+  padding:8px;
+  border-bottom:1px solid #333;
 }
 </style>
 </head>
+
 <body>
 
 <div class="banner">
-  <img id="posterImg" src="">
-  <div class="buttons">
-    <button id="watchBtn">▶ Watch Now</button>
-    <button id="shareBtn">Share</button>
+  <img id="poster">
+  <div class="controls">
+    <button class="watch" id="watchBtn">▶ Watch</button>
+    <button class="share" id="shareBtn">Share</button>
   </div>
 </div>
 
-<!-- TOP BANNER CONTAINER -->
-<div class="ad-horizontal" id="topBannerAd"></div>
+<div class="container">
+  <div class="title" id="title"></div>
+  <div class="meta" id="meta"></div>
+  <div class="desc" id="desc"></div>
 
-<div class="details">
-  <h1 id="title">Movie is Loading...</h1>
-  <p id="synopsis"></p>
-  <p id="meta"></p>
-</div>
+  <!-- PLAYER -->
+  <div class="player" id="playerBox">
+    <iframe id="player"></iframe>
 
-<iframe id="player"
-allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-allowfullscreen
-class="player"></iframe>
+    <!-- MULTI OPTIONS -->
+    <div class="options">
+      <button class="option" onclick="setSource(0)">Server 1</button>
+      <button class="option" onclick="setSource(1)">Server 2</button>
+      <button class="option" onclick="setSource(2)">Server 3</button>
+    </div>
+  </div>
 
-<!-- BOTTOM BANNER CONTAINER -->
-<div class="ad-horizontal" id="bottomBannerAd"></div>
+  <!-- RELATED -->
+  <div class="related">
+    <h3>Similar Movies</h3>
+    <div class="grid" id="relatedBox"></div>
+  </div>
 
-<!-- COMMENTS -->
-<div id="commentsContainer">
-  <h3>Comments</h3>
-  <div id="commentsList"></div>
-  <div style="display:flex;flex-wrap:wrap;">
-    <input id="usernameInput" type="text" placeholder="Nickname">
-    <input id="commentInput" type="text" placeholder="Add a comment...">
+  <!-- COMMENTS -->
+  <div id="commentsContainer">
+    <h3>Comments</h3>
+    <div id="commentsList"></div>
+
+    <input id="usernameInput" placeholder="Name">
+    <input id="commentInput" placeholder="Comment">
     <button id="commentBtn">Post</button>
+    <div id="commentMsg"></div>
   </div>
-  <div id="commentMsg"></div>
 </div>
 
 <script type="module">
@@ -76,6 +156,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
 import { getDatabase, ref, push, onValue } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
 
+/* ================== CONFIG ================== */
 const supabase = createClient(
 'https://dhkfhhybzcxdeoalcfqx.supabase.co',
 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
@@ -83,213 +164,123 @@ const supabase = createClient(
 
 const firebaseConfig = {
   apiKey:"AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
-  authDomain:"busanso-pins.firebaseapp.com",
-  databaseURL:"https://busanso-pins-default-rtdb.firebaseio.com",
-  projectId:"busanso-pins",
+  databaseURL:"https://busanso-pins-default-rtdb.firebaseio.com"
 };
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const isPremium = !!localStorage.getItem("activePIN");
+/* ================== GET MOVIE ================== */
+const id = new URLSearchParams(location.search).get("id");
 
-/* ===== LOAD ADS ONLY FOR NON-PREMIUM ===== */
-if (!isPremium) {
+const { data: movie } = await supabase
+.from('movies')
+.select('*')
+.eq('id', id)
+.single();
 
-  // ===== TOP BANNER =====
-  const topScript = document.createElement("script");
-  topScript.text = `
-    atOptions = {
-      'key' : '1c9ccdb756a82c4d663014a338917bd7',
-      'format' : 'iframe',
-      'height' : 250,
-      'width' : 300,
-      'params' : {}
-    };
-  `;
-  document.getElementById("topBannerAd").appendChild(topScript);
+/* ================== UI ================== */
+title.textContent = movie.title;
+poster.src = movie.poster;
+meta.textContent = `${movie.year} • ${movie.genre}`;
+desc.textContent = movie.synopsis || "";
 
-  const topSrcScript = document.createElement("script");
-  topSrcScript.src = "https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js";
-  topSrcScript.async = true;
-  document.getElementById("topBannerAd").appendChild(topSrcScript);
+/* ================== VIDEO HANDLER ================== */
+function normalize(url){
+  if(!url) return "";
 
-  // ===== BOTTOM BANNER =====
-  const bottomScript = document.createElement("script");
-  bottomScript.src = "https://pl28760946.effectivegatecpm.com/fd3cd948dadbd8aa0ae06bc1d133066f/invoke.js";
-  bottomScript.async = true;
-  document.getElementById("bottomBannerAd").appendChild(bottomScript);
+  if(url.includes("youtube"))
+    return `https://www.youtube.com/embed/${new URL(url).searchParams.get("v")}`;
 
-  const bottomContainer = document.createElement("div");
-  bottomContainer.id = "container-fd3cd948dadbd8aa0ae06bc1d133066f";
-  document.getElementById("bottomBannerAd").appendChild(bottomContainer);
+  if(url.includes("youtu.be"))
+    return `https://www.youtube.com/embed/${url.split("/").pop()}`;
 
-  // ===== POPUNDER (fires on first click) =====
-  document.addEventListener("click", function() {
-    const popScript = document.createElement("script");
-    popScript.src = "https://pl28816831.effectivegatecpm.com/3b/a1/5b/3ba15bda3296425578b90365d70f5523.js";
-    popScript.async = true;
-    document.body.appendChild(popScript);
-  }, { once: true });
+  if(url.includes("vimeo"))
+    return `https://player.vimeo.com/video/${url.split("/").pop()}`;
+
+  if(url.includes("/d/"))
+    return `https://drive.google.com/file/d/${url.split("/d/")[1].split("/")[0]}/preview`;
+
+  return url;
 }
 
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-if(!id){ location.href="movies-list.html"; }
+/* SUPPORT MULTIPLE LINKS */
+const sources = [
+  normalize(movie.video),
+  normalize(movie.video2),
+  normalize(movie.video3)
+];
 
-const player = document.getElementById("player");
-const watchBtn = document.getElementById("watchBtn");
-const posterImg = document.getElementById("posterImg");
-const shareBtn = document.getElementById("shareBtn");
+let counted = false;
 
-/* ===== FETCH MOVIE ===== */
-const { data: movie } = await supabase
-  .from('movies')
-  .select('*')
-  .eq('id', id)
-  .single();
+/* PLAY */
+watchBtn.onclick = () => {
+  playerBox.style.display = "block";
+  setSource(0);
 
-document.getElementById("title").textContent = movie.title;
-posterImg.src = movie.poster;
-document.getElementById("synopsis").textContent = movie.synopsis || "";
-document.getElementById("meta").textContent =
-`${movie.year || ""} • ${movie.duration || ""} • ${movie.type || ""}`;
-
-/* ===== VIDEO NORMALIZER ===== */
-function getVideoUrl(url){
-  if(!url) return "";
-  if(url.includes("youtube.com")){
-    const ytId = new URL(url).searchParams.get("v");
-    return `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=1&rel=0`;
-  }
-  if(url.includes("youtu.be")){
-    const ytId = url.split("youtu.be/")[1].split("?")[0];
-    return `https://www.youtube.com/embed/${ytId}?autoplay=1&controls=1&rel=0`;
-  }
-  if(url.includes("vimeo.com")){
-    const vid = url.split("/").pop();
-    return `https://player.vimeo.com/video/${vid}?autoplay=1`;
-  }
-  if(url.includes("/d/")){
-    const driveId = url.split("/d/")[1].split("/")[0];
-    return `https://drive.google.com/file/d/${driveId}/preview`;
-  }
-  return url;
-}let counted = false;
-
-function playMovie(){
-  player.src = getVideoUrl(movie.video);
-  player.style.display = "block";
-
-  // hide UI
-  posterImg.style.display = "none";
-  watchBtn.style.display = "none";
-  shareBtn.style.display = "none";
-
-  // fullscreen for premium
-  if(isPremium && player.requestFullscreen){
-    player.requestFullscreen();
-  }
-
-  // ✅ increment views ONCE
+  /* ✅ FIXED VIEW COUNT FOR STRING ID */
   if(!counted){
     counted = true;
 
-    supabase.rpc('increment_views', {
-      movie_id: movie.id
-    }).then(() => {
-      console.log("✅ Views updated");
-    }).catch(err => {
-      console.error("❌ View error:", err);
-    });
+    supabase
+      .from('movies')
+      .update({ views: (movie.views || 0) + 1 })
+      .eq('id', movie.id)
+      .then(()=>console.log("views updated"))
+      .catch(err=>console.log(err));
   }
-}
-
-watchBtn.onclick = playMovie;
-posterImg.onclick = playMovie;
-
-shareBtn.onclick = () => {
-
-  const shareText =
-`🎬 *${movie.title}*
-
-📅 Year: ${movie.year || "N/A"}
-⏱ Duration: ${movie.duration || "N/A"}
-
-📝 ${movie.synopsis || ""}
-
-🌐 Watch more movies and series on:
-https://bit.ly/busanso`;
-
-  const whatsappURL = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-
-  window.open(whatsappURL, "_blank");
 };
 
-/* ===== COMMENTS ===== */
-const commentsRef = ref(db, "comments/movies/" + movie.id);
-const usernameInput = document.getElementById("usernameInput");
-const commentInput = document.getElementById("commentInput");
-const commentMsg = document.getElementById("commentMsg");
-const commentsList = document.getElementById("commentsList");
-const commentBtn = document.getElementById("commentBtn");
+window.setSource = (i) => {
+  if(sources[i]) player.src = sources[i];
+};
 
-const savedName = localStorage.getItem("username");
-if(savedName) usernameInput.value = savedName;
+/* ================== RELATED MOVIES ================== */
+const { data: related } = await supabase
+.from('movies')
+.select('*')
+.eq('genre', movie.genre)
+.neq('id', movie.id)
+.limit(10);
+
+related.forEach(r=>{
+  const c=document.createElement("div");
+  c.className="card";
+  c.innerHTML=`
+    <img src="${r.poster}">
+    <p>${r.title}</p>
+  `;
+  c.onclick=()=>location.href=`movie.html?id=${r.id}`;
+  relatedBox.appendChild(c);
+});
+
+/* ================== COMMENTS ================== */
+const commentsRef = ref(db, "comments/movies/" + movie.id);
 
 commentBtn.onclick = () => {
   const name = usernameInput.value.trim();
   const text = commentInput.value.trim();
 
-  if(name.length < 2 || name.length > 20){
-    commentMsg.style.color="#ffb400";
-    commentMsg.textContent="Nickname must be 2–20 characters";
-    return;
+  if(name && text){
+    push(commentsRef, { user:name, text, timestamp:Date.now() });
+    commentInput.value="";
   }
-  if(text.length < 2 || text.length > 300){
-    commentMsg.style.color="#ffb400";
-    commentMsg.textContent="Comment must be 2–300 characters";
-    return;
-  }
-
-  localStorage.setItem("username", name);
-  push(commentsRef, { user:name, text, timestamp:Date.now() });
-  commentInput.value="";
-  commentMsg.style.color="#00ff66";
-  commentMsg.textContent="Comment posted";
 };
 
-onValue(commentsRef, snap => {
+onValue(commentsRef, snap=>{
   commentsList.innerHTML="";
-  const arr=[];
-  snap.forEach(c=>arr.push({...c.val(), ref:c.ref}));
-  arr.sort((a,b)=>b.timestamp-a.timestamp);
-
-  arr.forEach(c=>{
-    const div=document.createElement("div");
-    div.className="comment";
-    div.innerHTML=`<strong>${c.user}</strong>: ${c.text}`;
-
-    if(localStorage.getItem("activePIN")==="Orion196"){
-      const b=document.createElement("button");
-      b.textContent="X";
-      Object.assign(b.style,{
-        position:"absolute",
-        right:"6px",
-        top:"6px",
-        background:"#e50914",
-        color:"#fff",
-        border:"none",
-        borderRadius:"6px",
-        padding:"2px 6px",
-        cursor:"pointer"
-      });
-      b.onclick=()=>c.ref.remove();
-      div.appendChild(b);
-    }
-
-    commentsList.appendChild(div);
+  snap.forEach(c=>{
+    const d=document.createElement("div");
+    d.className="comment";
+    d.innerHTML=`<b>${c.val().user}</b>: ${c.val().text}`;
+    commentsList.appendChild(d);
   });
 });
+
+/* ================== SHARE ================== */
+shareBtn.onclick = ()=>{
+  const url = location.href;
+  window.open(`https://wa.me/?text=${encodeURIComponent(movie.title + " " + url)}`);
+};
 </script>
 
 </body>
