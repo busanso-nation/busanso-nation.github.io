@@ -282,34 +282,66 @@ function renderPlayer(url) {
   }
 }
 
-// 🎞 Similar movies (CLEAN + PROTECTED)
+// 🎞 Similar movies (SMART + PROTECTED)
 async function loadSimilar(currentId) {
 
   try {
     const isPremiumUser = !!localStorage.getItem("activePIN");
 
+    // 1️⃣ Get current movie genre
+    const { data: current, error: currentError } = await supabase
+      .from("movies")
+      .select("genre")
+      .eq("id", currentId)
+      .single();
+
+    if (currentError || !current) {
+      console.error("Current movie fetch error:", currentError);
+      return;
+    }
+
+    // 2️⃣ Base query (same genre)
     let query = supabase
       .from("movies")
       .select("*")
-      .neq("id", currentId);
+      .neq("id", currentId)
+      .eq("genre", current.genre);
 
-    // 🔥 FILTER ONLY FREE MOVIES FOR NON-PREMIUM USERS
+    // 🔒 Filter premium
     if (!isPremiumUser) {
       query = query.eq("type", "free");
     }
 
-    const { data, error } = await query.limit(8);
+    let { data, error } = await query.limit(8);
 
     if (error) {
       console.error("Similar error:", error);
       return;
     }
 
-    if (!data || data.length === 0) {
-      similarEl.innerHTML = "No movies found";
-      return;
+    // 3️⃣ Fallback if not enough results
+    if (!data || data.length < 4) {
+
+      let fallbackQuery = supabase
+        .from("movies")
+        .select("*")
+        .neq("id", currentId);
+
+      if (!isPremiumUser) {
+        fallbackQuery = fallbackQuery.eq("type", "free");
+      }
+
+      const { data: fallback, error: fallbackError } = await fallbackQuery.limit(8);
+
+      if (fallbackError) {
+        console.error("Fallback error:", fallbackError);
+        return;
+      }
+
+      data = fallback;
     }
 
+    // 4️⃣ Render
     similarEl.innerHTML = data.map(m => `
       <div class="card">
         <img src="${m.poster}" onclick="location.href='?id=${m.id}'">
