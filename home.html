@@ -363,26 +363,49 @@ const freeSeriesBox=document.getElementById("freeSeriesBox");
 })();
 
 /* ===== CARD CREATOR ===== */
-function createCard(item,type){
-  var isPremium=item.type==="premium";
-  var card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=
-  '<div style="position:relative">'+
-  '<img src="'+item.poster+'">'+
-  '<span class="badge '+(isPremium?'premium':'')+'">'+
-  (isPremium?'PREMIUM':'FREE')+'</span>'+
-  (isPremium?'<div class="lock-icon">LOCKED</div>':'')+
-  '</div>'+
-  '<div class="card-title">'+item.title+'</div>'+
-  '<button class="watch-btn">'+(isPremium?'Pay to Watch':'Watch')+'</button>';
-  card.querySelector(".watch-btn").onclick=function(){
-    if(isPremium) location.href="packages.html";
-    else location.href=(type==="movie"?"movie.html?id=":"serie.html?id=")+item.id;
+function createCard(item, type) {
+
+  const isPremium = item.type === "premium";
+
+  const card = document.createElement("div");
+  card.className = "card";
+
+  // optional: mark premium cards for styling
+  if (isPremium) card.classList.add("premium");
+
+  card.innerHTML = `
+    <div style="position:relative">
+      <img src="${item.poster}">
+      
+      <span class="badge ${isPremium ? 'premium' : ''}">
+        ${isPremium ? 'PREMIUM' : 'FREE'}
+      </span>
+    </div>
+
+    <div class="card-title">${item.title}</div>
+
+    <button class="watch-btn">
+      ${isPremium ? 'Pay to Watch' : 'Watch'}
+    </button>
+  `;
+
+  // 🔒 SINGLE CONTROL POINT (very important)
+  card.querySelector(".watch-btn").onclick = () => {
+
+    if (isPremium) {
+      // 🚫 free users blocked here
+      location.href = "packages.html";
+    } else {
+      // ✅ allowed content
+      location.href = type === "movie"
+        ? `movie.html?id=${item.id}`
+        : `serie.html?id=${item.id}`;
+    }
+
   };
+
   return card;
 }
-
 /* ===== FETCH CONTENT FROM SUPABASE ===== */
 async function fetchContent(){
   try{
