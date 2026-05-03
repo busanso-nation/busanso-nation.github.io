@@ -139,7 +139,40 @@ const commentsList = document.getElementById("commentsList");
 
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
-if(!id) title.textContent="❌ No series ID provided.";
+
+// 🔒 CHECK ACCESS FIRST
+const pin = localStorage.getItem("activePIN");
+
+async function checkAccess(){
+  if(!id){
+    title.textContent="❌ No series ID provided.";
+    return;
+  }
+
+  const { data, error } = await supabase
+    .from('series')
+    .select('is_free')
+    .eq('id', id)
+    .single();
+
+  if(error || !data){
+    title.textContent="❌ Series not found.";
+    return;
+  }
+
+  // 🚨 SECURITY CHECK
+  if(!data.is_free && !pin){
+    alert("🔒 This is a premium series. Please subscribe.");
+    location.href = "packages.html";
+    return;
+  }
+
+  // ✅ SAFE → continue
+  fetchSerie();
+}
+
+// run first
+checkAccess();
 
 let serie=null, idx=0, progressInterval=null;
 let nicknameSaved=false;
@@ -266,7 +299,6 @@ commentsRef.on("value",snap=>{
   });
 });
 
-fetchSerie();
 </script>
 </body>
 </html>
