@@ -303,7 +303,10 @@ commentsRef.on("child_added", snap => {
       padding:"2px 6px",
       cursor:"pointer"
     });
-    b.onclick = () => snap.ref.remove();
+b.onclick = () => {
+  const key = snap.key;
+  db.ref("comments/series/" + id + "/" + key).remove();
+};
     div.appendChild(b);
   }
 
