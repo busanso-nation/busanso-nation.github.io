@@ -279,24 +279,36 @@ commentBtn.onclick=()=>{
 };
 
 // Display comments
-commentsRef.on("value",snap=>{
-  commentsList.innerHTML="";
-  const arr=[];
-  snap.forEach(c=>arr.push({...c.val(),ref:c.ref}));
-  arr.sort((a,b)=>b.timestamp-b.timestamp);
-  arr.forEach(c=>{
-    const div=document.createElement("div");
-    div.className="comment";
-    div.innerHTML=`<strong>${c.user}</strong>: ${c.text}`;
-    if(localStorage.getItem("activePIN")==="Orion196"){
-      const b=document.createElement("button");
-      b.textContent="X";
-      Object.assign(b.style,{position:"absolute",right:"6px",top:"6px",background:"#e50914",color:"#fff",border:"none",borderRadius:"6px",padding:"2px 6px",cursor:"pointer"});
-      b.onclick=()=>c.ref.remove();
-      div.appendChild(b);
-    }
-    commentsList.appendChild(div);
-  });
+commentsList.innerHTML = ""; // clear once before listening
+
+commentsRef.on("child_added", snap => {
+  const c = snap.val();
+
+  const div = document.createElement("div");
+  div.className = "comment";
+  div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
+
+  // admin delete button
+  if(localStorage.getItem("activePIN")==="Orion196"){
+    const b = document.createElement("button");
+    b.textContent = "X";
+    Object.assign(b.style,{
+      position:"absolute",
+      right:"6px",
+      top:"6px",
+      background:"#e50914",
+      color:"#fff",
+      border:"none",
+      borderRadius:"6px",
+      padding:"2px 6px",
+      cursor:"pointer"
+    });
+    b.onclick = () => snap.ref.remove();
+    div.appendChild(b);
+  }
+
+  commentsList.prepend(div); // 👈 instant display
+});
 });
 
 </script>
