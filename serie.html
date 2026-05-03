@@ -140,7 +140,7 @@ const commentsList = document.getElementById("commentsList");
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
 
-// 🔒 CHECK ACCESS FIRST
+// 🔒 ACCESS CHECK
 const pin = localStorage.getItem("activePIN");
 
 async function checkAccess(){
@@ -151,7 +151,7 @@ async function checkAccess(){
 
   const { data, error } = await supabase
     .from('series')
-    .select('is_free')
+    .select('type') // 👈 use your column
     .eq('id', id)
     .single();
 
@@ -160,18 +160,18 @@ async function checkAccess(){
     return;
   }
 
-  // 🚨 SECURITY CHECK
-  if(!data.is_free && !pin){
+  // 🚨 MAIN SECURITY LOGIC
+  if(data.type === "premium" && !pin){
     alert("🔒 This is a premium series. Please subscribe.");
     location.href = "packages.html";
     return;
   }
 
-  // ✅ SAFE → continue
+  // ✅ ALLOWED
   fetchSerie();
 }
 
-// run first
+// RUN FIRST
 checkAccess();
 
 let serie=null, idx=0, progressInterval=null;
