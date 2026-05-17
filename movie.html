@@ -213,6 +213,15 @@ button {
   margin-top: 10px;
   color: #ddd;
 }
+#fullBtn {
+  background: #111827;
+  color: white;
+  border: 1px solid #374151;
+}
+
+#fullBtn:hover {
+  background: #374151;
+}
 </style>
 </head>
 
@@ -253,6 +262,11 @@ button {
 <button id="shareBtn">
   <i data-lucide="share-2"></i>
   Share
+</button>
+
+<!-- ⛶ ADD THIS HERE -->
+<button id="fullBtn">
+  ⛶ Fullscreen
 </button>
 
 </div>
@@ -536,6 +550,17 @@ document.getElementById("watchBtn").onclick = async () => {
 
   renderPlayer(movie.video);
   window.scrollTo({ top: 0, behavior: "smooth" });
+};
+document.getElementById("fullBtn").onclick = () => {
+  const el = document.getElementById("player");
+
+  if (!document.fullscreenElement) {
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.msRequestFullscreen) el.msRequestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
 };
 
 loadMovie().then(() => {
