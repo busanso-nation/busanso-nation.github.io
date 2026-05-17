@@ -262,17 +262,14 @@ button {
 
   <h3>Comments</h3>
 
-  <div class="commentForm">
+  <button id="openCommentBox">
+    Write a comment
+  </button>
+
+  <div class="commentForm" id="commentForm" style="display:none;">
     <input id="username" placeholder="Your name">
-
-    <textarea
-      id="commentText"
-      placeholder="Write comment..."
-    ></textarea>
-
-    <button id="postComment">
-      Post Comment
-    </button>
+    <textarea id="commentText" placeholder="Write comment..."></textarea>
+    <button id="postComment">Post Comment</button>
   </div>
 
   <div id="commentsList"></div>
@@ -456,7 +453,7 @@ async function loadSimilar(currentId) {
 async function loadComments(movieId) {
 
   const { data, error } = await supabase
-    .from("comments")
+    .from("movies_comments")
     .select("*")
     .eq("movie_id", movieId)
     .order("created_at", { ascending: false });
@@ -468,7 +465,7 @@ async function loadComments(movieId) {
 
   commentsList.innerHTML = data.map(c => `
     <div class="commentItem">
-      <div class="commentUser">${c.username}</div>
+      <div class="commentUser">${c.user_name}</div>
       <div class="commentDate">
         ${new Date(c.created_at).toLocaleString()}
       </div>
@@ -510,7 +507,7 @@ document.getElementById("postComment").onclick = async () => {
   if (!username || !comment) return;
 
   const { error } = await supabase
-    .from("comments")
+    .from("movies_comments")
     .insert([{
       movie_id: movie.id,
       username,
