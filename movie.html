@@ -476,7 +476,7 @@ async function loadComments(movieId) {
 // 🔗 SHARE SITE (FIXED)
 document.getElementById("shareBtn").onclick = () => {
 
-  const siteURL = "https://kingvj.netlify.app"; // 👈 CHANGE THIS
+  const siteURL = "https://bit.ly/busanso"; // 👈 CHANGE THIS
 
 const text =
 `🎬 Watch movies on Busanso Nation
@@ -506,14 +506,13 @@ document.getElementById("postComment").onclick = async () => {
 
   if (!username || !comment) return;
 
-  const { error } = await supabase
-    .from("movies_comments")
-    .insert([{
-      movie_id: movie.id,
-      username,
-      comment
-    }]);
-
+const { error } = await supabase
+  .from("movies_comments")
+  .insert([{
+    movie_id: movie.id,
+    user_name: username,
+    comment
+  }]);
   if (error) {
     console.error(error);
     return;
@@ -541,6 +540,16 @@ document.getElementById("watchBtn").onclick = async () => {
 
 loadMovie().then(() => {
   lucide.createIcons();
+
+  const openBtn = document.getElementById("openCommentBox");
+  const form = document.getElementById("commentForm");
+
+  openBtn.addEventListener("click", () => {
+    if (!form) return;
+
+    form.style.display =
+      form.style.display === "none" ? "flex" : "none";
+  });
 });
 </script>
 
