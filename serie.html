@@ -38,13 +38,19 @@ body {
 .poster {
   width:100%;
   max-width:960px;
+  height:220px;            /* 👈 controls horizontal look */
   border-radius:14px;
   overflow:hidden;
   margin-bottom:12px;
+  position:relative;
 }
+
 .poster img {
   width:100%;
-  display:block;
+  height:100%;
+  object-fit:cover;        /* 👈 THIS is the key */
+  object-position:center;   /* you can change to top if needed */
+  transform: scale(1.1);    /* slight zoom for cinematic crop */
 }
 
 /* DETAILS */
