@@ -12,103 +12,223 @@
 <!-- Supabase -->
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
 const supabase = createClient(
   'https://dhkfhhybzcxdeoalcfqx.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
+  'YOUR_SUPABASE_KEY'
 );
 </script>
 
 <style>
-body { margin:0; font-family:Arial,sans-serif; background:#000; color:#fff; display:flex; flex-direction:column; align-items:center; padding:12px; }
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#000;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:12px;
+}
+
+/* HEADER */
 .logo { text-align:center; margin-bottom:12px; }
-.logo img { max-height:50px; }
+.logo img { max-height:55px; }
 
-.player { width:100%; max-width:960px; aspect-ratio:16/9; margin:0 auto; border-radius:12px; overflow:hidden; background:#000; }
-.player iframe { width:100%; height:100%; border:none; border-radius:12px; }
+.poster {
+  width:100%;
+  max-width:960px;
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:12px;
+}
+.poster img {
+  width:100%;
+  display:block;
+}
 
-.player-nav { display:flex; gap:6px; margin:12px 0; justify-content:center; flex-wrap:wrap; width:100%; max-width:960px; }
-.player-nav button { flex:1 1 30%; padding:14px; font-size:16px; border:none; border-radius:12px; font-weight:bold; cursor:pointer; transition:0.2s all; }
-#prevBtn, #nextBtn { background:#222; color:#fff; box-shadow:0 0 10px #e50914; }
-#prevBtn:hover, #nextBtn:hover { background:#e50914; box-shadow:0 0 20px #e50914,0 0 30px #ff3a3a; }
-#prevBtn:disabled, #nextBtn:disabled { opacity:0.5; cursor:not-allowed; box-shadow:none; }
-#shareBtn { background:#1DA1F2; color:#fff; box-shadow:0 0 10px #1DA1F2; }
+/* DETAILS */
+.details {
+  width:100%;
+  max-width:960px;
+  background:#111;
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:14px;
+}
 
-.details { max-width:960px; width:100%; background:#111; border-radius:12px; padding:16px; margin-bottom:16px; }
-.details h1 { margin:0 0 8px 0; font-size:1.6rem; word-break:break-word; }
-.details .meta { color:#aaa; margin-bottom:10px; }
-.details p { margin-bottom:12px; }
-.cast span { display:inline-block; margin:4px; padding:6px 12px; border-radius:20px; background:#222; font-size:13px; }
+.details h1 {
+  margin:0 0 6px 0;
+}
 
-#episodesBtn { width:100%; padding:16px; font-size:18px; background:#e50914; color:#fff; border:none; border-radius:12px; font-weight:bold; cursor:pointer; box-shadow:0 0 10px #e50914; transition:0.2s all; margin-top:8px; }
-#episodesBtn:hover { box-shadow:0 0 20px #ff3a3a; }
+.meta {
+  color:#aaa;
+  margin-bottom:10px;
+}
 
-#fullScreenBtn { width:100%; padding:14px; font-size:16px; background:#0a84ff; color:#fff; border:none; border-radius:12px; font-weight:bold; cursor:pointer; box-shadow:0 0 10px #0a84ff; transition:0.2s all; margin-top:8px; }
-#fullScreenBtn:hover { box-shadow:0 0 20px #1e90ff; }
+.synopsis {
+  margin-bottom:12px;
+  line-height:1.5;
+  color:#ddd;
+}
 
-.episodes { display:grid; gap:8px; margin-top:12px; }
-.episode { background:#181818; padding:12px; border-radius:8px; cursor:pointer; transition:0.2s all; }
-.episode:hover { background:#333; }
-.episode.active { background:#e50914; font-weight:bold; color:#fff; box-shadow:0 0 10px #e50914; }
+.cast span {
+  display:inline-block;
+  margin:4px;
+  padding:6px 10px;
+  border-radius:20px;
+  background:#222;
+  font-size:13px;
+}
 
-#commentsSection { max-width:960px; width:100%; background:#111; border-radius:12px; padding:16px; margin-bottom:32px; }
-#commentsList { max-height:350px; overflow-y:auto; margin-bottom:12px; }
-.comment { position:relative; padding:10px; border-bottom:1px solid #333; }
-input, textarea { width:100%; padding:10px; border-radius:6px; border:none; background:#222; color:#fff; margin-top:6px; }
-#commentBtn { margin-top:8px; padding:12px 20px; font-weight:bold; font-size:16px; border:none; border-radius:8px; background:#e50914; color:#fff; cursor:pointer; box-shadow:0 0 10px #e50914; transition:0.2s all; }
-#commentBtn:hover { box-shadow:0 0 20px #ff3a3a; }
-#commentMsg { margin-top:6px; font-size:14px; color:#0f0; }
+/* WATCH NOW */
+#watchBtn {
+  width:100%;
+  padding:18px;
+  font-size:20px;
+  background:#e50914;
+  color:#fff;
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 12px #e50914;
+  margin-top:12px;
+}
 
-.ad-horizontal { width:100%; max-width:1200px; margin:16px auto; display:flex; justify-content:center; }
+/* EPISODES LIST */
+.episodes {
+  margin-top:12px;
+  display:none;
+  gap:8px;
+  flex-direction:column;
+}
 
-@media(max-width:600px){
-  .player-nav button { font-size:14px; padding:12px; }
-  #episodesBtn, #fullScreenBtn { font-size:16px; padding:14px; }
+.episode {
+  background:#181818;
+  padding:12px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.episode:hover {
+  background:#333;
+}
+
+/* SHARE */
+#shareBtn {
+  width:100%;
+  margin-top:10px;
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  background:#1DA1F2;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* COMMENTS */
+#commentsSection {
+  width:100%;
+  max-width:960px;
+  background:#111;
+  border-radius:12px;
+  padding:16px;
+  margin-top:18px;
+}
+
+.comment {
+  padding:10px;
+  border-bottom:1px solid #333;
+}
+
+input, textarea {
+  width:100%;
+  padding:10px;
+  border-radius:6px;
+  border:none;
+  background:#222;
+  color:#fff;
+  margin-top:6px;
+}
+
+#commentBtn {
+  margin-top:8px;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:#e50914;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* FOOTER */
+.footer {
+  margin-top:30px;
+  padding:20px;
+  text-align:center;
+  color:#aaa;
+  border-top:1px solid #222;
+  width:100%;
+  max-width:960px;
 }
 </style>
 </head>
 
 <body>
-<div class="logo"><img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Logo"></div>
 
-<div class="player-nav">
-  <button id="prevBtn">◀ Previous</button>
-  <button id="shareBtn">Share</button>
-  <button id="nextBtn">Next ▶</button>
+<div class="logo">
+  <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
 </div>
 
-<div class="player" id="player"></div>
+<!-- POSTER -->
+<div class="poster">
+  <img id="poster" src="" alt="Series Poster">
+</div>
 
-<!-- Fullscreen button -->
-<button id="fullScreenBtn">⛶ Wide Screen / Full Screen</button>
-
+<!-- DETAILS -->
 <div class="details">
-  <h1 id="title">Loading Series...</h1>
+  <h1 id="title">Loading...</h1>
   <div class="meta" id="meta"></div>
-  <p id="synopsis"></p>
+  <p class="synopsis" id="synopsis"></p>
+
   <div class="cast" id="cast"></div>
 
-  <button id="episodesBtn">📺 Episodes</button>
-  <div class="episodes" id="episodeList" style="display:none"></div>
+  <!-- WATCH NOW -->
+  <button id="watchBtn">▶ WATCH NOW</button>
+
+  <!-- EPISODES -->
+  <div class="episodes" id="episodeList"></div>
+
+  <!-- SHARE (UNCHANGED LOGIC BELOW WILL STILL WORK) -->
+  <button id="shareBtn">Share</button>
 </div>
 
-<div class="ad-horizontal" id="topBannerAd"></div>
-
+<!-- COMMENTS -->
 <div id="commentsSection">
   <h3>Comments</h3>
   <div id="commentsList"></div>
+
   <input id="usernameInput" placeholder="Nickname">
-  <textarea id="commentInput" placeholder="Write your comment"></textarea>
+  <textarea id="commentInput" placeholder="Write comment"></textarea>
   <button id="commentBtn">Post Comment</button>
-  <div id="commentMsg"></div>
 </div>
 
-<div class="ad-horizontal" id="bottomBannerAd"></div>
+<!-- FOOTER -->
+<div class="footer">
+  <p>© 2026 Busanso Nation. All rights reserved.</p>
+  <p>Thank you for choosing Busanso Nation ❤️</p>
+</div>
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
 const supabase = createClient(
-  'https://dhkfhhybzcxdeoalcfqx.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY'
+  "https://dhkfhhybzcxdeoalcfqx.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY"
 );
 
 const firebaseConfig = {
@@ -117,202 +237,113 @@ const firebaseConfig = {
   databaseURL:"https://busanso-pins-default-rtdb.firebaseio.com",
   projectId:"busanso-pins"
 };
+
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-
-const title = document.getElementById("title");
-const meta = document.getElementById("meta");
-const synopsis = document.getElementById("synopsis");
-const cast = document.getElementById("cast");
-const player = document.getElementById("player");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const episodeList = document.getElementById("episodeList");
-const episodesBtn = document.getElementById("episodesBtn");
-const shareBtn = document.getElementById("shareBtn");
-const fullScreenBtn = document.getElementById("fullScreenBtn");
-const commentBtn = document.getElementById("commentBtn");
-const usernameInput = document.getElementById("usernameInput");
-const commentInput = document.getElementById("commentInput");
-const commentMsg = document.getElementById("commentMsg");
-const commentsList = document.getElementById("commentsList");
 
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
 
-// 🔒 ACCESS CHECK
-const pin = localStorage.getItem("activePIN");
+let serie = null;
 
-async function checkAccess(){
-  if(!id){
-    title.textContent="❌ No series ID provided.";
-    return;
-  }
-
-  const { data, error } = await supabase
-    .from('series')
-    .select('type') // 👈 use your column
-    .eq('id', id)
+/* LOAD SERIES */
+async function loadSeries(){
+  const { data } = await supabase
+    .from("series")
+    .select("*, episodes(*)")
+    .eq("id", id)
     .single();
 
-  if(error || !data){
-    title.textContent="❌ Series not found.";
-    return;
-  }
+  if(!data) return;
 
-  // 🚨 MAIN SECURITY LOGIC
-  if(data.type === "premium" && !pin){
-    alert("🔒 This is a premium series. Please subscribe.");
-    location.href = "packages.html";
-    return;
-  }
+  serie = data;
 
-  // ✅ ALLOWED
-  fetchSerie();
-}
+  document.getElementById("title").textContent = serie.title;
+  document.getElementById("meta").textContent =
+    `${serie.genre} • ${serie.country} • ${serie.year}`;
 
-// RUN FIRST
-checkAccess();
+  document.getElementById("synopsis").textContent = serie.synopsis || "";
 
-let serie=null, idx=0, progressInterval=null;
-let nicknameSaved=false;
+  document.getElementById("poster").src = serie.poster || "";
 
-async function fetchSerie(){
-const { data, error } = await supabase
-  .from('series')
-  .select('*, episodes(*)')
-  .eq('id', id)
-  .order('id', { foreignTable: 'episodes', ascending: true })
-  .single();
-  if(error || !data){ title.textContent="❌ Series not found."; console.error(error); return; }
-  serie=data; populateSeries();
-}
+  /* CAST */
+  const cast = document.getElementById("cast");
+  serie.cast?.forEach(c=>{
+    const s = document.createElement("span");
+    s.textContent = c;
+    cast.appendChild(s);
+  });
 
-function populateSeries(){
-  title.textContent = serie.title;
-  meta.textContent = `${serie.genre} • ${serie.country} • ${serie.year}`;
-  synopsis.textContent = serie.synopsis || "";
-  cast.innerHTML="";
-  serie.cast?.forEach(c=>{ const span=document.createElement("span"); span.textContent=c; cast.appendChild(span); });
+  /* EPISODES LIST */
+  const list = document.getElementById("episodeList");
 
-  episodeList.innerHTML="";
- serie.episodes.forEach((ep,i)=>{
-  const div=document.createElement("div");
-  div.className="episode";
-  div.textContent=`Episode ${i+1} • ${ep.title || ""}`;
-  div.onclick=()=>{
-    playEpisode(i);
-    window.scrollTo({ top:0, behavior:"smooth" });
-    episodeList.style.display="none";
+  serie.episodes.forEach((ep,i)=>{
+    const div = document.createElement("div");
+    div.className = "episode";
+    div.textContent = `Episode ${i+1} • ${ep.title || ""}`;
+
+    div.onclick = () => {
+      window.location.href =
+        `episodes-player.html?id=${serie.id}&ep=${i}`;
+    };
+
+    list.appendChild(div);
+  });
+
+  /* WATCH NOW BUTTON */
+  document.getElementById("watchBtn").onclick = () => {
+    window.location.href =
+      `episodes-player.html?id=${serie.id}&ep=0`;
   };
-  episodeList.appendChild(div);
-});
-
-  const last = JSON.parse(localStorage.getItem("lastSeries")||"{}");
-  if(last && last.id===serie.id) playEpisodeWithTime(last.episodeIndex||0,last.currentTime||0);
-  else playEpisode(0);
 }
 
-function normalizeVideo(url){
-  if(!url) return "";
-  if(url.includes("youtube.com")||url.includes("youtu.be")){
-    const id=url.includes("v=")?new URL(url).searchParams.get("v"):url.split("/").pop();
-    return `https://www.youtube.com/embed/${id}`;
-  }
-  if(url.includes("vimeo.com")){ const id=url.split("/").pop(); return `https://player.vimeo.com/video/${id}`; }
-  if(url.includes("/d/")){ const id=url.split("/d/")[1].split("/")[0]; return `https://drive.google.com/file/d/${id}/preview`; }
-  return url;
-}
+loadSeries();
 
-function playEpisode(i){
-  const ep = serie.episodes[i]; if(!ep) return;
-  idx=i;
-  localStorage.setItem("lastSeries",JSON.stringify({id:serie.id,title:serie.title,episodeIndex:i,episodeTitle:ep.title,video:ep.video,currentTime:0,updated:Date.now()}));
-  const videoURL = normalizeVideo(ep.video);
-  player.innerHTML=`<iframe src="${videoURL}" allowfullscreen></iframe>`;
-  document.querySelectorAll(".episode").forEach((el,j)=>el.classList.toggle("active",i===j));
-  prevBtn.disabled=i===0; nextBtn.disabled=i===serie.episodes.length-1;
-  if(progressInterval) clearInterval(progressInterval);
-  progressInterval=setInterval(()=>{
-    let prog = JSON.parse(localStorage.getItem("seriesProgress_"+serie.id)||"{}");
-    prog[i]=(prog[i]||0)+5;
-    localStorage.setItem("seriesProgress_"+serie.id,JSON.stringify(prog));
-  },5000);
-}
-function playEpisodeWithTime(i,startTime=0){ playEpisode(i); }
-
-prevBtn.onclick=()=>idx>0&&playEpisode(idx-1);
-nextBtn.onclick=()=>idx<serie.episodes.length-1&&playEpisode(idx+1);
-episodesBtn.onclick=()=>{ episodeList.style.display = episodeList.style.display==="none"?"grid":"none"; };
-
-// WhatsApp share
-shareBtn.onclick=()=>{
+/* SHARE (UNCHANGED LOGIC) */
+document.getElementById("shareBtn").onclick = () => {
   if(!serie) return;
-  const shareText = `🎬 ${serie.title}\n\n📝 ${serie.synopsis || ""}\n\n🌐 Watch Luganda Translated Series and movies on this link https://bit.ly/busanso`;
-  const whatsappURL = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-  window.open(whatsappURL,"_blank");
+
+  const shareText =
+`🎬 ${serie.title}
+
+📝 ${serie.synopsis || ""}
+
+🌐 Watch Luganda Translated Series on https://bit.ly/busanso`;
+
+  window.open(
+    `https://wa.me/?text=${encodeURIComponent(shareText)}`,
+    "_blank"
+  );
 };
 
-// Fullscreen button
-fullScreenBtn.onclick=()=>{
-  if(player.requestFullscreen){ player.requestFullscreen(); }
-  else if(player.webkitRequestFullscreen){ player.webkitRequestFullscreen(); }
-  else if(player.msRequestFullscreen){ player.msRequestFullscreen(); }
-};
-
-// Comments
+/* COMMENTS */
 const commentsRef = db.ref("comments/series/"+id);
-if(!nicknameSaved){
-  const savedName = localStorage.getItem("username");
-  if(savedName){ usernameInput.value=savedName; nicknameSaved=true; }
-}
 
-commentBtn.onclick=()=>{
-  const name=usernameInput.value.trim();
-  if(!nicknameSaved){ localStorage.setItem("username",name); nicknameSaved=true; }
-  const text=commentInput.value.trim();
-  if(name.length<2||name.length>20){ commentMsg.style.color="#ffb400"; commentMsg.textContent="Nickname 2–20 chars"; return; }
-  if(text.length<2||text.length>300){ commentMsg.style.color="#ffb400"; commentMsg.textContent="Comment 2–300 chars"; return; }
-  commentsRef.push({user:name,text,timestamp:Date.now()});
-  commentInput.value="";
-  commentMsg.style.color="#00ff66"; commentMsg.textContent="Comment posted";
+document.getElementById("commentBtn").onclick = () => {
+  const name = document.getElementById("usernameInput").value;
+  const text = document.getElementById("commentInput").value;
+
+  if(!name || !text) return;
+
+  commentsRef.push({
+    user:name,
+    text,
+    timestamp:Date.now()
+  });
+
+  document.getElementById("commentInput").value="";
 };
 
-// Display comments
-commentsList.innerHTML = ""; // clear once before listening
-
-commentsRef.on("child_added", snap => {
+commentsRef.on("child_added", snap=>{
   const c = snap.val();
 
   const div = document.createElement("div");
-  div.className = "comment";
-  div.innerHTML = `<strong>${c.user}</strong>: ${c.text}`;
+  div.className="comment";
+  div.innerHTML = `<b>${c.user}</b>: ${c.text}`;
 
-  // admin delete button
-  if(localStorage.getItem("activePIN")==="Orion196"){
-    const b = document.createElement("button");
-    b.textContent = "X";
-    Object.assign(b.style,{
-      position:"absolute",
-      right:"6px",
-      top:"6px",
-      background:"#e50914",
-      color:"#fff",
-      border:"none",
-      borderRadius:"6px",
-      padding:"2px 6px",
-      cursor:"pointer"
-    });
-b.onclick = () => {
-  const key = snap.key;
-  db.ref("comments/series/" + id + "/" + key).remove();
-};
-    div.appendChild(b);
-  }
-
-  commentsList.prepend(div); // 👈 instant display
+  document.getElementById("commentsList").prepend(div);
 });
-
 </script>
+
 </body>
 </html>
