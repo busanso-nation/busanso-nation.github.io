@@ -78,8 +78,8 @@ body{
 /* PLAYER */
 .player{
   width:100%;
-  min-height:78vh;
-  background:black;
+  aspect-ratio:16/9;
+  background:#000;
   border-radius:22px;
   overflow:hidden;
   position:relative;
@@ -89,30 +89,37 @@ body{
     0 0 35px rgba(37,99,235,0.2);
 }
 
+
+/* FORCE EMBEDS TO FILL */
 .player iframe,
 .player video{
   width:100%;
   height:100%;
+  display:block;
   border:none;
+  object-fit:cover;
 }
 
 /* NAV CONTROLS */
 .episodeNav{
   display:flex;
+  flex-direction:row;
   justify-content:space-between;
   align-items:center;
   margin-top:18px;
   gap:14px;
+  flex-wrap:nowrap;
 }
 
-/* GLOW BUTTONS */
+/* BUTTONS */
 .navBtn{
   flex:1;
+  min-width:140px;
   padding:15px;
   border-radius:16px;
   border:1px solid rgba(96,165,250,0.35);
   background:linear-gradient(135deg,#111827,#172033);
-  color:#ffffff;
+  color:#fff;
   font-size:16px;
   font-weight:700;
   cursor:pointer;
@@ -131,11 +138,12 @@ body{
 }
 
 .epLabel{
-  flex:2;
+  flex:1.2;
   text-align:center;
   font-weight:800;
-  font-size:20px;
-  color:red;
+  font-size:22px;
+  color:#60a5fa;
+  white-space:nowrap;
   text-shadow:0 0 12px rgba(96,165,250,0.45);
 }
 
@@ -268,6 +276,10 @@ body{
   border-top:1px solid #1f2937;
 }
 
+
+
+
+
 /* MOBILE */
 @media(max-width:768px){
 
@@ -276,17 +288,24 @@ body{
   }
 
   .player{
-    min-height:42vh;
+    aspect-ratio:16/9;
     border-radius:18px;
   }
 
+  /* KEEP NAV IN ONE ROW */
   .episodeNav{
-    flex-direction:column;
+    flex-direction:row;
+    gap:8px;
   }
 
-  .navBtn,
+  .navBtn{
+    min-width:auto;
+    padding:12px 8px;
+    font-size:14px;
+  }
+
   .epLabel{
-    width:100%;
+    font-size:16px;
   }
 }
 </style>
