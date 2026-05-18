@@ -102,14 +102,17 @@ function render(data){
     const c = document.createElement("div");
     c.className = "card";
     c.style.animationDelay = i*.05+"s";
-    c.innerHTML = `
-      <img src="${s.poster}" loading="lazy">
-      <div class="info">
-        <div class="title">${s.title}</div>
-        <div class="meta">${s.country} • ${s.genre} • ${s.year}</div>
-        <button class="watch">▶ Watch</button>
-      </div>`;
-    c.querySelector("button").onclick = ()=> location.href=`serie.html?id=${s.id}`;
+c.innerHTML = `
+  <img src="${s.poster}" loading="lazy" class="poster-click">
+  <div class="info">
+    <div class="title">${s.title}</div>
+    <div class="meta">${s.country} • ${s.genre} • ${s.year}</div>
+  </div>
+`;
+
+// CLICK ENTIRE CARD (OR JUST POSTER)
+c.querySelector(".poster-click").onclick = () =>
+  location.href = `serie.html?id=${s.id}`;
     box.appendChild(c);
     cacheImage(s.poster);
   });
