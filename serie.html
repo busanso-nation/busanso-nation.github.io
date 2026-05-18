@@ -203,24 +203,61 @@ input, textarea {
 
   <div class="cast" id="cast"></div>
 
-  <!-- WATCH NOW -->
-  <button id="watchBtn">▶ WATCH NOW</button>
+<!-- WATCH NOW -->
+<button id="watchBtn">▶ WATCH NOW</button>
 
-  <!-- EPISODES -->
-  <div class="episodes" id="episodeList"></div>
+<!-- EPISODES TOGGLE BUTTON -->
+<button id="episodesBtn" style="
+  width:100%;
+  margin-top:10px;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+  background:#222;
+  color:#fff;
+  box-shadow:0 0 10px #e50914;
+">
+  📺 Episodes List
+</button>
 
-  <!-- SHARE (UNCHANGED LOGIC BELOW WILL STILL WORK) -->
-  <button id="shareBtn">Share</button>
-</div>
+<!-- EPISODES -->
+<div class="episodes" id="episodeList"></div>
+
+<!-- SHARE -->
+<button id="shareBtn">Share</button>
 
 <!-- COMMENTS -->
 <div id="commentsSection">
-  <h3>Comments</h3>
-  <div id="commentsList"></div>
 
-  <input id="usernameInput" placeholder="Nickname">
-  <textarea id="commentInput" placeholder="Write comment"></textarea>
-  <button id="commentBtn">Post Comment</button>
+  <!-- TOGGLE BUTTON -->
+  <button id="toggleCommentsBtn" style="
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    background:#111;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 10px #e50914;
+  ">
+    💬 See what others are saying about this series
+  </button>
+
+  <!-- HIDDEN CONTENT -->
+  <div id="commentsBox" style="display:none; margin-top:12px;">
+
+    <h3 style="margin-bottom:10px;">Comments</h3>
+
+    <div id="commentsList"></div>
+
+    <input id="usernameInput" placeholder="Nickname">
+    <textarea id="commentInput" placeholder="Write comment"></textarea>
+    <button id="commentBtn">Post Comment</button>
+
+  </div>
 </div>
 
 <!-- FOOTER -->
@@ -249,6 +286,22 @@ const db = firebase.database();
 
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
+const episodesBtn = document.getElementById("episodesBtn");
+const episodeList = document.getElementById("episodeList");
+
+episodesBtn.onclick = () => {
+  episodeList.style.display =
+    episodeList.style.display === "flex" ? "none" : "flex";
+};
+const toggleCommentsBtn = document.getElementById("toggleCommentsBtn");
+const commentsBox = document.getElementById("commentsBox");
+
+toggleCommentsBtn.onclick = () => {
+  commentsBox.style.display =
+    commentsBox.style.display === "none" || commentsBox.style.display === ""
+      ? "block"
+      : "none";
+};
 
 let serie = null;
 
