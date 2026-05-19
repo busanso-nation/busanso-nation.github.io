@@ -1,12 +1,183 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Page Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Busanso Nation Offers</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+    linear-gradient(180deg,#07141c,#0b1c24,#000);
+  color:#fff;
+  padding:20px;
+}
+
+.card{
+  width:100%;
+  max-width:500px;
+  background:#111827;
+  border:1px solid #1f2937;
+  border-radius:24px;
+  padding:35px 25px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+
+.logo{
+  width:90px;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:30px;
+  margin-bottom:12px;
+  color:#fff;
+}
+
+.sub{
+  color:#94a3b8;
+  line-height:1.6;
+  margin-bottom:25px;
+}
+
+/* OFFER BOX */
+.offer{
+  background:linear-gradient(135deg,#16a34a,#22c55e);
+  border-radius:20px;
+  padding:25px 20px;
+  margin-bottom:25px;
+  box-shadow:0 0 25px rgba(34,197,94,.35);
+}
+
+.offerTag{
+  font-size:13px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:10px;
+  opacity:.9;
+}
+
+.oldPrice{
+  text-decoration:line-through;
+  opacity:.7;
+  font-size:20px;
+}
+
+.newPrice{
+  font-size:42px;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+.duration{
+  font-size:16px;
+  opacity:.95;
+}
+
+.save{
+  margin-top:12px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(37,99,235,.4);
+}
+
+.footer{
+  margin-top:22px;
+  color:#64748b;
+  font-size:13px;
+}
+</style>
 </head>
+
 <body>
 
-<h1>There are no offers today</h1>
-<p>Go back to the packages page to see how much to pay.</p>
+<div class="card">
+
+  <img
+    class="logo"
+    src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png"
+    alt="Busanso Nation"
+  >
+
+  <h1>🎉 Special Offer Available</h1>
+
+  <p class="sub">
+    Thank you for supporting Busanso Nation.<br>
+    Enjoy premium access to all series and movies at a discounted yearly price.
+  </p>
+
+  <!-- OFFER -->
+  <div class="offer">
+
+    <div class="offerTag">
+      LIMITED TIME OFFER
+    </div>
+
+    <div class="oldPrice">
+      UGX 120,000
+    </div>
+
+    <div class="newPrice">
+      UGX 100,000
+    </div>
+
+    <div class="duration">
+      Full Year Premium Access
+    </div>
+
+    <div class="save">
+      Save UGX 20,000 today
+    </div>
+
+  </div>
+
+  <!-- BUTTON -->
+  <button
+    class="btn"
+    onclick="location.href='packages.html'"
+  >
+    View Payment Packages
+  </button>
+
+  <div class="footer">
+    © 2026 Busanso Nation<br>
+    Thank you for choosing Busanso Nation ❤️
+  </div>
+
+</div>
 
 </body>
 </html>
+
+
