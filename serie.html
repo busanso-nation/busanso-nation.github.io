@@ -308,11 +308,14 @@ let serie = null;
 /* LOAD SERIES */
 async function loadSeries(){
   const { data } = await supabase
-    .from("series")
-    .select("*, episodes(*)")
-    .eq("id", id)
-    .single();
-
+  .from("series")
+  .select("*, episodes(*)")
+  .eq("id", id)
+  .order("episode_number", {
+    foreignTable: "episodes",
+    ascending: true
+  })
+  .single();
   if(!data) return;
 
   serie = data;
@@ -339,7 +342,8 @@ async function loadSeries(){
   serie.episodes.forEach((ep,i)=>{
     const div = document.createElement("div");
     div.className = "episode";
-    div.textContent = `Episode ${i+1} • ${ep.title || ""}`;
+    div.textContent =
+  `Episode ${ep.episode_number || i+1} • ${ep.title || ""}`;
 
     div.onclick = () => {
       window.location.href =
