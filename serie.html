@@ -206,24 +206,7 @@ input, textarea {
 <!-- WATCH NOW -->
 <button id="watchBtn">▶ WATCH NOW</button>
 
-<!-- EPISODES TOGGLE BUTTON -->
-<button id="episodesBtn" style="
-  width:100%;
-  margin-top:10px;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  font-weight:bold;
-  cursor:pointer;
-  background:#222;
-  color:#fff;
-  box-shadow:0 0 10px #e50914;
-">
-  📺 Episodes List
-</button>
 
-<!-- EPISODES -->
-<div class="episodes" id="episodeList"></div>
 
 <!-- SHARE -->
 <button id="shareBtn">Share</button>
@@ -286,13 +269,7 @@ const db = firebase.database();
 
 const params = new URLSearchParams(location.search);
 const id = params.get("id");
-const episodesBtn = document.getElementById("episodesBtn");
-const episodeList = document.getElementById("episodeList");
 
-episodesBtn.onclick = () => {
-  episodeList.style.display =
-    episodeList.style.display === "flex" ? "none" : "flex";
-};
 const toggleCommentsBtn = document.getElementById("toggleCommentsBtn");
 const commentsBox = document.getElementById("commentsBox");
 
@@ -336,22 +313,7 @@ async function loadSeries(){
     cast.appendChild(s);
   });
 
-  /* EPISODES LIST */
-  const list = document.getElementById("episodeList");
-
-  serie.episodes.forEach((ep,i)=>{
-    const div = document.createElement("div");
-    div.className = "episode";
-    div.textContent =
-  `Episode ${ep.episode_number || i+1} • ${ep.title || ""}`;
-
-    div.onclick = () => {
-      window.location.href =
-        `episodes-player.html?id=${serie.id}&ep=${i}`;
-    };
-
-    list.appendChild(div);
-  });
+ 
 
   /* WATCH NOW BUTTON */
   document.getElementById("watchBtn").onclick = () => {
