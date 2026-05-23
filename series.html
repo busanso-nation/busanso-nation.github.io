@@ -33,6 +33,42 @@ body{margin:0;background:linear-gradient(180deg,#0b1c24,#0a0f1a);color:#eaf6ff;f
 .card:hover{transform:translateY(-6px);}
 @keyframes fade{to{opacity:1;transform:none}}
 .card img{width:100%;aspect-ratio:2/3;object-fit:cover;}
+  .poster-wrap{
+  position:relative;
+}
+
+/* STATUS BADGE ON POSTER */
+.status-badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  z-index:5;
+
+  padding:5px 10px;
+  border-radius:999px;
+
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.5px;
+
+  color:#fff;
+
+  backdrop-filter:blur(6px);
+  box-shadow:0 4px 12px rgba(0,0,0,.45);
+}
+
+/* COLORS */
+.status-badge.completed{
+  background:rgba(16,185,129,.92);
+}
+
+.status-badge.ongoing{
+  background:rgba(59,130,246,.92);
+}
+
+.status-badge.canceled{
+  background:rgba(239,68,68,.92);
+}
 .info{padding:12px}
 .title{font-weight:bold;font-size:14px;}
 .meta{font-size:11px;color:#9fc6d9;margin:6px 0 12px;}
