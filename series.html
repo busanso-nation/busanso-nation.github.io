@@ -38,33 +38,7 @@ body{margin:0;background:linear-gradient(180deg,#0b1c24,#0a0f1a);color:#eaf6ff;f
 .meta{font-size:11px;color:#9fc6d9;margin:6px 0 12px;}
 .watch{width:100%;padding:12px;border:none;border-radius:20px;background:linear-gradient(135deg,#29ffd8,#1f6cff);color:#001018;font-weight:bold;font-size:13px;cursor:pointer;transition:.25s;}
 .watch:hover{transform:scale(1.03);filter:brightness(1.1);}
-  .status{
-  display:inline-block;
-  margin-top:6px;
-  padding:5px 10px;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:bold;
-  letter-spacing:.5px;
-}
-
-/* COMPLETED */
-.status.completed{
-  background:#16a34a;
-  color:#fff;
-}
-
-/* ONGOING */
-.status.ongoing{
-  background:#2563eb;
-  color:#fff;
-}
-
-/* CANCELED */
-.status.canceled{
-  background:#dc2626;
-  color:#fff;
-}
+ 
 </style>
 </head>
 
@@ -130,18 +104,23 @@ function render(data){
     c.className = "card";
     c.style.animationDelay = i*.05+"s";
 c.innerHTML = `
-  <img src="${s.poster}" loading="lazy" class="poster-click">
+  <div class="poster-wrap">
+
+    <img src="${s.poster}" loading="lazy" class="poster-click">
+
+    <div class="status-badge ${s.status?.toLowerCase()}">
+      ${s.status || "COMPLETED"}
+    </div>
+
+  </div>
+
   <div class="info">
     <div class="title">${s.title}</div>
-<div class="meta">
-  ${s.country} • ${s.genre} • ${s.year}
-</div>
 
-<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
-  <div class="status ${s.status?.toLowerCase()}">
-    ${s.status || "ONGOING"}
+    <div class="meta">
+      ${s.country} • ${s.genre} • ${s.year}
+    </div>
   </div>
-</div>
 `;
 
 // CLICK ENTIRE CARD (OR JUST POSTER)
