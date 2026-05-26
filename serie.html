@@ -38,19 +38,19 @@ body {
 .poster {
   width:100%;
   max-width:960px;
-  height:220px;            /* 👈 controls horizontal look */
+  aspect-ratio:16/9;
   border-radius:14px;
   overflow:hidden;
   margin-bottom:12px;
   position:relative;
+  background:#111;
 }
 
 .poster img {
   width:100%;
   height:100%;
-  object-fit:cover;        /* 👈 THIS is the key */
-  object-position:center;   /* you can change to top if needed */
-  transform: scale(1.1);    /* slight zoom for cinematic crop */
+  object-fit:cover;
+  object-position:center;
 }
 
 /* DETAILS */
@@ -303,7 +303,8 @@ async function loadSeries(){
 
   document.getElementById("synopsis").textContent = serie.synopsis || "";
 
-  document.getElementById("poster").src = serie.poster || "";
+document.getElementById("poster").src =
+  serie.horizontal_poster || serie.poster || "";
 
   /* CAST */
   const cast = document.getElementById("cast");
