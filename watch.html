@@ -202,14 +202,30 @@ body{
   position:fixed;
   right:20px;
   bottom:20px;
-  background:#e50914;
-  color:white;
   border:none;
-  padding:14px 18px;
-  border-radius:999px;
-  font-weight:700;
   cursor:pointer;
-  box-shadow:0 10px 30px rgba(229,9,20,.4);
+
+  background:linear-gradient(
+    135deg,
+    #f59e0b,
+    #ef4444
+  );
+
+  color:#fff;
+  padding:14px 20px;
+  border-radius:999px;
+
+  font-weight:700;
+  font-size:.95rem;
+
+  box-shadow:
+    0 10px 30px rgba(239,68,68,.35);
+
+  transition:.25s;
+}
+
+#offerBtn:hover{
+  transform:translateY(-3px);
 }
 
 #offerPopup{
@@ -331,16 +347,10 @@ body{
   </div>
 
 </div>
-
-<button id="offerBtn">🔥 Offers</button>
-
-<div id="offerPopup">
-  <h4>🔥 Special Offers</h4>
-  <p>Check today's discounted packages.</p>
-  <button onclick="location.href='offers.html'">
-    View Offers
-  </button>
-</div>
+<button id="offerBtn"
+onclick="location.href='offers.html'">
+🔥 Offers
+</button>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -406,18 +416,6 @@ document.getElementById("expiryDate").textContent =
 });
 
 
-/* FLOATING BUTTON LOGIC */
-const offerBtn = document.getElementById("offerBtn");
-const offerPopup = document.getElementById("offerPopup");
-
-offerBtn.onclick = () => {
-  offerPopup.style.display = offerPopup.style.display === "block" ? "none" : "block";
-};
-
-// Auto show after 3 seconds
-setTimeout(()=>{
-  offerPopup.style.display = "block";
-},3000);
 </script>
 
 </body>
