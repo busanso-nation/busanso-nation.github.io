@@ -8,148 +8,238 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
 body{
-  background: radial-gradient(circle at top, #0f172a, #020617);
+  background:
+  radial-gradient(circle at top,#141414,#000);
   color:white;
+  min-height:100vh;
   display:flex;
   justify-content:center;
+  padding:18px;
+}
+
+.dashboard{
+  width:100%;
+  max-width:560px;
+}
+
+.hero{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.hero-badge{
+  display:inline-block;
+  background:linear-gradient(
+    135deg,
+    #e50914,
+    #ff4d4d
+  );
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:700;
+  margin-bottom:14px;
+}
+
+.hero h1{
+  font-size:2.4rem;
+  font-weight:800;
+  color:#fff;
+}
+
+.hero p{
+  color:#9ca3af;
+  margin-top:6px;
+}
+
+.membership-card{
+  background:#141414;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:24px;
+  padding:22px;
+  margin-bottom:18px;
+}
+
+.membership-header{
+  font-size:1rem;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.membership-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.stat{
+  background:#1d1d1d;
+  border-radius:16px;
   padding:15px;
 }
 
-/* DASHBOARD CARD */
-box-shadow:0 0 40px rgba(255, 166, 43, 0.08);
-  width:100%;
-  max-width:520px;
+.stat small{
+  display:block;
+  color:#9ca3af;
+  margin-bottom:6px;
 }
 
-/* HEADER */
-.header{text-align:center;margin-bottom:20px;}
-.header h1{
-  font-size:2.5rem;
-  font-weight:900;
-  background:linear-gradient(90deg,#38bdf8,#a855f7);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+.stat strong{
+  font-size:1rem;
 }
-.header small{color:#aaa;}
 
-/* USER BOX */
-.user-box{
-  background:#1b1b1b;
+.countdown-box{
+  margin-top:16px;
+  background:
+  linear-gradient(
+    135deg,
+    #e50914,
+    #b20710
+  );
   border-radius:18px;
   padding:18px;
-  margin-bottom:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.4);
-}
-.row{
-  display:flex;
-  justify-content:space-between;
-  margin:8px 0;
-}
-.countdown{
-  font-weight:700;
-  color:#ffa62b;
 }
 
-/* MAIN BUTTONS */
+.count-label{
+  font-size:.9rem;
+  opacity:.9;
+}
+
+.countdown{
+  font-size:1.4rem;
+  font-weight:700;
+  margin-top:4px;
+}
+
 .main-buttons{
   display:grid;
-  grid-template-columns:1fr;
   gap:14px;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
+#expiryDate{
+  color:#22c55e;
+}
+#packageType{
+  color:#fbbf24;
+}
+
 .big-btn{
-  padding:22px;
-  border-radius:16px;
-  font-size:1.3rem;
+  text-decoration:none;
+  color:white;
+  padding:20px;
+  border-radius:18px;
+  font-size:1.1rem;
   font-weight:700;
   text-align:center;
-  text-decoration:none;
+  transition:.25s;
+}
+
+.big-btn:hover{
+  transform:translateY(-2px);
+}
+
+.movies{
+  background:
+  linear-gradient(
+    135deg,
+    #e50914,
+    #b20710
+  );
+}
+
+.series{
+  background:
+  linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+}
+
+.quick-links{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.quick-btn{
+  background:#141414;
+  border:1px solid rgba(255,255,255,.05);
   color:white;
-  display:block;
-}
-.movies{background:linear-gradient(135deg,#22c55e,#16a34a);}
-.series{background:linear-gradient(135deg,#a855f7,#6366f1);}
-
-
-/* FOOTER MENU */
-.footer-menu{
-  display:flex;
-  justify-content:space-between;
-  margin-top:20px;
-  gap:8px;
-}
-.footer-btn{
-  flex:1;
-  padding:10px;
-  text-align:center;
-  border-radius:10px;
   text-decoration:none;
-  font-size:.8rem;
-  font-weight:600;
-  color:white;
-}
-.extend{background:#ffa62b;}
-.city{background:#7209b7;}
-.donate{background:#ff006e;}
-.live{background:#06d6a0;}
-
-footer{
+  padding:14px 8px;
   text-align:center;
-  margin-top:15px;
-  font-size:.8rem;
-  opacity:.7;
+  border-radius:14px;
+  font-size:.85rem;
 }
 
-/* ================= FLOATING BUTTON + POPUP ================= */
+.welcome-card{
+  background:#141414;
+  border-radius:20px;
+  padding:18px;
+  border:1px solid rgba(255,255,255,.05);
+}
+
+.welcome-card h3{
+  margin-bottom:8px;
+}
+
+.welcome-card p{
+  color:#9ca3af;
+  line-height:1.5;
+}
+
 #offerBtn{
   position:fixed;
-  bottom:20px;
   right:20px;
-  background:linear-gradient(135deg,#ff2e63,#ffa62b);
+  bottom:20px;
+  background:#e50914;
   color:white;
   border:none;
-  padding:14px 16px;
-  border-radius:50px;
+  padding:14px 18px;
+  border-radius:999px;
   font-weight:700;
   cursor:pointer;
-  z-index:2000;
-  box-shadow:0 5px 20px rgba(0,0,0,.4);
-  animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.1);}
-  100%{transform:scale(1);}
+  box-shadow:0 10px 30px rgba(229,9,20,.4);
 }
 
 #offerPopup{
   position:fixed;
-  bottom:80px;
   right:20px;
-  background:#1b1b1b;
+  bottom:80px;
+  width:260px;
+  background:#141414;
+  border-radius:16px;
   padding:16px;
-  border-radius:14px;
-  width:250px;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);
   display:none;
-  z-index:2000;
+  border:1px solid rgba(255,255,255,.06);
 }
 
 #offerPopup h4{
   margin-bottom:8px;
-  color:#ffa62b;
+}
+
+#offerPopup p{
+  color:#9ca3af;
 }
 
 #offerPopup button{
-  margin-top:10px;
-  padding:8px 12px;
+  margin-top:12px;
+  width:100%;
   border:none;
-  border-radius:8px;
-  background:#ff2e63;
-  color:#fff;
+  background:#e50914;
+  color:white;
+  padding:10px;
+  border-radius:10px;
   cursor:pointer;
 }
 </style>
@@ -159,48 +249,98 @@ footer{
 
 <div class="dashboard">
 
-  <div class="header">
+  <div class="hero">
+
+    <div class="hero-badge">
+      👑 My Account
+    </div>
+
     <h1 id="planNickname">Loading...</h1>
-    <small id="planLabel">Loading...</small>
+
+<p id="planLabel">
+  Premium Subscription
+</p>
+
   </div>
 
-  <div class="user-box">
-    <div class="row">
-      <span>Your Password</span>
-      <span>••••••••</span>
+  <div class="membership-card">
+
+    <div class="membership-header">
+  💪 Active Membership
+</div>
+
+    <div class="membership-grid">
+
+      <div class="stat">
+        <small>Package</small>
+        <strong id="packageType">Loading...</strong>
+      </div>
+
+      <div class="stat">
+        <small>Valid Until</small>
+        <strong id="expiryDate">Loading...</strong>
+      </div>
+
     </div>
-    <div class="row">
-      <span>Expires In</span>
-      <span class="countdown" id="timeLeft">Loading...</span>
+
+    <div class="countdown-box">
+      <div class="count-label">Time Remaining</div>
+      <div class="countdown" id="timeLeft">Loading...</div>
     </div>
+
   </div>
 
   <div class="main-buttons">
-    <a href="movies.html" class="big-btn movies">🎬 Watch Movies</a>
-    <a href="series.html" class="big-btn series">📺 Watch Series</a>
+
+    <a href="movies.html" class="big-btn movies">
+      🎬 Watch Movies
+    </a>
+
+    <a href="series.html" class="big-btn series">
+      📺 Watch Series
+    </a>
+
   </div>
 
-  <div class="footer-menu">
-    <a href="packages.html" class="footer-btn extend">Extend</a>
-    <a href="busansocity.html" class="footer-btn city">City</a>
-    <a href="donate.html" class="footer-btn donate">Donate</a>
-    <a href="live.html" class="footer-btn live">Live</a>
+  <div class="quick-links">
+
+    <a href="packages.html" class="quick-btn">
+      ⚡ Extend
+    </a>
+
+    <a href="busansocity.html" class="quick-btn">
+      🏙 City
+    </a>
+
+    <a href="donate.html" class="quick-btn">
+      ❤️ Donate
+    </a>
+
+    <a href="live.html" class="quick-btn">
+      🔴 Live
+    </a>
+
   </div>
 
-  <footer>💫 Thank you for joining Busanso Nation</footer>
+  <div class="welcome-card">
+    <h3>Welcome Back</h3>
+    <p>
+      Enjoy unlimited entertainment on Busanso Nation.
+      New movies and series are added everyday.
+    </p>
+  </div>
 
 </div>
 
-<!-- FLOATING BUTTON -->
 <button id="offerBtn">🔥 Offers</button>
 
-<!-- POPUP -->
 <div id="offerPopup">
-  <h4>🔥 New Offers</h4>
-  <p>Check out our latest discounts and packages!</p>
-  <button onclick="location.href='offers.html'">View Today's Offers</button>
+  <h4>🔥 Special Offers</h4>
+  <p>Check today's discounted packages.</p>
+  <button onclick="location.href='offers.html'">
+    View Offers
+  </button>
 </div>
-
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -224,9 +364,32 @@ db.ref("pins/"+pin).get().then(snapshot=>{
   if(!snapshot.exists()){ location.href="expired.html"; return; }
   const data = snapshot.val();
 
-  const planNicknames = { Weekly:"Beginner", Monthly:"Kabeja", "Half-Year":"Kabeje", Annual:"Kabejest" };
-  document.getElementById("planNickname").textContent = planNicknames[data.type] || data.type;
-  document.getElementById("planLabel").textContent = `Package: ${data.type}`;
+const planNicknames = {
+  Weekly:"Beginner",
+  Monthly:"Kabeja",
+  "Half-Year":"Kabeje",
+  Annual:"Kabejest"
+};
+
+document.getElementById("planNickname").textContent =
+  planNicknames[data.type] || data.type;
+
+document.getElementById("planLabel").textContent =
+  `Package: ${data.type}`;
+
+/* FILL MEMBERSHIP CARD */
+document.getElementById("packageType").textContent =
+  data.type;
+
+document.getElementById("expiryDate").textContent =
+  new Date(data.expiry).toLocaleDateString(
+    "en-GB",
+    {
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    }
+  );
 
   const timeLeftEl = document.getElementById("timeLeft");
   function updateCountdown(){
