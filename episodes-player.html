@@ -440,10 +440,42 @@ function renderPlayer(url) {
     }
   }
 
-  /* =========================
-     DIRECT VIDEO FILE
-  ========================= */
+ /* =========================
+   DAILYMOTION
+========================= */
+else if (
+  url.includes("dailymotion.com") ||
+  url.includes("dai.ly") ||
+  /^[a-zA-Z0-9]+$/.test(url)
+) {
+
+  let videoId = null;
+
+  // direct ID only
+  if (/^[a-zA-Z0-9]+$/.test(url)) {
+    videoId = url;
+  }
+
+  // short URL
+  else if (url.includes("dai.ly/")) {
+    videoId = url.split("dai.ly/")[1].split("?")[0];
+  }
+
+  // normal URL
   else {
+    const match = url.match(/video\/([a-zA-Z0-9]+)/);
+    videoId = match ? match[1] : null;
+  }
+
+  if (videoId) {
+    embedUrl = `https://www.dailymotion.com/embed/video/${videoId}`;
+  }
+}
+
+/* =========================
+   DIRECT VIDEO FILE
+========================= */
+else {
     player.innerHTML = `
       <video id="videoPlayer" controls autoplay src="${url}"></video>
     `;
