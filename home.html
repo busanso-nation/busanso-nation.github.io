@@ -10,15 +10,25 @@
 <script>
 (function(){
 
-const activePIN = localStorage.getItem("activePIN");
+  // ✅ Special PIN (kibanda)
+  var specialAccess = localStorage.getItem("kibandaAccess");
 
-if(
-    activePIN &&
-    activePIN !== "undefined" &&
-    activePIN !== ""
-){
-    window.location.href = "watch.html";
-}
+  if(specialAccess === "true"){
+    location.replace("kibwatch.html");
+    return;
+  }
+
+  // ✅ Normal PIN
+  const activePIN = localStorage.getItem("activePIN");
+
+  if(
+      activePIN &&
+      activePIN !== "undefined" &&
+      activePIN !== ""
+  ){
+      location.replace("watch.html");
+      return;
+  }
 
 })();
 </script>
