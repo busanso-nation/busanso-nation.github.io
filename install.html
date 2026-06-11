@@ -2,128 +2,327 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Install BUSANSO NATION App</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<!-- PWA -->
+<title>Install BUSANSO NATION</title>
+
 <link rel="manifest" href="manifest.json">
+
 <meta name="theme-color" content="#000000">
+
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
 body{
-  margin:0;
-  height:100vh;
-  font-family:'Segoe UI',sans-serif;
-  background:radial-gradient(circle at top,#102a1d,#000);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+background:
+radial-gradient(circle at top,#141414,#000);
+color:#fff;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
 }
 
 .card{
-  text-align:center;
-  max-width:360px;
-  padding:30px;
+width:100%;
+max-width:420px;
+text-align:center;
 }
 
 .logo{
-  font-size:2.4rem;
-  font-weight:800;
-  letter-spacing:3px;
-}
-.nation{color:#e50914}
-
-.tagline{
-  margin:12px 0 20px;
-  color:#f1c40f;
+width:120px;
+height:120px;
+border-radius:28px;
+margin:auto;
+margin-bottom:20px;
+box-shadow:0 0 40px rgba(229,9,20,.35);
 }
 
-button{
-  padding:14px 26px;
-  font-size:16px;
-  border:none;
-  cursor:pointer;
-  background:#e50914;
-  color:#fff;
-  border-radius:6px;
+h1{
+font-size:2rem;
+font-weight:800;
+margin-bottom:10px;
 }
 
-button:hover{opacity:.9}
-
-.ios{
-  margin-top:20px;
-  font-size:.95rem;
-  display:none;
+.subtitle{
+color:#aaa;
+line-height:1.6;
+margin-bottom:25px;
 }
+
+.loader{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:25px;
+}
+
+.loader span{
+width:14px;
+height:14px;
+border-radius:50%;
+background:#e50914;
+animation:bounce 1s infinite;
+}
+
+.loader span:nth-child(2){
+animation-delay:.2s;
+}
+
+.loader span:nth-child(3){
+animation-delay:.4s;
+}
+
+@keyframes bounce{
+0%,80%,100%{
+transform:scale(.6);
+opacity:.5;
+}
+40%{
+transform:scale(1.3);
+opacity:1;
+}
+}
+
+.status{
+margin-top:20px;
+color:#999;
+font-size:.95rem;
+}
+
+.btn{
+width:100%;
+padding:18px;
+border:none;
+border-radius:14px;
+font-size:1rem;
+font-weight:700;
+cursor:pointer;
+display:none;
+margin-top:20px;
+}
+
+.installBtn{
+background:#e50914;
+color:white;
+box-shadow:0 10px 30px rgba(229,9,20,.35);
+}
+
+.apkBtn{
+background:#16a34a;
+color:white;
+box-shadow:0 10px 30px rgba(22,163,74,.35);
+}
+
+.iosCard{
+display:none;
+margin-top:25px;
+background:#111;
+border:1px solid rgba(255,255,255,.06);
+padding:18px;
+border-radius:18px;
+}
+
+.iosCard h3{
+margin-bottom:10px;
+}
+
+.iosCard p{
+color:#bbb;
+line-height:1.7;
+}
+
 </style>
 </head>
-
 <body>
 
 <div class="card">
-  <div class="logo">BUSANSO <span class="nation">NATION</span></div>
-  <div class="tagline">Install the official app</div>
 
-  <button id="installBtn" style="display:none;">Install App</button>
+<img
+src="icons/icon-512.png"
+class="logo"
+alt="BUSANSO">
 
-  <div class="ios" id="iosHint">
-    On iPhone:<br>
-    Tap <strong>Share → Add to Home Screen</strong>
-  </div>
+<h1>BUSANSO NATION</h1>
+
+<p class="subtitle">
+Preparing your best viewing experience...
+</p>
+
+<div id="loader" class="loader">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+<div id="status" class="status">
+Checking device...
+</div>
+
+<button
+id="installBtn"
+class="btn installBtn">
+📲 INSTALL NOW
+</button>
+
+<button
+id="apkBtn"
+class="btn apkBtn">
+📥 ANDROID APP
+</button>
+
+<div id="iosCard" class="iosCard">
+
+<h3>📱 Add BUSANSO to Home Screen</h3>
+
+<p>
+Tap <strong>Share</strong><br>
+Then choose<br>
+<strong>Add to Home Screen</strong>
+</p>
+
+</div>
+
 </div>
 
 <script>
-const installBtn = document.getElementById("installBtn");
+
+const APK_URL =
+"https://dhkfhhybzcxdeoalcfqx.supabase.co/storage/v1/object/public/apk/Busanso%20Nation%202026.apk";
+
+const installBtn =
+document.getElementById("installBtn");
+
+const apkBtn =
+document.getElementById("apkBtn");
+
+const loader =
+document.getElementById("loader");
+
+const status =
+document.getElementById("status");
+
+const iosCard =
+document.getElementById("iosCard");
+
 let deferredPrompt = null;
 
-/* Redirect installed users */
-if (
-  window.matchMedia('(display-mode: standalone)').matches ||
-  window.navigator.standalone === true
-) {
-  location.replace("home.html");
+/* Already installed */
+if(
+window.matchMedia("(display-mode: standalone)").matches ||
+window.navigator.standalone
+){
+location.replace("home.html");
 }
 
 /* Register service worker */
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
+if("serviceWorker" in navigator){
+navigator.serviceWorker.register("service-worker.js");
 }
 
-/* Initial button state */
-installBtn.style.display = "inline-block";
-installBtn.textContent = "Checking availability…";
-installBtn.disabled = true;
-installBtn.style.opacity = "0.7";
+/* Detect device */
+const isAndroid =
+/android/i.test(navigator.userAgent);
 
-/* Chrome install availability */
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
+const isIOS =
+/iphone|ipad|ipod/i.test(navigator.userAgent);
 
-  installBtn.textContent = "Install BUSANSO NATION";
-  installBtn.disabled = false;
-  installBtn.style.opacity = "1";
-});
+/* iPhone */
+if(isIOS){
 
-/* Install click */
-installBtn.addEventListener("click", async () => {
-  if (!deferredPrompt) return;
+setTimeout(()=>{
 
-  installBtn.disabled = true;
-  installBtn.textContent = "Installing…";
+loader.style.display="none";
+status.style.display="none";
 
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-});
+iosCard.style.display="block";
 
-/* After install */
-window.addEventListener("appinstalled", () => {
-  localStorage.setItem("installed","yes");
-  location.replace("home.html");
-});
+},1500);
+
+}
+
+/* PWA Available */
+window.addEventListener(
+"beforeinstallprompt",
+(e)=>{
+
+e.preventDefault();
+
+deferredPrompt = e;
+
+loader.style.display="none";
+status.style.display="none";
+
+installBtn.style.display="block";
+
+}
+);
+
+/* Install Click */
+installBtn.addEventListener(
+"click",
+async ()=>{
+
+if(!deferredPrompt) return;
+
+installBtn.textContent =
+"Installing...";
+
+deferredPrompt.prompt();
+
+await deferredPrompt.userChoice;
+
+deferredPrompt = null;
+
+}
+);
+
+/* Installed */
+window.addEventListener(
+"appinstalled",
+()=>{
+
+location.replace("home.html");
+
+}
+);
+
+/* Android APK fallback */
+setTimeout(()=>{
+
+if(
+!deferredPrompt &&
+isAndroid
+){
+
+loader.style.display="none";
+status.style.display="none";
+
+apkBtn.style.display="block";
+
+}
+
+},5000);
+
+/* APK Download */
+apkBtn.addEventListener(
+"click",
+()=>{
+
+location.href = APK_URL;
+
+}
+);
+
 </script>
 
 </body>
