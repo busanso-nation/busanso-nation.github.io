@@ -1,7 +1,7 @@
 {
   "name": "BUSANSO NATION",
   "short_name": "BUSANSO",
-  "start_url": "/install.html",
+  "start_url": "/home.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#000000",
