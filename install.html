@@ -142,12 +142,20 @@ document.getElementById("status");
 let deferredPrompt = null;
 
 /* already installed */
-if(
+const isInstalled =
   window.matchMedia("(display-mode: standalone)").matches ||
-  window.navigator.standalone
-){
-  location.replace("home.html");
+  window.navigator.standalone;
+
+if (isInstalled) {
+  window.location.href = "home.html";
 }
+
+/* after install completes */
+window.addEventListener("appinstalled", () => {
+  setTimeout(() => {
+    window.location.href = "home.html";
+  }, 800);
+});
 
 /* iphone/ipad */
 const isIOS =
