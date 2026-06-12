@@ -93,7 +93,7 @@ body{margin:0;background:linear-gradient(180deg,#0b1c24,#0a0f1a);color:#eaf6ff;f
 .meta{font-size:11px;color:#9fc6d9;margin:6px 0 12px;}
 .watch{width:100%;padding:12px;border:none;border-radius:20px;background:linear-gradient(135deg,#29ffd8,#1f6cff);color:#001018;font-weight:bold;font-size:13px;cursor:pointer;transition:.25s;}
 .watch:hover{transform:scale(1.03);filter:brightness(1.1);}
- 
+ .notification-modal{ position:fixed; inset:0; background:rgba(0,0,0,.75); display:none; align-items:center; justify-content:center; z-index:99999; } .notification-box{ width:min(90%,420px); background:#0f2230; border-radius:24px; padding:24px; box-shadow:0 20px 50px rgba(0,0,0,.5); } .notification-title{ font-size:20px; font-weight:bold; margin-bottom:10px; } .notification-message{ color:#cde8f6; line-height:1.5; margin-bottom:20px; } .notification-close{ width:100%; border:none; padding:14px; border-radius:16px; background:linear-gradient(135deg,#29ffd8,#1f6cff); font-weight:bold; cursor:pointer; }
 </style>
 </head>
 
@@ -136,7 +136,41 @@ const SUPABASE_URL = "https://dhkfhhybzcxdeoalcfqx.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+window.closeNotification = function(){
+  document.getElementById("notificationModal").style.display="none";
+};
+async function checkNotifications(){
 
+  const { data, error } = await supabase
+    .from("notifications")
+    .select("*")
+    .order("created_at",{ascending:false})
+    .limit(1);
+
+  if(error || !data?.length) return;
+
+  const notification = data[0];
+
+  const seen = localStorage.getItem(
+    "seen_notification_" + notification.id
+  );
+
+  if(seen) return;
+
+  document.getElementById("notificationTitle").textContent =
+    notification.title;
+
+  document.getElementById("notificationMessage").textContent =
+    notification.message;
+
+  document.getElementById("notificationModal").style.display =
+    "flex";
+
+  localStorage.setItem(
+    "seen_notification_" + notification.id,
+    "yes"
+  );
+}
 const box = document.getElementById("list");
 const search = document.getElementById("search");
 const countryFilter = document.getElementById("countryFilter");
@@ -229,16 +263,36 @@ genreFilter.onchange = applyFilters;
   try{
     const { data, error } = await supabase.from("series").select("*").order("created_at",{ascending:false});
     if(error) throw error;
-    SERIES = data;
-    populateFilters(SERIES);
-    render(SERIES);
-    console.log("Series fetched:", data);
+SERIES = data;
+populateFilters(SERIES);
+render(SERIES);
+
+checkNotifications();
+
+console.log("Series fetched:", data);
   }catch(err){
     console.error("Supabase fetch failed:", err);
     alert("Failed to fetch series from Supabase. Check console for details.");
   }
 })();
 </script>
+<div id="notificationModal" class="notification-modal">
+  <div class="notification-box">
 
+    <div id="notificationTitle"
+         class="notification-title">
+    </div>
+
+    <div id="notificationMessage"
+         class="notification-message">
+    </div>
+
+    <button class="notification-close"
+            onclick="closeNotification()">
+      OK
+    </button>
+
+  </div>
+</div>
 </body>
 </html>
