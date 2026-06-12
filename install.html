@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Install BUSANSO NATION</title>
+<title>BUSANSO NATION</title>
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#000000">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 
 <style>
-
 *{
   margin:0;
   padding:0;
@@ -20,8 +19,8 @@
 
 body{
   min-height:100vh;
-  background:radial-gradient(circle at top,#161616,#000);
-  color:#fff;
+  background:radial-gradient(circle at top,#0f0f0f,#000);
+  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -35,65 +34,67 @@ body{
 }
 
 .logo{
-  width:120px;
-  height:120px;
-  border-radius:28px;
-  margin:auto;
-  margin-bottom:20px;
-  box-shadow:0 0 40px rgba(229,9,20,.35);
+  width:110px;
+  height:110px;
+  border-radius:24px;
+  margin-bottom:18px;
+  box-shadow:0 0 40px rgba(229,9,20,.3);
 }
 
 h1{
   font-size:2rem;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 .subtitle{
-  color:#9ca3af;
+  color:#aaa;
   margin-bottom:25px;
-  line-height:1.6;
 }
 
 .loader{
-  width:70px;
-  height:70px;
-  border:5px solid rgba(255,255,255,.08);
-  border-top:5px solid #e50914;
+  width:60px;
+  height:60px;
+  border:4px solid rgba(255,255,255,.08);
+  border-top:4px solid #e50914;
   border-radius:50%;
   margin:20px auto;
   animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
-  100%{
-    transform:rotate(360deg);
-  }
+  100%{ transform:rotate(360deg); }
 }
 
 .status{
   color:#bbb;
+  margin-bottom:20px;
   font-size:.95rem;
-  margin-bottom:25px;
 }
 
-.install-btn{
+.btn{
   display:none;
   width:100%;
-  padding:18px;
+  padding:16px;
   border:none;
   border-radius:14px;
   background:#e50914;
-  color:#fff;
+  color:white;
   font-size:1rem;
   font-weight:700;
   cursor:pointer;
   box-shadow:0 10px 25px rgba(229,9,20,.35);
 }
 
-.install-btn:hover{
-  opacity:.95;
+.btn.secondary{
+  background:#2563eb;
+  margin-top:10px;
 }
 
+.small{
+  margin-top:15px;
+  font-size:.8rem;
+  color:#777;
+}
 </style>
 </head>
 
@@ -101,45 +102,33 @@ h1{
 
 <div class="card">
 
-  <img
-    src="icons/icon-512.png"
-    class="logo"
-    alt="BUSANSO"
-  >
+  <img src="icons/icon-512.png" class="logo">
 
   <h1>BUSANSO NATION</h1>
-
-  <div class="subtitle">
-    Entertainment Without Limits
-  </div>
+  <div class="subtitle">Entertainment Without Limits</div>
 
   <div id="loader" class="loader"></div>
+  <div id="status" class="status">Preparing your experience...</div>
 
-  <div id="status" class="status">
-    Preparing Installation...
-  </div>
+  <button id="installBtn" class="btn">Install App</button>
+  <button id="openBtn" class="btn secondary">Open Busanso</button>
 
-  <button id="installBtn" class="install-btn">
-    INSTALL NOW
-  </button>
+  <div class="small" id="hint"></div>
 
 </div>
 
 <script>
-
-const APK_URL =
-"https://dhkfhhybzcxdeoalcfqx.supabase.co/storage/v1/object/public/apk/Busanso%20Nation%202026.apk";
-
-const installBtn =
-document.getElementById("installBtn");
-
-const loader =
-document.getElementById("loader");
-
-const status =
-document.getElementById("status");
+const installBtn = document.getElementById("installBtn");
+const openBtn = document.getElementById("openBtn");
+const loader = document.getElementById("loader");
+const status = document.getElementById("status");
+const hint = document.getElementById("hint");
 
 let deferredPrompt = null;
+
+/* detect devices */
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isAndroid = /android/i.test(navigator.userAgent);
 
 /* already installed */
 const isInstalled =
@@ -150,109 +139,71 @@ if (isInstalled) {
   window.location.href = "home.html";
 }
 
-/* after install completes */
+/* iOS cannot install PWA properly */
+if (isIOS) {
+  loader.style.display = "none";
+  status.textContent = "Open in Safari to continue";
+  openBtn.style.display = "block";
+
+  openBtn.onclick = () => {
+    window.location.href = "home.html";
+  };
+}
+
+/* register SW */
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+
+/* PWA install available */
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  loader.style.display = "none";
+  status.style.display = "none";
+
+  installBtn.style.display = "block";
+
+  installBtn.onclick = async () => {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  };
+});
+
+/* install completed */
 window.addEventListener("appinstalled", () => {
   setTimeout(() => {
     window.location.href = "home.html";
-  }, 800);
+  }, 600);
 });
 
-/* iphone/ipad */
-const isIOS =
-/iphone|ipad|ipod/i.test(
-navigator.userAgent
-);
+/* fallback (NO STUCK SCREEN FIX) */
+setTimeout(() => {
 
-if(isIOS){
+  if (deferredPrompt) return;
 
-  location.replace("home.html");
+  loader.style.display = "none";
+  status.style.display = "none";
 
-}
+  if (isAndroid) {
+    installBtn.style.display = "block";
+    installBtn.textContent = "Open Busanso";
 
-/* register service worker */
-if("serviceWorker" in navigator){
-
- navigator.serviceWorker.register(
-  "service-worker.js"
-).catch(()=>{});
-}
-
-/* PWA available */
-window.addEventListener(
-"beforeinstallprompt",
-(e)=>{
-
-  e.preventDefault();
-
-  deferredPrompt = e;
-
-  loader.style.display="none";
-
-  status.style.display="none";
-
-  installBtn.style.display="block";
-
-  installBtn.onclick = async ()=>{
-
-    deferredPrompt.prompt();
-
-    await deferredPrompt.userChoice;
-
-  };
-
-});
-
-/* installed */
-window.addEventListener(
-"appinstalled",
-()=>{
-
-  location.replace("home.html");
-
-});
-
-/* Android fallback */
-setTimeout(()=>{
-
-  if(deferredPrompt) return;
-
-  const isAndroid =
-  /android/i.test(
-    navigator.userAgent
-  );
-
-  loader.style.display="none";
-  status.style.display="none";
-
-  installBtn.style.display="block";
-
-  if(isAndroid){
-
-    installBtn.onclick = ()=>{
-
-      location.href = APK_URL;
-
+    installBtn.onclick = () => {
+      window.location.href = "home.html";
     };
 
-  }else{
-
-    installBtn.textContent =
-    "OPEN BUSANSO NATION";
-
-    installBtn.onclick = ()=>{
-
-      location.href =
-      "home.html";
-
+  } else if (!isIOS) {
+    openBtn.style.display = "block";
+    openBtn.onclick = () => {
+      window.location.href = "home.html";
     };
-
   }
 
-},5000);
-
+}, 3500);
 </script>
 
 </body>
 </html>
-
-
