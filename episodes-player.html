@@ -324,6 +324,21 @@ body{
   .epLabel{
     font-size:16px;
   }
+  .subscriptionAlert{
+  margin-bottom:15px;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:800;
+  font-size:18px;
+  animation:pulseAlert 2s infinite;
+}
+
+@keyframes pulseAlert{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.02);}
+  100%{transform:scale(1);}
+}
 }
 </style>
 </head>
@@ -341,7 +356,7 @@ body{
   <span id="seriesTitle">Loading...</span>
 </div>
 <div class="container">
-
+<div id="subscriptionAlert" style="display:none;"></div>
   <!-- PLAYER -->
   <div class="player" id="player"></div>
 
@@ -555,6 +570,97 @@ async function checkAccess(seriesType) {
 
   return true;
 }
+function showSubscriptionReminder(){
+
+  const alertBox =
+    document.getElementById("subscriptionAlert");
+
+  const expiry =
+    localStorage.getItem("pinExpiry");
+
+  if(!expiry) return;
+
+  const msLeft =
+    parseInt(expiry) - Date.now();
+
+  const daysLeft =
+    Math.ceil(msLeft / 86400000);
+
+if (daysLeft > 5) return;
+
+alertBox.style.display = "block";
+alertBox.className = "subscriptionAlert";
+
+if (daysLeft > 3) {
+
+  // 4-5 days remaining
+  alertBox.style.background = "#78350f";
+
+  alertBox.innerHTML = `
+    ⚠️ Your subscription expires in <b>${daysLeft} days</b>.<br>
+    Renew soon to avoid interruption.<br><br>
+
+    <button class="renewBtn"
+      onclick="location.href='packages.html'">
+      Renew Subscription
+    </button>
+  `;
+
+}
+else if (daysLeft > 1) {
+
+  // 2-3 days remaining
+  alertBox.style.background = "#991b1b";
+
+  alertBox.innerHTML = `
+    🚨 Your subscription expires in <b>${daysLeft} days</b>.<br>
+    Renew now to continue watching without interruption.<br><br>
+
+    <button class="renewBtn"
+      onclick="location.href='packages.html'">
+      Renew Subscription
+    </button>
+  `;
+
+}
+else if (daysLeft === 1) {
+
+  // Tomorrow is expiry
+  alertBox.style.background = "#dc2626";
+  alertBox.classList.add("criticalExpiry");
+
+  alertBox.innerHTML = `
+    🔥 YOUR SUBSCRIPTION EXPIRES TOMORROW 🔥<br><br>
+
+    Renew today to avoid losing access to premium content.<br><br>
+
+    <button class="renewBtn"
+      onclick="location.href='packages.html'">
+      Renew Subscription Now
+    </button>
+  `;
+
+}
+else {
+
+  // Today is expiry day
+  alertBox.style.background = "#ef4444";
+  alertBox.style.fontSize = "22px";
+  alertBox.classList.add("criticalExpiry");
+
+  alertBox.innerHTML = `
+    ⛔ LAST DAY OF ACCESS ⛔<br><br>
+
+    Your subscription expires TODAY.<br>
+    Renew immediately to continue watching.<br><br>
+
+    <button class="renewBtn"
+      onclick="location.href='packages.html'">
+      Renew Subscription Now
+    </button>
+  `;
+
+}
 /* LOAD EPISODES */
 async function loadEpisodes() {
 
@@ -570,17 +676,20 @@ async function loadEpisodes() {
     return;
   }
 
-  // 2. SECURITY CHECK
-  const allowed = await checkAccess(series.type);
+ // 2. SECURITY CHECK
+const allowed = await checkAccess(series.type);
 
-  if (!allowed) {
-    window.location.href = "packages.html";
-    return;
-  }
+if (!allowed) {
+  window.location.href = "packages.html";
+  return;
+}
 
-  // 3. LOAD EPISODES
-  const { data } = await supabase
-    .from("episodes")
+// SHOW SUBSCRIPTION REMINDER
+showSubscriptionReminder();
+
+// 3. LOAD EPISODES
+const { data } = await supabase
+  .from("episodes")
     .select("*")
     .eq("series_id", seriesId)
     .order("episode_number", { ascending: true });
