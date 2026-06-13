@@ -324,6 +324,19 @@ body{
   .epLabel{
     font-size:16px;
   }
+  .criticalExpiry{
+  animation:shakeFlash 0.6s infinite;
+  border:3px solid red !important;
+  box-shadow:0 0 25px red !important;
+}
+
+@keyframes shakeFlash{
+  0% {transform: translateX(0); background:#7f1d1d;}
+  25% {transform: translateX(-2px); background:#991b1b;}
+  50% {transform: translateX(2px); background:#dc2626;}
+  75% {transform: translateX(-2px); background:#b91c1c;}
+  100% {transform: translateX(0); background:#7f1d1d;}
+}
   .subscriptionAlert{
   margin-bottom:15px;
   padding:18px;
@@ -570,98 +583,99 @@ async function checkAccess(seriesType) {
 
   return true;
 }
-function showSubscriptionReminder(){
+function showSubscriptionReminder() {
 
-  const alertBox =
-    document.getElementById("subscriptionAlert");
+  const alertBox = document.getElementById("subscriptionAlert");
 
-  const expiry =
-    localStorage.getItem("pinExpiry");
+  const expiry = localStorage.getItem("pinExpiry");
+  if (!expiry) return;
 
-  if(!expiry) return;
+  const msLeft = parseInt(expiry) - Date.now();
+  const daysLeft = Math.ceil(msLeft / 86400000);
 
-  const msLeft =
-    parseInt(expiry) - Date.now();
+  // hide if more than 5 days left
+  if (daysLeft > 5) return;
 
-  const daysLeft =
-    Math.ceil(msLeft / 86400000);
+  alertBox.style.display = "block";
+  alertBox.className = "subscriptionAlert";
 
-if (daysLeft > 5) return;
+  // =========================
+  // 2–5 DAYS LEFT (NORMAL WARNING)
+  // =========================
+  if (daysLeft > 1) {
 
-alertBox.style.display = "block";
-alertBox.className = "subscriptionAlert";
+    alertBox.style.background = "#991b1b";
 
-if (daysLeft > 3) {
+    alertBox.innerHTML = `
+      🚨 Your subscription expires in <b>${daysLeft} days</b>.<br>
+      Renew now to continue watching without interruption.<br><br>
 
-  // 4-5 days remaining
-  alertBox.style.background = "#78350f";
-
-  alertBox.innerHTML = `
-    ⚠️ Your subscription expires in <b>${daysLeft} days</b>.<br>
-    Renew soon to avoid interruption.<br><br>
-
-    <button class="renewBtn"
-      onclick="location.href='packages.html'">
-      Renew Subscription
-    </button>
-  `;
-
-}
-else if (daysLeft > 1) {
-
-  // 2-3 days remaining
-  alertBox.style.background = "#991b1b";
-
-  alertBox.innerHTML = `
-    🚨 Your subscription expires in <b>${daysLeft} days</b>.<br>
-    Renew now to continue watching without interruption.<br><br>
-
-    <button class="renewBtn"
-      onclick="location.href='packages.html'">
-      Renew Subscription
-    </button>
-  `;
-
-}
-else if (daysLeft === 1) {
-
-  // Tomorrow is expiry
-  alertBox.style.background = "#dc2626";
-  alertBox.classList.add("criticalExpiry");
-
-  alertBox.innerHTML = `
-    🔥 YOUR SUBSCRIPTION EXPIRES TOMORROW 🔥<br><br>
-
-    Renew today to avoid losing access to premium content.<br><br>
-
-    <button class="renewBtn"
-      onclick="location.href='packages.html'">
-      Renew Subscription Now
-    </button>
-  `;
-
-}
-else {
-
-  // Today is expiry day
-  alertBox.style.background = "#ef4444";
-  alertBox.style.fontSize = "22px";
-  alertBox.classList.add("criticalExpiry");
-
-  alertBox.innerHTML = `
-    ⛔ LAST DAY OF ACCESS ⛔<br><br>
-
-    Your subscription expires TODAY.<br>
-    Renew immediately to continue watching.<br><br>
-
-    <button class="renewBtn"
-      onclick="location.href='packages.html'">
-      Renew Subscription Now
-    </button>
-  `;
-
-}
+      <button class="renewBtn"
+        onclick="location.href='packages.html'">
+        Renew Subscription
+      </button>
+    `;
   }
+
+  // =========================
+  // 1 DAY LEFT (CRITICAL WARNING)
+  // =========================
+  else if (daysLeft === 1) {
+
+    alertBox.style.background = "linear-gradient(135deg,#dc2626,#7f1d1d)";
+    alertBox.style.boxShadow = "0 0 25px rgba(220,38,38,0.9)";
+    alertBox.classList.add("criticalExpiry");
+
+    alertBox.innerHTML = `
+      🚨🚨 FINAL WARNING 🚨🚨<br><br>
+
+      Your subscription EXPIRES TOMORROW.<br>
+      Access will be blocked soon.<br><br>
+
+      <button class="renewBtn"
+        onclick="location.href='packages.html'">
+        RENEW NOW
+      </button>
+    `;
+
+    // auto scroll to make it visible
+    setTimeout(() => {
+      alertBox.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }, 1500);
+  }
+
+  // =========================
+  // EXPIRES TODAY (VERY CRITICAL)
+  // =========================
+  else {
+
+    alertBox.style.background = "#ef4444";
+    alertBox.style.fontSize = "22px";
+    alertBox.classList.add("criticalExpiry");
+
+    alertBox.innerHTML = `
+      ⛔ LAST DAY OF ACCESS ⛔<br><br>
+
+      Your subscription expires TODAY.<br>
+      Renew immediately to continue watching.<br><br>
+
+      <button class="renewBtn"
+        onclick="location.href='packages.html'">
+        Renew Subscription Now
+      </button>
+    `;
+
+    setTimeout(() => {
+      alertBox.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }, 1500);
+  }
+}
 /* LOAD EPISODES */
 async function loadEpisodes() {
 
@@ -832,30 +846,38 @@ document.getElementById("fullBtn").onclick = async () => {
 
   const el = document.getElementById("player");
 
-  try{
+  try {
 
-    if(!document.fullscreenElement){
+    if (!document.fullscreenElement) {
 
       await el.requestFullscreen();
 
-      if(screen.orientation &&
-         screen.orientation.lock){
+      // wait a bit BEFORE locking orientation (important)
+      setTimeout(async () => {
 
-        await screen.orientation.lock("landscape");
-      }
+        try {
+          if (screen.orientation && screen.orientation.lock) {
+            await screen.orientation.lock("landscape");
+          }
+        } catch (e) {
+          console.log("Orientation lock failed:", e);
+        }
 
-    }else{
+      }, 300);
+
+    } else {
 
       await document.exitFullscreen();
 
-      if(screen.orientation &&
-         screen.orientation.unlock){
+      try {
+        if (screen.orientation && screen.orientation.unlock) {
+          screen.orientation.unlock();
+        }
+      } catch (e) {}
 
-        screen.orientation.unlock();
-      }
     }
 
-  }catch(err){
+  } catch (err) {
     console.log(err);
   }
 
@@ -893,4 +915,3 @@ loadEpisodes();
 </footer>
 </body>
 </html>
-
