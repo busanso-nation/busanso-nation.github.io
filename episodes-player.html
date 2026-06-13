@@ -593,22 +593,32 @@ async function loadEpisodes() {
   document.getElementById("seriesTitle").textContent =
     series.title || "Busanso Episodes";
 
-  // 5. RESTORE LAST WATCHED EPISODE
-  const savedIndex = localStorage.getItem("busanso_last_episode");
+// 5. RESTORE LAST WATCHED EPISODE FOR THIS SERIES
+const savedIndex = localStorage.getItem(
+  `busanso_last_episode_${seriesId}`
+);
 
-  if (savedIndex !== null && episodes[savedIndex]) {
-    loadEpisode(parseInt(savedIndex));
-  } else {
-    loadEpisode(0);
-  }
+if (
+  savedIndex !== null &&
+  episodes[parseInt(savedIndex)]
+) {
+  loadEpisode(parseInt(savedIndex));
+} else {
+  loadEpisode(0);
+}
+
 }
 
 /* LOAD EPISODE */
 function loadEpisode(i) {
 
   index = i;
-renderEpisodeList();
-  localStorage.setItem("busanso_last_episode", i); // 👈 ADD THIS
+
+  // SAVE LAST WATCHED EPISODE FOR THIS SERIES
+  localStorage.setItem(
+    `busanso_last_episode_${seriesId}`,
+    i
+  );
 
   const ep = episodes[i];
   if (!ep) return;
@@ -618,6 +628,8 @@ renderEpisodeList();
 
   renderPlayer(ep.video);
   loadComments(ep.id);
+
+  renderEpisodeList();
 }
 function renderEpisodeList(){
 
@@ -696,11 +708,37 @@ document.getElementById("prevEp").onclick = () => {
 };
 
 /* FULLSCREEN */
-document.getElementById("fullBtn").onclick = () => {
+document.getElementById("fullBtn").onclick = async () => {
+
   const el = document.getElementById("player");
 
-  if (!document.fullscreenElement) el.requestFullscreen();
-  else document.exitFullscreen();
+  try{
+
+    if(!document.fullscreenElement){
+
+      await el.requestFullscreen();
+
+      if(screen.orientation &&
+         screen.orientation.lock){
+
+        await screen.orientation.lock("landscape");
+      }
+
+    }else{
+
+      await document.exitFullscreen();
+
+      if(screen.orientation &&
+         screen.orientation.unlock){
+
+        screen.orientation.unlock();
+      }
+    }
+
+  }catch(err){
+    console.log(err);
+  }
+
 };
 
 /* 💬 COMMENT TOGGLE */
