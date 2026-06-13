@@ -765,10 +765,20 @@ window.selectEpisode = function(i){
   document.getElementById("episodeList").style.display = "none";
 
   // scroll player into view
-  document.getElementById("player").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
+const player = document.getElementById("player");
+const header = document.querySelector(".header");
+
+const yOffset = -(header?.offsetHeight || 80);
+
+const y =
+  player.getBoundingClientRect().top +
+  window.pageYOffset +
+  yOffset;
+
+window.scrollTo({
+  top: y,
+  behavior: "smooth"
+});
 
 };
 /* COMMENTS */
