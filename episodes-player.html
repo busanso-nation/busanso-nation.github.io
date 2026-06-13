@@ -564,15 +564,11 @@ async function checkAccess(seriesType) {
   // FREE CONTENT = always allowed
   if (seriesType === "free") return true;
 
-  // CHECK PIN FROM LOCAL STORAGE FIRST
   const pin = localStorage.getItem("activePIN");
   const pinExpiry = localStorage.getItem("pinExpiry");
 
-  if (!pin || !pinExpiry) {
-    return false;
-  }
+  if (!pin || !pinExpiry) return false;
 
-  // check expiry
   const now = Date.now();
 
   if (now > parseInt(pinExpiry)) {
@@ -583,9 +579,15 @@ async function checkAccess(seriesType) {
 
   return true;
 }
+
+
+/* =========================
+   SUBSCRIPTION REMINDER
+========================= */
 function showSubscriptionReminder() {
 
   const alertBox = document.getElementById("subscriptionAlert");
+  if (!alertBox) return;
 
   const expiry = localStorage.getItem("pinExpiry");
   if (!expiry) return;
@@ -593,33 +595,25 @@ function showSubscriptionReminder() {
   const msLeft = parseInt(expiry) - Date.now();
   const daysLeft = Math.ceil(msLeft / 86400000);
 
-  // hide if more than 5 days left
   if (daysLeft > 5) return;
 
   alertBox.style.display = "block";
   alertBox.className = "subscriptionAlert";
 
-  // =========================
-  // 2–5 DAYS LEFT (NORMAL WARNING)
-  // =========================
+  // 2–5 DAYS LEFT
   if (daysLeft > 1) {
 
     alertBox.style.background = "#991b1b";
 
     alertBox.innerHTML = `
-      🚨 Your subscription expires in <b>${daysLeft} days</b>.<br>
-      Renew now to continue watching without interruption.<br><br>
-
-      <button class="renewBtn"
-        onclick="location.href='packages.html'">
+      🚨 Your subscription expires in <b>${daysLeft} days</b>.<br><br>
+      <button class="renewBtn" onclick="location.href='packages.html'">
         Renew Subscription
       </button>
     `;
   }
 
-  // =========================
-  // 1 DAY LEFT (CRITICAL WARNING)
-  // =========================
+  // 1 DAY LEFT (CRITICAL)
   else if (daysLeft === 1) {
 
     alertBox.style.background = "linear-gradient(135deg,#dc2626,#7f1d1d)";
@@ -627,29 +621,22 @@ function showSubscriptionReminder() {
     alertBox.classList.add("criticalExpiry");
 
     alertBox.innerHTML = `
-      🚨🚨 FINAL WARNING 🚨🚨<br><br>
-
-      Your subscription EXPIRES TOMORROW.<br>
-      Access will be blocked soon.<br><br>
-
-      <button class="renewBtn"
-        onclick="location.href='packages.html'">
+      🚨 FINAL WARNING 🚨<br><br>
+      Your subscription EXPIRES TOMORROW.<br><br>
+      <button class="renewBtn" onclick="location.href='packages.html'">
         RENEW NOW
       </button>
     `;
 
-    // auto scroll to make it visible
     setTimeout(() => {
       alertBox.scrollIntoView({
         behavior: "smooth",
         block: "start"
       });
-    }, 1500);
+    }, 1200);
   }
 
-  // =========================
-  // EXPIRES TODAY (VERY CRITICAL)
-  // =========================
+  // TODAY EXPIRES
   else {
 
     alertBox.style.background = "#ef4444";
@@ -658,12 +645,8 @@ function showSubscriptionReminder() {
 
     alertBox.innerHTML = `
       ⛔ LAST DAY OF ACCESS ⛔<br><br>
-
-      Your subscription expires TODAY.<br>
-      Renew immediately to continue watching.<br><br>
-
-      <button class="renewBtn"
-        onclick="location.href='packages.html'">
+      Your subscription expires TODAY.<br><br>
+      <button class="renewBtn" onclick="location.href='packages.html'">
         Renew Subscription Now
       </button>
     `;
@@ -673,13 +656,45 @@ function showSubscriptionReminder() {
         behavior: "smooth",
         block: "start"
       });
-    }, 1500);
+    }, 1200);
   }
 }
-/* LOAD EPISODES */
+
+
+/* =========================
+   FREE USER UPSELL
+========================= */
+function showFreeUserUpsell() {
+
+  const alertBox = document.getElementById("subscriptionAlert");
+  if (!alertBox) return;
+
+  alertBox.style.display = "block";
+  alertBox.className = "subscriptionAlert";
+
+  alertBox.style.background =
+    "linear-gradient(135deg,#0f172a,#1e293b)";
+
+  alertBox.style.border = "2px solid #60a5fa";
+  alertBox.style.boxShadow = "0 0 25px rgba(96,165,250,0.4)";
+  alertBox.style.animation = "pulseAlert 2s infinite";
+
+  alertBox.innerHTML = `
+    🎬 Enjoying Busanso Nation?<br><br>
+    Unlock all premium series, movies, and exclusive content.<br><br>
+
+    <button class="renewBtn" onclick="location.href='packages.html'">
+      Upgrade Now
+    </button>
+  `;
+}
+
+
+/* =========================
+   LOAD EPISODES
+========================= */
 async function loadEpisodes() {
 
-  // 1. GET SERIES INFO (FIRST THING)
   const { data: series } = await supabase
     .from("series")
     .select("type, title")
@@ -691,20 +706,22 @@ async function loadEpisodes() {
     return;
   }
 
- // 2. SECURITY CHECK
-const allowed = await checkAccess(series.type);
+  const allowed = await checkAccess(series.type);
 
-if (!allowed) {
-  window.location.href = "packages.html";
-  return;
-}
+  if (!allowed) {
+    window.location.href = "packages.html";
+    return;
+  }
 
-// SHOW SUBSCRIPTION REMINDER
-showSubscriptionReminder();
+  // show reminder OR upsell
+  if (series.type === "free") {
+    showFreeUserUpsell();
+  } else {
+    showSubscriptionReminder();
+  }
 
-// 3. LOAD EPISODES
-const { data } = await supabase
-  .from("episodes")
+  const { data } = await supabase
+    .from("episodes")
     .select("*")
     .eq("series_id", seriesId)
     .order("episode_number", { ascending: true });
@@ -713,24 +730,18 @@ const { data } = await supabase
 
   if (!episodes.length) return;
 
-  // 4. HEADER TITLE
   document.getElementById("seriesTitle").textContent =
     series.title || "Busanso Episodes";
 
-// 5. RESTORE LAST WATCHED EPISODE FOR THIS SERIES
-const savedIndex = localStorage.getItem(
-  `busanso_last_episode_${seriesId}`
-);
+  const savedIndex = localStorage.getItem(
+    `busanso_last_episode_${seriesId}`
+  );
 
-if (
-  savedIndex !== null &&
-  episodes[parseInt(savedIndex)]
-) {
-  loadEpisode(parseInt(savedIndex));
-} else {
-  loadEpisode(0);
-}
-
+  if (savedIndex !== null && episodes[parseInt(savedIndex)]) {
+    loadEpisode(parseInt(savedIndex));
+  } else {
+    loadEpisode(0);
+  }
 }
 
 /* LOAD EPISODE */
