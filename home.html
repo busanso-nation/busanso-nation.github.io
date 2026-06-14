@@ -94,6 +94,29 @@ body{margin:0;background:linear-gradient(180deg,#0b1c24,#0a0f1a);color:#eaf6ff;f
 .watch{width:100%;padding:12px;border:none;border-radius:20px;background:linear-gradient(135deg,#29ffd8,#1f6cff);color:#001018;font-weight:bold;font-size:13px;cursor:pointer;transition:.25s;}
 .watch:hover{transform:scale(1.03);filter:brightness(1.1);}
  .notification-modal{ position:fixed; inset:0; background:rgba(0,0,0,.75); display:none; align-items:center; justify-content:center; z-index:99999; } .notification-box{ width:min(90%,420px); background:#0f2230; border-radius:24px; padding:24px; box-shadow:0 20px 50px rgba(0,0,0,.5); } .notification-title{ font-size:20px; font-weight:bold; margin-bottom:10px; } .notification-message{ color:#cde8f6; line-height:1.5; margin-bottom:20px; } .notification-close{ width:100%; border:none; padding:14px; border-radius:16px; background:linear-gradient(135deg,#29ffd8,#1f6cff); font-weight:bold; cursor:pointer; }
+ .whatsapp-wrap{
+  padding:0 14px 14px;
+  background:#07141c;
+}
+
+.whatsapp-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:700;
+  color:#fff;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  box-shadow:0 8px 20px rgba(37,211,102,.25);
+  transition:.25s;
+}
+
+.whatsapp-btn:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.05);
+}
 </style>
 </head>
 
@@ -111,7 +134,14 @@ body{margin:0;background:linear-gradient(180deg,#0b1c24,#0a0f1a);color:#eaf6ff;f
     <button onclick="location.href='library-login.html'">🎬 Click here if you have a library</button>
 
 </div>
-
+<div class="whatsapp-wrap">
+  <button
+    class="whatsapp-btn"
+    onclick="window.open('https://chat.whatsapp.com/JY2cKDekV1n5ci7XVfEFJt','_blank')"
+  >
+    💬 JOIN WHATSAPP GROUP
+  </button>
+</div>
 <!-- SEARCH & FILTERS -->
 <div class="search">
   <input id="search" placeholder="Search series...">
@@ -296,3 +326,4 @@ console.log("Series fetched:", data);
 </div>
 </body>
 </html>
+
