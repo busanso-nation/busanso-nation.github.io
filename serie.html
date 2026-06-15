@@ -282,49 +282,55 @@ toggleCommentsBtn.onclick = () => {
 
 let serie = null;
 
-/* LOAD SERIES */
 async function loadSeries(){
+
   const { data } = await supabase
-  .from("series")
-  .select("*, episodes(*)")
-  .eq("id", id)
-  .order("episode_number", {
-    foreignTable: "episodes",
-    ascending: true
-  })
-  .single();
+    .from("series")
+    .select("*, episodes(*)")
+    .eq("id", id)
+    .order("episode_number", {
+      foreignTable: "episodes",
+      ascending: true
+    })
+    .single();
+
   if(!data) return;
 
   serie = data;
 
+  // 🔥 increase views
+  await supabase
+    .from("series")
+    .update({
+      views: (data.views || 0) + 1
+    })
+    .eq("id", data.id);
+
   document.getElementById("title").textContent = serie.title;
+
   document.getElementById("meta").textContent =
     `${serie.genre} • ${serie.country} • ${serie.year}`;
 
-  document.getElementById("synopsis").textContent = serie.synopsis || "";
+  document.getElementById("synopsis").textContent =
+    serie.synopsis || "";
 
-document.getElementById("poster").src =
-  serie.horizontal_poster || serie.poster || "";
+  document.getElementById("poster").src =
+    serie.horizontal_poster || serie.poster || "";
 
-  /* CAST */
   const cast = document.getElementById("cast");
-  serie.cast?.forEach(c=>{
+  cast.innerHTML = "";
+
+  serie.cast?.forEach(c => {
     const s = document.createElement("span");
     s.textContent = c;
     cast.appendChild(s);
   });
 
- 
-
-  /* WATCH NOW BUTTON */
   document.getElementById("watchBtn").onclick = () => {
-    window.location.href =
-      `episodes-player.html?id=${serie.id}&ep=0`;
+    location.href = `episodes-player.html?id=${serie.id}&ep=0`;
   };
 }
-
 loadSeries();
-
 /* SHARE (UNCHANGED LOGIC) */
 document.getElementById("shareBtn").onclick = () => {
   if(!serie) return;
