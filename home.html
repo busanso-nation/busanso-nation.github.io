@@ -2,173 +2,438 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BUSANSO – Series</title>
+<title>Busanso Nation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ACTIVE PIN CHECK -->
-
-<script>
-(function(){
-
-  // ✅ Special PIN (kibanda)
-  var specialAccess = localStorage.getItem("kibandaAccess");
-
-  if(specialAccess === "true"){
-    location.replace("kibwatch.html");
-    return;
-  }
-
-  // ✅ Normal PIN
-  const activePIN = localStorage.getItem("activePIN");
-
-  if(
-      activePIN &&
-      activePIN !== "undefined" &&
-      activePIN !== ""
-  ){
-      location.replace("watch.html");
-      return;
-  }
-
-})();
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:linear-gradient(180deg,#0b1c24,#0a0f1a);color:#eaf6ff;font-family:Arial,sans-serif;}
-.logo{display:flex;justify-content:center;padding:18px 10px 10px;background:#07141c;}
-.logo img{height:66px;}
-.nav{display:flex;gap:12px;padding:14px;background:#07141c;position:sticky;top:0;z-index:10;}
-.nav button{flex:1;padding:8px;border:none;border-radius:38px;background:linear-gradient(135deg,#1f6cff,#29ffd8);color:#001018;font-weight:bold;font-size:14px;cursor:pointer;transition:.25s;}
-.nav button:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.1);}
-.search{padding:16px;background:#07141c;}
-.search input{width:100%;padding:16px;border-radius:20px;border:none;background:#102a38;color:#eaf6ff;font-size:15px;}
-.search input::placeholder{color:#9fc6d9;}
-.filters{display:flex;gap:12px;margin:12px 0;}
-.filters select{flex:1;padding:12px;border-radius:16px;border:none;background:#102a38;color:#eaf6ff;font-size:14px;}
-.series{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:16px;margin-bottom:80px;}
-@media(min-width:768px){.series{grid-template-columns:repeat(4,1fr);gap:16px;}}
-@media(min-width:1200px){.series{grid-template-columns:repeat(5,1fr);gap:18px;}}
-.card{background:linear-gradient(180deg,#102a38,#0b1c24);border-radius:22px;overflow:hidden;box-shadow:0 14px 35px rgba(0,0,0,.5);opacity:0;transform:translateY(20px);animation:fade .4s forwards;transition:.25s;}
-.card:hover{transform:translateY(-6px);}
-@keyframes fade{to{opacity:1;transform:none}}
-.card img{width:100%;aspect-ratio:2/3;object-fit:cover;}
-  .poster-wrap{
-  position:relative;
+body{
+background: linear-gradient(180deg, #020617, #0f172a, #020617);
+}
+.sticky-header{
+position:sticky;
+top:0;
+background:#020617;
+z-index:999;
+padding-bottom:5px;
+box-shadow:0 2px 10px rgba(0,0,0,.8);
 }
 
-/* STATUS BADGE ON POSTER */
-.status-badge{
-  position:absolute;
-  top:10px;
-  left:10px;
-  z-index:5;
-
-  padding:5px 10px;
-  border-radius:999px;
-
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:.5px;
-
-  color:#fff;
-
-  backdrop-filter:blur(6px);
-  box-shadow:0 4px 12px rgba(0,0,0,.45);
+.header{
+padding:10px;
+text-align:center;
 }
 
-/* COLORS */
-.status-badge.completed{
-  background:rgba(16,185,129,.92);
+.header h1{
+margin:0;
+font-size:22px;
+font-weight:700;
+color:#38bdf8;
+}
+.section h3 {
+  background: linear-gradient(90deg, #22c55e, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+.header img{
+height:50px;
+margin-top:6px;
 }
 
-.status-badge.ongoing{
-  background:rgba(59,130,246,.92);
+.top-actions{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:10px;
+padding:8px 10px 10px;
+background:#020617;
 }
 
-.status-badge.canceled{
-  background:rgba(239,68,68,.92);
-}
-.info{padding:12px}
-.title{font-weight:bold;font-size:14px;}
-.meta{font-size:11px;color:#9fc6d9;margin:6px 0 12px;}
-.watch{width:100%;padding:12px;border:none;border-radius:20px;background:linear-gradient(135deg,#29ffd8,#1f6cff);color:#001018;font-weight:bold;font-size:13px;cursor:pointer;transition:.25s;}
-.watch:hover{transform:scale(1.03);filter:brightness(1.1);}
- .notification-modal{ position:fixed; inset:0; background:rgba(0,0,0,.75); display:none; align-items:center; justify-content:center; z-index:99999; } .notification-box{ width:min(90%,420px); background:#0f2230; border-radius:24px; padding:24px; box-shadow:0 20px 50px rgba(0,0,0,.5); } .notification-title{ font-size:20px; font-weight:bold; margin-bottom:10px; } .notification-message{ color:#cde8f6; line-height:1.5; margin-bottom:20px; } .notification-close{ width:100%; border:none; padding:14px; border-radius:16px; background:linear-gradient(135deg,#29ffd8,#1f6cff); font-weight:bold; cursor:pointer; }
- .whatsapp-wrap{
-  padding:0 14px 14px;
-  background:#07141c;
+.btn{
+padding:10px 18px;
+border-radius:30px;
+font-weight:700;
+font-size:12px;
+color:#fff;
+text-decoration:none;
+border:none;
+transition:all .25s ease;
+box-shadow:0 4px 12px rgba(0,0,0,.4);
+cursor:pointer;
 }
 
-.whatsapp-btn{
+.btn:hover{
+transform:translateY(-2px);
+box-shadow:0 6px 18px rgba(0,0,0,.7);
+}
+
+/* BUTTON COLORS */
+.subscribe{
+background:linear-gradient(45deg,#ef4444,#dc2626);
+}
+
+.login{
+background:linear-gradient(45deg,#3b82f6,#2563eb);
+}
+
+.about{
+background:linear-gradient(45deg,#334155,#1e293b);
+}
+
+.library{
+background:linear-gradient(45deg,#facc15,#eab308);
+color:#111;
+}
+
+.kibanda{
+background:linear-gradient(45deg,#14b8a6,#0d9488);
+color:#001;
+}
+
+.main-content{
+padding:12px 0 70px;
+overflow:auto;
+}
+
+.section{
+padding:12px;
+}
+
+.slider{
+display:flex;
+gap:12px;
+overflow-x:auto;
+}
+
+.slider::-webkit-scrollbar{
+display:none;
+}
+
+.card{
+width:32vw;
+max-width:130px;
+flex-shrink:0;
+text-align:center;
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+box-shadow:0 8px 18px rgba(0,0,0,.6);
+}
+
+.card-title{
+  font-size:12px;
+  margin-top:6px;
+  font-weight:600;
+  color:#e5e7eb; /* light text */
+}
+
+.watch-btn{
+width:100%;
+margin-top:5px;
+padding:7px;
+font-size:11px;
+border:none;
+border-radius:8px;
+background:linear-gradient(45deg,#22c55e,#16a34a);
+color:#fff;
+font-weight:700;
+cursor:pointer;
+transition:all .2s ease;
+}
+
+.watch-btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 10px rgba(34,197,94,.7);
+}
+
+.badge{
+position:absolute;
+top:6px;
+left:6px;
+font-size:9px;
+padding:3px 6px;
+border-radius:6px;
+background:#22c55e;
+}
+
+.badge.premium{
+background:#ef4444;
+}
+
+.lock-icon{
+position:absolute;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(0,0,0,.65);
+font-size:11px;
+font-weight:700;
+}
+
+@media(min-width:768px){
+.card{width:160px;max-width:160px;}
+}
+
+@media(min-width:1200px){
+.card{width:190px;max-width:190px;}
+}
+
+#installBtn{
+position:fixed;
+bottom:60px;
+right:20px;
+padding:14px 20px;
+border-radius:40px;
+font-size:15px;
+font-weight:700;
+border:none;
+background:linear-gradient(45deg,#38bdf8,#0ea5e9);
+color:#fff;
+cursor:pointer;
+z-index:9999;
+box-shadow:0 0 15px rgba(14,165,233,.8);
+transition:transform .2s ease;
+}
+
+#installBtn:hover{
+transform:scale(1.08);
+}
+
+.footer-actions{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+display:flex;
+justify-content:space-around;
+background:#020617;
+padding:8px 0;
+box-shadow:0 -2px 10px rgba(0,0,0,.7);
+z-index:999;
+}
+
+.footer-actions .btn{
+padding:10px 15px;
+font-size:12px;
+background:linear-gradient(45deg,#6366f1,#4f46e5);
+}
+
+.whatsapp-float{
+position:fixed;
+right:20px;
+bottom:110px;
+width:65px;
+height:65px;
+border-radius:50%;
+background:#25D366;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 8px 25px rgba(0,0,0,.5);
+z-index:9999;
+transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.whatsapp-float:hover{
+transform:translateY(-4px) scale(1.08);
+box-shadow:0 12px 35px rgba(0,0,0,.7);
+}
+
+.whatsapp-float img{
+width:30px;
+height:30px;
+}
+
+.notification-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+}
+
+.notification-box{
+  width:min(90%,420px);
+  background:#0f2230;
+  border-radius:24px;
+  padding:24px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+
+.notification-title{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.notification-message{
+  color:#cde8f6;
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.notification-close{
   width:100%;
-  padding:14px;
   border:none;
+  padding:14px;
   border-radius:16px;
+  background:linear-gradient(135deg,#29ffd8,#1f6cff);
+  font-weight:bold;
   cursor:pointer;
-  font-size:15px;
-  font-weight:700;
-  color:#fff;
-  background:linear-gradient(135deg,#25D366,#128C7E);
-  box-shadow:0 8px 20px rgba(37,211,102,.25);
-  transition:.25s;
+}
+.skeleton-card{
+width:32vw;
+max-width:130px;
+height:210px;
+flex-shrink:0;
+border-radius:10px;
+background:linear-gradient(
+90deg,
+#1e293b 25%,
+#334155 50%,
+#1e293b 75%
+);
+background-size:200% 100%;
+animation:skeletonLoading 1.2s infinite;
 }
 
-.whatsapp-btn:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.05);
+@keyframes skeletonLoading{
+0%{
+background-position:200% 0;
+}
+100%{
+background-position:-200% 0;
+}
 }
 </style>
+
 </head>
+
 
 <body>
 
-<!-- LOGO -->
-<div class="logo">
-  <img src="https://i.ibb.co/1GMMrMmS/logo.png" alt="BUSANSO">
-</div>
 
-<!-- NAV -->
-<div class="nav">
- 
-  <button onclick="location.href='login.html'">🎬 Click here if you paid</button>
-    <button onclick="location.href='library-login.html'">🎬 Click here if you have a library</button>
+<div class="sticky-header">
+  <div class="header">
+    <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
+  
+</div>
+  <div class="top-actions">
+    <a href="login.html" class="btn login">Click Here if you paid</a>
+    <a href="library-login.html" class="btn library">Library</a>
+  </div>
 
-</div>
-<div class="whatsapp-wrap">
-  <button
-    class="whatsapp-btn"
-    onclick="window.open('https://chat.whatsapp.com/JY2cKDekV1n5ci7XVfEFJt','_blank')"
-  >
-    💬 JOIN WHATSAPP GROUP
-  </button>
-</div>
-<!-- SEARCH & FILTERS -->
-<div class="search">
-  <input id="search" placeholder="Search series...">
-  <div class="filters">
-    <select id="countryFilter">
-      <option value="">All Countries</option>
-    </select>
-    <select id="genreFilter">
-      <option value="">All Genres</option>
-    </select>
+<div class="main-content">
+  <div class="section">
+  <h3>🔥 Trending</h3>
+  <div class="slider" id="trendingBox">
+
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+
   </div>
 </div>
+  
+  <div class="section">
+  <h3>Latest Movies</h3>
 
-<!-- SERIES GRID -->
-<div class="series" id="list"></div>
+  <div class="slider" id="moviesBox">
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+  </div>
 
-<!-- ===== SUPABASE FETCH LOGIC ===== -->
+</div>
+
+  <div class="slider" id="seriesBox">
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+</div>
+  <!-- BOTTOM BANNER AD -->
+  <div class="ad-banner" style="text-align:center; margin:25px 0;">
+    <script>
+      function loadBannerAd(){
+        atOptions = {
+          'key':'1c9ccdb756a82c4d663014a338917bd7',
+          'format':'iframe',
+          'height':250,
+          'width':300,
+          'params':{}
+        };
+        const s=document.createElement("script");
+        s.src="https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js";
+        s.async=true;
+        document.body.appendChild(s);
+      }
+      document.addEventListener("DOMContentLoaded", ()=>{
+        if(!/Mobi|Android/i.test(navigator.userAgent)) loadBannerAd();
+      });
+    </script>
+  </div>
+
+ <div class="slider" id="freeMoviesBox">
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+</div>
+
+  <div class="slider" id="freeSeriesBox">
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+</div>
+</div>
+
+ 
+
+<div class="footer-actions">
+  <a href="agents.html" class="btn agents">Our Agents</a>
+  <a href="home.html" class="btn home">Home</a>
+</div>
+
+<a href="https://wa.me/256703888884" class="whatsapp-float" target="_blank">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+const supabaseUrl='https://dhkfhhybzcxdeoalcfqx.supabase.co';
+const supabaseKey='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
+const supabase=createClient(supabaseUrl,supabaseKey);
 
-const SUPABASE_URL = "https://dhkfhhybzcxdeoalcfqx.supabase.co"; 
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY";
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 window.closeNotification = function(){
-  document.getElementById("notificationModal").style.display="none";
+
+  const notificationId =
+    document.getElementById("notificationModal")
+    .dataset.notificationId;
+
+  if(notificationId){
+    localStorage.setItem(
+      "seen_notification_" + notificationId,
+      "yes"
+    );
+  }
+
+  document.getElementById("notificationModal").style.display =
+    "none";
 };
+
 async function checkNotifications(){
 
   const { data, error } = await supabase
@@ -193,137 +458,180 @@ async function checkNotifications(){
   document.getElementById("notificationMessage").textContent =
     notification.message;
 
+  const actionBtn =
+    document.getElementById("notificationAction");
+
+  actionBtn.textContent =
+    notification.button_text || "Open";
+
+  actionBtn.onclick = () => {
+
+    localStorage.setItem(
+      "seen_notification_" + notification.id,
+      "yes"
+    );
+
+    if(notification.button_url){
+      location.href = notification.button_url;
+    }else{
+      closeNotification();
+    }
+
+  };
+
+  document.getElementById("notificationModal")
+    .dataset.notificationId = notification.id;
+
   document.getElementById("notificationModal").style.display =
     "flex";
-
-  localStorage.setItem(
-    "seen_notification_" + notification.id,
-    "yes"
-  );
 }
-const box = document.getElementById("list");
-const search = document.getElementById("search");
-const countryFilter = document.getElementById("countryFilter");
-const genreFilter = document.getElementById("genreFilter");
-let SERIES = [];
+const moviesBox=document.getElementById("moviesBox");
+const trendingBox =
+document.getElementById("trendingBox");
 
-// CACHE IMAGE
-async function cacheImage(url){
-  if('caches' in window){
-    const cache = await caches.open('series-images');
-    const res = await fetch(url, {mode:'no-cors'});
-    await cache.put(url, res);
-  }
-}
+const freeMoviesBox=document.getElementById("freeMoviesBox");
 
-// RENDER SERIES
-function render(data){
-  box.innerHTML = "";
-  data.forEach((s,i)=>{
-    const c = document.createElement("div");
-    c.className = "card";
-    c.style.animationDelay = i*.05+"s";
-c.innerHTML = `
-  <div class="poster-wrap">
+const seriesBox=document.getElementById("seriesBox");
+const freeSeriesBox=document.getElementById("freeSeriesBox");
 
-    <img src="${s.poster}" loading="lazy" class="poster-click">
+/* ===== PIN REDIRECT ===== */
+(function(){
+  // ✅ Normal active PIN
+  var activePin = localStorage.getItem("activePIN");
+  var activeExp = Number(localStorage.getItem("pinExpiry"));
 
-    <div class="status-badge ${s.status?.toLowerCase()}">
-      ${s.status || "COMPLETED"}
-    </div>
-
-  </div>
-
-  <div class="info">
-    <div class="title">${s.title}</div>
-
-    <div class="meta">
-      ${s.country} • ${s.genre} • ${s.year}
-    </div>
-  </div>
-`;
-
-// CLICK ENTIRE CARD (OR JUST POSTER)
-c.querySelector(".poster-click").onclick = () => {
-
-  const title = (s.title || "").trim().toUpperCase();
-
-  if(title === "MEERA 55"){
-      location.href = `serie.html?id=${s.id}`;
-  }else{
-      location.href = "packages.html";
+  if(activePin && activeExp && Date.now() < activeExp){
+    location.replace("watch.html");
+    return;
   }
 
-};
-    box.appendChild(c);
-    cacheImage(s.poster);
-  });
-}
+  // ✅ Special PIN (kibanda)
+  var specialAccess = localStorage.getItem("kibandaAccess");
 
-// POPULATE FILTERS
-function populateFilters(data){
-  const countries = [...new Set(data.map(s=>s.country).filter(Boolean))];
-  const genres = [...new Set(data.map(s=>s.genre).filter(Boolean))];
-  countries.forEach(c=>{
-    const opt = document.createElement('option'); opt.value=c; opt.textContent=c; countryFilter.appendChild(opt);
-  });
-  genres.forEach(g=>{
-    const opt = document.createElement('option'); opt.value=g; opt.textContent=g; genreFilter.appendChild(opt);
-  });
-}
-
-// APPLY SEARCH & DROPDOWN FILTERS
-function applyFilters(){
-  let filtered = SERIES;
-  const q = search.value.toLowerCase();
-  const selectedCountry = countryFilter.value;
-  const selectedGenre = genreFilter.value;
-  if(selectedGenre) filtered = filtered.filter(s=>s.genre && s.genre.toUpperCase() === selectedGenre.toUpperCase());
-  if(selectedCountry) filtered = filtered.filter(s=>s.country && s.country === selectedCountry);
-  if(q) filtered = filtered.filter(s=>s.title.toLowerCase().includes(q));
-  render(filtered);
-}
-
-search.oninput = applyFilters;
-countryFilter.onchange = applyFilters;
-genreFilter.onchange = applyFilters;
-
-// FETCH SERIES FROM SUPABASE
-(async()=>{
-  try{
-    const { data, error } = await supabase.from("series").select("*").order("created_at",{ascending:false});
-    if(error) throw error;
-SERIES = data;
-populateFilters(SERIES);
-render(SERIES);
-
-checkNotifications();
-
-console.log("Series fetched:", data);
-  }catch(err){
-    console.error("Supabase fetch failed:", err);
-    alert("Failed to fetch series from Supabase. Check console for details.");
+  if(specialAccess === "true"){
+    location.replace("kibwatch.html");
+    return;
   }
+
 })();
+
+/* ===== CARD CREATOR ===== */
+function createCard(item, type) {
+
+  const isPremium = item.type === "premium";
+
+  const card = document.createElement("div");
+  card.className = "card";
+
+  // optional: mark premium cards for styling
+  if (isPremium) card.classList.add("premium");
+
+  card.innerHTML = `
+    <div style="position:relative">
+      <img src="${item.poster}">
+      
+      <span class="badge ${isPremium ? 'premium' : ''}">
+        ${isPremium ? 'PREMIUM' : 'FREE'}
+      </span>
+    </div>
+
+    <div class="card-title">${item.title}</div>
+
+    <button class="watch-btn">
+      ${isPremium ? 'Pay to Watch' : 'Watch'}
+    </button>
+  `;
+
+  // 🔒 SINGLE CONTROL POINT (very important)
+  card.querySelector(".watch-btn").onclick = () => {
+
+    if (isPremium) {
+      // 🚫 free users blocked here
+      location.href = "packages.html";
+    } else {
+      // ✅ allowed content
+      location.href = type === "movie"
+        ? `movie.html?id=${item.id}`
+        : `serie.html?id=${item.id}`;
+    }
+
+  };
+
+  return card;
+}
+/* ===== FETCH CONTENT FROM SUPABASE ===== */
+async function fetchContent(){
+  try{
+    const { data: movies, error: mErr } = await supabase.from('movies').select('*').order('created_at',{ascending:false});
+    if(mErr) console.error("Movies fetch error:", mErr);
+    else movies.forEach((m,index)=>{
+
+  moviesBox.appendChild(
+    createCard(m,"movie")
+  );
+
+  if(index < 10){
+    trendingBox.appendChild(
+      createCard(m,"movie")
+    );
+  }
+      if(m.type!=="premium") freeMoviesBox.appendChild(createCard(m,"movie"));
+    });
+    const { data: series, error: sErr } = await supabase.from('series').select('*').order('created_at',{ascending:false});
+    if(sErr) console.error("Series fetch error:", sErr);
+    else series.forEach(s=>{
+      seriesBox.appendChild(createCard(s,"series"));
+      if(s.type!=="premium") freeSeriesBox.appendChild(createCard(s,"series"));
+    });
+  }catch(err){console.error(err);}
+}
+fetchContent();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  checkNotifications();
+});
+
 </script>
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal) {
+  await OneSignal.init({
+    appId: "cc8dfd2b-74bf-43a9-8cd0-2915cf1bc629",
+    notifyButton: {
+      enable: true
+    }
+  });
+});
+</script>
+<!-- NOTIFICATION MODAL -->
 <div id="notificationModal" class="notification-modal">
   <div class="notification-box">
 
-    <div id="notificationTitle"
-         class="notification-title">
-    </div>
+    <div id="notificationTitle" class="notification-title"></div>
 
-    <div id="notificationMessage"
-         class="notification-message">
-    </div>
+    <div id="notificationMessage" class="notification-message"></div>
 
-    <button class="notification-close"
-            onclick="closeNotification()">
-      OK
-    </button>
+    <div style="display:flex;gap:10px">
+
+      <button id="notificationAction"
+              class="notification-close"
+              style="flex:1">
+        Watch Now
+      </button>
+
+      <button class="notification-close"
+              style="flex:1"
+              onclick="closeNotification()">
+        Not Now
+      </button>
+
+    </div>
 
   </div>
 </div>
+</div>
 </body>
 </html>
+
 
