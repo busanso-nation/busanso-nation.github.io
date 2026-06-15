@@ -524,7 +524,7 @@ const freeSeriesBox=document.getElementById("freeSeriesBox");
 /* ===== CARD CREATOR ===== */
 function createCard(item, type) {
 
-  const isPremium = item.type === "premium";
+const isPremium = item.type === "premium" || item.type === true;
 
   const card = document.createElement("div");
   card.className = "card";
@@ -536,10 +536,11 @@ function createCard(item, type) {
     <div style="position:relative">
       <img src="${item.poster}">
       
-      <span class="badge ${isPremium ? 'premium' : ''}">
-        ${isPremium ? 'PREMIUM' : 'FREE'}
-      </span>
-    </div>
+    ${type === "trending" ? "" : `
+  <span class="badge ${isPremium ? 'premium' : ''}">
+    ${isPremium ? 'PREMIUM' : 'FREE'}
+  </span>
+`}
 
     <div class="card-title">${item.title}</div>
 
@@ -630,9 +631,9 @@ function createCard(item, type) {
     trendingBox.innerHTML = "";
 
     trendingItems.slice(0,10).forEach(item => {
-      trendingBox.appendChild(
-        createCard(item, item.type)
-      );
+trendingBox.appendChild(
+  createCard(item, "trending")
+);
     });
 
   } catch(err){
