@@ -565,8 +565,7 @@ function createCard(item, type) {
 
   return card;
 }
-/* ===== FETCH CONTENT FROM SUPABASE ===== */
-async function fetchContent(){
+/* ===== FETCH CONTENT FROM SUPABASE ===== */ async function fetchContent(){
 
   // Remove skeleton cards
   trendingBox.innerHTML = "";
@@ -575,30 +574,72 @@ async function fetchContent(){
   freeMoviesBox.innerHTML = "";
   freeSeriesBox.innerHTML = "";
 
-  try{
-    const { data: movies, error: mErr } = await supabase.from('movies').select('*').order('created_at',{ascending:false});
+  let trendingItems = [];
+
+  try {
+
+    // ===== MOVIES =====
+    const { data: movies, error: mErr } =
+      await supabase.from('movies').select('*').order('created_at',{ascending:false});
+
     if(mErr) console.error("Movies fetch error:", mErr);
-    else movies.forEach((m,index)=>{
 
-  moviesBox.appendChild(
-    createCard(m,"movie")
-  );
+    movies.forEach((m)=>{
 
-  if(index < 10){
-    trendingBox.appendChild(
-      createCard(m,"movie")
-    );
-  }
-      if(m.type!=="premium") freeMoviesBox.appendChild(createCard(m,"movie"));
+      moviesBox.appendChild(
+        createCard(m,"movie")
+      );
+
+      trendingItems.push({
+        ...m,
+        type: "movie"
+      });
+
+      if(m.type !== "premium"){
+        freeMoviesBox.appendChild(createCard(m,"movie"));
+      }
+
     });
-    const { data: series, error: sErr } = await supabase.from('series').select('*').order('created_at',{ascending:false});
+
+    // ===== SERIES =====
+    const { data: series, error: sErr } =
+      await supabase.from('series').select('*').order('created_at',{ascending:false});
+
     if(sErr) console.error("Series fetch error:", sErr);
-    else series.forEach(s=>{
-      seriesBox.appendChild(createCard(s,"series"));
-      if(s.type!=="premium") freeSeriesBox.appendChild(createCard(s,"series"));
+
+    series.forEach((s)=>{
+
+      seriesBox.appendChild(
+        createCard(s,"series")
+      );
+
+      trendingItems.push({
+        ...s,
+        type: "series"
+      });
+
+      if(s.type !== "premium"){
+        freeSeriesBox.appendChild(createCard(s,"series"));
+      }
+
     });
-  }catch(err){console.error(err);}
+
+    // ===== TRENDING (MOST IMPORTANT PART) =====
+    trendingItems.sort((a,b) => (b.views || 0) - (a.views || 0));
+
+    trendingBox.innerHTML = "";
+
+    trendingItems.slice(0,10).forEach(item => {
+      trendingBox.appendChild(
+        createCard(item, item.type)
+      );
+    });
+
+  } catch(err){
+    console.error(err);
+  }
 }
+
 fetchContent();
 
 
