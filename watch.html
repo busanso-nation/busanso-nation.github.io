@@ -410,6 +410,34 @@ transform:translateY(-3px);
 font-size:1.2rem;
 font-weight:700;
 }
+.plan-badge{
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:1.8rem;
+}
+
+/* PLAN COLORS */
+.plan-weekly{
+  color:#38bdf8;
+  text-shadow:0 0 12px rgba(56,189,248,.4);
+}
+
+.plan-monthly{
+  color:#facc15;
+  text-shadow:0 0 12px rgba(250,204,21,.4);
+}
+
+.plan-half-year{
+  color:#a78bfa;
+  text-shadow:0 0 12px rgba(167,139,250,.4);
+}
+
+.plan-annual{
+  color:#f59e0b;
+  text-shadow:0 0 14px rgba(245,158,11,.5);
+}
 
 .action-sub{
 opacity:.8;
@@ -468,9 +496,7 @@ gap:4px;
 
     </a>
 
-    <h1 id="planNickname">
-      Loading...
-    </h1>
+    <h1 id="planNickname" class="plan-badge">Loading...</h1>
 
     <p id="planLabel">
       Welcome Back
@@ -748,8 +774,39 @@ db.ref("pins/"+pin).on("value",snapshot=>{
   }
 
   currentData = snapshot.val();
-document.getElementById("planNickname").textContent =
-planNicknames[currentData.type] || currentData.type;
+const nicknameEl = document.getElementById("planNickname");
+
+const plan = currentData.type;
+
+const planNicknames = {
+  Weekly: "Beginner",
+  Monthly: "Kabeja",
+  "Half-Year": "Kabeje",
+  Annual: "Kabejest"
+};
+
+const planClasses = {
+  Weekly: "plan-weekly",
+  Monthly: "plan-monthly",
+  "Half-Year": "plan-half-year",
+  Annual: "plan-annual"
+};
+
+// set text
+nicknameEl.textContent = planNicknames[plan] || plan;
+
+// remove old classes (important so colors don’t stack)
+nicknameEl.classList.remove(
+  "plan-weekly",
+  "plan-monthly",
+  "plan-half-year",
+  "plan-annual"
+);
+
+// add correct color class
+nicknameEl.classList.add(
+  planClasses[plan] || "plan-monthly"
+);
 
   document.getElementById("expiryDate").textContent =
   new Date(currentData.expiry).toLocaleDateString(
