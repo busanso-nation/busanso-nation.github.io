@@ -816,12 +816,33 @@ async function loadComments(epId) {
     .order("created_at", { ascending: false });
 
   document.getElementById("commentsList").innerHTML =
-    (data || []).map(c => `
-      <div class="commentItem">
-        <div class="commentUser">${c.user_name}</div>
-        <div class="commentText">${c.comment}</div>
-      </div>
-    `).join("");
+    (data || []).map(c => {
+
+      const date = c.created_at
+        ? new Date(c.created_at).toLocaleString()
+        : "just now";
+
+      return `
+        <div class="commentItem">
+
+          <div class="commentUser">
+            ${c.user_name}
+          </div>
+
+          <div class="commentText">
+            ${c.comment}
+          </div>
+
+          <div style="
+            font-size:11px;
+            margin-top:8px;
+            color:#64748b;">
+            🕒 ${date}
+          </div>
+
+        </div>
+      `;
+    }).join("");
 }
 
 /* POST COMMENT */
@@ -834,11 +855,12 @@ document.getElementById("postComment").onclick = async () => {
 
   const ep = episodes[index];
 
-  await supabase.from("episode_comments").insert([{
-    episode_id: ep.id,
-    user_name: user,
-    comment
-  }]);
+ await supabase.from("episode_comments").insert([{
+  episode_id: ep.id,
+  user_name: user,
+  comment,
+  created_at: new Date().toISOString()
+}]);
 
   loadComments(ep.id);
 };
