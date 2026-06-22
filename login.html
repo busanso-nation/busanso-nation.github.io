@@ -177,9 +177,12 @@ async function login(){
       await db.ref("pins/"+pin+"/activeDevice").set(deviceId);
     }
 
-    if(!data.used){
-      await db.ref("pins/"+pin+"/used").set(true);
-    }
+  if(!data.used){
+  await db.ref("pins/" + pin).update({
+    used: true,
+    firstUsedAt: Date.now()
+  });
+}
 
     localStorage.setItem("activePIN", pin);
     localStorage.setItem("pinExpiry", data.expiry);
