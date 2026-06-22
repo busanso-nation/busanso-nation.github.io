@@ -332,61 +332,211 @@ padding:18px;
 }
 
 }
+.bell-btn{
+position:absolute;
+right:20px;
+top:20px;
+font-size:28px;
+text-decoration:none;
+animation:ring 2s infinite;
+}
 
+@keyframes ring{
+0%,100%{transform:rotate(0)}
+20%{transform:rotate(-15deg)}
+40%{transform:rotate(15deg)}
+}
+
+.bell-badge{
+position:absolute;
+top:0;
+right:-2px;
+color:#22c55e;
+font-size:14px;
+}
+
+.ticker{
+overflow:hidden;
+background:#101827;
+padding:10px 0;
+border-radius:14px;
+margin-bottom:18px;
+}
+
+.ticker-text{
+white-space:nowrap;
+display:inline-block;
+padding-left:100%;
+animation:scrollText 20s linear infinite;
+color:#facc15;
+font-weight:600;
+}
+
+@keyframes scrollText{
+from{transform:translateX(0)}
+to{transform:translateX(-100%)}
+}
+
+.action-row{
+display:grid;
+gap:14px;
+margin-bottom:18px;
+}
+
+.action-btn{
+display:flex;
+justify-content:space-between;
+align-items:center;
+text-decoration:none;
+padding:22px;
+border-radius:20px;
+color:white;
+transition:.25s;
+}
+
+.movies-btn{
+background:linear-gradient(135deg,#1d4ed8,#2563eb);
+}
+
+.series-btn{
+background:linear-gradient(135deg,#9333ea,#7c3aed);
+}
+
+.action-btn:hover{
+transform:translateY(-3px);
+}
+
+.action-title{
+font-size:1.2rem;
+font-weight:700;
+}
+
+.action-sub{
+opacity:.8;
+margin-top:4px;
+font-size:.9rem;
+}
+
+.action-arrow{
+font-size:28px;
+}
+
+.bottom-nav{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+background:#0f172a;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+padding:12px 0;
+border-top:1px solid rgba(255,255,255,.08);
+z-index:999;
+}
+
+.bottom-nav a{
+text-decoration:none;
+color:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:13px;
+gap:4px;
+}
 </style>
+</head>
+
 <body>
 
 <div class="dashboard">
 
+  <!-- HERO -->
   <div class="hero">
 
     <div class="hero-badge">
       👑 My Account
     </div>
 
+    <!-- Notification Bell -->
+    <a href="notifications.html" class="bell-btn">
+
+      🔔
+
+      <span class="bell-badge" id="bellBadge">
+        ●
+      </span>
+
+    </a>
+
     <h1 id="planNickname">
       Loading...
     </h1>
 
     <p id="planLabel">
-      Premium Subscription
+      Welcome Back
     </p>
 
   </div>
 
 
+  <!-- SCROLLING ANNOUNCEMENT -->
+  <div class="ticker">
+
+    <div class="ticker-text" id="tickerText">
+
+      🔥 Welcome to Busanso Nation • New movies added daily • Enjoy unlimited entertainment
+
+    </div>
+
+  </div>
+
+
+  <!-- MEMBERSHIP -->
   <div class="membership-card">
 
     <div class="membership-header">
+
       💪 Active Membership
+
     </div>
 
     <div class="membership-grid">
 
       <div class="stat">
+
         <small>Package</small>
+
         <strong id="packageType">
           Loading...
         </strong>
+
       </div>
 
       <div class="stat">
+
         <small>Valid Until</small>
+
         <strong id="expiryDate">
           Loading...
         </strong>
+
       </div>
 
     </div>
+
 
     <div class="countdown-box">
 
       <div class="count-label">
+
         Time Remaining
+
       </div>
 
       <div class="countdown" id="timeLeft">
+
         Loading...
+
       </div>
 
     </div>
@@ -394,19 +544,54 @@ padding:18px;
   </div>
 
 
-  <div class="main-buttons">
+  <!-- MAIN ACTIONS -->
+  <div class="action-row">
 
-    <a href="movies.html" class="big-btn movies">
-      🎬 Watch Movies
+    <a href="movies.html" class="action-btn movies-btn">
+
+      <div>
+
+        <div class="action-title">
+          🎬 Movies
+        </div>
+
+        <div class="action-sub">
+          Latest films
+        </div>
+
+      </div>
+
+      <div class="action-arrow">
+        →
+      </div>
+
     </a>
 
-    <a href="series.html" class="big-btn series">
-      📺 Watch Series
+
+    <a href="series.html" class="action-btn series-btn">
+
+      <div>
+
+        <div class="action-title">
+          📺 Series
+        </div>
+
+        <div class="action-sub">
+          Full episodes
+        </div>
+
+      </div>
+
+      <div class="action-arrow">
+        →
+      </div>
+
     </a>
 
   </div>
 
 
+  <!-- QUICK ACTIONS -->
   <div class="quick-links">
 
     <a href="packages.html" class="quick-btn">
@@ -417,12 +602,38 @@ padding:18px;
       ❤️ Donate
     </a>
 
-    <    <a href="live.html" class="quick-btn">
+    <a href="live.html" class="quick-btn">
       🔴 Live
     </a>
 
     <a href="profile.html" class="quick-btn">
       👤 Profile
+    </a>
+
+  </div>
+
+
+  <!-- FIXED FOOTER -->
+  <div class="bottom-nav">
+
+    <a href="watch.html">
+      🏠
+      <span>Home</span>
+    </a>
+
+    <a href="movies.html">
+      🎬
+      <span>Movies</span>
+    </a>
+
+    <a href="series.html">
+      📺
+      <span>Series</span>
+    </a>
+
+    <a href="profile.html">
+      👤
+      <span>Profile</span>
     </a>
 
   </div>
