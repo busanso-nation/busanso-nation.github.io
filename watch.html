@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,293 +6,334 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-  background:
-  radial-gradient(circle at top,#141414,#000);
-  color:white;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  padding:18px;
+background:
+linear-gradient(180deg,#07111d,#000);
+color:#fff;
+min-height:100vh;
+display:flex;
+justify-content:center;
+padding:18px;
 }
 
 .dashboard{
-  width:100%;
-  max-width:560px;
+width:100%;
+max-width:560px;
 }
 
 .hero{
-  text-align:center;
-  margin-bottom:22px;
+text-align:center;
+margin-bottom:22px;
 }
 
 .hero-badge{
-  display:inline-block;
-  background:linear-gradient(
-    135deg,
-    #e50914,
-    #ff4d4d
-  );
-  padding:8px 14px;
-  border-radius:999px;
-  font-size:.8rem;
-  font-weight:700;
-  margin-bottom:14px;
+display:inline-block;
+background:linear-gradient(135deg,#14b8a6,#06b6d4);
+padding:8px 16px;
+border-radius:999px;
+font-size:.8rem;
+font-weight:700;
+margin-bottom:14px;
+box-shadow:0 8px 20px rgba(6,182,212,.25);
 }
 
 .hero h1{
-  font-size:2.4rem;
-  font-weight:800;
-  color:#fff;
+font-size:2.3rem;
+font-weight:800;
+margin-bottom:6px;
 }
 
 .hero p{
-  color:#9ca3af;
-  margin-top:6px;
+color:#94a3b8;
 }
 
 .membership-card{
-  background:#141414;
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:24px;
-  padding:22px;
-  margin-bottom:18px;
+background:#101827;
+border-radius:24px;
+padding:22px;
+margin-bottom:18px;
+border:1px solid rgba(255,255,255,.07);
+box-shadow:0 12px 30px rgba(0,0,0,.25);
 }
 
 .membership-header{
-  font-size:1rem;
-  font-weight:700;
-  margin-bottom:18px;
+font-size:1rem;
+font-weight:700;
+margin-bottom:18px;
+color:#67e8f9;
 }
 
 .membership-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
 
 .stat{
-  background:#1d1d1d;
-  border-radius:16px;
-  padding:15px;
+background:#172033;
+padding:15px;
+border-radius:16px;
 }
 
 .stat small{
-  display:block;
-  color:#9ca3af;
-  margin-bottom:6px;
+display:block;
+color:#94a3b8;
+margin-bottom:6px;
 }
 
 .stat strong{
-  font-size:1rem;
+font-size:1rem;
+}
+
+#packageType{
+color:#facc15;
+}
+
+#expiryDate{
+color:#4ade80;
 }
 
 .countdown-box{
-  margin-top:16px;
-  background:
-  linear-gradient(
-    135deg,
-    #e50914,
-    #b20710
-  );
-  border-radius:18px;
-  padding:18px;
+margin-top:16px;
+padding:18px;
+border-radius:18px;
+background:
+linear-gradient(
+135deg,
+#0284c7,
+#2563eb
+);
+box-shadow:0 10px 25px rgba(37,99,235,.25);
 }
 
 .count-label{
-  font-size:.9rem;
-  opacity:.9;
+font-size:.9rem;
+opacity:.9;
 }
 
 .countdown{
-  font-size:1.4rem;
-  font-weight:700;
-  margin-top:4px;
+font-size:1.4rem;
+font-weight:700;
+margin-top:6px;
 }
 
 .main-buttons{
-  display:grid;
-  gap:14px;
-  margin-bottom:18px;
-}
-#expiryDate{
-  color:#22c55e;
-}
-#packageType{
-  color:#fbbf24;
+display:grid;
+gap:14px;
+margin-bottom:18px;
 }
 
 .big-btn{
-  text-decoration:none;
-  color:white;
-  padding:20px;
-  border-radius:18px;
-  font-size:1.1rem;
-  font-weight:700;
-  text-align:center;
-  transition:.25s;
+display:block;
+text-decoration:none;
+padding:20px;
+border-radius:18px;
+color:white;
+font-size:1.1rem;
+font-weight:700;
+text-align:center;
+transition:.25s;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
 
 .big-btn:hover{
-  transform:translateY(-2px);
+transform:translateY(-3px);
 }
 
 .movies{
-  background:
-  linear-gradient(
-    135deg,
-    #e50914,
-    #b20710
-  );
+background:
+linear-gradient(
+135deg,
+#f97316,
+#ef4444
+);
 }
 
 .series{
-  background:
-  linear-gradient(
-    135deg,
-    #2563eb,
-    #1d4ed8
-  );
+background:
+linear-gradient(
+135deg,
+#8b5cf6,
+#7c3aed
+);
 }
 
 .quick-links{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin-bottom:18px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-bottom:18px;
 }
 
 .quick-btn{
-  background:#141414;
-  border:1px solid rgba(255,255,255,.05);
-  color:white;
-  text-decoration:none;
-  padding:14px 8px;
-  text-align:center;
-  border-radius:14px;
-  font-size:.85rem;
+background:#101827;
+color:#fff;
+text-decoration:none;
+text-align:center;
+padding:14px 8px;
+border-radius:14px;
+border:1px solid rgba(255,255,255,.05);
+font-size:.85rem;
+transition:.2s;
+}
+
+.quick-btn:hover{
+background:#1e293b;
 }
 
 .welcome-card{
-  background:#141414;
-  border-radius:20px;
-  padding:18px;
-  border:1px solid rgba(255,255,255,.05);
+background:#101827;
+padding:20px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,.06);
+margin-bottom:30px;
 }
 
 .welcome-card h3{
-  margin-bottom:8px;
+margin-bottom:8px;
+color:#67e8f9;
 }
 
 .welcome-card p{
-  color:#9ca3af;
-  line-height:1.5;
+line-height:1.6;
+color:#94a3b8;
 }
 
 #offerBtn{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  border:none;
-  cursor:pointer;
-
-  background:linear-gradient(
-    135deg,
-    #f59e0b,
-    #ef4444
-  );
-
-  color:#fff;
-  padding:14px 20px;
-  border-radius:999px;
-
-  font-weight:700;
-  font-size:.95rem;
-
-  box-shadow:
-    0 10px 30px rgba(239,68,68,.35);
-
-  transition:.25s;
+position:fixed;
+right:20px;
+bottom:20px;
+border:none;
+cursor:pointer;
+background:
+linear-gradient(
+135deg,
+#f59e0b,
+#f97316
+);
+color:white;
+padding:14px 20px;
+border-radius:999px;
+font-weight:700;
+font-size:.95rem;
+box-shadow:0 10px 30px rgba(249,115,22,.35);
+transition:.25s;
 }
 
 #offerBtn:hover{
-  transform:translateY(-3px);
+transform:translateY(-3px);
 }
 
 #offerPopup{
-  position:fixed;
-  right:20px;
-  bottom:80px;
-  width:260px;
-  background:#141414;
-  border-radius:16px;
-  padding:16px;
-  display:none;
-  border:1px solid rgba(255,255,255,.06);
+position:fixed;
+right:20px;
+bottom:85px;
+width:260px;
+background:#101827;
+padding:16px;
+border-radius:18px;
+display:none;
+border:1px solid rgba(255,255,255,.07);
 }
 
-/* ===== NOTIFICATION MODAL ===== */
 .notification-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:99999;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.75);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:99999;
+backdrop-filter:blur(4px);
 }
 
 .notification-box{
-  width:min(90%,420px);
-  background:#141414;
-  border-radius:20px;
-  padding:20px;
-  border:1px solid rgba(255,255,255,.08);
+width:min(90%,420px);
+background:#101827;
+padding:22px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,.08);
+box-shadow:0 15px 40px rgba(0,0,0,.4);
 }
 
 .notification-box h3{
-  margin-bottom:10px;
+margin-bottom:10px;
 }
 
 .notification-box p{
-  color:#9ca3af;
-  line-height:1.5;
-  margin-bottom:16px;
+color:#94a3b8;
+line-height:1.5;
+margin-bottom:18px;
 }
 
 .notification-actions{
-  display:flex;
-  gap:10px;
+display:flex;
+gap:10px;
 }
 
 .notification-actions button{
-  flex:1;
-  border:none;
-  padding:10px;
-  border-radius:10px;
-  font-weight:700;
-  cursor:pointer;
+flex:1;
+border:none;
+padding:12px;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+transition:.2s;
 }
 
 .n-watch{
-  background:#e50914;
-  color:#fff;
+background:
+linear-gradient(
+135deg,
+#14b8a6,
+#06b6d4
+);
+color:white;
+}
+
+.n-watch:hover{
+opacity:.9;
 }
 
 .n-close{
-  background:#1f1f1f;
-  color:#fff;
+background:#1e293b;
+color:white;
 }
-</style>
-</head>
 
+.n-close:hover{
+background:#334155;
+}
+
+@media(max-width:500px){
+
+.membership-grid{
+grid-template-columns:1fr;
+}
+
+.quick-links{
+grid-template-columns:repeat(2,1fr);
+}
+
+.hero h1{
+font-size:2rem;
+}
+
+.big-btn{
+font-size:1rem;
+padding:18px;
+}
+
+}
+
+</style>
 <body>
 
 <div class="dashboard">
@@ -305,45 +344,59 @@ body{
       👑 My Account
     </div>
 
-    <h1 id="planNickname">Loading...</h1>
+    <h1 id="planNickname">
+      Loading...
+    </h1>
 
-<p id="planLabel">
-  Premium Subscription
-</p>
+    <p id="planLabel">
+      Premium Subscription
+    </p>
 
   </div>
+
 
   <div class="membership-card">
 
     <div class="membership-header">
-  💪 Active Membership
-</div>
+      💪 Active Membership
+    </div>
 
     <div class="membership-grid">
 
       <div class="stat">
         <small>Package</small>
-        <strong id="packageType">Loading...</strong>
+        <strong id="packageType">
+          Loading...
+        </strong>
       </div>
 
       <div class="stat">
         <small>Valid Until</small>
-        <strong id="expiryDate">Loading...</strong>
+        <strong id="expiryDate">
+          Loading...
+        </strong>
       </div>
 
     </div>
 
     <div class="countdown-box">
-      <div class="count-label">Time Remaining</div>
-      <div class="countdown" id="timeLeft">Loading...</div>
+
+      <div class="count-label">
+        Time Remaining
+      </div>
+
+      <div class="countdown" id="timeLeft">
+        Loading...
+      </div>
+
     </div>
 
   </div>
 
+
   <div class="main-buttons">
 
-<a href="movies.html" class="big-btn movies"
-   style="background:linear-gradient(135deg,#ff3d00,#ff1744);">
+    <a href="movies.html" class="big-btn movies">
       🎬 Watch Movies
     </a>
 
@@ -353,73 +406,158 @@ body{
 
   </div>
 
+
   <div class="quick-links">
 
     <a href="packages.html" class="quick-btn">
       ⚡ Extend
     </a>
 
-
     <a href="donate.html" class="quick-btn">
       ❤️ Donate
     </a>
 
-    <a href="live.html" class="quick-btn">
+    <    <a href="live.html" class="quick-btn">
       🔴 Live
+    </a>
+
+    <a href="profile.html" class="quick-btn">
+      👤 Profile
     </a>
 
   </div>
 
+
   <div class="welcome-card">
-    <h3>Welcome Back</h3>
+
+    <h3>
+      Welcome Back
+    </h3>
+
     <p>
       Enjoy unlimited entertainment on Busanso Nation.
-      New movies and series are added everyday.
+      New movies and series are added every day.
+      Thank you for supporting Busanso Nation.
     </p>
+
   </div>
+
+</div>
+
+
+<div id="notificationModal" class="notification-modal">
+
+  <div class="notification-box">
+
+    <h3 id="nTitle">
+      Notification
+    </h3>
+
+    <p id="nMessage"></p>
+
+    <div class="notification-actions">
+
+      <button
+      class="n-watch"
+      id="nAction">
+
+        Watch Now
+
+      </button>
+
+      <button
+      class="n-close"
+      onclick="closeNotification()">
+
+        Not Now
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
+
 const firebaseConfig = {
-  apiKey: "AIzaSy...",
+
+  apiKey: "AIzaSyBGGV9F3Nv13nRJ8t4QCP5Y0IosmKfYz1s",
+
   authDomain: "busanso-pins.firebaseapp.com",
-  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com/",
+
+  databaseURL: "https://busanso-pins-default-rtdb.firebaseio.com",
+
   projectId: "busanso-pins",
+
   storageBucket: "busanso-pins.firebasestorage.app",
+
   messagingSenderId: "137040014808",
+
   appId: "1:137040014808:web:b0684e17b6b0328da596ad"
+
 };
+
 firebase.initializeApp(firebaseConfig);
+
 const db = firebase.database();
 
 const pin = localStorage.getItem("activePIN");
-if(!pin){ location.href="expired.html"; }
 
-db.ref("pins/"+pin).get().then(snapshot=>{
-  if(!snapshot.exists()){ location.href="expired.html"; return; }
-  const data = snapshot.val();
+if(!pin){
+
+  location.replace("expired.html");
+
+  throw new Error("No active PIN");
+
+}
 
 const planNicknames = {
+
   Weekly:"Beginner",
+
   Monthly:"Kabeja",
+
   "Half-Year":"Kabeje",
+
   Annual:"Kabejest"
+
 };
 
-document.getElementById("planNickname").textContent =
-  planNicknames[data.type] || data.type;
+let currentData = null;
 
-document.getElementById("planLabel").textContent =
-  `Package: ${data.type}`;
+const timeLeftEl =
+document.getElementById("timeLeft");
 
-/* FILL MEMBERSHIP CARD */
-document.getElementById("packageType").textContent =
-  data.type;
 
-document.getElementById("expiryDate").textContent =
-  new Date(data.expiry).toLocaleDateString(
+db.ref("pins/"+pin).on("value",snapshot=>{
+
+  if(!snapshot.exists()){
+
+    location.replace("expired.html");
+
+    return;
+
+  }
+
+  currentData = snapshot.val();
+
+  document.getElementById("planNickname").textContent =
+  planNicknames[currentData.type] || currentData.type;
+
+  document.getElementById("planLabel").textContent =
+  "Package: " + currentData.type;
+
+  document.getElementById("packageType").textContent =
+  currentData.type;
+
+  document.getElementById("expiryDate").textContent =
+  new Date(currentData.expiry).toLocaleDateString(
     "en-GB",
     {
       day:"numeric",
@@ -428,24 +566,76 @@ document.getElementById("expiryDate").textContent =
     }
   );
 
-  const timeLeftEl = document.getElementById("timeLeft");
-  function updateCountdown(){
-    const diff = data.expiry - Date.now();
-    if(diff <=0){ location.href="expired.html"; return; }
-    const d = Math.floor(diff/86400000);
-    const h = Math.floor(diff%86400000/3600000);
-    const m = Math.floor(diff%3600000/60000);
-    const s = Math.floor(diff%60000/1000);
-    timeLeftEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
-  }
-  updateCountdown();
-  setInterval(updateCountdown,1000);
 });
 
 
+function updateCountdown(){
+
+  if(!currentData) return;
+
+  let diff = currentData.expiry - Date.now();
+
+  if(diff <= 0){
+
+    db.ref("pins/"+pin).get().then(snapshot=>{
+
+      if(!snapshot.exists()){
+
+        location.replace("expired.html");
+
+        return;
+
+      }
+
+      let latest = snapshot.val();
+
+      if(Date.now() > latest.expiry){
+
+        location.replace("expired.html");
+
+      }else{
+
+        currentData = latest;
+
+      }
+
+    });
+
+    return;
+
+  }
+
+  const d = Math.floor(diff/86400000);
+
+  const h = Math.floor(
+    (diff%86400000)/3600000
+  );
+
+  const m = Math.floor(
+    (diff%3600000)/60000
+  );
+
+  const s = Math.floor(
+    (diff%60000)/1000
+  );
+
+  timeLeftEl.textContent =
+  d+"d "+
+  h+"h "+
+  m+"m "+
+  s+"s";
+
+}
+
+updateCountdown();
+
+setInterval(updateCountdown,1000);
+
 </script>
 <script type="module">
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+import { createClient }
+from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 const supabase = createClient(
   "https://dhkfhhybzcxdeoalcfqx.supabase.co",
@@ -453,60 +643,103 @@ const supabase = createClient(
 );
 
 window.closeNotification = function(){
-  document.getElementById("notificationModal").style.display = "none";
+
+  document.getElementById(
+    "notificationModal"
+  ).style.display = "none";
+
 };
+
 
 async function checkNotifications(){
 
-  const { data } = await supabase
-    .from("notifications")
-    .select("*")
-    .order("created_at",{ascending:false})
-    .limit(1);
+  try{
 
-  if(!data || !data.length) return;
+    const { data, error } = await supabase
+      .from("notifications")
+      .select("*")
+      .order(
+        "created_at",
+        {ascending:false}
+      )
+      .limit(1);
 
-  const n = data[0];
+    if(error) return;
 
-  const seen = localStorage.getItem("seen_"+n.id);
-  if(seen) return;
+    if(!data || !data.length)
+      return;
 
-  document.getElementById("nTitle").textContent = n.title;
-  document.getElementById("nMessage").textContent = n.message;
+    const n = data[0];
 
-  const btn = document.getElementById("nAction");
-
-  btn.textContent = n.button_text || "Watch Now";
-
-  btn.onclick = () => {
-    localStorage.setItem("seen_"+n.id,"1");
-
-    if(n.button_url){
-      location.href = n.button_url;
-    } else {
-      closeNotification();
+    if(
+      localStorage.getItem(
+        "seen_"+n.id
+      )
+    ){
+      return;
     }
-  };
 
-  document.getElementById("notificationModal").style.display = "flex";
+    document.getElementById(
+      "nTitle"
+    ).textContent =
+    n.title || "Notification";
 
-  localStorage.setItem("seen_"+n.id,"1");
+
+    document.getElementById(
+      "nMessage"
+    ).textContent =
+    n.message || "";
+
+
+    const btn =
+    document.getElementById(
+      "nAction"
+    );
+
+    btn.textContent =
+    n.button_text || "Watch Now";
+
+
+    btn.onclick = ()=>{
+
+      localStorage.setItem(
+        "seen_"+n.id,
+        "1"
+      );
+
+      if(n.button_url){
+
+        location.href =
+        n.button_url;
+
+      }else{
+
+        closeNotification();
+
+      }
+
+    };
+
+
+    document.getElementById(
+      "notificationModal"
+    ).style.display =
+    "flex";
+
+  }
+
+  catch(err){
+
+    console.log(err);
+
+  }
+
 }
 
+
 checkNotifications();
+
 </script>
-<div id="notificationModal" class="notification-modal">
-  <div class="notification-box">
 
-    <h3 id="nTitle">Notification</h3>
-    <p id="nMessage"></p>
-
-    <div class="notification-actions">
-      <button class="n-watch" id="nAction">Watch Now</button>
-      <button class="n-close" onclick="closeNotification()">Not Now</button>
-    </div>
-
-  </div>
-</div>
 </body>
 </html>
