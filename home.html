@@ -1,693 +1,1675 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Busanso Nation</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Busanso Nation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
 <style>
-body{
-background: linear-gradient(180deg, #020617, #0f172a, #020617);
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:'Poppins',sans-serif;
+
+background:
+radial-gradient(circle at top left,#2563eb33 0%,transparent 35%),
+radial-gradient(circle at bottom right,#22c55e33 0%,transparent 40%),
+linear-gradient(180deg,#020617,#030712,#000);
+
+color:#fff;
+
+overflow-x:hidden;
+
+}
+
+/* ==========================
+SCROLLBAR
+========================== */
+
+::-webkit-scrollbar{
+height:5px;
+width:5px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#38bdf8;
+border-radius:20px;
+}
+
+/* ==========================
+HEADER
+========================== */
+
 .sticky-header{
+
 position:sticky;
-top:0;
-background:#020617;
+
+top:10px;
+
+margin:12px;
+
 z-index:999;
-padding-bottom:5px;
-box-shadow:0 2px 10px rgba(0,0,0,.8);
+
+backdrop-filter:blur(18px);
+
+background:rgba(15,23,42,.72);
+
+border:1px solid rgba(255,255,255,.08);
+
+border-radius:24px;
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.45);
+
 }
 
 .header{
-padding:10px;
+
+padding:20px 20px 10px;
+
 text-align:center;
+
 }
 
-.header h1{
-margin:0;
-font-size:22px;
-font-weight:700;
-color:#38bdf8;
-}
-.section h3 {
-  background: linear-gradient(90deg, #22c55e, #38bdf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
-}
 .header img{
-height:50px;
-margin-top:6px;
+
+height:55px;
+
 }
 
 .top-actions{
+
 display:flex;
-justify-content:center;
+
 flex-wrap:wrap;
-gap:10px;
-padding:8px 10px 10px;
-background:#020617;
+
+justify-content:center;
+
+gap:12px;
+
+padding:15px 18px 20px;
+
 }
 
 .btn{
-padding:10px 18px;
-border-radius:30px;
-font-weight:700;
-font-size:12px;
-color:#fff;
-text-decoration:none;
+
+padding:13px 22px;
+
 border:none;
-transition:all .25s ease;
-box-shadow:0 4px 12px rgba(0,0,0,.4);
+
+border-radius:40px;
+
+font-size:13px;
+
+font-weight:700;
+
+text-decoration:none;
+
+transition:.3s;
+
 cursor:pointer;
+
+box-shadow:0 8px 25px rgba(0,0,0,.35);
+
 }
 
 .btn:hover{
-transform:translateY(-2px);
-box-shadow:0 6px 18px rgba(0,0,0,.7);
+
+transform:translateY(-3px);
+
 }
 
-/* BUTTON COLORS */
-.subscribe{
-background:linear-gradient(45deg,#ef4444,#dc2626);
+.buy{
+
+background:linear-gradient(135deg,#22c55e,#16a34a);
+
+color:white;
+
 }
 
 .login{
-background:linear-gradient(45deg,#3b82f6,#2563eb);
-}
 
-.about{
-background:linear-gradient(45deg,#334155,#1e293b);
+background:linear-gradient(135deg,#2563eb,#38bdf8);
+
+color:white;
+
 }
 
 .library{
-background:linear-gradient(45deg,#facc15,#eab308);
+
+background:linear-gradient(135deg,#facc15,#eab308);
+
 color:#111;
+
 }
 
-.kibanda{
-background:linear-gradient(45deg,#14b8a6,#0d9488);
-color:#001;
+/* ==========================
+HERO SLIDER
+========================== */
+
+.hero-slider{
+
+margin:18px;
+
+overflow:hidden;
+
 }
+
+.hero-track{
+
+display:flex;
+
+gap:18px;
+
+overflow-x:auto;
+
+scroll-snap-type:x mandatory;
+
+scroll-behavior:smooth;
+
+padding-bottom:5px;
+
+}
+
+.hero-track::-webkit-scrollbar{
+
+display:none;
+
+}
+
+.hero-poster{
+
+flex:0 0 82%;
+
+height:210px;
+
+border-radius:24px;
+
+overflow:hidden;
+
+position:relative;
+
+cursor:pointer;
+
+scroll-snap-align:center;
+
+box-shadow:0 20px 45px rgba(0,0,0,.45);
+
+transition:.35s;
+
+}
+
+.hero-poster:hover{
+
+transform:scale(1.02);
+
+}
+
+.hero-poster img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.hero-overlay{
+
+position:absolute;
+
+inset:0;
+
+display:flex;
+
+align-items:flex-end;
+
+padding:22px;
+
+background:
+
+linear-gradient(to top,
+
+rgba(0,0,0,.92),
+
+rgba(0,0,0,.05));
+
+}
+
+.hero-title{
+
+font-size:24px;
+
+font-weight:700;
+
+text-shadow:0 2px 10px black;
+
+}
+
+.hero-tag{
+
+display:inline-block;
+
+margin-top:10px;
+
+padding:6px 16px;
+
+border-radius:30px;
+
+font-size:12px;
+
+font-weight:700;
+
+background:#22c55e;
+
+}
+
+.hero-tag.premium{
+
+background:#ef4444;
+
+}
+
+.hero-dots{
+
+display:flex;
+
+justify-content:center;
+
+gap:8px;
+
+margin-top:15px;
+
+}
+
+.hero-dot{
+
+width:8px;
+
+height:8px;
+
+border-radius:50%;
+
+background:#475569;
+
+transition:.3s;
+
+}
+
+.hero-dot.active{
+
+background:#38bdf8;
+
+width:24px;
+
+border-radius:30px;
+
+}
+
+/* ==========================
+MAIN CONTENT
+========================== */
 
 .main-content{
-padding:12px 0 70px;
-overflow:auto;
+
+padding-bottom:90px;
+
 }
 
 .section{
-padding:12px;
+
+margin:18px;
+
+padding:18px;
+
+background:rgba(255,255,255,.03);
+
+border:1px solid rgba(255,255,255,.05);
+
+border-radius:22px;
+
 }
 
+.section h3{
+
+font-size:20px;
+
+margin-bottom:16px;
+
+font-weight:700;
+
+background:linear-gradient(90deg,#22c55e,#38bdf8);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+}
+
+/* ==========================
+CONTENT SLIDER
+========================== */
+
 .slider{
+
 display:flex;
-gap:12px;
+
+gap:14px;
+
 overflow-x:auto;
+
+scroll-behavior:smooth;
+
 }
 
 .slider::-webkit-scrollbar{
+
 display:none;
+
 }
+
+/* ==========================
+MOVIE CARD
+========================== */
 
 .card{
-width:32vw;
-max-width:130px;
+
+width:145px;
+
 flex-shrink:0;
-text-align:center;
+
+animation:fadeUp .45s ease;
+
+transition:.3s;
+
 }
 
-.card img{
+.card:hover{
+
+transform:translateY(-6px);
+
+}
+
+.poster{
+
+position:relative;
+
+}
+
+.poster img{
+
 width:100%;
-border-radius:10px;
-box-shadow:0 8px 18px rgba(0,0,0,.6);
-}
 
-.card-title{
-  font-size:12px;
-  margin-top:6px;
-  font-weight:600;
-  color:#e5e7eb; /* light text */
-}
+height:210px;
 
-.watch-btn{
-width:100%;
-margin-top:5px;
-padding:7px;
-font-size:11px;
-border:none;
-border-radius:8px;
-background:linear-gradient(45deg,#22c55e,#16a34a);
-color:#fff;
-font-weight:700;
-cursor:pointer;
-transition:all .2s ease;
-}
+object-fit:cover;
 
-.watch-btn:hover{
-transform:scale(1.05);
-box-shadow:0 0 10px rgba(34,197,94,.7);
+border-radius:18px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.45);
+
 }
 
 .badge{
+
 position:absolute;
-top:6px;
-left:6px;
-font-size:9px;
-padding:3px 6px;
-border-radius:6px;
+
+left:10px;
+
+top:10px;
+
+padding:5px 10px;
+
+font-size:10px;
+
+font-weight:700;
+
+border-radius:30px;
+
 background:#22c55e;
+
+color:white;
+
 }
 
 .badge.premium{
+
 background:#ef4444;
+
 }
 
-.lock-icon{
-position:absolute;
-inset:0;
-display:flex;
-align-items:center;
-justify-content:center;
-background:rgba(0,0,0,.65);
-font-size:11px;
-font-weight:700;
+.card-title{
+
+font-size:13px;
+
+font-weight:600;
+
+margin-top:10px;
+
+line-height:1.4;
+
+color:#f8fafc;
+
+min-height:36px;
+
 }
 
-@media(min-width:768px){
-.card{width:160px;max-width:160px;}
-}
+.watch-btn{
 
-@media(min-width:1200px){
-.card{width:190px;max-width:190px;}
-}
-
-#installBtn{
-position:fixed;
-bottom:60px;
-right:20px;
-padding:14px 20px;
-border-radius:40px;
-font-size:15px;
-font-weight:700;
-border:none;
-background:linear-gradient(45deg,#38bdf8,#0ea5e9);
-color:#fff;
-cursor:pointer;
-z-index:9999;
-box-shadow:0 0 15px rgba(14,165,233,.8);
-transition:transform .2s ease;
-}
-
-#installBtn:hover{
-transform:scale(1.08);
-}
-
-.footer-actions{
-position:fixed;
-bottom:0;
-left:0;
 width:100%;
-display:flex;
-justify-content:space-around;
-background:#020617;
-padding:8px 0;
-box-shadow:0 -2px 10px rgba(0,0,0,.7);
-z-index:999;
+
+margin-top:10px;
+
+padding:11px;
+
+border:none;
+
+border-radius:30px;
+
+background:white;
+
+color:#111827;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
 }
 
-.footer-actions .btn{
-padding:10px 15px;
-font-size:12px;
-background:linear-gradient(45deg,#6366f1,#4f46e5);
+.watch-btn:hover{
+
+transform:scale(1.04);
+
 }
+
+/* ==========================
+SKELETON
+========================== */
+
+.skeleton-card{
+
+width:145px;
+
+height:270px;
+
+border-radius:18px;
+
+flex-shrink:0;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#1e293b 25%,
+
+#334155 50%,
+
+#1e293b 75%
+
+);
+
+background-size:200% 100%;
+
+animation:skeleton 1.2s infinite;
+
+}
+
+.hero-skeleton{
+
+flex:0 0 82%;
+
+height:210px;
+
+border-radius:24px;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#1e293b 25%,
+
+#334155 50%,
+
+#1e293b 75%
+
+);
+
+background-size:200%;
+
+animation:skeleton 1.2s infinite;
+
+}
+
+/* ==========================
+FLOATING WHATSAPP
+========================== */
 
 .whatsapp-float{
+
 position:fixed;
-right:20px;
-bottom:110px;
-width:65px;
-height:65px;
+
+right:18px;
+
+bottom:105px;
+
+width:64px;
+
+height:64px;
+
 border-radius:50%;
+
 background:#25D366;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
-box-shadow:0 8px 25px rgba(0,0,0,.5);
+
+box-shadow:0 12px 30px rgba(0,0,0,.45);
+
 z-index:9999;
-transition:transform .2s ease, box-shadow .2s ease;
+
+transition:.3s;
+
 }
 
 .whatsapp-float:hover{
-transform:translateY(-4px) scale(1.08);
-box-shadow:0 12px 35px rgba(0,0,0,.7);
+
+transform:scale(1.08);
+
 }
 
 .whatsapp-float img{
+
 width:30px;
+
 height:30px;
+
 }
 
+/* ==========================
+BOTTOM NAV
+========================== */
+
+.footer-actions{
+
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+width:100%;
+
+padding:10px;
+
+display:flex;
+
+justify-content:space-around;
+
+background:rgba(2,6,23,.94);
+
+backdrop-filter:blur(20px);
+
+border-top:1px solid rgba(255,255,255,.08);
+
+z-index:999;
+
+}
+
+.footer-actions .btn{
+
+background:linear-gradient(135deg,#4f46e5,#6366f1);
+
+color:white;
+
+padding:12px 18px;
+
+font-size:12px;
+
+}
+
+/* ==========================
+NOTIFICATION
+========================== */
+
 .notification-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:99999;
+
+position:fixed;
+
+inset:0;
+
+display:none;
+
+align-items:center;
+
+justify-content:center;
+
+background:rgba(0,0,0,.75);
+
+z-index:99999;
+
 }
 
 .notification-box{
-  width:min(90%,420px);
-  background:#0f2230;
-  border-radius:24px;
-  padding:24px;
-  box-shadow:0 20px 50px rgba(0,0,0,.5);
+
+width:min(92%,420px);
+
+background:#0f172a;
+
+padding:25px;
+
+border-radius:22px;
+
+box-shadow:0 20px 45px rgba(0,0,0,.45);
+
 }
 
 .notification-title{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:10px;
+
+font-size:22px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
 }
 
 .notification-message{
-  color:#cde8f6;
-  line-height:1.5;
-  margin-bottom:20px;
+
+line-height:1.7;
+
+color:#dbeafe;
+
+margin-bottom:18px;
+
 }
 
 .notification-close{
-  width:100%;
-  border:none;
-  padding:14px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#29ffd8,#1f6cff);
-  font-weight:bold;
-  cursor:pointer;
-}
-.skeleton-card{
-width:32vw;
-max-width:130px;
-height:210px;
-flex-shrink:0;
-border-radius:10px;
-background:linear-gradient(
-90deg,
-#1e293b 25%,
-#334155 50%,
-#1e293b 75%
-);
-background-size:200% 100%;
-animation:skeletonLoading 1.2s infinite;
+
+flex:1;
+
+padding:14px;
+
+border:none;
+
+border-radius:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+background:linear-gradient(135deg,#38bdf8,#2563eb);
+
+color:white;
+
 }
 
-@keyframes skeletonLoading{
+/* ==========================
+ANIMATIONS
+========================== */
+
+@keyframes skeleton{
+
 0%{
+
 background-position:200% 0;
+
 }
+
 100%{
+
 background-position:-200% 0;
+
 }
+
 }
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.hero-poster{
+
+height:190px;
+
+}
+
+.hero-title{
+
+font-size:20px;
+
+}
+
+.card{
+
+width:130px;
+
+}
+
+.poster img{
+
+height:190px;
+
+}
+
+}
+
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="sticky-header">
-  <div class="header">
-    <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png">
-  
+
+    <div class="header">
+
+        <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Busanso Nation">
+
+    </div>
+
+    <div class="top-actions">
+
+        <a href="packages.html" class="btn buy">
+            💳 Buy Access
+        </a>
+
+        <a href="login.html" class="btn login">
+            ✅ Already Paid?
+        </a>
+
+        <a href="library-login.html" class="btn library">
+            🏢 Library Login
+        </a>
+
+    </div>
+
 </div>
-  <div class="top-actions">
-    <a href="login.html" class="btn login">Click Here if you paid</a>
-    <a href="library-login.html" class="btn library">Olina ekibanda oba Library?</a>
-  </div>
+
+
+<!-- ==========================
+HERO SLIDER
+========================== -->
+
+<div class="hero-slider">
+
+    <div class="hero-track" id="heroSlider">
+
+        <div class="hero-skeleton"></div>
+        <div class="hero-skeleton"></div>
+        <div class="hero-skeleton"></div>
+
+    </div>
+
+    <div class="hero-dots" id="heroDots"></div>
+
+</div>
+
 
 <div class="main-content">
-  <div class="section">
-  <h3>🔥 Trending</h3>
-  <div class="slider" id="trendingBox">
 
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
 
-  </div>
-</div>
-  
-  <div class="section">
-  <h3>Latest Movies</h3>
+<!-- TRENDING -->
 
-  <div class="slider" id="moviesBox">
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
-    <div class="skeleton-card"></div>
-  </div>
+<div class="section">
+
+<h3>🔥 Hottest Right Now</h3>
+
+<div class="slider" id="trendingBox">
+
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
 
 </div>
-  <div class="section">
-  <h3>Latest Series</h3>
->/div>
-  <div class="slider" id="seriesBox">
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-</div>
-  <!-- BOTTOM BANNER AD -->
-  <div class="ad-banner" style="text-align:center; margin:25px 0;">
-    <script>
-      function loadBannerAd(){
-        atOptions = {
-          'key':'1c9ccdb756a82c4d663014a338917bd7',
-          'format':'iframe',
-          'height':250,
-          'width':300,
-          'params':{}
-        };
-        const s=document.createElement("script");
-        s.src="https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js";
-        s.async=true;
-        document.body.appendChild(s);
-      }
-      document.addEventListener("DOMContentLoaded", ()=>{
-        if(!/Mobi|Android/i.test(navigator.userAgent)) loadBannerAd();
-      });
-    </script>
-  </div>
-  <div class="section">
-  <h3>Free Movies</h3>
 
- <div class="slider" id="freeMoviesBox">
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-</div>
-  <div class="section">
-  <h3>Free Series</h3>
-
-  <div class="slider" id="freeSeriesBox">
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-  <div class="skeleton-card"></div>
-</div>
 </div>
 
- 
+
+<!-- MOVIES -->
+
+<div class="section">
+
+<h3>🎬 Fresh Movies</h3>
+
+<div class="slider" id="moviesBox">
+
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+
+</div>
+
+</div>
+
+
+<!-- SERIES -->
+
+<div class="section">
+
+<h3>📺 Fresh Series</h3>
+
+<div class="slider" id="seriesBox">
+
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+
+</div>
+
+</div>
+
+
+<!-- AD -->
+
+<div class="ad-banner"
+style="text-align:center;margin:30px 0;">
+
+<script>
+
+function loadBannerAd(){
+
+atOptions={
+'key':'1c9ccdb756a82c4d663014a338917bd7',
+'format':'iframe',
+'height':250,
+'width':300,
+'params':{}
+
+};
+
+const s=document.createElement("script");
+
+s.src="https://www.highperformanceformat.com/1c9ccdb756a82c4d663014a338917bd7/invoke.js";
+
+s.async=true;
+
+document.body.appendChild(s);
+
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+if(!/Mobi|Android/i.test(navigator.userAgent))
+
+loadBannerAd();
+
+});
+
+</script>
+
+</div>
+
+
+<!-- FREE MOVIES -->
+
+<div class="section">
+
+<h3>🎁 Free Movies</h3>
+
+<div class="slider" id="freeMoviesBox">
+
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+
+</div>
+
+</div>
+
+
+<!-- FREE SERIES -->
+
+<div class="section">
+
+<h3>🎁 Free Series</h3>
+
+<div class="slider" id="freeSeriesBox">
+
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+<div class="skeleton-card"></div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FOOTER -->
 
 <div class="footer-actions">
-  <a href="agents.html" class="btn agents">Our Agents</a>
-  <a href="home.html" class="btn home">Home</a>
+
+<a href="home.html" class="btn">
+🏠 Home
+</a>
+
+<a href="agents.html" class="btn">
+👥 Agents
+</a>
+
 </div>
 
-<a href="https://wa.me/256703888884" class="whatsapp-float" target="_blank">
-   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+
+<!-- WHATSAPP -->
+
+<a href="https://wa.me/256703888884"
+
+class="whatsapp-float"
+
+target="_blank">
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+
 </a>
+
+
+<!-- NOTIFICATION -->
+
+<div id="notificationModal"
+
+class="notification-modal">
+
+<div class="notification-box">
+
+<div
+id="notificationTitle"
+
+class="notification-title">
+
+</div>
+
+<div
+id="notificationMessage"
+
+class="notification-message">
+
+</div>
+
+<div style="display:flex;gap:10px;">
+
+<button
+id="notificationAction"
+
+class="notification-close">
+
+Watch Now
+
+</button>
+
+<button
+
+class="notification-close"
+
+onclick="closeNotification()">
+
+Not Now
+
+</button>
+
+</div>
+
+</div>
+
+</div>
 
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
 const supabaseUrl='https://dhkfhhybzcxdeoalcfqx.supabase.co';
+
 const supabaseKey='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoa2ZoaHliemN4ZGVvYWxjZnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MzQxNTEsImV4cCI6MjA4ODExMDE1MX0.jZ4NDNPJmO0Ji05TxDqCnzgLIIzKf9uCx3WrSgk2DaY';
-const supabase=createClient(supabaseUrl,supabaseKey);
 
-window.closeNotification = function(){
+const supabase=createClient(
+supabaseUrl,
+supabaseKey
+);
 
-  const notificationId =
-    document.getElementById("notificationModal")
-    .dataset.notificationId;
+/* ===============================
+ELEMENTS
+=============================== */
 
-  if(notificationId){
-    localStorage.setItem(
-      "seen_notification_" + notificationId,
-      "yes"
-    );
-  }
+const heroSlider=document.getElementById("heroSlider");
+const heroDots=document.getElementById("heroDots");
 
-  document.getElementById("notificationModal").style.display =
-    "none";
+const trendingBox=document.getElementById("trendingBox");
+
+const moviesBox=document.getElementById("moviesBox");
+const seriesBox=document.getElementById("seriesBox");
+
+const freeMoviesBox=document.getElementById("freeMoviesBox");
+const freeSeriesBox=document.getElementById("freeSeriesBox");
+
+/* ===============================
+NOTIFICATIONS
+=============================== */
+
+window.closeNotification=function(){
+
+const id=document
+.getElementById("notificationModal")
+.dataset.notificationId;
+
+if(id){
+
+localStorage.setItem(
+
+"seen_notification_"+id,
+
+"yes"
+
+);
+
+}
+
+document
+.getElementById("notificationModal")
+.style.display="none";
+
 };
 
 async function checkNotifications(){
 
-  const { data, error } = await supabase
-    .from("notifications")
-    .select("*")
-    .order("created_at",{ascending:false})
-    .limit(1);
+const {data,error}=await supabase
 
-  if(error || !data?.length) return;
+.from("notifications")
 
-  const notification = data[0];
+.select("*")
 
-  const seen = localStorage.getItem(
-    "seen_notification_" + notification.id
-  );
+.order("created_at",{ascending:false})
 
-  if(seen) return;
+.limit(1);
 
-  document.getElementById("notificationTitle").textContent =
-    notification.title;
+if(error||!data.length)return;
 
-  document.getElementById("notificationMessage").textContent =
-    notification.message;
+const n=data[0];
 
-  const actionBtn =
-    document.getElementById("notificationAction");
+const seen=
 
-  actionBtn.textContent =
-    notification.button_text || "Open";
+localStorage.getItem(
 
-  actionBtn.onclick = () => {
+"seen_notification_"+n.id
 
-    localStorage.setItem(
-      "seen_notification_" + notification.id,
-      "yes"
-    );
+);
 
-    if(notification.button_url){
-      location.href = notification.button_url;
-    }else{
-      closeNotification();
-    }
+if(seen)return;
 
-  };
+document.getElementById(
 
-  document.getElementById("notificationModal")
-    .dataset.notificationId = notification.id;
+"notificationTitle"
 
-  document.getElementById("notificationModal").style.display =
-    "flex";
+).textContent=n.title;
+
+document.getElementById(
+
+"notificationMessage"
+
+).textContent=n.message;
+
+const btn=document.getElementById(
+
+"notificationAction"
+
+);
+
+btn.textContent=n.button_text||"Watch";
+
+btn.onclick=()=>{
+
+localStorage.setItem(
+
+"seen_notification_"+n.id,
+
+"yes"
+
+);
+
+if(n.button_url){
+
+location.href=n.button_url;
+
+}else{
+
+closeNotification();
+
 }
-const moviesBox=document.getElementById("moviesBox");
-const trendingBox =
-document.getElementById("trendingBox");
 
-const freeMoviesBox=document.getElementById("freeMoviesBox");
+};
 
-const seriesBox=document.getElementById("seriesBox");
-const freeSeriesBox=document.getElementById("freeSeriesBox");
+document
+.getElementById("notificationModal")
+.dataset.notificationId=n.id;
 
-/* ===== PIN REDIRECT ===== */
+document
+.getElementById("notificationModal")
+.style.display="flex";
+
+}
+
+/* ===============================
+PIN REDIRECT
+=============================== */
+
 (function(){
-  // ✅ Normal active PIN
-  var activePin = localStorage.getItem("activePIN");
-  var activeExp = Number(localStorage.getItem("pinExpiry"));
 
-  if(activePin && activeExp && Date.now() < activeExp){
-    location.replace("watch.html");
-    return;
-  }
+const activePin=
 
-  // ✅ Special PIN (kibanda)
-  var specialAccess = localStorage.getItem("kibandaAccess");
+localStorage.getItem(
 
-  if(specialAccess === "true"){
-    location.replace("kibwatch.html");
-    return;
-  }
+"activePIN"
+
+);
+
+const expiry=
+
+Number(
+
+localStorage.getItem(
+
+"pinExpiry"
+
+)
+
+);
+
+if(
+
+activePin&&
+
+expiry&&
+
+Date.now()<expiry
+
+){
+
+location.replace("watch.html");
+
+return;
+
+}
+
+const kibanda=
+
+localStorage.getItem(
+
+"kibandaAccess"
+
+);
+
+if(kibanda==="true"){
+
+location.replace("kibwatch.html");
+
+return;
+
+}
 
 })();
 
-/* ===== CARD CREATOR ===== */
-function createCard(item, type) {
+/* ===============================
+NORMAL CARD
+=============================== */
 
-const isPremium = item.type === "premium" || item.type === true;
+function createCard(item,page){
 
-  const card = document.createElement("div");
-  card.className = "card";
+const premium=
 
-  // optional: mark premium cards for styling
-  if (isPremium) card.classList.add("premium");
+item.type==="premium"||
 
-  card.innerHTML = `
-    <div style="position:relative">
-      <img src="${item.poster}">
-      
-    ${type === "trending" ? "" : `
-  <span class="badge ${isPremium ? 'premium' : ''}">
-    ${isPremium ? 'PREMIUM' : 'FREE'}
-  </span>
-`}
+item.type===true;
 
-    <div class="card-title">${item.title}</div>
+const card=document.createElement("div");
 
-    <button class="watch-btn">
-      ${isPremium ? 'Pay to Watch' : 'Watch'}
-    </button>
+card.className="card";
+
+card.innerHTML=`
+
+<div class="poster">
+
+<img src="${item.poster}">
+
+<span class="badge ${premium?"premium":""}">
+
+${premium?"PREMIUM":"FREE"}
+
+</span>
+
+</div>
+
+<div class="card-title">
+
+${item.title}
+
+</div>
+
+<button class="watch-btn">
+
+${premium?"Pay to Watch":"Watch"}
+
+</button>
+
+`;
+
+card.querySelector("button")
+
+.onclick=()=>{
+
+if(premium){
+
+location.href="packages.html";
+
+}else{
+
+location.href=
+
+page==="movie"
+
+?`movie.html?id=${item.id}`
+
+:`serie.html?id=${item.id}`;
+
+}
+
+};
+
+return card;
+
+}
+
+/* ===============================
+HERO POSTER
+=============================== */
+
+function createHero(item,page){
+
+const premium=
+
+item.type==="premium"||
+
+item.type===true;
+
+const hero=document.createElement("div");
+
+hero.className="hero-poster";
+
+hero.innerHTML=`
+
+<img src="${item.poster}">
+
+<div class="hero-overlay">
+
+<div>
+
+<div class="hero-title">
+
+${item.title}
+
+</div>
+
+<span class="hero-tag ${premium?"premium":""}">
+
+${premium?"PREMIUM":"FREE"}
+
+</span>
+
+</div>
+
+</div>
+
+`;
+
+hero.onclick=()=>{
+
+if(premium){
+
+location.href="packages.html";
+
+}else{
+
+location.href=
+
+page==="movie"
+
+?`movie.html?id=${item.id}`
+
+:`serie.html?id=${item.id}`;
+
+}
+
+};
+
+return hero;
+
+}
+
+/* ===============================
+FETCH CONTENT
+=============================== */
+
+async function fetchContent(){
+
+
+  // Remove skeletons
+  heroSlider.innerHTML = `
+    <div class="hero-skeleton"></div>
+    <div class="hero-skeleton"></div>
+    <div class="hero-skeleton"></div>
   `;
 
-  // 🔒 SINGLE CONTROL POINT (very important)
-  card.querySelector(".watch-btn").onclick = () => {
-
-    if (isPremium) {
-      // 🚫 free users blocked here
-      location.href = "packages.html";
-    } else {
-      // ✅ allowed content
-      location.href = type === "movie"
-        ? `movie.html?id=${item.id}`
-        : `serie.html?id=${item.id}`;
-    }
-
-  };
-
-  return card;
-}
-/* ===== FETCH CONTENT FROM SUPABASE ===== */ async function fetchContent(){
-
-  // Remove skeleton cards
   trendingBox.innerHTML = "";
   moviesBox.innerHTML = "";
   seriesBox.innerHTML = "";
   freeMoviesBox.innerHTML = "";
   freeSeriesBox.innerHTML = "";
+  heroDots.innerHTML = "";
 
   let trendingItems = [];
 
-  try {
+  try{
 
-    // ===== MOVIES =====
-    const { data: movies, error: mErr } =
-      await supabase.from('movies').select('*').order('created_at',{ascending:false});
+    /* ===============================
+       FETCH MOVIES
+    =============================== */
 
-    if(mErr) console.error("Movies fetch error:", mErr);
+    const { data: movies, error: movieError } =
+      await supabase
+      .from("movies")
+      .select("*")
+      .order("created_at",{ascending:false});
 
-    movies.forEach((m)=>{
+    if(movieError) console.error(movieError);
+
+    movies.forEach(movie=>{
 
       moviesBox.appendChild(
-        createCard(m,"movie")
+        createCard(movie,"movie")
       );
 
       trendingItems.push({
-        ...m,
-        type: "movie"
+        ...movie,
+        kind:"movie"
       });
 
-      if(m.type !== "premium"){
-        freeMoviesBox.appendChild(createCard(m,"movie"));
+      if(movie.type!=="premium"){
+
+        freeMoviesBox.appendChild(
+          createCard(movie,"movie")
+        );
+
       }
 
     });
 
-    // ===== SERIES =====
-    const { data: series, error: sErr } =
-      await supabase.from('series').select('*').order('created_at',{ascending:false});
 
-    if(sErr) console.error("Series fetch error:", sErr);
+    /* ===============================
+       FETCH SERIES
+    =============================== */
 
-    series.forEach((s)=>{
+    const { data: series, error: seriesError } =
+      await supabase
+      .from("series")
+      .select("*")
+      .order("created_at",{ascending:false});
+
+    if(seriesError) console.error(seriesError);
+
+    series.forEach(show=>{
 
       seriesBox.appendChild(
-        createCard(s,"series")
+        createCard(show,"series")
       );
 
       trendingItems.push({
-        ...s,
-        type: "series"
+        ...show,
+        kind:"series"
       });
 
-      if(s.type !== "premium"){
-        freeSeriesBox.appendChild(createCard(s,"series"));
+      if(show.type!=="premium"){
+
+        freeSeriesBox.appendChild(
+          createCard(show,"series")
+        );
+
       }
 
     });
 
-    // ===== TRENDING (MOST IMPORTANT PART) =====
-    trendingItems.sort((a,b) => (b.views || 0) - (a.views || 0));
 
-    trendingBox.innerHTML = "";
+    /* ===============================
+       HERO SLIDER
+    =============================== */
 
-    trendingItems.slice(0,10).forEach(item => {
-trendingBox.appendChild(
-  createCard(item, "trending")
-);
+    heroSlider.innerHTML = "";
+
+    const latestContent = [...trendingItems];
+
+    latestContent.sort(
+      (a,b)=>
+      new Date(b.created_at)-new Date(a.created_at)
+    );
+
+    latestContent
+    .slice(0,8)
+    .forEach((item,index)=>{
+
+      heroSlider.appendChild(
+
+        createHero(item,item.kind)
+
+      );
+
+      const dot=document.createElement("div");
+
+      dot.className="hero-dot";
+
+      if(index===0){
+
+        dot.classList.add("active");
+
+      }
+
+      heroDots.appendChild(dot);
+
     });
 
-  } catch(err){
-    console.error(err);
+
+    /* ===============================
+       TRENDING
+    =============================== */
+
+    trendingItems.sort(
+      (a,b)=>(b.views||0)-(a.views||0)
+    );
+
+    trendingItems
+    .slice(0,10)
+    .forEach(item=>{
+
+      trendingBox.appendChild(
+
+        createCard(item,item.kind)
+
+      );
+
+    });
+
   }
+
+  catch(err){
+
+    console.error(err);
+
+  }
+
 }
+/* ==========================================
+LOAD CONTENT
+========================================== */
 
 fetchContent();
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  checkNotifications();
-});
+/* ==========================================
+AUTO HERO SLIDER
+========================================== */
 
-</script>
-<script>
-window.OneSignalDeferred = window.OneSignalDeferred || [];
-OneSignalDeferred.push(async function(OneSignal) {
-  await OneSignal.init({
-    appId: "cc8dfd2b-74bf-43a9-8cd0-2915cf1bc629",
-    notifyButton: {
-      enable: true
+let currentHero = 0;
+
+setInterval(()=>{
+
+    const posters =
+    document.querySelectorAll(".hero-poster");
+
+    const dots =
+    document.querySelectorAll(".hero-dot");
+
+    if(!posters.length) return;
+
+    currentHero++;
+
+    if(currentHero >= posters.length){
+
+        currentHero = 0;
+
     }
-  });
+
+    posters[currentHero].scrollIntoView({
+
+        behavior:"smooth",
+
+        inline:"center"
+
+    });
+
+    dots.forEach(dot=>{
+
+        dot.classList.remove("active");
+
+    });
+
+    if(dots[currentHero]){
+
+        dots[currentHero].classList.add("active");
+
+    }
+
+},6000);
+
+
+/* ==========================================
+ALLOW CLICKING HERO DOTS
+========================================== */
+
+heroDots.addEventListener("click",(e)=>{
+
+    if(!e.target.classList.contains("hero-dot")) return;
+
+    const dots=[...document.querySelectorAll(".hero-dot")];
+
+    currentHero=dots.indexOf(e.target);
+
+    document
+    .querySelectorAll(".hero-poster")[currentHero]
+    .scrollIntoView({
+
+        behavior:"smooth",
+
+        inline:"center"
+
+    });
+
+    dots.forEach(dot=>dot.classList.remove("active"));
+
+    e.target.classList.add("active");
+
 });
+
+
+/* ==========================================
+NOTIFICATIONS
+========================================== */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    checkNotifications();
+
+});
+
 </script>
-<!-- NOTIFICATION MODAL -->
-<div id="notificationModal" class="notification-modal">
-  <div class="notification-box">
 
-    <div id="notificationTitle" class="notification-title"></div>
 
-    <div id="notificationMessage" class="notification-message"></div>
+<script>
 
-    <div style="display:flex;gap:10px">
+window.OneSignalDeferred =
+window.OneSignalDeferred || [];
 
-      <button id="notificationAction"
-              class="notification-close"
-              style="flex:1">
-        Watch Now
-      </button>
+OneSignalDeferred.push(async function(OneSignal){
 
-      <button class="notification-close"
-              style="flex:1"
-              onclick="closeNotification()">
-        Not Now
-      </button>
+await OneSignal.init({
 
-    </div>
+appId:"cc8dfd2b-74bf-43a9-8cd0-2915cf1bc629",
 
-  </div>
-</div>
-</div>
+notifyButton:{
+
+enable:true
+
+}
+
+});
+
+});
+
+</script>
+
 </body>
 </html>
-
-
