@@ -53,24 +53,23 @@ HEADER
 
 .sticky-header{
 
-position:relative;
+position:sticky;
 
-top:10px;
+top:0;
 
-margin:12px;
+left:0;
 
-z-index:999;
+z-index:9999;
+
+margin:0;
+
+padding:12px;
+
+background:rgba(2,6,23,.92);
 
 backdrop-filter:blur(18px);
 
-background:rgba(15,23,42,.72);
-
-border:1px solid rgba(255,255,255,.08);
-
-border-radius:24px;
-
-box-shadow:
-0 20px 50px rgba(0,0,0,.45);
+border-bottom:1px solid rgba(255,255,255,.08);
 
 }
 
@@ -124,13 +123,11 @@ HERO SLIDER
 
 .hero-slider{
 
-width:100%;
+margin-top:18px;
+
+margin-bottom:20px;
 
 padding:0 12px;
-
-margin:18px 0;
-
-overflow:hidden;
 
 }
 
@@ -1454,7 +1451,7 @@ hero.className="hero-poster";
 
 hero.innerHTML=`
 
-<img src="${item.poster}">
+<img src="${item.horizontal_poster}">
 
 <div class="hero-overlay">
 
