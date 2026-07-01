@@ -47,11 +47,6 @@ height:5px;
 width:5px;
 }
 
-::-webkit-scrollbar-thumb{
-background:#38bdf8;
-border-radius:20px;
-}
-
 /* ==========================
 HEADER
 ========================== */
@@ -81,7 +76,7 @@ box-shadow:
 
 .header{
 
-padding:20px 20px 10px;
+padding:14px;
 
 text-align:center;
 
@@ -93,19 +88,7 @@ height:55px;
 
 }
 
-.top-actions{
 
-display:flex;
-
-flex-wrap:wrap;
-
-justify-content:center;
-
-gap:12px;
-
-padding:15px 18px 20px;
-
-}
 
 .btn{
 
@@ -135,37 +118,17 @@ transform:translateY(-3px);
 
 }
 
-.buy{
-
-background:linear-gradient(135deg,#22c55e,#16a34a);
-
-color:white;
-
-}
-
-.login{
-
-background:linear-gradient(135deg,#2563eb,#38bdf8);
-
-color:white;
-
-}
-
-.library{
-
-background:linear-gradient(135deg,#facc15,#eab308);
-
-color:#111;
-
-}
-
 /* ==========================
 HERO SLIDER
 ========================== */
 
 .hero-slider{
 
-margin:18px;
+width:100%;
+
+padding:0 12px;
+
+margin:18px 0;
 
 overflow:hidden;
 
@@ -175,15 +138,19 @@ overflow:hidden;
 
 display:flex;
 
-gap:18px;
-
 overflow-x:auto;
 
 scroll-snap-type:x mandatory;
 
 scroll-behavior:smooth;
 
-padding-bottom:5px;
+gap:0;
+
+}
+
+.hero-track::-webkit-scrollbar{
+
+display:none;
 
 }
 
@@ -195,23 +162,23 @@ display:none;
 
 .hero-poster{
 
-flex:0 0 82%;
+flex:0 0 100%;
 
-height:210px;
+width:100%;
 
-border-radius:24px;
+height:220px;
+
+border-radius:22px;
 
 overflow:hidden;
 
 position:relative;
 
+scroll-snap-align:start;
+
 cursor:pointer;
 
-scroll-snap-align:center;
-
-box-shadow:0 20px 45px rgba(0,0,0,.45);
-
-transition:.35s;
+box-shadow:0 15px 40px rgba(0,0,0,.45);
 
 }
 
@@ -227,7 +194,64 @@ width:100%;
 
 height:100%;
 
-object-fit:cover;
+object-fit:contain;
+
+background:#000;
+
+}
+.login-main{
+
+display:block;
+
+margin:18px auto 10px;
+
+width:100%;
+
+padding:15px;
+
+border-radius:18px;
+
+text-align:center;
+
+text-decoration:none;
+
+font-size:18px;
+
+font-weight:700;
+
+background:linear-gradient(135deg,#2563eb,#38bdf8);
+
+color:white;
+
+box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+}
+
+.menu-btn{
+
+width:54px;
+
+height:54px;
+
+margin:10px auto 0;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:28px;
+
+background:rgba(255,255,255,.08);
+
+border:none;
+
+border-radius:50%;
+
+color:white;
+
+cursor:pointer;
 
 }
 
@@ -796,6 +820,81 @@ height:190px;
 }
 
 }
+.mobile-menu{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.82);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:99999;
+
+backdrop-filter:blur(10px);
+
+}
+
+.menu-content{
+
+width:85%;
+
+max-width:340px;
+
+background:#0f172a;
+
+border-radius:24px;
+
+padding:25px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+.menu-content a{
+
+padding:15px;
+
+border-radius:16px;
+
+background:#1e293b;
+
+color:white;
+
+text-decoration:none;
+
+font-weight:600;
+
+text-align:center;
+
+}
+
+.menu-content button{
+
+padding:15px;
+
+border:none;
+
+border-radius:16px;
+
+background:#ef4444;
+
+color:white;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
 
 </style>
 </head>
@@ -808,21 +907,13 @@ height:190px;
 
         <img src="https://i.ibb.co/hxgrLF35/BUSANSO-New.png" alt="Busanso Nation">
 
-    </div>
-
-    <div class="top-actions">
-
-        <a href="packages.html" class="btn buy">
-            💳 Buy Access
+        <a href="login.html" class="login-main">
+            🔑 LOGIN
         </a>
 
-        <a href="login.html" class="btn login">
-            ✅ Already Paid?
-        </a>
-
-        <a href="library-login.html" class="btn library">
-            🏢 Library Login
-        </a>
+        <button id="menuBtn" class="menu-btn">
+            ☰
+        </button>
 
     </div>
 
@@ -832,6 +923,25 @@ height:190px;
 <!-- ==========================
 HERO SLIDER
 ========================== -->
+<div class="mobile-menu" id="mobileMenu">
+
+<div class="menu-content">
+
+<a href="packages.html">💳 Buy Access</a>
+
+<a href="library-login.html">🏢 Library Login</a>
+
+<a href="agents.html">👥 Become an Agent</a>
+
+<a href="https://wa.me/256703888884">💬 WhatsApp</a>
+
+<button id="closeMenu">
+Close
+</button>
+
+</div>
+
+</div>
 
 <div class="hero-slider">
 
@@ -1634,7 +1744,33 @@ heroDots.addEventListener("click",(e)=>{
 
 });
 
+const menu=document.getElementById("mobileMenu");
 
+document
+.getElementById("menuBtn")
+.onclick=()=>{
+
+menu.style.display="flex";
+
+};
+
+document
+.getElementById("closeMenu")
+.onclick=()=>{
+
+menu.style.display="none";
+
+};
+
+menu.onclick=(e)=>{
+
+if(e.target===menu){
+
+menu.style.display="none";
+
+}
+
+};
 /* ==========================================
 NOTIFICATIONS
 ========================================== */
