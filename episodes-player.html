@@ -97,7 +97,6 @@ body{
   height:100%;
   display:block;
   border:none;
-  object-fit:cover;
 }
 
 /* NAV CONTROLS */
@@ -527,7 +526,35 @@ else if (
     embedUrl = `https://www.dailymotion.com/embed/video/${videoId}`;
   }
 }
+/* =========================
+   BUNNY.NET VIDEO
+========================= */
+else if (url.includes("b-cdn.net")) {
 
+  player.innerHTML = `
+    <video
+      id="videoPlayer"
+      controls
+      controlsList="nodownload"
+      disablePictureInPicture
+      autoplay
+      playsinline
+      preload="metadata"
+      style="width:100%;height:100%;object-fit:contain;background:black;">
+      <source src="${url}" type="video/mp4">
+    </video>
+  `;
+
+  const video = document.getElementById("videoPlayer");
+
+  video.onended = () => {
+    if(index < episodes.length - 1){
+      loadEpisode(index + 1);
+    }
+  };
+
+  return;
+}
 /* =========================
    DIRECT VIDEO FILE
 ========================= */
