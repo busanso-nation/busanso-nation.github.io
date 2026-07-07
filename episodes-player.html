@@ -261,6 +261,46 @@ body{
   font-size:14px;
   line-height:1.5;
 }
+.commentActions{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+}
+
+.commentActions button{
+  background:#111827;
+  border:1px solid #334155;
+  color:white;
+  padding:8px 14px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+
+.replyBox{
+  margin-top:12px;
+}
+
+.replyBox textarea{
+  width:100%;
+  min-height:60px;
+  background:#0f172a;
+  color:white;
+  border:1px solid #334155;
+  border-radius:10px;
+  padding:10px;
+  box-sizing:border-box;
+}
+
+
+.replyItem{
+  margin-top:12px;
+  margin-left:20px;
+  padding:12px;
+  background:#111827;
+  border-radius:12px;
+  border-left:3px solid #60a5fa;
+}
 
 /* TOGGLE BTN */
 .commentToggleBtn{
@@ -836,42 +876,180 @@ window.scrollTo({
 /* COMMENTS */
 async function loadComments(epId) {
 
-  const { data } = await supabase
-    .from("episode_comments")
-    .select("*")
-    .eq("episode_id", epId)
-    .order("created_at", { ascending: false });
 
-  document.getElementById("commentsList").innerHTML =
-    (data || []).map(c => {
+const { data } = await supabase
+.from("episode_comments")
+.select("*")
+.eq("episode_id", epId)
+.order("created_at",{ascending:false});
 
-      const date = c.created_at
-        ? new Date(c.created_at).toLocaleString()
-        : "just now";
 
-      return `
-        <div class="commentItem">
+const comments = data || [];
 
-          <div class="commentUser">
-            ${c.user_name}
-          </div>
 
-          <div class="commentText">
-            ${c.comment}
-          </div>
+document.getElementById("commentsList").innerHTML =
 
-          <div style="
-            font-size:11px;
-            margin-top:8px;
-            color:#64748b;">
-            🕒 ${date}
-          </div>
+comments
+.filter(c=>!c.parent_id)
+.map(c=>{
 
-        </div>
-      `;
-    }).join("");
+
+let replies = comments.filter(r=>r.parent_id===c.id);
+
+
+return `
+
+<div class="commentItem">
+
+
+<div class="commentUser">
+${c.user_name}
+</div>
+
+
+<div class="commentText">
+${c.comment}
+</div>
+
+
+<div class="commentActions">
+
+
+<button onclick="likeComment(${c.id})">
+❤️ ${c.likes || 0}
+</button>
+
+
+<button onclick="openReply(${c.id})">
+💬 Reply
+</button>
+
+
+</div>
+
+
+<div id="replyBox-${c.id}" class="replyBox" style="display:none">
+
+
+<textarea id="replyText-${c.id}" placeholder="Write reply..."></textarea>
+
+
+<button onclick="sendReply(${c.id})">
+Post Reply
+</button>
+
+
+</div>
+
+
+
+${replies.map(r=>`
+
+<div class="replyItem">
+
+<b>${r.user_name}</b>
+
+<p>${r.comment}</p>
+
+<button onclick="likeComment(${r.id})">
+❤️ ${r.likes || 0}
+</button>
+
+
+</div>
+
+
+`).join("")}
+
+
+
+</div>
+
+
+`;
+
+}).join("");
+
 }
+window.likeComment = async function(id){
 
+
+const {data}=await supabase
+.from("episode_comments")
+.select("likes")
+.eq("id",id)
+.single();
+
+
+await supabase
+.from("episode_comments")
+.update({
+likes:(data.likes || 0)+1
+})
+.eq("id",id);
+
+
+loadComments(episodes[index].id);
+
+};
+
+
+
+window.openReply=function(id){
+
+const box=document.getElementById(
+"replyBox-"+id
+);
+
+
+box.style.display =
+box.style.display==="none"
+?"block"
+:"none";
+
+};
+
+
+
+window.sendReply=async function(parentId){
+
+
+const text=document
+.getElementById(
+"replyText-"+parentId
+)
+.value.trim();
+
+
+
+if(!text)return;
+
+
+
+await supabase
+.from("episode_comments")
+.insert([{
+
+episode_id:episodes[index].id,
+
+user_name:
+document.getElementById("username").value
+||"Guest",
+
+comment:text,
+
+parent_id:parentId,
+
+created_at:new Date().toISOString()
+
+}]);
+
+
+
+loadComments(episodes[index].id);
+
+
+};
 /* POST COMMENT */
 document.getElementById("postComment").onclick = async () => {
 
