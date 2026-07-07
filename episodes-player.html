@@ -876,7 +876,6 @@ window.scrollTo({
 /* COMMENTS */
 async function loadComments(epId) {
 
-
 const { data } = await supabase
 .from("episode_comments")
 .select("*")
@@ -894,9 +893,6 @@ comments
 .map(c=>{
 
 
-let replies = comments.filter(r=>r.parent_id===c.id);
-
-
 return `
 
 <div class="commentItem">
@@ -912,15 +908,17 @@ ${c.comment}
 </div>
 
 
+
 <div class="commentActions">
 
-
-<button onclick="likeComment(${c.id})">
-❤️ ${c.likes || 0}
+<button type="button" onclick="likeComment(${c.id})">
+❤️ <span id="likes-${c.id}">
+${c.likes || 0}
+</span>
 </button>
 
 
-<button onclick="openReply(${c.id})">
+<button type="button" onclick="openReply(${c.id})">
 💬 Reply
 </button>
 
@@ -928,22 +926,16 @@ ${c.comment}
 </div>
 
 
-<div id="replyBox-${c.id}" class="replyBox" style="display:none">
+
+<div 
+id="replies-${c.id}"
+style="display:none;margin-top:15px;"
+>
 
 
-<textarea id="replyText-${c.id}" placeholder="Write reply..."></textarea>
-
-
-<button onclick="sendReply(${c.id})">
-Post Reply
-</button>
-
-
-</div>
-
-
-
-${replies.map(r=>`
+${comments
+.filter(r=>r.parent_id===c.id)
+.map(r=>`
 
 <div class="replyItem">
 
@@ -951,7 +943,9 @@ ${replies.map(r=>`
 
 <p>${r.comment}</p>
 
-<button onclick="likeComment(${r.id})">
+
+<button type="button"
+onclick="likeComment(${r.id})">
 ❤️ ${r.likes || 0}
 </button>
 
@@ -963,33 +957,66 @@ ${replies.map(r=>`
 
 
 
+<textarea 
+id="replyText-${c.id}"
+placeholder="Write reply..."
+style="display:none;margin-top:10px;">
+</textarea>
+
+
+<button 
+id="sendReply-${c.id}"
+style="display:none;"
+onclick="sendReply(${c.id})">
+Post Reply
+</button>
+
+
+</div>
+
+
+
 </div>
 
 
 `;
 
-}).join("");
+})
+.join("");
 
 }
 window.likeComment = async function(id){
 
-
-const {data}=await supabase
+const { data, error } = await supabase
 .from("episode_comments")
 .select("likes")
-.eq("id",id)
+.eq("id", id)
 .single();
 
+if(error){
+  console.log(error);
+  return;
+}
 
-await supabase
+const newLikes = (data.likes || 0) + 1;
+
+const { error: updateError } = await supabase
 .from("episode_comments")
 .update({
-likes:(data.likes || 0)+1
+  likes: newLikes
 })
-.eq("id",id);
+.eq("id", id);
 
+if(updateError){
+  console.log(updateError);
+  return;
+}
 
-loadComments(episodes[index].id);
+const counter = document.getElementById("likes-" + id);
+
+if(counter){
+  counter.textContent = newLikes;
+}
 
 };
 
