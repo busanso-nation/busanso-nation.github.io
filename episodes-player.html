@@ -1022,17 +1022,21 @@ if(counter){
 
 
 
-window.openReply=function(id){
+window.openReply = function(id){
 
-const box=document.getElementById(
-"replyBox-"+id
-);
+  const box = document.getElementById("replies-" + id);
+  const textarea = document.getElementById("replyText-" + id);
+  const button = document.getElementById("sendReply-" + id);
 
+  if(!box || !textarea || !button){
+    return;
+  }
 
-box.style.display =
-box.style.display==="none"
-?"block"
-:"none";
+  const isHidden = box.style.display === "none" || box.style.display === "";
+
+  box.style.display = isHidden ? "block" : "none";
+  textarea.style.display = isHidden ? "block" : "none";
+  button.style.display = isHidden ? "inline-block" : "none";
 
 };
 
