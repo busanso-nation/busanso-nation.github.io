@@ -1,208 +1,774 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BUSANSO NATION</title>
+
+<title>Install Busanso Nation</title>
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#000000">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 
 <style>
+
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Poppins,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,Arial,sans-serif;
 }
 
-body{
-  min-height:100vh;
-  background:radial-gradient(circle at top,#0f0f0f,#000);
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+html,body{
+width:100%;
+height:100%;
+background:#050505;
+color:white;
+overflow:hidden;
+}
+
+/* ===========================
+   SPLASH
+=========================== */
+
+#splash{
+
+position:fixed;
+inset:0;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+background:
+radial-gradient(circle at center,#300000 0%,#0a0a0a 70%,#000 100%);
+
+z-index:9999;
+
+transition:
+opacity .8s ease,
+visibility .8s ease;
+
+}
+
+#splash.hide{
+
+opacity:0;
+visibility:hidden;
+
+}
+
+.logoWrap{
+
+width:170px;
+height:170px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+border-radius:40px;
+
+background:
+linear-gradient(145deg,#111,#1d1d1d);
+
+box-shadow:
+
+0 0 35px rgba(229,9,20,.55),
+0 0 90px rgba(229,9,20,.25);
+
+animation:
+logoIntro .8s ease,
+logoFloat 3s ease-in-out infinite .8s;
+
+}
+
+.logoWrap img{
+
+width:120px;
+height:120px;
+
+}
+
+@keyframes logoIntro{
+
+from{
+
+opacity:0;
+transform:scale(.4);
+
+}
+
+to{
+
+opacity:1;
+transform:scale(1);
+
+}
+
+}
+
+@keyframes logoFloat{
+
+50%{
+
+transform:translateY(-10px);
+
+}
+
+}
+
+.brand{
+
+margin-top:30px;
+
+font-size:34px;
+font-weight:800;
+letter-spacing:4px;
+
+animation:fadeUp .8s ease .5s both;
+
+}
+
+.tagline{
+
+margin-top:12px;
+
+font-size:17px;
+color:#bdbdbd;
+
+animation:fadeUp .8s ease .8s both;
+
+}
+
+.loadingDots{
+
+display:flex;
+gap:10px;
+
+margin-top:45px;
+
+}
+
+.loadingDots span{
+
+width:12px;
+height:12px;
+
+border-radius:50%;
+
+background:#e50914;
+
+animation:bounce 1.2s infinite;
+
+}
+
+.loadingDots span:nth-child(2){
+
+animation-delay:.2s;
+
+}
+
+.loadingDots span:nth-child(3){
+
+animation-delay:.4s;
+
+}
+
+@keyframes bounce{
+
+0%,80%,100%{
+
+transform:scale(.5);
+opacity:.4;
+
+}
+
+40%{
+
+transform:scale(1.2);
+opacity:1;
+
+}
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+transform:translateY(25px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+/* ===========================
+   MAIN
+=========================== */
+
+#main{
+
+display:none;
+
+position:fixed;
+inset:0;
+
+overflow:auto;
+
+padding:25px;
+
+background:
+linear-gradient(180deg,#050505,#111,#050505);
+
+}
+
+#main.show{
+
+display:block;
+
+animation:mainIn .7s ease;
+
+}
+
+@keyframes mainIn{
+
+from{
+
+opacity:0;
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
 }
 
 .card{
-  width:100%;
-  max-width:420px;
-  text-align:center;
+
+max-width:720px;
+
+margin:40px auto;
+
+background:#111;
+
+border-radius:30px;
+
+padding:35px;
+
+box-shadow:
+
+0 0 45px rgba(0,0,0,.6);
+
+text-align:center;
+
 }
 
-.logo{
-  width:110px;
-  height:110px;
-  border-radius:24px;
-  margin-bottom:18px;
-  box-shadow:0 0 40px rgba(229,9,20,.3);
+.cardLogo{
+
+width:110px;
+height:110px;
+
+border-radius:30px;
+
+margin:auto;
+
+display:block;
+
+box-shadow:
+
+0 0 25px rgba(229,9,20,.45);
+
 }
 
-h1{
-  font-size:2rem;
-  margin-bottom:8px;
+.title{
+
+margin-top:25px;
+
+font-size:34px;
+font-weight:800;
+
 }
 
 .subtitle{
-  color:#aaa;
-  margin-bottom:25px;
-}
 
-.loader{
-  width:60px;
-  height:60px;
-  border:4px solid rgba(255,255,255,.08);
-  border-top:4px solid #e50914;
-  border-radius:50%;
-  margin:20px auto;
-  animation:spin 1s linear infinite;
-}
+margin-top:15px;
 
-@keyframes spin{
-  100%{ transform:rotate(360deg); }
+font-size:17px;
+
+line-height:1.8;
+
+color:#bdbdbd;
+
 }
 
 .status{
-  color:#bbb;
-  margin-bottom:20px;
-  font-size:.95rem;
+
+margin-top:35px;
+
+font-size:20px;
+font-weight:600;
+
+color:#00d084;
+
+min-height:30px;
+
 }
 
-.btn{
-  display:none;
-  width:100%;
-  padding:16px;
-  border:none;
-  border-radius:14px;
-  background:#e50914;
-  color:white;
-  font-size:1rem;
-  font-weight:700;
-  cursor:pointer;
-  box-shadow:0 10px 25px rgba(229,9,20,.35);
+.timer{
+
+margin-top:15px;
+
+font-size:15px;
+
+color:#999;
+
 }
 
-.btn.secondary{
-  background:#2563eb;
-  margin-top:10px;
+#installBtn{
+
+display:none;
+
+width:100%;
+
+margin-top:35px;
+
+padding:20px;
+
+border:none;
+
+border-radius:18px;
+
+background:#e50914;
+
+color:white;
+
+font-size:20px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.25s;
+
 }
 
-.small{
-  margin-top:15px;
-  font-size:.8rem;
-  color:#777;
+#installBtn:hover{
+
+transform:scale(1.02);
+
+box-shadow:
+
+0 0 25px rgba(229,9,20,.45);
+
 }
+
+.note{
+
+margin-top:25px;
+
+font-size:15px;
+
+line-height:1.7;
+
+color:#8e8e8e;
+
+}
+
+.footer{
+
+margin-top:35px;
+
+font-size:13px;
+
+color:#666;
+
+}
+
+@media(max-width:700px){
+
+.card{
+
+margin:20px auto;
+
+padding:25px;
+
+}
+
+.title{
+
+font-size:28px;
+
+}
+
+.subtitle{
+
+font-size:15px;
+
+}
+
+.brand{
+
+font-size:28px;
+
+}
+
+.logoWrap{
+
+width:140px;
+height:140px;
+
+}
+
+.logoWrap img{
+
+width:95px;
+height:95px;
+
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<!-- ===========================
+     SPLASH SCREEN
+=========================== -->
 
-  <img src="icons/icon-512.png" class="logo">
+<div id="splash">
 
-  <h1>BUSANSO NATION</h1>
-  <div class="subtitle">Entertainment Without Limits</div>
+    <div class="logoWrap">
+        <img src="icons/icon-512.png" alt="Busanso Nation">
+    </div>
 
-  <div id="loader" class="loader"></div>
-  <div id="status" class="status">Preparing your experience...</div>
+    <div class="brand">
+        BUSANSO NATION
+    </div>
 
-  <button id="installBtn" class="btn">Install App</button>
-  <button id="openBtn" class="btn secondary">Open Busanso</button>
+    <div class="tagline">
+        Entertainment Without Limits
+    </div>
 
-  <div class="small" id="hint"></div>
+    <div class="loadingDots">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+</div>
+
+
+<!-- ===========================
+     MAIN PAGE
+=========================== -->
+
+<div id="main">
+
+    <div class="card">
+
+        <img src="icons/icon-512.png"
+             class="cardLogo"
+             alt="Busanso Nation">
+
+        <div class="title">
+            Preparing Your Experience
+        </div>
+
+        <div class="subtitle">
+            Welcome to <b>Busanso Nation</b>.<br><br>
+
+            We're preparing the best viewing experience for your device.
+            If your device supports installing the Busanso app,
+            you'll be able to install it automatically.
+        </div>
+
+        <div class="status" id="status">
+            Detecting your device...
+        </div>
+
+        <div class="timer" id="timer">
+            Please wait...
+        </div>
+
+        <button id="installBtn">
+            📲 Install Busanso Nation
+        </button>
+
+        <div class="note" id="note">
+            You'll automatically continue in a few seconds if installation isn't required.
+        </div>
+
+        <div class="footer">
+            © 2026 Busanso Nation
+        </div>
+
+    </div>
 
 </div>
 
 <script>
-const installBtn = document.getElementById("installBtn");
-const openBtn = document.getElementById("openBtn");
-const loader = document.getElementById("loader");
-const status = document.getElementById("status");
-const hint = document.getElementById("hint");
 
-let deferredPrompt = null;
+const splash=document.getElementById("splash");
+const main=document.getElementById("main");
 
-/* detect devices */
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-const isAndroid = /android/i.test(navigator.userAgent);
+const installBtn=document.getElementById("installBtn");
+const status=document.getElementById("status");
+const timer=document.getElementById("timer");
+const note=document.getElementById("note");
 
-/* already installed */
-const isInstalled =
-  window.matchMedia("(display-mode: standalone)").matches ||
-  window.navigator.standalone;
+let deferredPrompt=null;
+let countdown=8;
+let redirectStarted=false;
+/* ===========================
+   SERVICE WORKER
+=========================== */
 
-if (isInstalled) {
-  window.location.href = "home.html";
+if("serviceWorker" in navigator){
+    navigator.serviceWorker.register("service-worker.js")
+    .catch(()=>{});
 }
 
-/* iOS cannot install PWA properly */
-if (isIOS) {
-  loader.style.display = "none";
-  status.textContent = "Open in Safari to continue";
-  openBtn.style.display = "block";
+/* ===========================
+   SPLASH
+   (Always disappears)
+=========================== */
 
-  openBtn.onclick = () => {
-    window.location.href = "home.html";
-  };
-}
+window.addEventListener("load",()=>{
 
-/* register SW */
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-}
+    setTimeout(()=>{
 
-/* PWA install available */
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
+        splash.classList.add("hide");
 
-  loader.style.display = "none";
-  status.style.display = "none";
+        setTimeout(()=>{
+            main.classList.add("show");
+            detectDevice();
+        },700);
 
-  installBtn.style.display = "block";
+    },2200);
 
-  installBtn.onclick = async () => {
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-    deferredPrompt = null;
-  };
 });
 
-/* install completed */
-window.addEventListener("appinstalled", () => {
-  setTimeout(() => {
-    window.location.href = "home.html";
-  }, 600);
+
+/* Emergency failsafe.
+   Even if something goes wrong,
+   users will NEVER remain on splash.
+*/
+
+setTimeout(()=>{
+
+    splash.classList.add("hide");
+    main.classList.add("show");
+
+    if(!redirectStarted){
+        detectDevice();
+    }
+
+},5000);
+
+
+/* ===========================
+   DEVICE INFO
+=========================== */
+
+const ua=navigator.userAgent.toLowerCase();
+
+const isAndroid=/android/.test(ua);
+
+const isIOS=/iphone|ipad|ipod/.test(ua);
+
+const isStandalone=
+window.matchMedia("(display-mode: standalone)").matches ||
+window.navigator.standalone;
+
+
+/* Already installed */
+
+if(isStandalone){
+
+    location.replace("home.html");
+
+}
+
+
+/* ===========================
+   INSTALL PROMPT
+=========================== */
+
+window.addEventListener("beforeinstallprompt",(e)=>{
+
+    e.preventDefault();
+
+    deferredPrompt=e;
+
 });
 
-/* fallback (NO STUCK SCREEN FIX) */
-setTimeout(() => {
 
-  if (deferredPrompt) return;
+/* ===========================
+   REDIRECT COUNTDOWN
+=========================== */
 
-  loader.style.display = "none";
-  status.style.display = "none";
+function startRedirect(){
 
-  if (isAndroid) {
-    installBtn.style.display = "block";
-    installBtn.textContent = "Open Busanso";
+    if(redirectStarted) return;
 
-    installBtn.onclick = () => {
-      window.location.href = "home.html";
-    };
+    redirectStarted=true;
 
-  } else if (!isIOS) {
-    openBtn.style.display = "block";
-    openBtn.onclick = () => {
-      window.location.href = "home.html";
-    };
-  }
+    timer.innerHTML=
+    "Continuing in <b>"+countdown+"</b> seconds...";
 
-}, 3500);
+    const interval=setInterval(()=>{
+
+        countdown--;
+
+        timer.innerHTML=
+        "Continuing in <b>"+countdown+"</b> seconds...";
+
+        if(countdown<=0){
+
+            clearInterval(interval);
+
+            location.replace("home.html");
+
+        }
+
+    },1000);
+
+}
+
+
+/* ===========================
+   DEVICE DETECTION
+=========================== */
+
+function detectDevice(){
+
+    /* ANDROID */
+
+    if(isAndroid){
+
+        status.innerHTML=
+        "📱 Android device detected";
+
+        note.innerHTML=
+        "For the best experience, install the Busanso app.";
+
+        /* Browser supports install */
+
+        if(deferredPrompt){
+
+            installBtn.style.display="block";
+
+            installBtn.onclick=async()=>{
+
+                installBtn.disabled=true;
+
+                await deferredPrompt.prompt();
+
+                const result=
+                await deferredPrompt.userChoice;
+
+                if(result.outcome==="accepted"){
+
+                    status.innerHTML=
+                    "✅ Installing Busanso Nation...";
+
+                }else{
+
+                    startRedirect();
+
+                }
+
+            };
+
+        }
+
+        /* Browser doesn't allow install */
+
+        else{
+
+            status.innerHTML=
+            "📱 Android detected";
+
+            note.innerHTML=
+            "Opening Busanso shortly...";
+
+            startRedirect();
+
+        }
+
+        return;
+
+    }
+
+
+    /* IPHONE */
+
+    if(isIOS){
+
+        status.innerHTML=
+        "🍎 iPhone detected";
+
+        note.innerHTML=
+        "Opening Busanso...";
+
+        startRedirect();
+
+        return;
+
+    }
+
+
+    /* COMPUTER */
+
+    status.innerHTML=
+    "💻 Computer detected";
+
+    note.innerHTML=
+    "Opening Busanso in your browser...";
+
+    startRedirect();
+
+}
+
+
+/* ===========================
+   APP INSTALLED
+=========================== */
+
+window.addEventListener("appinstalled",()=>{
+
+    status.innerHTML=
+    "✅ Installation complete";
+
+    timer.innerHTML=
+    "Opening Busanso...";
+
+    setTimeout(()=>{
+
+        location.replace("home.html");
+
+    },1500);
+
+});
+
 </script>
 
 </body>
