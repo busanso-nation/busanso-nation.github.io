@@ -932,9 +932,10 @@ const comments = data || [];
 document.getElementById("commentsList").innerHTML =
 
 comments
-.filter(c=>!c.parent_id)
-.map(c=>{
+.filter(c => !c.parent_id)
+.map(c => {
 
+const replies = comments.filter(r => r.parent_id === c.id);
 
 return `
 
@@ -953,7 +954,7 @@ ${c.comment}
 font-size:11px;
 color:#94a3b8;
 margin-top:8px;">
-🕒 ${timeAgo(r.created_at)}
+🕒 ${timeAgo(c.created_at)}
 </div>
 
 
@@ -967,7 +968,7 @@ ${c.likes || 0}
 
 
 <button type="button" onclick="openReply(${c.id})">
-💬 Reply
+💬 ${replies.length} ${replies.length === 1 ? "Reply" : "Replies"}
 </button>
 
 
@@ -995,7 +996,7 @@ ${comments
 font-size:11px;
 color:#94a3b8;
 margin-top:6px;">
-🕒 ${timeAgo(c.created_at)}
+🕒 ${timeAgo(r.created_at)}
 </div>
 
 <button type="button"
@@ -1229,6 +1230,7 @@ document.getElementById("toggleEpisodes").onclick = () => {
 
 /* INIT */
 loadEpisodes();
+
 
 </script>
 <footer class="footer">
